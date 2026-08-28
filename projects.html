@@ -46,6 +46,7 @@
 
       <!-- ONGOING ---------------------------------------------------- -->
       <div class="panel is-on" id="panel-ongoing" role="tabpanel" aria-labelledby="tab-ongoing" data-panel="ongoing">
+        <div class="filters" data-filters="ongoing"></div>
         <div class="grid-work mgrid" data-grid="ongoing"></div>
         <div data-empty="ongoing"></div>
 
@@ -57,6 +58,7 @@
 
       <!-- FINISHED --------------------------------------------------- -->
       <div class="panel" id="panel-finished" role="tabpanel" aria-labelledby="tab-finished" data-panel="finished" hidden>
+        <div class="filters" data-filters="finished"></div>
         <div class="grid-work mgrid" data-grid="finished"></div>
 
         <div data-empty="finished"></div>
@@ -81,6 +83,7 @@
 
 <script src="assets/js/site.js"></script>
 <script src="assets/js/projects.js"></script>
+<script src="assets/js/categories.js"></script>
 <script>
 window.PAGE = function(VAL){
 
@@ -88,7 +91,7 @@ window.PAGE = function(VAL){
     var meta = [p.typology, p.location].filter(Boolean).join(" · ") || p.scope;
     return '<a class="card plate hov rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
              '<div class="shot wipe">' +
-               VAL.imgTag(p, 0, p.title, false, "(max-width: 720px) 92vw, 44vw") +
+               VAL.imgTag(p, VAL.cover(p), p.title, false, "(max-width: 720px) 92vw, 44vw") +
                '<span class="card__n">' + VAL.pad(i + 1) + '</span>' +
              '</div>' +
              '<figcaption>' +
@@ -152,20 +155,57 @@ window.PAGE = function(VAL){
   }
 
   var populated = null;
-  ["ongoing", "finished"].forEach(function(status){
+  var filterState = { ongoing: "All", finished: "All" };
+
+  function render(status){
     var set = VAL.byStatus(status);
-    if (set.length && !populated) populated = status;
+    var pick = filterState[status];
+    var shown = pick === "All" ? set : set.filter(function(p){ return p.category === pick; });
+
+    var grid = document.querySelector('[data-grid="' + status + '"]');
+    if (grid){ grid.innerHTML = shown.map(card).join(""); VAL.watch(grid); }
+
+    var list = document.querySelector('[data-index="' + status + '"]');
+    if (list){ list.innerHTML = shown.map(row).join(""); VAL.watch(list); }
 
     var counter = document.querySelector('[data-count="' + status + '"]');
     if (counter) counter.textContent = VAL.pad(set.length);
 
-    var grid = document.querySelector('[data-grid="' + status + '"]');
-    if (grid) grid.innerHTML = set.map(card).join("");
+    document.querySelectorAll('[data-filters="' + status + '"] button').forEach(function(b){
+      b.classList.toggle("is-on", b.dataset.cat === pick);
+    });
+  }
 
-    var list = document.querySelector('[data-index="' + status + '"]');
-    if (list) list.innerHTML = set.map(row).join("");
+  function buildFilters(status){
+    var host = document.querySelector('[data-filters="' + status + '"]');
+    if (!host) return;
+    var set = VAL.byStatus(status);
+    if (!set.length){ host.remove(); return; }
+    var cats = VAL.categories(status);
+    /* one chip per category that genuinely exists in this status, nothing invented */
+    host.innerHTML = '<button data-cat="All">All <span class="c">' + VAL.pad(set.length) + '</span></button>' +
+      cats.map(function(c){
+        return '<button data-cat="' + VAL.esc(c.name) + '">' + VAL.esc(c.name) +
+               ' <span class="c">' + VAL.pad(c.count) + '</span></button>';
+      }).join("");
+    host.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click", function(){
+        filterState[status] = b.dataset.cat;
+        render(status);
+        if (history.replaceState){
+          var q = "?tab=" + status + (b.dataset.cat === "All" ? "" : "&cat=" + encodeURIComponent(b.dataset.cat));
+          history.replaceState(null, "", q);
+        }
+      });
+    });
+  }
 
-    /* index and holding state are mutually exclusive */
+  ["ongoing", "finished"].forEach(function(status){
+    var set = VAL.byStatus(status);
+    if (set.length && !populated) populated = status;
+    buildFilters(status);
+    render(status);
+
     var wrap = document.querySelector('[data-index-wrap="' + status + '"]');
     if (wrap && !set.length) wrap.remove();
 
@@ -187,13 +227,23 @@ window.PAGE = function(VAL){
       if (on) pane.removeAttribute("hidden"); else pane.setAttribute("hidden", "");
     });
     VAL.watch(document.querySelector('[data-panel="' + name + '"]'));
-    if (history.replaceState) history.replaceState(null, "", "#" + name);
+    if (history.replaceState){
+      var cat = filterState[name];
+      history.replaceState(null, "", "?tab=" + name + (cat && cat !== "All" ? "&cat=" + encodeURIComponent(cat) : ""));
+    }
   }
   tabs.forEach(function(t){ t.addEventListener("click", function(){ select(t.dataset.tab); }); });
   VAL.qsa("[data-goto]").forEach(function(a){
     a.addEventListener("click", function(e){ e.preventDefault(); select(a.dataset.goto); });
   });
-  if (location.hash === "#finished" || location.hash === "#ongoing") select(location.hash.slice(1));
+  var q = new URLSearchParams(location.search);
+  var wantTab = q.get("tab") || (location.hash ? location.hash.slice(1) : "");
+  var wantCat = q.get("cat");
+  if (wantCat && wantTab && filterState[wantTab] !== undefined){
+    var valid = VAL.categories(wantTab).some(function(c){ return c.name === wantCat; });
+    if (valid){ filterState[wantTab] = wantCat; render(wantTab); }
+  }
+  if (wantTab === "finished" || wantTab === "ongoing") select(wantTab);
   else if (populated) select(populated);
 };
 </script>

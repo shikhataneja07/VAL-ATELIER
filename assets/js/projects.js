@@ -23,6 +23,8 @@
      here as a second project. Send the real Model Flat photographs and it
      becomes another entry below.
 
+   cover     optional, 1-based: which photograph leads the project on the home
+             page and in the archive. Defaults to the first.
    images    [ file, width, height ] — the dimensions reserve the exact space
              so the page never jumps while a photograph loads.
    summary / story / notes  are empty where the studio has not supplied copy.
@@ -184,6 +186,8 @@ window.PROJECTS = [
   {
     slug: "aparna-one",
     title: "Aparna One",
+    /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
+    cover: 4,
     category: "Residential",
     status: "finished",
     typology: "Residence",

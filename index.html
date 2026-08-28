@@ -96,37 +96,45 @@
   </section>
 
   <!-- 04 FINISHED PROJECTS --------------------------------------------- -->
-  <section class="sec band-putty" id="finished">
+  <section class="sec--tight band-putty" id="finished" style="padding-bottom:0">
     <div class="wrap wrap--wide">
-      <div class="head">
-        <div class="head__top"><i class="bar"></i><span class="label">04 &mdash; Finished projects</span></div>
+      <div class="head" style="margin-bottom:clamp(26px,4vh,44px)">
+        <div class="head__top rv-l"><i class="bar"></i><span class="label">04 &mdash; Finished projects</span></div>
         <div class="head__grid">
           <h2 class="d2 rv-l">Completed <em>work.</em></h2>
-          <p class="body rv-r measure" data-d="1">Every completed project, grouped by the categories the work covers.</p>
+          <p class="body rv-r measure" data-d="1">The categories the finished work covers. Open one to see every project in it.</p>
         </div>
       </div>
-      <div class="deck" data-deck="finished"></div>
-      <div class="sec-foot rv">
+    </div>
+  </section>
+  <div class="deck" data-posters="finished"></div>
+  <section class="sec--tight band-putty">
+    <div class="wrap wrap--wide">
+      <div class="sec-foot rv" style="margin-top:0;border-top:0;padding-top:0">
         <span class="label" data-deck-count="finished"></span>
-        <a class="btn" href="projects.html#finished">Explore all finished projects <span class="ar">&rarr;</span></a>
+        <a class="btn" href="projects.html?tab=finished">Explore all finished projects <span class="ar">&rarr;</span></a>
       </div>
     </div>
   </section>
 
-  <!-- 05 ONGOING PROJECTS ---------------------------------------------- -->
-  <section class="sec" id="ongoing">
+  <!-- 05 ONGOING PROJECTS ----------------------------------------------- -->
+  <section class="sec--tight" id="ongoing" style="padding-bottom:0">
     <div class="wrap wrap--wide">
-      <div class="head">
-        <div class="head__top"><i class="bar"></i><span class="label">05 &mdash; Ongoing projects</span></div>
+      <div class="head" style="margin-bottom:clamp(26px,4vh,44px)">
+        <div class="head__top rv-l"><i class="bar"></i><span class="label">05 &mdash; Ongoing projects</span></div>
         <div class="head__grid">
           <h2 class="d2 rv-l">Currently <em>on the boards.</em></h2>
           <p class="body rv-r measure" data-d="1">Work in progress across the studio&rsquo;s disciplines.</p>
         </div>
       </div>
-      <div class="deck" data-deck="ongoing"></div>
-      <div class="sec-foot rv">
+    </div>
+  </section>
+  <div class="deck" data-posters="ongoing"></div>
+  <section class="sec--tight">
+    <div class="wrap wrap--wide">
+      <div class="sec-foot rv" style="margin-top:0;border-top:0;padding-top:0">
         <span class="label" data-deck-count="ongoing"></span>
-        <a class="btn" href="projects.html#ongoing">Explore all ongoing projects <span class="ar">&rarr;</span></a>
+        <a class="btn" href="projects.html?tab=ongoing">Explore all ongoing projects <span class="ar">&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -155,38 +163,30 @@
 <script>
 window.PAGE = function(VAL){
 
-  /* ---- every project, grouped under the categories that actually exist ---- */
-  function buildDeck(status){
-    var host = document.querySelector('[data-deck="' + status + '"]');
+  /* ---- one full-viewport poster per category that genuinely exists ---- */
+  function buildPosters(status){
+    var host = document.querySelector('[data-posters="' + status + '"]');
     if (!host) return;
     var cats = VAL.categories(status);
-    var n = 0;
 
-    host.innerHTML = cats.map(function(c){
-      var head = '<div class="cat-head rv-l">' +
-                   '<h3><em>' + VAL.esc(c.name) + '</em></h3>' +
-                   '<i class="rule"></i>' +
-                   '<span class="n">' + VAL.pad(c.projects.length) +
-                     (c.projects.length === 1 ? " project" : " projects") + '</span>' +
-                 '</div>';
-      var panels = c.projects.map(function(p){
-        var dark = (n++ % 2) === 1;
-        return '<article class="deck__panel rv' + (dark ? " deck__panel--ink" : "") + '" style="--i:' + (n % 4) + '">' +
-                 '<div class="lead" style="--ar:' + VAL.ratio(p, 0).toFixed(4) + '">' +
-                   '<figure class="lead__media wipe">' +
-                     VAL.imgTag(p, 0, p.title, false, "(max-width: 939px) 92vw, 46vw") +
-                   '</figure>' +
-                   '<div class="lead__text">' +
-                     '<div class="lead__name">' + VAL.esc(p.title) + '</div>' +
-                     '<div class="lead__ctas">' +
-                       '<a class="btn btn--solid" href="project.html?p=' + VAL.esc(p.slug) + '">' +
-                         'View project <span class="ar">&rarr;</span></a>' +
-                     '</div>' +
-                   '</div>' +
+    host.innerHTML = cats.map(function(c, i){
+      var p = c.lead;
+      var href = "projects.html?tab=" + encodeURIComponent(status) + "&cat=" + encodeURIComponent(c.name);
+      return '<section class="poster">' +
+               '<div class="poster__media">' +
+                 VAL.imgTag(p, VAL.cover(p), p.title + " — " + c.name, false, "100vw") +
+               '</div>' +
+               '<div class="poster__veil"></div>' +
+               '<span class="poster__n">' + VAL.pad(i + 1) + " / " + VAL.pad(cats.length) + '</span>' +
+               '<div class="poster__in">' +
+                 '<div>' +
+                   '<span class="poster__eyebrow">' + VAL.esc(p.title) + '</span>' +
+                   '<h3 class="poster__title"><span>' + VAL.esc(c.name) + '</span><span>Design</span></h3>' +
                  '</div>' +
-               '</article>';
-      }).join("");
-      return head + panels;
+                 '<a class="poster__cta" href="' + VAL.esc(href) + '">' +
+                   VAL.esc(c.name) + ' Portfolio <span class="ar">&rarr;</span></a>' +
+               '</div>' +
+             '</section>';
     }).join("");
 
     var count = document.querySelector('[data-deck-count="' + status + '"]');
@@ -196,8 +196,8 @@ window.PAGE = function(VAL){
                           " · " + VAL.pad(cats.length) + (cats.length === 1 ? " category" : " categories");
     }
   }
-  buildDeck("finished");
-  buildDeck("ongoing");
+  buildPosters("finished");
+  buildPosters("ongoing");
 
   /* ---- the portrait, with a small variant so it arrives quickly ---- */
   var portrait = document.querySelector("[data-studio-portrait]");

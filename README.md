@@ -30,16 +30,16 @@ its previous/next navigation all read from that one array.
 2. Put the photographs in it as `01.webp`, `02.webp`, `03.webp` … — **`01` is the cover,
    the project hero and the showcase lead**, so choose it deliberately.
 3. Copy the template at the bottom of `projects.js` into the array and fill it in.
-   Set `category` to `"Residential"` or `"Commercial"` — that is what the sticky stack on
-   the home page groups by. A new category name simply creates a new card.
+   Set `category` to `"Residential"` or `"Commercial"` — that is what the home page
+   posters and the archive chips group by. A new category name simply creates a new
+   poster.
 
 ```js
 {
   slug: "villa-name",              // becomes project.html?p=villa-name
   title: "Villa Name",
-  category: "Residential",         // groups the project in the home page stack
+  category: "Residential",         // groups the project under a home page poster
   status: "finished",              // "ongoing" or "finished" — this files it under the right tab
-  feature: true,                   // surfaces the project in its category card
   typology: "Residence",
   location: "Hyderabad",
   area: "3,200 sq ft",             // leave "" out and the row is simply not printed
@@ -63,12 +63,25 @@ for f in sorted(glob.glob("assets/projects/villa-name/*.webp")):
 PY
 ```
 
-### The home page category decks
+### The home page category posters
 
-Finished and Ongoing are two entirely separate sections. Each is a sticky deck showing
-**every** project in that status, grouped under the categories it covers. The category
-heading pins above its own group while its projects stack past, and each panel carries
-only the photograph, the project name and a *View project* button.
+Finished and Ongoing are two entirely separate sections. Each is a deck of full-viewport
+posters, one per category that status actually covers: the category's lead photograph
+runs full bleed, with the lead project named above the category in large caps and a
+single button through to that category's own filtered archive
+(`projects.html?tab=ongoing&cat=Hospitality`). Each poster is `position: sticky` at the
+top of the viewport, so the next rides up over the last as the page scrolls.
+
+A poster is a full-bleed cover rather than a plate of artwork, so its photograph fills the
+frame. Every project photograph is still shown **whole** wherever it is presented as a
+photograph: the archive cards, the project hero, and every gallery plate. A project can
+set `cover: n` in `projects.js` to lead with a photograph other than its first; Aparna One
+uses it to lead with the one landscape frame in its set.
+
+Per-project browsing lives on the archive. `projects.html` carries a row of category
+chips per status, each with its own count; the chips are built from the same derived
+categories, so they can never offer a category with nothing behind it. `?tab=` and `?cat=`
+open the page already filtered, which is what the posters link to.
 
 **The categories are not configured anywhere.** They are derived from
 `projects.js` at render time, so a category can only appear on the page if a
@@ -187,20 +200,18 @@ third-party request.
 **Rhythm.** Sections `clamp(76px, 11vh, 152px)`; gutters `clamp(20px, 5vw, 64px)`; content
 `1320px`, wide content `1600px`.
 
-**Photographs are never cropped.** Project photography is always shown whole, at
-its true proportions. The two lead frames — the deck panels on the home page and
-the hero on a project page — are capped to a share of the viewport so they still
-read as heroes, and their width is driven by the image's own aspect ratio
-(`--ar`), so a portrait hugs its frame instead of sitting in empty bars. Nothing
-relies on intrinsic sizing, so a lazy-loaded image cannot collapse its column.
-`object-fit: cover` survives in exactly two places, both full-bleed backgrounds
-rather than artwork: the home hero and the statement bands. Every image shown as artwork uses `.shot`
+**Photographs are never cropped.** Wherever a photograph is presented as a photograph it
+is shown whole, at its true proportions. The hero on a project page is capped to a share
+of the viewport so it still reads as a hero, and its width is driven by the image's own
+aspect ratio (`--ar`), so a portrait hugs its frame instead of sitting in empty bars.
+Nothing relies on intrinsic sizing, so a lazy-loaded image cannot collapse its column.
+Every image shown as artwork uses `.shot`
 (`width:100%; height:auto`) with its true pixel dimensions on the `<img>`, so it renders at
 its exact natural proportion and reserves the right space before it loads. Galleries use
 `.mgrid` — a two-column layout where the columns absorb the difference in height (one
-column below 720px, `.mgrid--three` for three). `object-fit: cover` survives in exactly
-three places, all of them full-bleed backgrounds rather than artwork: the home hero, the
-project hero, and the decorative statement bands.
+column below 720px, `.mgrid--three` for three). `object-fit: cover` survives only where a
+photograph is a full-bleed backdrop rather than artwork: the home hero, the category
+posters, the project hero, and the decorative statement bands.
 
 **Buttons.** Hairline box, uppercase micro-type, a fill that slides up from below on hover.
 `.btn--solid` inverts and warms to brass; `.btn--light` is the version for ink sections.
@@ -220,9 +231,9 @@ All of it is CSS transitions driven by a single `IntersectionObserver`, plus one
   over it (never stacked above it, on any screen). The plate stays hidden until the
   photograph has decoded, so nothing is read against an empty frame; a 2.6s failsafe stops
   a slow image leaving the hero blank.
-- **Category decks** — each panel is `position: sticky` at an increasing offset, so the
-  next rides up over the last as the page scrolls. Falls back to ordinary stacked
-  sections under reduced motion.
+- **Category posters** — each poster is `position: sticky` at the top of the viewport, so
+  the next rides up over the last as the page scrolls. Falls back to ordinary stacked
+  sections at natural height under reduced motion.
 - **Section reveals** — `.rv` (rise), `.rv-l` / `.rv-r` (slide in from the side, switched to a
   rise below 860px so nothing pushes the page sideways). `data-d="1..5"` staggers a group.
 - **Image reveals** — `.wipe` uncovers a photograph with a `clip-path` sweep. On `.shot`

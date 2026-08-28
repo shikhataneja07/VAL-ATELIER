@@ -60,12 +60,15 @@
       });
   };
 
-  VAL.featured = function(limit){
-    var f = PROJECTS.filter(function(p){ return p.feature && p.status === "ongoing"; });
-    if (!f.length) f = VAL.byStatus("ongoing");
-    return limit ? f.slice(0, limit) : f;
-  };
   VAL.src = function(p, i){ return p.dir + "/" + p.images[i][0]; };
+
+  /* Which photograph leads a project. Defaults to the first; a project can set
+     `cover: n` (1-based) to lead with a different one — used where a uniform
+     landscape frame reads better than the project's own first shot. */
+  VAL.cover = function(p){
+    var i = (p.cover || 1) - 1;
+    return (i >= 0 && i < p.images.length) ? i : 0;
+  };
   VAL.ratio = function(p, i){ return p.images[i][1] / p.images[i][2]; };
 
   /* Image markup with the space reserved, so nothing jumps while loading, and
