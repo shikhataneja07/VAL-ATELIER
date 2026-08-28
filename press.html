@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Press — Val Atelier</title>
+<meta name="description" content="Val Atelier in the press — features and coverage of the studio's interiors, including Architectural Digest India.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/val.css">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#F2EEE7">
+</head>
+<body id="top">
+
+<div class="curtain"><img class="curtain__mark" src="assets/brand/val-atelier-mark-light.png" alt=""></div>
+
+<header data-header></header>
+<noscript><nav class="wrap" style="padding-top:100px"><a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="projects.html">Projects</a> · <a href="press.html">Press</a> · <a href="contact.html">Contact</a></nav></noscript>
+
+<main>
+
+  <section class="mast">
+    <div class="wrap">
+      <div class="crumb"><i class="bar"></i><span class="label">In the press</span></div>
+      <div class="mast__grid">
+        <h1 data-lines>Press</h1>
+        <p class="lede rv-r" data-d="2">Features and coverage of the studio&rsquo;s work. Each piece links straight through to the publication.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="press" data-press></div>
+      <div class="press-note">
+        <span class="label" data-press-count></span>
+        <a class="alink" href="contact.html">Press &amp; media enquiries <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATEMENT -------------------------------------------------------- -->
+  <section class="bleed">
+    <div class="bleed__media"><img src="assets/projects/aparna-one/03.webp" width="1067" height="1600" alt="" loading="lazy" decoding="async" data-para="0.06"></div>
+    <div class="bleed__in wrap">
+      <span class="label">Val Atelier</span>
+      <blockquote>Step away from the city for a moment <em>and just breathe.</em></blockquote>
+      <cite>Featured in Architectural Digest India</cite>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <span class="label rv-l">For editors</span>
+      <h2 class="rv" data-d="1">Need images <em>or a quote?</em></h2>
+      <p class="lede measure rv" data-d="2" style="margin:0 auto">High-resolution photography, project fact sheets and studio credits are available on request. Write to the studio and we will send them across.</p>
+      <div class="cta__row rv" data-d="3">
+        <a class="btn btn--solid" href="contact.html">Contact the studio <span class="ar">&rarr;</span></a>
+        <a class="btn" href="projects.html">See the projects</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer data-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/projects.js"></script>
+<script src="assets/js/press.js"></script>
+<script>
+window.PAGE = function(VAL){
+  var host = document.querySelector("[data-press]");
+  var entries = window.PRESS || [];
+  if (host) host.innerHTML = entries.map(VAL.pressCard).join("");
+  var count = document.querySelector("[data-press-count]");
+  if (count) count.textContent = VAL.pad(entries.length) + (entries.length === 1 ? " feature" : " features");
+};
+</script>
+<script src="assets/js/val.js"></script>
+</body>
+</html>
