@@ -1,3 +1,192 @@
+/* ---------------------------------------------------------------------------
+   Font faces live here rather than in their own stylesheet: two render-blocking
+   requests cost an extra round trip before the page can paint at all, which is
+   the one delay a reader cannot scroll past. Paths are relative to this file.
+   --------------------------------------------------------------------------- */
+/* Val Atelier — self-hosted webfonts (latin + latin-ext subsets)
+   Newsreader and Hanken Grotesk, both SIL Open Font License 1.1.
+   Served from the site so pages carry no third-party font request. */
+
+/* latin-ext */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(../fonts/hanken-grotesk-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/newsreader-400i-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/newsreader-400i-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/newsreader-400i-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/newsreader-400i-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/newsreader-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(../fonts/newsreader-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/newsreader-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(../fonts/newsreader-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* latin-ext */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/newsreader-300-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(../fonts/newsreader-300-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* ==========================================================================
    VAL ATELIER — design system
    Palette and typographic character carried forward from Bear Spaces & Co.
@@ -236,10 +425,10 @@ html.js .curtain.is-in{transform:translateY(0);transition:transform .6s var(--ea
 html.js .curtain:not(.is-out):not(.is-park) .curtain__mark{opacity:.9;transform:translate(-50%,-50%)}
 
 /* ---------- motion primitives ---------- */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease-out),transform 1s var(--ease-out)}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .62s var(--ease-out),transform .7s var(--ease-out)}
 .rv.in{opacity:1;transform:none}
-.rv-l{opacity:0;transform:translateX(-46px);transition:opacity .95s var(--ease-out),transform 1.05s var(--ease-out)}
-.rv-r{opacity:0;transform:translateX(46px);transition:opacity .95s var(--ease-out),transform 1.05s var(--ease-out)}
+.rv-l{opacity:0;transform:translateX(-46px);transition:opacity .66s var(--ease-out),transform .74s var(--ease-out)}
+.rv-r{opacity:0;transform:translateX(46px);transition:opacity .66s var(--ease-out),transform .74s var(--ease-out)}
 .rv-l.in,.rv-r.in{opacity:1;transform:none}
 /* Slide-ins run at every width. Sections clip sideways (overflow-x: clip does
    not create a scroll container, so position: sticky keeps working), which is
@@ -249,19 +438,19 @@ html.js .curtain:not(.is-out):not(.is-park) .curtain__mark{opacity:.9;transform:
   .rv-r{transform:translateX(32px)}
 }
 section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
-.rv[data-d="1"],.rv-l[data-d="1"],.rv-r[data-d="1"]{transition-delay:.09s}
-.rv[data-d="2"],.rv-l[data-d="2"],.rv-r[data-d="2"]{transition-delay:.18s}
-.rv[data-d="3"],.rv-l[data-d="3"],.rv-r[data-d="3"]{transition-delay:.27s}
-.rv[data-d="4"]{transition-delay:.36s}
-.rv[data-d="5"]{transition-delay:.45s}
+.rv[data-d="1"],.rv-l[data-d="1"],.rv-r[data-d="1"]{transition-delay:.06s}
+.rv[data-d="2"],.rv-l[data-d="2"],.rv-r[data-d="2"]{transition-delay:.12s}
+.rv[data-d="3"],.rv-l[data-d="3"],.rv-r[data-d="3"]{transition-delay:.18s}
+.rv[data-d="4"]{transition-delay:.24s}
+.rv[data-d="5"]{transition-delay:.30s}
 
 /* staggered line reveal for display type */
 .ln{display:block;overflow:hidden}
 .ln > i{display:block;font-style:inherit;transform:translateY(105%);transition:transform 1.05s var(--ease-out)}
 .in .ln > i{transform:none}
-.ln:nth-child(2) > i{transition-delay:.09s}
-.ln:nth-child(3) > i{transition-delay:.18s}
-.ln:nth-child(4) > i{transition-delay:.27s}
+.ln:nth-child(2) > i{transition-delay:.06s}
+.ln:nth-child(3) > i{transition-delay:.12s}
+.ln:nth-child(4) > i{transition-delay:.18s}
 
 /* natural-ratio image plate — the photograph is never cropped, trimmed or
    distorted. Width and height attributes on the <img> reserve the exact space
@@ -270,7 +459,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    the decorative statement bands. */
 .shot{position:relative;display:block;background:var(--frame);overflow:hidden}
 .shot img{width:100%;height:auto;display:block}
-.shot.wipe img{clip-path:inset(0 0 100% 0);transform:none;transition:clip-path 1.2s var(--ease-io)}
+.shot.wipe img{clip-path:inset(0 0 100% 0);transform:none;transition:clip-path .78s var(--ease-io)}
 .shot.wipe.in img{clip-path:inset(0 0 0 0)}
 .shot.wipe[data-d="1"] img{transition-delay:.1s}
 .shot.wipe[data-d="2"] img{transition-delay:.2s}

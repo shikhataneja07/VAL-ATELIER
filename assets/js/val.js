@@ -280,10 +280,22 @@
       if (lifted) return;
       lifted = true;
       lift();
-      setTimeout(onLifted, 200);
+      setTimeout(onLifted, 120);
     }
-    if (document.readyState === "complete") setTimeout(go, 60);
-    else { window.addEventListener("load", go); setTimeout(go, 1300); }
+    /* The curtain exists to cover the webfont swap, so it lifts as soon as the
+       fonts are in — not on window.load, which waits for every photograph on
+       the page and used to hold the whole reveal sequence back by seconds. */
+    if (document.readyState === "complete") setTimeout(go, 40);
+    else {
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+      window.addEventListener("load", go);
+      /* The cap is measured from the navigation, not from here — on a slow
+         connection this code itself runs late, and a cap counted from that
+         point would leave the page under the curtain for seconds. The faces
+         are font-display: swap, so the worst this can cost is a brief swap. */
+      var CAP = 700;
+      setTimeout(go, Math.max(40, CAP - performance.now()));
+    }
 
     /* returning through the back button restores a covered page — lift it again */
     window.addEventListener("pageshow", function(e){ if (e.persisted) lift(); });
@@ -326,7 +338,9 @@
         en.target.classList.add("in");
         io.unobserve(en.target);
       });
-    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+      /* a generous bottom margin starts the reveal just before the element
+         scrolls in, so it is finished by the time it is properly on screen */
+    }, { threshold: 0.02, rootMargin: "200px 0px 18% 0px" });
     watch(document);
   }
 
@@ -474,10 +488,10 @@
     hero();                       /* after PAGE — the page renders the first frame */
     parallax();
     VAL.peek();
-    curtain(function(){
-      reveals();
-      document.documentElement.classList.add("is-ready");
-    });
+    /* Start watching straight away. A photograph that has already arrived
+       should never be waiting on the intro to be allowed on screen. */
+    reveals();
+    curtain(function(){ document.documentElement.classList.add("is-ready"); });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);

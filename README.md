@@ -147,11 +147,30 @@ EOF
 or resize anything, re-read them with the snippet further up.
 
 The webfonts are subsetted to the characters the site renders (520 KB to 236 KB), and the
-brand PNGs are stored at the size they are shown rather than at 1000px. Measured with a
-headless browser at 1440x900: the home page loads 0.43 MB and reaches 0.85 MB once every
-poster has been scrolled through; the archive 0.37 MB / 0.52 MB; a 52-photograph project
-page 0.39 MB / 1.55 MB with the whole gallery pulled in. The complete `assets/` tree is
-28 MB.
+brand PNGs are stored at the size they are shown rather than at 1000px. The font faces live
+at the top of `val.css` rather than in their own stylesheet, so there is one render-blocking
+request instead of two. Measured with a headless browser at 1440x900: the home page loads
+0.43 MB and reaches 0.85 MB once every poster has been scrolled through; the archive
+0.37 MB / 0.52 MB; a 52-photograph project page 0.39 MB / 1.55 MB with the whole gallery
+pulled in. The complete `assets/` tree is 28 MB.
+
+**Bytes are not the same thing as "how long the images take".** The reveal system decides
+when a photograph is *allowed* on screen, and it once made an arriving photograph wait:
+the observer was started from the curtain's callback, and the curtain waited on
+`window.load`, which waits for every image on the page. Throttled to 4G that put the first
+reveal at 2.0s and a slow connection at 3.3s, long after the bytes had landed. Three things
+fix it and the suite measures all of them:
+
+- `reveals()` runs at boot, never behind the curtain.
+- The curtain's cap is counted from the navigation, not from the moment its own code runs
+  (on a slow line that code is itself late). The faces are `font-display: swap`, so a
+  lifted curtain costs at most a brief swap.
+- The observer starts a reveal *before* the element scrolls in (`rootMargin: 200px 0 18%`,
+  `threshold: 0.02`), and the animations are shorter — a wipe is 0.78s, a reveal 0.7s.
+
+Whatever is on screen at load is `fetchpriority="high"` rather than lazy: the hero's first
+frame, and the first two cards or gallery plates on a page. First reveal is now 0.76s on
+4G and 0.48s unthrottled.
 
 **If you re-subset the fonts, build the glyph list from rendered text, not source.** HTML
 entities like `&rarr;` and `&mdash;` become real characters in the browser; subsetting from

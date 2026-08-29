@@ -96,6 +96,9 @@ window.PROJECTS = [
   {
     slug: "tsk",
     title: "TSK",
+    /* A spice kitchen, not the jewellery retail this was first filed as. The
+       studio confirmed it stays under Retail rather than moving to
+       Hospitality — so this is a decision, not an oversight. */
     category: "Retail",
     status: "ongoing",
     typology: "Spice Kitchen",

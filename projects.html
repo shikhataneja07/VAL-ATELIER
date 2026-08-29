@@ -8,7 +8,6 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -91,7 +90,8 @@ window.PAGE = function(VAL){
     var meta = [p.typology, p.location].filter(Boolean).join(" · ") || p.scope;
     return '<a class="card plate hov rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
              '<div class="shot wipe">' +
-               VAL.imgTag(p, VAL.cover(p), p.title, false, "(max-width: 720px) 92vw, 44vw") +
+               /* the first row is on screen at load — it must not wait for a scroll */
+               VAL.imgTag(p, VAL.cover(p), p.title, i < 2, "(max-width: 720px) 92vw, 44vw") +
                '<span class="card__n">' + VAL.pad(i + 1) + '</span>' +
              '</div>' +
              '<figcaption>' +
