@@ -11,6 +11,7 @@
   var PROJECTS = window.PROJECTS || [];
   var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var VAL = window.VAL = {};
+  VAL.reduced = REDUCED;          /* pages read this before starting anything that loops */
 
   function el(tag, cls, html){
     var n = document.createElement(tag);
@@ -468,9 +469,9 @@
     buildHeader();
     buildFooter();
     whatsapp();
-    hero();
     VAL.splitLines(document);
     if (typeof window.PAGE === "function") window.PAGE(VAL);
+    hero();                       /* after PAGE — the page renders the first frame */
     parallax();
     VAL.peek();
     curtain(function(){

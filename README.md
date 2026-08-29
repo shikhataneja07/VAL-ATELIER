@@ -102,6 +102,11 @@ Delete a `LEADS` line and that category simply starts with whichever project com
 
 ### WhatsApp
 
+The floating button owns the bottom-right corner. `--wa-foot` in the stylesheet is how much
+room it needs there, and anything else that wants to sit low and right — the poster's
+portfolio button, the hero's credit line — clears it off that one variable rather than
+guessing. Change the button's size in one place and the clearances follow.
+
 The floating button and the one in the menu both read `SITE.whatsapp` in
 `assets/js/site.js` — digits only, with country code. It deliberately ignores
 `SITE.phone`, so while `whatsapp` is empty both fall back to the contact page rather than
@@ -116,10 +121,11 @@ portrait.
 
 ### Weight
 
-Every photograph is served in two sizes. `assets/projects/<slug>/sm/` holds an 800px-wide
-WebP alongside the full file, and `VAL.imgTag` emits both as a `srcset` with a `sizes`
-hint, so a browser fetches roughly the pixels the slot needs instead of the 1600px
-original. Regenerate the small set after adding photographs:
+Every photograph is served in two sizes. The full tier is capped at **1400px on its
+longest edge**, and `assets/projects/<slug>/sm/` holds an 800px-wide WebP beside it;
+`VAL.imgTag` emits both as a `srcset` with a `sizes` hint, so a browser fetches roughly the
+pixels the slot needs. The studio photographs are WebP too — there are no JPEGs left in the
+build. Regenerate the small set after adding photographs:
 
 ```bash
 python3 - <<'EOF'
@@ -136,10 +142,16 @@ for src in glob.glob("assets/projects/*/*.webp"):
 EOF
 ```
 
+**The `images` numbers in `projects.js` must match the files on disk.** They are the
+`srcset` width descriptors as well as the space reserved before load, so if you re-encode
+or resize anything, re-read them with the snippet further up.
+
 The webfonts are subsetted to the characters the site renders (520 KB to 236 KB), and the
 brand PNGs are stored at the size they are shown rather than at 1000px. Measured with a
-headless browser: the home page went from 1.49 MB to 0.74 MB, the archive from 1.05 MB to
-0.48 MB, and a 52-photograph project page from 4.85 MB to 1.48 MB.
+headless browser at 1440x900: the home page loads 0.43 MB and reaches 0.85 MB once every
+poster has been scrolled through; the archive 0.37 MB / 0.52 MB; a 52-photograph project
+page 0.39 MB / 1.55 MB with the whole gallery pulled in. The complete `assets/` tree is
+28 MB.
 
 **If you re-subset the fonts, build the glyph list from rendered text, not source.** HTML
 entities like `&rarr;` and `&mdash;` become real characters in the browser; subsetting from
@@ -228,10 +240,20 @@ All of it is CSS transitions driven by a single `IntersectionObserver`, plus one
 
 - **Page transitions** — an ink curtain lifts on arrival and drops before the browser
   navigates. Without JavaScript it sits off-screen and never appears.
-- **Hero** — one full-viewport photograph at every width, with the type plate positioned
-  over it (never stacked above it, on any screen). The plate stays hidden until the
-  photograph has decoded, so nothing is read against an empty frame; a 2.6s failsafe stops
-  a slow image leaving the hero blank.
+- **Hero** — the work, full bleed, and the studio's name across the foot of it. No
+  headline, no standfirst: the header at the top and `Val Atelier` at the bottom, with the
+  project on screen named in the opposite corner. It opens like a title card — two
+  letterbox bars retract, the frame fades up under a graded vignette and keeps drifting
+  slowly rather than sitting still, and the name rises from blurred to sharp. Nothing
+  appears until the first frame has decoded, so nothing is read against an empty frame; a
+  2.6s failsafe stops a slow image leaving the hero blank. Under reduced motion the bars,
+  the drift, the blur and the auto-advance are all dropped.
+
+  The frames are the category leads, de-duplicated — the same projects the posters use, so
+  the hero can never show work that is not in the archive. It advances every 6.5s, and
+  stops while the reel is hovered or focused, or the tab is in the background; the arrows
+  step through it either way. The name and the reel share the bottom band on a laptop and
+  stack on a phone, and the suite measures that they never overlap at five sizes.
 - **Category posters** — each poster is `position: sticky` at the top of the viewport, so
   the next rides up over the last as the page scrolls. Falls back to ordinary stacked
   sections at natural height under reduced motion.

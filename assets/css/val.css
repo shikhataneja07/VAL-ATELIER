@@ -356,108 +356,103 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    positioned over it and stays hidden until the photograph has decoded, so
    nothing is ever read against an empty well. */
 .hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--ink)}
-.hero__media{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero__media img{
+
+/* the work itself, one frame at a time */
+.hero__slides{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease)}
+.hero__slide.is-on{opacity:1}
+.hero__slide img{
   width:100%;height:100%;object-fit:cover;object-position:center;
-  transform:scale(1.10);opacity:0;
-  transition:opacity 1.4s var(--ease),transform 2.6s var(--ease-out);
+  transform:scale(1.06);transition:transform 2.4s var(--ease-out);
 }
-/* the photograph settles, then keeps drifting — the frame never sits still */
-.hero.is-lit .hero__media img{opacity:1;transform:scale(1);animation:drift-in 28s var(--ease-io) 2.6s infinite alternate}
-@keyframes drift-in{from{transform:scale(1)}to{transform:scale(1.075) translate3d(-1.2%,-1%,0)}}
+/* the live frame settles, then keeps drifting — it never sits still */
+.hero.is-lit .hero__slide.is-on img{transform:scale(1);animation:hero-drift 26s var(--ease-io) 2.4s infinite alternate}
+@keyframes hero-drift{from{transform:scale(1)}to{transform:scale(1.07) translate3d(-1.2%,-1%,0)}}
 
 .hero__veil{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   /* the first stop guarantees a readable band behind the header whatever the
      photograph is doing up there */
-  background:linear-gradient(180deg,rgba(20,17,14,.66) 0,rgba(20,17,14,.34) 130px,rgba(20,17,14,.12) 34%,rgba(20,17,14,.42) 62%,rgba(20,17,14,.92) 100%);
+  background:linear-gradient(180deg,rgba(20,17,14,.62) 0,rgba(20,17,14,.30) 130px,rgba(20,17,14,.10) 34%,rgba(20,17,14,.40) 62%,rgba(20,17,14,.90) 100%);
 }
 /* a graded vignette rather than a flat scrim — the corners fall away and the
-   whole frame cools very slightly, the way a colourist would leave it */
+   name always lands on its own base, whatever the photograph is doing */
 .hero__grade{
   position:absolute;inset:0;z-index:2;pointer-events:none;
   background:
-    /* the type always lands on its own base, whatever the photograph does */
-    linear-gradient(to top,rgba(16,13,11,.88) 0,rgba(16,13,11,.55) 26%,rgba(16,13,11,.16) 52%,rgba(16,13,11,0) 70%),
-    radial-gradient(120% 88% at 50% 40%,rgba(20,17,14,0) 34%,rgba(20,17,14,.44) 76%,rgba(14,12,10,.74) 100%),
-    linear-gradient(96deg,rgba(28,34,44,.22) 0,rgba(28,34,44,0) 48%);
+    linear-gradient(to top,rgba(16,13,11,.86) 0,rgba(16,13,11,.52) 24%,rgba(16,13,11,.14) 50%,rgba(16,13,11,0) 70%),
+    radial-gradient(120% 88% at 50% 40%,rgba(20,17,14,0) 34%,rgba(20,17,14,.42) 76%,rgba(14,12,10,.72) 100%),
+    linear-gradient(96deg,rgba(28,34,44,.20) 0,rgba(28,34,44,0) 48%);
   opacity:0;transition:opacity 1.6s var(--ease) .3s;
 }
-/* a phone stacks more type over less frame, so it needs a deeper base */
+.hero.is-lit .hero__grade{opacity:1}
 @media(max-width:900px){
   .hero__grade{
     background:
-      linear-gradient(to top,rgba(16,13,11,.92) 0,rgba(16,13,11,.72) 34%,rgba(16,13,11,.30) 60%,rgba(16,13,11,0) 82%),
-      radial-gradient(140% 80% at 50% 32%,rgba(20,17,14,0) 30%,rgba(20,17,14,.40) 78%,rgba(14,12,10,.66) 100%);
+      linear-gradient(to top,rgba(16,13,11,.90) 0,rgba(16,13,11,.66) 32%,rgba(16,13,11,.26) 58%,rgba(16,13,11,0) 80%),
+      radial-gradient(140% 80% at 50% 32%,rgba(20,17,14,0) 30%,rgba(20,17,14,.38) 78%,rgba(14,12,10,.64) 100%);
   }
 }
-.hero.is-lit .hero__grade{opacity:1}
 /* letterbox bars that retract as the frame opens */
 .hero__bar{position:absolute;left:0;right:0;height:clamp(26px,5.5vh,58px);z-index:4;background:var(--ink);pointer-events:none;
   transition:transform 1.5s var(--ease-io) .15s}
-.hero__bar--t{top:0;transform:translateY(0)}
-.hero__bar--b{bottom:0;transform:translateY(0)}
+.hero__bar--t{top:0}
+.hero__bar--b{bottom:0}
 .hero.is-lit .hero__bar--t{transform:translateY(-100%)}
 .hero.is-lit .hero__bar--b{transform:translateY(100%)}
 
-.hero__plate{
-  position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(74px,13vh,132px);z-index:5;
-  max-width:1180px;
+/* the studio's name, and nothing else */
+.hero__name{
+  position:absolute;left:var(--pad);z-index:5;
+  bottom:clamp(58px,9vh,96px);
+  margin:0;font-family:var(--disp);font-weight:400;color:var(--bone);
+  /* stops short of the reel in the opposite corner — measured, not guessed */
+  font-size:clamp(40px,12.2vw,178px);line-height:.86;letter-spacing:-.035em;
+  text-transform:uppercase;text-shadow:0 2px 44px rgba(10,8,6,.5);
+  opacity:0;transform:translateY(22px);filter:blur(10px);
+  transition:opacity 1.25s var(--ease-out) .42s,transform 1.4s var(--ease-out) .42s,filter 1.2s var(--ease-out) .42s;
 }
-.hero__plate .label{color:#D7CFC0}
-.hero__eyebrow{
-  display:flex;align-items:center;gap:16px;margin-bottom:22px;
-  opacity:0;transform:translateX(-24px);
-  transition:opacity .9s var(--ease-out) .5s,transform 1s var(--ease-out) .5s;
-}
-.hero.is-lit .hero__eyebrow{opacity:1;transform:none}
-.hero__eyebrow .bar{width:46px;height:1px;background:var(--brass)}
-.hero h1{
-  font-family:var(--disp);font-weight:400;color:var(--bone);
-  font-size:clamp(40px,8.6vw,132px);line-height:.94;letter-spacing:-.03em;
-  text-shadow:0 2px 40px rgba(10,8,6,.45);
-}
-.hero h1 em{color:#DCCBAC}
-/* each line rises out of its own mask, out of focus, and lands sharp */
-.hero h1 .ln > i{
-  transform:translateY(108%);filter:blur(9px);opacity:.4;
-  transition:transform 1.35s var(--ease-out),filter 1.1s var(--ease-out),opacity 1.1s var(--ease-out);
-}
-.hero.is-lit h1 .ln > i{transform:none;filter:none;opacity:1}
-.hero h1 .ln:nth-child(1) > i{transition-delay:.34s}
-.hero h1 .ln:nth-child(2) > i{transition-delay:.48s}
-.hero h1 .ln:nth-child(3) > i{transition-delay:.62s}
-.hero__sub{
-  margin-top:26px;font-size:11px;font-weight:500;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--bone-dim);
-  opacity:0;transform:translateY(14px);
-  transition:opacity .9s var(--ease-out) .86s,transform .9s var(--ease-out) .86s;
-}
-.hero.is-lit .hero__sub{opacity:1;transform:none}
+.hero.is-lit .hero__name{opacity:1;transform:none;filter:none}
+@media(max-width:700px){.hero__name{line-height:.92;letter-spacing:-.028em}}
 
-/* a line from the studio, set against the type the way a title card carries a
-   credit — only on screens wide enough to hold both */
-.hero__quote{
-  position:absolute;right:var(--pad);bottom:clamp(74px,13vh,132px);z-index:5;
-  width:min(300px,26vw);display:none;
-  opacity:0;transform:translateX(26px);
-  transition:opacity 1s var(--ease-out) 1.05s,transform 1.1s var(--ease-out) 1.05s;
+/* which project is on screen, and the way through them */
+.hero__reel{
+  position:absolute;right:var(--pad);z-index:5;
+  bottom:clamp(58px,9vh,96px);          /* shares the name's baseline */
+  display:grid;justify-items:end;gap:16px;text-align:right;
+  opacity:0;transform:translateX(24px);
+  transition:opacity 1s var(--ease-out) .95s,transform 1.1s var(--ease-out) .95s;
 }
-.hero.is-lit .hero__quote{opacity:1;transform:none}
-@media(min-width:1100px){.hero__quote{display:block}}
-.hero__quote p{
-  font-size:12.5px;line-height:1.72;letter-spacing:.01em;color:rgba(233,226,214,.86);
-  border-left:1px solid rgba(220,203,172,.5);padding-left:18px;
+.hero.is-lit .hero__reel{opacity:1;transform:none}
+.hero__reel-txt{display:grid;gap:7px;justify-items:end}
+.hero__count{font-size:10px;letter-spacing:.26em;color:rgba(215,207,192,.66)}
+.hero__proj{
+  font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);
+  padding-bottom:8px;border-bottom:1px solid rgba(242,238,231,.55);
 }
-.hero__quote span{
-  display:block;margin-top:14px;padding-left:19px;
-  font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:rgba(215,207,192,.6);
+.hero__arrows{display:flex;gap:1px;background:rgba(242,238,231,.28)}
+.hero__arrow{
+  width:52px;height:46px;display:flex;align-items:center;justify-content:center;
+  background:rgba(20,17,14,.42);color:var(--bone);border:0;cursor:pointer;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  transition:background .4s var(--ease),color .4s var(--ease);
+}
+.hero__arrow svg{width:19px;height:19px}
+.hero__arrow:hover{background:var(--bone);color:var(--ink)}
+.hero__arrow:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+@media(max-width:700px){
+  .hero__reel{gap:12px}
+  .hero__arrow{width:46px;height:42px}
+}
+/* a phone has no room for both in one band, so the reel sits above the name */
+@media(max-width:760px){
+  .hero__reel{bottom:clamp(146px,21vh,206px)}
 }
 
 .hero__foot{
-  position:absolute;left:var(--pad);right:var(--pad);bottom:26px;z-index:5;
-  padding-right:var(--wa-foot);
+  position:absolute;left:var(--pad);right:var(--pad);bottom:24px;z-index:5;
   display:flex;justify-content:space-between;align-items:flex-end;gap:18px;
+  padding-right:var(--wa-foot);
   font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(215,207,192,.72);
   opacity:0;transition:opacity .8s var(--ease) 1.2s;
 }
@@ -466,14 +461,14 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .hero__cue i{width:44px;height:1px;background:rgba(215,207,192,.4);position:relative;overflow:hidden}
 .hero__cue i::after{content:"";position:absolute;inset:0 auto 0 0;width:40%;background:var(--brass);animation:cue 2.8s var(--ease) infinite}
 @keyframes cue{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
-@media(max-width:560px){.hero__foot .hero__credit{display:none}}
-@media(max-width:900px){.hero__plate{bottom:clamp(86px,15vh,132px)}}
+@media(max-width:560px){.hero__foot{display:none}}
 
 @media(prefers-reduced-motion:reduce){
-  .hero.is-lit .hero__media img{animation:none}
+  .hero.is-lit .hero__slide.is-on img{animation:none}
   .hero__bar{display:none}
-  .hero__grade,.hero__eyebrow,.hero__sub,.hero__quote,.hero__foot{opacity:1 !important;transform:none !important}
-  .hero h1 .ln > i{filter:none !important;opacity:1 !important}
+  .hero__grade,.hero__reel,.hero__foot{opacity:1 !important;transform:none !important}
+  .hero__name{opacity:1 !important;transform:none !important;filter:none !important}
+  .hero__slide{transition:none}
 }
 
 /* marquee strip */
