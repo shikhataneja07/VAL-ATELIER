@@ -318,29 +318,51 @@
   }
 
   /* ------------------------------------------------------------ reveals -- */
-  var io = null;
+  /* Two observers, because photographs and text want opposite things.
+     A photograph should be ready before you reach it, so its frame is never
+     blank — it is watched with a generous margin and starts early.
+     Text is the opposite: the whole point is watching it arrive, so it is
+     watched tightly and only fires as it genuinely enters the viewport. Run
+     them on one observer with the image's margin and the writing has already
+     finished moving by the time you can see it, which is exactly what
+     happened when this was first tuned for speed alone. */
+  var MEDIA_SEL = ".wipe";
+  var TEXT_SEL  = ".rv, .rv-l, .rv-r, [data-lines]";
+  var ALL_SEL   = ".rv, .rv-l, .rv-r, .wipe, [data-lines]";
+
+  var ioMedia = null, ioText = null;
+
   function watch(node){
-    if (!io) return;
-    qsa(".rv, .rv-l, .rv-r, .wipe, [data-lines]", node || document).forEach(function(n){
-      if (!n.classList.contains("in")) io.observe(n);
+    var root = node || document;
+    if (ioMedia) qsa(MEDIA_SEL, root).forEach(function(n){
+      if (!n.classList.contains("in")) ioMedia.observe(n);
+    });
+    if (ioText) qsa(TEXT_SEL, root).forEach(function(n){
+      /* a .wipe that is also .rv belongs to the media pass, not this one */
+      if (!n.classList.contains("in") && !n.classList.contains("wipe")) ioText.observe(n);
     });
   }
   VAL.watch = watch;
 
-  function reveals(){
-    if (REDUCED || !("IntersectionObserver" in window)){
-      qsa(".rv, .rv-l, .rv-r, .wipe, [data-lines]").forEach(function(n){ n.classList.add("in"); });
-      return;
-    }
-    io = new IntersectionObserver(function(entries){
+  function makeObserver(opts){
+    return new IntersectionObserver(function(entries, self){
       entries.forEach(function(en){
         if (!en.isIntersecting) return;
         en.target.classList.add("in");
-        io.unobserve(en.target);
+        self.unobserve(en.target);
       });
-      /* a generous bottom margin starts the reveal just before the element
-         scrolls in, so it is finished by the time it is properly on screen */
-    }, { threshold: 0.02, rootMargin: "200px 0px 18% 0px" });
+    }, opts);
+  }
+
+  function reveals(){
+    if (REDUCED || !("IntersectionObserver" in window)){
+      qsa(ALL_SEL).forEach(function(n){ n.classList.add("in"); });
+      return;
+    }
+    /* photographs: start before they arrive, so nothing is caught blank */
+    ioMedia = makeObserver({ threshold: 0.01, rootMargin: "200px 0px 20% 0px" });
+    /* text: start as it crosses in, so the movement is actually watched */
+    ioText  = makeObserver({ threshold: 0.1,  rootMargin: "0px 0px -7% 0px" });
     watch(document);
   }
 

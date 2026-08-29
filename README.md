@@ -165,8 +165,18 @@ fix it and the suite measures all of them:
 - The curtain's cap is counted from the navigation, not from the moment its own code runs
   (on a slow line that code is itself late). The faces are `font-display: swap`, so a
   lifted curtain costs at most a brief swap.
-- The observer starts a reveal *before* the element scrolls in (`rootMargin: 200px 0 18%`,
-  `threshold: 0.02`), and the animations are shorter — a wipe is 0.78s, a reveal 0.7s.
+- There are **two** observers, because photographs and text want opposite things. A
+  photograph should be ready before you reach it, so `.wipe` is watched with a generous
+  margin (`200px 0 20%`, threshold 0.01) and starts early. Text is the opposite — the whole
+  point is watching it arrive — so `.rv` / `.rv-l` / `.rv-r` are watched tightly
+  (`0 0 -7%`, threshold 0.1) and fire as they genuinely cross in.
+
+  Running both on the image's margin is a real trap, and this went wrong once: the writing
+  had finished moving before it was on screen, so the slide-ins looked like they had been
+  removed. Capping the animation *duration* does not catch it — that guardrail passed while
+  the effect was invisible. The suite measures the thing that matters instead: how much
+  opacity and travel is left at the instant an element first enters the viewport. It is
+  currently the full animation, 35–50px of travel on every page.
 
 Whatever is on screen at load is `fetchpriority="high"` rather than lazy: the hero's first
 frame, and the first two cards or gallery plates on a page. First reveal is now 0.76s on
