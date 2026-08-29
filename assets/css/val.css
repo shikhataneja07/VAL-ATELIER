@@ -248,7 +248,7 @@ html.js .curtain:not(.is-out):not(.is-park) .curtain__mark{opacity:.9;transform:
   .rv-l{transform:translateX(-32px)}
   .rv-r{transform:translateX(32px)}
 }
-section,.sec,.mast,.cta,.deck{overflow-x:clip}
+section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .rv[data-d="1"],.rv-l[data-d="1"],.rv-r[data-d="1"]{transition-delay:.09s}
 .rv[data-d="2"],.rv-l[data-d="2"],.rv-r[data-d="2"]{transition-delay:.18s}
 .rv[data-d="3"],.rv-l[data-d="3"],.rv-r[data-d="3"]{transition-delay:.27s}

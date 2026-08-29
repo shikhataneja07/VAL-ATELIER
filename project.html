@@ -40,10 +40,10 @@ window.PAGE = function(VAL){
     document.title = "Project not found — Val Atelier";
     host.innerHTML =
       '<section class="mast"><div class="wrap">' +
-        '<div class="crumb"><i class="bar"></i><span class="label">Archive</span></div>' +
+        '<div class="crumb rv-l"><i class="bar"></i><span class="label">Archive</span></div>' +
         '<h1 class="d2">That project isn&rsquo;t <em>here.</em></h1>' +
         '<p class="lede measure mt-l">The link may be out of date, or the project has not been published yet.</p>' +
-        '<div class="mt-l"><a class="btn btn--solid" href="projects.html">Back to all projects <span class="ar">&rarr;</span></a></div>' +
+        '<div class="mt-l rv"><a class="btn btn--solid" href="projects.html">Back to all projects <span class="ar">&rarr;</span></a></div>' +
       '</div></section>';
     return;
   }
@@ -87,7 +87,7 @@ window.PAGE = function(VAL){
         VAL.imgTag(p, 0, p.title, true, "(max-width: 760px) 94vw, 60vw") + '</figure>' +
       '<div class="pj-head">' +
         '<div>' +
-          '<span class="label">' + VAL.esc([p.category, p.typology, p.location].filter(Boolean).join(" · ")) + '</span>' +
+          '<span class="label rv-l">' + VAL.esc([p.category, p.typology, p.location].filter(Boolean).join(" · ")) + '</span>' +
           '<h1 data-lines>' + VAL.esc(p.title) + '</h1>' +
         '</div>' +
         '<p class="body rv" data-d="1">' + VAL.pad(p.images.length) + ' photographs &middot; ' +
@@ -120,22 +120,22 @@ window.PAGE = function(VAL){
       : '<div class="wrap wrap--wide" style="padding-top:clamp(40px,6vh,72px)"></div>') +
 
     '<section class="sec" style="padding-top:0"><div class="wrap wrap--wide">' +
-      '<div class="head__top"><i class="bar" style="flex:0 0 44px;height:1px;background:var(--brass)"></i>' +
+      '<div class="head__top rv-l"><i class="bar" style="flex:0 0 44px;height:1px;background:var(--brass)"></i>' +
         '<span class="label">Photographs &mdash; ' + VAL.pad(p.images.length) + '</span></div>' +
       '<div class="pj-gal mgrid mgrid--narrow" data-gal>' + gallery + '</div>' +
     '</div></section>' +
 
     '<nav class="pj-next" aria-label="More projects">' +
-      '<a class="prev" href="project.html?p=' + VAL.esc(prev.slug) + '">' +
+      '<a class="prev rv-l" href="project.html?p=' + VAL.esc(prev.slug) + '">' +
         '<span class="label">Previous</span><span class="t">' + VAL.esc(prev.title) + '</span></a>' +
-      '<a class="next" href="project.html?p=' + VAL.esc(next.slug) + '">' +
+      '<a class="next rv-r" href="project.html?p=' + VAL.esc(next.slug) + '">' +
         '<span class="label">Next</span><span class="t">' + VAL.esc(next.title) + '</span></a>' +
     '</nav>' +
 
     '<section class="cta">' +
-      '<div class="wrap"><span class="label">Enquiries</span>' +
-        '<h2>Something like <em>this?</em></h2>' +
-        '<div class="cta__row">' +
+      '<div class="wrap"><span class="label rv">Enquiries</span>' +
+        '<h2 class="rv" data-d="1">Something like <em>this?</em></h2>' +
+        '<div class="cta__row rv" data-d="2">' +
           '<a class="btn btn--solid" href="contact.html">Start an enquiry <span class="ar">&rarr;</span></a>' +
           '<a class="btn" href="' + backHref + '">Back to the archive</a>' +
         '</div>' +

@@ -81,7 +81,7 @@
   <section class="sec" id="press">
     <div class="wrap">
       <div class="head">
-        <div class="head__top"><i class="bar"></i><span class="label">03 &mdash; Featured in</span></div>
+        <div class="head__top rv-l"><i class="bar"></i><span class="label">03 &mdash; Featured in</span></div>
         <div class="head__grid">
           <h2 class="d2 rv-l">Written <em>about.</em></h2>
           <p class="body rv-r measure" data-d="1">Selected coverage of the studio&rsquo;s work. Each piece links straight through to the publication.</p>
@@ -177,13 +177,18 @@ window.PAGE = function(VAL){
                  VAL.imgTag(p, VAL.cover(p), p.title + " — " + c.name, false, "100vw") +
                '</div>' +
                '<div class="poster__veil"></div>' +
-               '<span class="poster__n">' + VAL.pad(i + 1) + " / " + VAL.pad(cats.length) + '</span>' +
+               '<span class="poster__n rv">' + VAL.pad(i + 1) + " / " + VAL.pad(cats.length) + '</span>' +
                '<div class="poster__in">' +
                  '<div>' +
-                   '<span class="poster__eyebrow">' + VAL.esc(p.title) + '</span>' +
-                   '<h3 class="poster__title"><span>' + VAL.esc(c.name) + '</span><span>Design</span></h3>' +
+                   /* the label, then the category, then the button — in that order.
+                      The label names the lead project, and its location too once a
+                      project carries one. */
+                   '<span class="poster__eyebrow rv-l">' +
+                     VAL.esc([p.title, p.location].filter(Boolean).join(" · ")) + '</span>' +
+                   '<h3 class="poster__title"><span class="rv-l" data-d="1">' + VAL.esc(c.name) +
+                     '</span><span class="rv-l" data-d="2">Design</span></h3>' +
                  '</div>' +
-                 '<a class="poster__cta" href="' + VAL.esc(href) + '">' +
+                 '<a class="poster__cta rv-r" data-d="3" href="' + VAL.esc(href) + '">' +
                    VAL.esc(c.name) + ' Portfolio <span class="ar">&rarr;</span></a>' +
                '</div>' +
              '</section>';

@@ -28,7 +28,8 @@ its previous/next navigation all read from that one array.
 
 1. Make a folder: `assets/projects/<your-slug>/`
 2. Put the photographs in it as `01.webp`, `02.webp`, `03.webp` … — **`01` is the cover,
-   the project hero and the showcase lead**, so choose it deliberately.
+   the project hero and the poster lead**, so choose it deliberately. A project can point
+   the poster at a different frame with `cover: n` without moving the file.
 3. Copy the template at the bottom of `projects.js` into the array and fill it in.
    Set `category` to `"Residential"` or `"Commercial"` — that is what the home page
    posters and the archive chips group by. A new category name simply creates a new
@@ -152,11 +153,11 @@ are simply not printed when empty rather than guessed at.
 
 ### Finished projects
 
-The **Finished projects** tab is already built. While no project carries
-`status: "finished"`, it shows a designed empty state explaining that the archive is being
-prepared — deliberately not stand-in photographs. The moment the first finished project is
-added, that block removes itself and the normal grid and index take over. The tab counter
-updates on its own.
+Three projects currently carry `status: "finished"` — DSR, Aparna One and JBN. Should a
+status ever be left with nothing in it, its tab shows a designed empty state explaining
+that the archive is being prepared, rather than stand-in photographs; the moment a project
+is filed there, that block removes itself and the normal grid, index and counter take
+over.
 
 ---
 
@@ -234,8 +235,16 @@ All of it is CSS transitions driven by a single `IntersectionObserver`, plus one
 - **Category posters** — each poster is `position: sticky` at the top of the viewport, so
   the next rides up over the last as the page scrolls. Falls back to ordinary stacked
   sections at natural height under reduced motion.
-- **Section reveals** — `.rv` (rise), `.rv-l` / `.rv-r` (slide in from the side, switched to a
-  rise below 860px so nothing pushes the page sideways). `data-d="1..5"` staggers a group.
+- **Section reveals** — `.rv` (rise from 26px), `.rv-l` / `.rv-r` (slide in from the left or
+  right, 46px, softened to 32px below 860px). `data-d="1..5"` staggers a group in sequence
+  — a label, then the heading, then the paragraph, then the button. Slide-ins run at every
+  width: sections clip sideways rather than hiding, so an un-revealed block cannot push the
+  page over on a phone.
+  Every piece of running text on every page is carried in by one of these, including the
+  poster labels and category lines, the services rows, the archive cards, the statement
+  quotes, and the prev/next pair at the foot of a project — which slide in from the side
+  each points to. The suite checks both halves of that: no text element is left untagged,
+  and no reveal is left stuck once it has been scrolled past.
 - **Image reveals** — `.wipe` uncovers a photograph with a `clip-path` sweep. On `.shot`
   plates there is no accompanying scale, so the image is never momentarily clipped.
 - **Line reveals** — a heading with `data-lines` splits on `|` into masked lines that rise in
