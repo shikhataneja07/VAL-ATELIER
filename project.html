@@ -72,7 +72,6 @@ window.PAGE = function(VAL){
              '<div class="shot wipe">' +
                VAL.imgTag(p, i + 1, p.title + " — photograph " + (i + 2), false, "(max-width: 720px) 92vw, 46vw") +
              '</div>' +
-             '<figcaption>' + VAL.pad(i + 2) + " / " + VAL.pad(p.images.length) + '</figcaption>' +
            '</figure>';
   }).join("");
 
@@ -90,7 +89,7 @@ window.PAGE = function(VAL){
           '<span class="label rv-l">' + VAL.esc([p.category, p.typology, p.location].filter(Boolean).join(" · ")) + '</span>' +
           '<h1 data-lines>' + VAL.esc(p.title) + '</h1>' +
         '</div>' +
-        '<p class="body rv" data-d="1">' + VAL.pad(p.images.length) + ' photographs &middot; ' +
+        '<p class="body rv" data-d="1">' +
           (p.status === "finished" ? "Completed" : "Ongoing") + '</p>' +
       '</div>' +
     '</div></section>' +
@@ -121,7 +120,7 @@ window.PAGE = function(VAL){
 
     '<section class="sec" style="padding-top:0"><div class="wrap wrap--wide">' +
       '<div class="head__top rv-l"><i class="bar" style="flex:0 0 44px;height:1px;background:var(--brass)"></i>' +
-        '<span class="label">Photographs &mdash; ' + VAL.pad(p.images.length) + '</span></div>' +
+        '<span class="label">Photographs</span></div>' +
       '<div class="pj-gal mgrid mgrid--narrow" data-gal>' + gallery + '</div>' +
     '</div></section>' +
 

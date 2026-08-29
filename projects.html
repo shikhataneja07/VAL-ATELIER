@@ -96,7 +96,7 @@ window.PAGE = function(VAL){
              '</div>' +
              '<figcaption>' +
                '<span class="ttl">' + VAL.esc(p.title) + '<span class="sub">' + VAL.esc(meta) + '</span></span>' +
-               '<span class="meta">' + VAL.esc(p.area || VAL.pad(p.images.length) + " photographs") + '</span>' +
+               (p.area ? '<span class="meta">' + VAL.esc(p.area) + '</span>' : "") +
              '</figcaption>' +
              '<span class="card__go">View project <span class="ar">&rarr;</span></span>' +
            '</a>';
