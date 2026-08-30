@@ -132,53 +132,6 @@
     return num ? "https://wa.me/" + num + "?text=" + msg : "contact.html";
   };
 
-  /* ------------------------------------------------------- motion mode -- */
-  /* A review-only switch between the full choreography and a calmer one, so
-     the studio can feel the difference rather than have it described. Reads
-     and writes data-motion on <html>; SITE.reviewToggle turns it off in one
-     line when the decision has been made. */
-  var MOTION_KEY = "val-motion";
-  function setMotion(mode){
-    document.documentElement.setAttribute("data-motion", mode);
-    try { localStorage.setItem(MOTION_KEY, mode); } catch (e) {}
-    qsa(".mtoggle button").forEach(function(b){
-      var on = b.dataset.motion === mode;
-      b.classList.toggle("is-on", on);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
-    });
-  }
-  function motionMode(){
-    var saved = "full";
-    try { saved = localStorage.getItem(MOTION_KEY) || "full"; } catch (e) {}
-    document.documentElement.setAttribute("data-motion", saved);
-  }
-  function motionToggle(){
-    if (!SITE.reviewToggle) return;
-    /* only where there is something to compare */
-    if (!qs(".poster")) return;
-    var saved = document.documentElement.getAttribute("data-motion") || "full";
-
-    var box = el("div", "mtoggle");
-    box.innerHTML =
-      '<span class="mtoggle__lbl">Animation</span>' +
-      '<div class="mtoggle__set" role="group" aria-label="Animation between projects">' +
-        '<button type="button" data-motion="full">Full</button>' +
-        '<button type="button" data-motion="calm">Calm</button>' +
-      '</div>';
-    document.body.appendChild(box);
-    box.querySelectorAll("button").forEach(function(b){
-      b.addEventListener("click", function(){ setMotion(b.dataset.motion); });
-    });
-    setMotion(saved);
-
-    /* shows itself once the hero is behind you, like the WhatsApp button */
-    var hero = qs(".hero");
-    if (!hero || !("IntersectionObserver" in window)){ box.classList.add("on"); return; }
-    new IntersectionObserver(function(en){
-      box.classList.toggle("on", !en[0].isIntersecting);
-    }, { threshold: 0 }).observe(hero);
-  }
-
   /* appears once the hero is behind you, so it never sits over the opening frame */
   function whatsapp(){
     var live = !!String(SITE.whatsapp || "").replace(/[^0-9]/g, "");
@@ -552,13 +505,9 @@
     buildHeader();
     buildFooter();
     whatsapp();
-    /* the stored mode must be on <html> before anything paints, so it is set
-       here; the switch itself waits until the page has rendered its posters */
-    motionMode();
     VAL.splitLines(document);
     if (typeof window.PAGE === "function") window.PAGE(VAL);
     hero();                       /* after PAGE — the page renders the first frame */
-    motionToggle();               /* after PAGE — it needs the posters to exist */
     parallax();
     VAL.peek();
     /* Start watching straight away. A photograph that has already arrived

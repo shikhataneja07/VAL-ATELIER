@@ -28,18 +28,17 @@ its previous/next navigation all read from that one array.
 
 1. Make a folder: `assets/projects/<your-slug>/`
 2. Put the photographs in it as `01.webp`, `02.webp`, `03.webp` … — **`01` is the cover,
-   the project hero and the poster lead**, so choose it deliberately. A project can point
-   the poster at a different frame with `cover: n` without moving the file.
+   the project hero and the grid plate**, so choose it deliberately. A project can point
+   the grid plate at a different frame with `cover: n` without moving the file.
 3. Copy the template at the bottom of `projects.js` into the array and fill it in.
-   Set `category` to `"Residential"` or `"Commercial"` — that is what the home page
-   posters and the archive chips group by. A new category name simply creates a new
-   poster.
+   Set `category` to `"Residential"` or `"Commercial"` — that is what the archive chips
+   group by.
 
 ```js
 {
   slug: "villa-name",              // becomes project.html?p=villa-name
   title: "Villa Name",
-  category: "Residential",         // groups the project under a home page poster
+  category: "Residential",         // groups the project in the archive filters
   status: "finished",              // "ongoing" or "finished" — this files it under the right tab
   typology: "Residence",
   location: "Hyderabad",
@@ -64,25 +63,19 @@ for f in sorted(glob.glob("assets/projects/villa-name/*.webp")):
 PY
 ```
 
-### The home page category posters
+### The home page project grid
 
-Finished and Ongoing are two entirely separate sections. Each is a deck of full-viewport
-posters, one per category that status actually covers: the category's lead photograph
-runs full bleed, with the lead project named above the category in large caps and a
-single button through to that category's own filtered archive
-(`projects.html?tab=ongoing&cat=Hospitality`). Each poster is `position: sticky` at the
-top of the viewport, so the next rides up over the last as the page scrolls.
+Finished and Ongoing are two entirely separate sections, each a quiet grid of every project
+in it: the cover photograph, three across, with the project's name centred beneath. Three
+columns above 1000px, two above 640px, one below.
 
-A poster is a full-bleed cover rather than a plate of artwork, so its photograph fills the
-frame. Every project photograph is still shown **whole** wherever it is presented as a
-photograph: the archive cards, the project hero, and every gallery plate. A project can
+**A tidy grid is not a reason to crop.** Each plate keeps its photograph's own proportions;
+the tiles sit on their row's baseline so the names still line up underneath. A project can
 set `cover: n` in `projects.js` to lead with a photograph other than its first; Aparna One
 uses it to lead with the one landscape frame in its set.
 
-Per-project browsing lives on the archive. `projects.html` carries a row of category
-chips per status, each with its own count; the chips are built from the same derived
-categories, so they can never offer a category with nothing behind it. `?tab=` and `?cat=`
-open the page already filtered, which is what the posters link to.
+Per-project browsing continues on the archive, where each status carries a row of category
+chips with its own counts, and `?tab=` / `?cat=` open the page already filtered.
 
 **The categories are not configured anywhere.** They are derived from
 `projects.js` at render time, so a category can only appear on the page if a
@@ -100,34 +93,11 @@ window.CATEGORY_ORDER = ["Residential", "Retail", "Hospitality", "Commercial", "
 
 Delete a `LEADS` line and that category simply starts with whichever project comes first.
 
-### Two amounts of animation, to choose between
-
-The studio's first note on the home page was that there is too much animation between one
-project and the next. Rather than describe the alternative, the page carries both and lets
-them be compared: a **Full / Calm** switch, bottom left, appearing once the hero is behind
-you. The choice is stored, so a mode can be lived with rather than glimpsed.
-
-`data-motion` on `<html>` is the whole mechanism — nothing is duplicated, and the frames,
-type and grading are identical in both. Calm changes three things about the posters only:
-
-| | Full | Calm |
-| --- | --- | --- |
-| Each poster | pins, and the next rides over it | flows past |
-| Height | the whole screen | 74svh, so two can be seen at once |
-| Its text | four staggered slide-ins | one quiet fade |
-
-The run of posters is 4662px to scroll instead of 6300px, 26% less. Both carry all seven
-categories.
-
-**This is a review control.** `SITE.reviewToggle` in `assets/js/site.js` turns it off in one
-line once the studio has decided; set the winning mode as the default at the same time.
-
 ### WhatsApp
 
 The floating button owns the bottom-right corner. `--wa-foot` in the stylesheet is how much
-room it needs there, and anything else that wants to sit low and right — the poster's
-portfolio button, the hero's credit line — clears it off that one variable rather than
-guessing. Change the button's size in one place and the clearances follow.
+room it needs there, and anything else that wants to sit low and right — the hero's credit
+line, the grid's footer row — clears it off that one variable rather than guessing. Change the button's size in one place and the clearances follow.
 
 The floating button and the one in the menu both read `SITE.whatsapp` in
 `assets/js/site.js` — digits only, with country code. It deliberately ignores
@@ -172,7 +142,7 @@ The webfonts are subsetted to the characters the site renders (520 KB to 236 KB)
 brand PNGs are stored at the size they are shown rather than at 1000px. The font faces live
 at the top of `val.css` rather than in their own stylesheet, so there is one render-blocking
 request instead of two. Measured with a headless browser at 1440x900: the home page loads
-0.43 MB and reaches 0.85 MB once every poster has been scrolled through; the archive
+0.43 MB and reaches 0.85 MB with the whole project grid scrolled through; the archive
 0.37 MB / 0.52 MB; a 52-photograph project page 0.39 MB / 1.55 MB with the whole gallery
 pulled in. The complete `assets/` tree is 28 MB.
 
@@ -275,7 +245,7 @@ its exact natural proportion and reserves the right space before it loads. Galle
 `.mgrid` — a two-column layout where the columns absorb the difference in height (one
 column below 720px, `.mgrid--three` for three). `object-fit: cover` survives only where a
 photograph is a full-bleed backdrop rather than artwork: the home hero, the category
-posters, the project hero, and the decorative statement bands.
+the project hero, and the decorative statement bands.
 
 **Buttons.** Hairline box, uppercase micro-type, a fill that slides up from below on hover.
 `.btn--solid` inverts and warms to brass; `.btn--light` is the version for ink sections.
@@ -300,21 +270,20 @@ All of it is CSS transitions driven by a single `IntersectionObserver`, plus one
   2.6s failsafe stops a slow image leaving the hero blank. Under reduced motion the bars,
   the drift, the blur and the auto-advance are all dropped.
 
-  The frames are the category leads, de-duplicated — the same projects the posters use, so
-  the hero can never show work that is not in the archive. It advances every 6.5s, and
+  The frames are the category leads, de-duplicated, so the hero can never show work that is
+  not in the archive. It advances every 6.5s, and
   stops while the reel is hovered or focused, or the tab is in the background; the arrows
   step through it either way. The name and the reel share the bottom band on a laptop and
   stack on a phone, and the suite measures that they never overlap at five sizes.
-- **Category posters** — each poster is `position: sticky` at the top of the viewport, so
-  the next rides up over the last as the page scrolls. Falls back to ordinary stacked
-  sections at natural height under reduced motion.
+- **Project grid** — each plate is carried in by `.rv`, staggered across its row
+  (`data-d` cycling 0,1,2) so a row arrives as a sequence rather than all at once.
 - **Section reveals** — `.rv` (rise from 26px), `.rv-l` / `.rv-r` (slide in from the left or
   right, 46px, softened to 32px below 860px). `data-d="1..5"` staggers a group in sequence
   — a label, then the heading, then the paragraph, then the button. Slide-ins run at every
   width: sections clip sideways rather than hiding, so an un-revealed block cannot push the
   page over on a phone.
   Every piece of running text on every page is carried in by one of these, including the
-  poster labels and category lines, the services rows, the archive cards, the statement
+  grid plates and their names, the services rows, the archive cards, the statement
   quotes, and the prev/next pair at the foot of a project — which slide in from the side
   each points to. The suite checks both halves of that: no text element is left untagged,
   and no reveal is left stuck once it has been scrolled past.

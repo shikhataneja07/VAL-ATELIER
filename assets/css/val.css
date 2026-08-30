@@ -1052,115 +1052,36 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .intro__role{margin-top:12px;font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brass)}
 .intro__rule{height:1px;background:var(--line);margin:clamp(26px,3.4vh,40px) 0}
 
-/* ---------- category poster — full viewport, sticky stacking ----------
-   Each category fills the screen and the next rides up over it. The lead
-   photograph is full-bleed here by intent: this is a poster, not a gallery
-   plate, so it covers the frame. Every gallery and project page still shows
-   photographs whole. */
-.poster{
-  position:sticky;top:0;height:100svh;min-height:520px;overflow:hidden;
-  background:var(--ink);color:var(--bone);
-  border-top:1px solid rgba(242,238,231,.14);
+/* ---------- the project grid ---------------------------------------------
+   Every project as a plate with its name beneath it, three across. The images
+   keep their own proportions — nothing is cropped to make a tidy rectangle —
+   so each one sits on the row's baseline and the names line up under them. */
+.pgrid{
+  display:grid;gap:clamp(30px,3.6vw,58px) clamp(20px,2.4vw,40px);
+  grid-template-columns:1fr;
+  margin-top:clamp(30px,4.5vh,54px);
 }
-.poster__media{position:absolute;inset:0;z-index:0}
-.poster__media img{width:100%;height:100%;object-fit:cover;object-position:center}
-.poster__veil{
-  position:absolute;inset:0;z-index:1;pointer-events:none;
-  /* deep enough at the foot that the caps read over a pale photograph too */
-  background:linear-gradient(180deg,rgba(20,17,14,.60) 0,rgba(20,17,14,.28) 130px,rgba(20,17,14,.14) 34%,rgba(20,17,14,.46) 60%,rgba(20,17,14,.72) 80%,rgba(20,17,14,.90) 100%);
+@media(min-width:640px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+.ptile{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  text-align:center;color:inherit;
 }
-.poster__in{
-  position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(58px,11vh,124px);z-index:3;
-  display:grid;gap:26px;align-items:end;
+.ptile__fig{
+  display:block;width:100%;background:var(--frame);overflow:hidden;
+  transition:transform .7s var(--ease-io);
 }
-@media(min-width:1000px){
-  .poster__in{grid-template-columns:1fr auto;gap:48px}
-  /* from here the button sits bottom-right, in the floating button's corner */
-  .poster__in{bottom:max(clamp(58px,11vh,124px),var(--wa-foot))}
+.ptile__fig img{width:100%;height:auto;display:block}
+.ptile__name{
+  display:block;margin-top:18px;
+  font-family:var(--disp);font-weight:400;font-size:clamp(17px,1.5vw,21px);
+  letter-spacing:-.006em;color:var(--ink);
+  transition:color .45s var(--ease);
 }
-.poster__eyebrow{
-  display:inline-block;padding-bottom:9px;margin-bottom:18px;
-  border-bottom:1px solid rgba(242,238,231,.6);
-  font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--bone);
-}
-.poster__title{
-  font-family:var(--disp);font-weight:400;text-transform:uppercase;color:var(--bone);
-  font-size:clamp(38px,8.2vw,120px);line-height:.92;letter-spacing:-.028em;
-}
-.poster__title span{display:block}
-.poster__cta{
-  justify-self:start;display:inline-flex;align-items:center;gap:11px;position:relative;overflow:hidden;
-  padding:17px 36px;border:1px solid rgba(242,238,231,.8);border-radius:40px;isolation:isolate;
-  font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);
-  transition:color .45s var(--ease),border-color .45s var(--ease);
-}
-.poster__cta::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--bone);transform:translateY(101%);transition:transform .5s var(--ease-io)}
-.poster__cta:hover{color:var(--ink);border-color:var(--bone)}
-.poster__cta:hover::before{transform:translateY(0)}
-.poster__cta .ar{transition:transform .45s var(--ease)}
-.poster__cta:hover .ar{transform:translateX(6px)}
-@media(min-width:1000px){.poster__cta{justify-self:end}}
-.poster__n{
-  position:absolute;top:calc(var(--nav-h) + 22px);right:var(--pad);z-index:3;
-  font-size:10.5px;letter-spacing:.26em;color:rgba(242,238,231,.65);
-}
-@media(prefers-reduced-motion:reduce){
-  .poster{position:relative;height:auto;min-height:0;padding:clamp(72px,14vh,140px) 0}
-  .poster__in{position:static;padding:0 var(--pad)}
-}
-
-/* ---------- calm motion: the same posters, without the choreography --------
-   Vaishnavi's note was that there is too much animation between one project
-   and the next on the home page. This is the alternative to compare against:
-   the frames, the type and the grading are untouched, but each poster stops
-   pinning, is shorter than a full screen so there is less to scroll through,
-   and its text simply fades up once instead of arriving in four staggered
-   pieces. Driven by data-motion on <html>, so nothing is duplicated. */
-[data-motion="calm"] .poster{
-  position:relative;height:74svh;min-height:430px;
-}
-[data-motion="calm"] .poster__in{
-  bottom:clamp(44px,7vh,78px);
-}
-/* one quiet fade for the whole block, rather than four entrances */
-[data-motion="calm"] .poster .rv-l,
-[data-motion="calm"] .poster .rv-r,
-[data-motion="calm"] .poster .rv{
-  transform:none;
-  transition:opacity .62s var(--ease-out);
-}
-[data-motion="calm"] .poster [data-d]{transition-delay:0s}
-@media(max-width:700px){
-  [data-motion="calm"] .poster{height:66svh;min-height:390px}
-}
-
-/* the review-only switch between the two. SITE.reviewToggle turns it on;
-   set that to false and this never renders. */
-.mtoggle{
-  position:fixed;left:clamp(16px,2.4vw,30px);bottom:clamp(16px,2.4vw,30px);z-index:55;
-  display:flex;align-items:center;gap:10px;padding:7px 8px 7px 15px;
-  background:rgba(26,23,20,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  border-radius:40px;box-shadow:0 10px 30px rgba(35,32,28,.26);
-  opacity:0;transform:translateY(14px);pointer-events:none;
-  transition:opacity .5s var(--ease),transform .6s var(--ease-out);
-}
-.mtoggle.on{opacity:1;transform:none;pointer-events:auto}
-.mtoggle__lbl{
-  font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:rgba(215,207,192,.6);
-}
-.mtoggle__set{display:flex;background:rgba(242,238,231,.14);border-radius:30px;padding:2px}
-.mtoggle button{
-  border:0;cursor:pointer;background:transparent;color:rgba(242,238,231,.72);
-  padding:8px 15px;border-radius:30px;
-  font-family:inherit;font-size:9.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  transition:background .35s var(--ease),color .35s var(--ease);
-}
-.mtoggle button.is-on{background:var(--bone);color:var(--ink)}
-.mtoggle button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-@media(max-width:600px){
-  .mtoggle{padding:6px 7px 6px 12px;gap:8px}
-  .mtoggle__lbl{display:none}
-  .mtoggle button{padding:7px 12px}
+.band-putty .ptile__name{color:var(--ink)}
+@media(hover:hover){
+  .ptile:hover .ptile__fig{transform:translateY(-6px)}
+  .ptile:hover .ptile__name{color:var(--brass)}
 }
 
 /* ---------- archive category filter ---------- */

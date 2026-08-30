@@ -101,21 +101,17 @@
   </section>
 
   <!-- 04 FINISHED PROJECTS --------------------------------------------- -->
-  <section class="sec--tight band-putty" id="finished" style="padding-bottom:0">
+  <section class="sec band-putty" id="finished">
     <div class="wrap wrap--wide">
-      <div class="head" style="margin-bottom:clamp(26px,4vh,44px)">
+      <div class="head">
         <div class="head__top rv-l"><i class="bar"></i><span class="label">04 &mdash; Finished projects</span></div>
         <div class="head__grid">
           <h2 class="d2 rv-l">Completed <em>work.</em></h2>
-          <p class="body rv-r measure" data-d="1">The categories the finished work covers. Open one to see every project in it.</p>
+          <p class="body rv-r measure" data-d="1">Every completed project, with the full set of photographs behind each one.</p>
         </div>
       </div>
-    </div>
-  </section>
-  <div class="deck" data-posters="finished"></div>
-  <section class="sec--tight band-putty">
-    <div class="wrap wrap--wide">
-      <div class="sec-foot rv" style="margin-top:0;border-top:0;padding-top:0">
+      <div class="pgrid" data-grid="finished"></div>
+      <div class="sec-foot rv">
         <span class="label" data-deck-count="finished"></span>
         <a class="btn" href="projects.html?tab=finished">Explore all finished projects <span class="ar">&rarr;</span></a>
       </div>
@@ -123,21 +119,17 @@
   </section>
 
   <!-- 05 ONGOING PROJECTS ----------------------------------------------- -->
-  <section class="sec--tight" id="ongoing" style="padding-bottom:0">
+  <section class="sec" id="ongoing">
     <div class="wrap wrap--wide">
-      <div class="head" style="margin-bottom:clamp(26px,4vh,44px)">
+      <div class="head">
         <div class="head__top rv-l"><i class="bar"></i><span class="label">05 &mdash; Ongoing projects</span></div>
         <div class="head__grid">
           <h2 class="d2 rv-l">Currently <em>on the boards.</em></h2>
-          <p class="body rv-r measure" data-d="1">Work in progress across the studio&rsquo;s disciplines.</p>
+          <p class="body rv-r measure" data-d="1">Work currently on the boards, across the studio&rsquo;s disciplines.</p>
         </div>
       </div>
-    </div>
-  </section>
-  <div class="deck" data-posters="ongoing"></div>
-  <section class="sec--tight">
-    <div class="wrap wrap--wide">
-      <div class="sec-foot rv" style="margin-top:0;border-top:0;padding-top:0">
+      <div class="pgrid" data-grid="ongoing"></div>
+      <div class="sec-foot rv">
         <span class="label" data-deck-count="ongoing"></span>
         <a class="btn" href="projects.html?tab=ongoing">Explore all ongoing projects <span class="ar">&rarr;</span></a>
       </div>
@@ -168,44 +160,6 @@
 <script>
 window.PAGE = function(VAL){
 
-  /* ---- one full-viewport poster per category that genuinely exists ---- */
-  function buildPosters(status){
-    var host = document.querySelector('[data-posters="' + status + '"]');
-    if (!host) return;
-    var cats = VAL.categories(status);
-
-    host.innerHTML = cats.map(function(c, i){
-      var p = c.lead;
-      var href = "projects.html?tab=" + encodeURIComponent(status) + "&cat=" + encodeURIComponent(c.name);
-      return '<section class="poster">' +
-               '<div class="poster__media">' +
-                 VAL.imgTag(p, VAL.cover(p), p.title + " — " + c.name, false, "100vw") +
-               '</div>' +
-               '<div class="poster__veil"></div>' +
-               '<span class="poster__n rv">' + VAL.pad(i + 1) + " / " + VAL.pad(cats.length) + '</span>' +
-               '<div class="poster__in">' +
-                 '<div>' +
-                   /* the label, then the category, then the button — in that order.
-                      The label names the lead project, and its location too once a
-                      project carries one. */
-                   '<span class="poster__eyebrow rv-l">' +
-                     VAL.esc([p.title, p.location].filter(Boolean).join(" · ")) + '</span>' +
-                   '<h3 class="poster__title"><span class="rv-l" data-d="1">' + VAL.esc(c.name) +
-                     '</span><span class="rv-l" data-d="2">Design</span></h3>' +
-                 '</div>' +
-                 '<a class="poster__cta rv-r" data-d="3" href="' + VAL.esc(href) + '">' +
-                   VAL.esc(c.name) + ' Portfolio <span class="ar">&rarr;</span></a>' +
-               '</div>' +
-             '</section>';
-    }).join("");
-
-    var count = document.querySelector('[data-deck-count="' + status + '"]');
-    if (count){
-      var total = VAL.byStatus(status).length;
-      count.textContent = VAL.pad(total) + (total === 1 ? " project" : " projects") +
-                          " · " + VAL.pad(cats.length) + (cats.length === 1 ? " category" : " categories");
-    }
-  }
   /* ---- hero reel: one cover per category the studio actually works in ---- */
   function buildHero(){
     var host = document.querySelector("[data-hero-slides]");
@@ -273,8 +227,30 @@ window.PAGE = function(VAL){
   }
   buildHero();
 
-  buildPosters("finished");
-  buildPosters("ongoing");
+  /* ---- the quiet grid: every project as a plate with its name under it ---- */
+  function buildGrid(status){
+    var host = document.querySelector('[data-grid="' + status + '"]');
+    if (!host) return;
+    var set = VAL.byStatus(status);
+    if (!set.length){ host.remove(); return; }
+
+    host.innerHTML = set.map(function(p, i){
+      return '<a class="ptile rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
+               '<span class="ptile__fig shot wipe">' +
+                 VAL.imgTag(p, VAL.cover(p), p.title, i < 3, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
+               '</span>' +
+               '<span class="ptile__name">' + VAL.esc(p.title) + '</span>' +
+             '</a>';
+    }).join("");
+
+    var count = document.querySelector('[data-deck-count="' + status + '"]');
+    if (count){
+      count.textContent = VAL.pad(set.length) + (set.length === 1 ? " project" : " projects");
+    }
+  }
+  buildGrid("finished");
+  buildGrid("ongoing");
+
 
   /* ---- the portrait, with a small variant so it arrives quickly ---- */
   var portrait = document.querySelector("[data-studio-portrait]");
