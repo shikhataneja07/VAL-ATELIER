@@ -9,6 +9,12 @@
 
 window.SITE = {
   name:    "Val Atelier",
+
+  /* REVIEW ONLY — shows the Full / Calm switch on the home page so the studio
+     can compare the two amounts of animation between projects. Set this to
+     false once the choice is made and the switch never renders. */
+  reviewToggle: true,
+
   tagline: "Interior Design Studio",
 
   /* TO CONFIRM — replace with the studio's real address */

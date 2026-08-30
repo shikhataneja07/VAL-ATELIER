@@ -100,6 +100,28 @@ window.CATEGORY_ORDER = ["Residential", "Retail", "Hospitality", "Commercial", "
 
 Delete a `LEADS` line and that category simply starts with whichever project comes first.
 
+### Two amounts of animation, to choose between
+
+The studio's first note on the home page was that there is too much animation between one
+project and the next. Rather than describe the alternative, the page carries both and lets
+them be compared: a **Full / Calm** switch, bottom left, appearing once the hero is behind
+you. The choice is stored, so a mode can be lived with rather than glimpsed.
+
+`data-motion` on `<html>` is the whole mechanism — nothing is duplicated, and the frames,
+type and grading are identical in both. Calm changes three things about the posters only:
+
+| | Full | Calm |
+| --- | --- | --- |
+| Each poster | pins, and the next rides over it | flows past |
+| Height | the whole screen | 74svh, so two can be seen at once |
+| Its text | four staggered slide-ins | one quiet fade |
+
+The run of posters is 4662px to scroll instead of 6300px, 26% less. Both carry all seven
+categories.
+
+**This is a review control.** `SITE.reviewToggle` in `assets/js/site.js` turns it off in one
+line once the studio has decided; set the winning mode as the default at the same time.
+
 ### WhatsApp
 
 The floating button owns the bottom-right corner. `--wa-foot` in the stylesheet is how much
