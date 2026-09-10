@@ -597,15 +597,19 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .hero__name{
   position:absolute;left:var(--pad);z-index:5;
   bottom:clamp(58px,9vh,96px);
-  margin:0;font-family:var(--disp);font-weight:400;color:var(--bone);
-  /* stops short of the reel in the opposite corner — measured, not guessed */
-  font-size:clamp(40px,12.2vw,178px);line-height:.86;letter-spacing:-.035em;
-  text-transform:uppercase;text-shadow:0 2px 44px rgba(10,8,6,.5);
+  margin:0;
+  /* The studio's mark stands here in place of the name set in type. Its
+     largest size is the one the artwork actually holds: the file is 420px
+     wide, so 210px stays sharp on a retina screen and no wider. A vector
+     copy of the mark would lift that cap. */
+  font-size:0;line-height:0;
+  filter:drop-shadow(0 2px 34px rgba(10,8,6,.55));
   opacity:0;transform:translateY(22px);filter:blur(10px);
   transition:opacity 1.25s var(--ease-out) .42s,transform 1.4s var(--ease-out) .42s,filter 1.2s var(--ease-out) .42s;
 }
 .hero.is-lit .hero__name{opacity:1;transform:none;filter:none}
-@media(max-width:700px){.hero__name{line-height:.92;letter-spacing:-.028em}}
+.hero__name img{display:block;width:clamp(132px,17vw,210px);height:auto}
+@media(max-width:700px){.hero__name img{width:clamp(120px,34vw,168px)}}
 
 /* which project is on screen, and the way through them */
 .hero__reel{

@@ -118,8 +118,13 @@
        cover into assets/press/<id>/ and fill in dir and image to replace it. */
     var hasFig = !!(e.image && e.dir);
     var fig = hasFig
-      ? '<div class="pcard__fig"><img src="' + esc(e.dir + "/" + e.image[0]) + '" width="' + e.image[1] +
-        '" height="' + e.image[2] + '" alt="' + esc(e.project || e.title) + '" loading="lazy" decoding="async"></div>'
+      ? '<div class="pcard__fig">' +
+          /* the plate is small, so it takes the small file like every other
+             photograph on the site rather than the full size original */
+          VAL.plainImg(e.dir + "/" + e.image[0], e.image[1], e.image[2],
+                       e.project || e.title,
+                       { sizes: "(max-width: 720px) 92vw, 30vw" }) +
+        '</div>'
       : '<div class="pcard__fig pcard__fig--mark">' +
           '<span class="pcard__mark">' +
             '<i class="pcard__rule"></i>' +

@@ -32,8 +32,8 @@ window.PRESS = [
        itself. Swap in the Architectural Digest India URL when you have it, so
        the card opens the feature rather than Instagram. */
     url: "https://www.instagram.com/p/Db2znBGEmij/",
-    dir: "",
-    image: null
+    dir: "assets/projects/the-good-side",
+    image: ["01.webp", 2000, 1333]
   },
   {
     id: "kids-rooms-ad-india",
@@ -45,8 +45,8 @@ window.PRESS = [
     byline: "",
     standfirst: "A Hyderabad home planned to Vastu, where the children's rooms carry the strongest ideas in the house.",
     url: "https://www.architecturaldigest.in/story/in-this-vastu-compliant-hyderabad-home-the-kids-rooms-steal-the-spotlight-val-atelier-vaishnavi-linga/",
-    dir: "",
-    image: null
+    dir: "assets/projects/kids-spaces",
+    image: ["01.webp", 1334, 2000]
   },
   {
     id: "ratio-ad-india",
@@ -58,8 +58,8 @@ window.PRESS = [
     byline: "",
     standfirst: "A 1970s house in Jubilee Hills reworked into a cafe built around stone, timber and daylight.",
     url: "https://www.architecturaldigest.in/story/this-1970s-hyderabad-home-is-transformed-into-a-soulful-cafe-with-thoughtful-design-ratio-restaurant/",
-    dir: "",
-    image: null
+    dir: "assets/projects/ratio",
+    image: ["13.webp", 2000, 1333]
   },
   {
     id: "ratio-interior-daily",
@@ -71,8 +71,8 @@ window.PRESS = [
     byline: "",
     standfirst: "The Netherlands based design title on the Jubilee Hills house that became a cafe.",
     url: "https://www.interiordaily.com/article/9808843/a-1970s-home-transformed-into-a-japandi-inspired-cafe-in-hyderabad-by-val-atelier/",
-    dir: "",
-    image: null
+    dir: "assets/projects/ratio",
+    image: ["08.webp", 2000, 1383]
   },
   {
     id: "ratio-love-that-design",
@@ -84,8 +84,8 @@ window.PRESS = [
     byline: "",
     standfirst: "Covered by one of the Middle East's leading design and architecture publications.",
     url: "https://www.lovethatdesign.com/project/ratio-cafe-hyderabad/",
-    dir: "",
-    image: null
+    dir: "assets/projects/ratio",
+    image: ["01.webp", 1333, 2000]
   },
   {
     id: "ratio-commercial-design",
@@ -97,8 +97,8 @@ window.PRESS = [
     byline: "",
     standfirst: "",
     url: "https://www.commercialdesignindia.com/projects/this-1970s-hyderabad-home-finds-new-life-as-a-soulful-design-led-cafe",
-    dir: "",
-    image: null
+    dir: "assets/projects/ratio",
+    image: ["11.webp", 1333, 2000]
   },
   {
     id: "ratio-architect-and-interiors",
@@ -110,8 +110,8 @@ window.PRESS = [
     byline: "",
     standfirst: "",
     url: "https://www.architectandinteriorsindia.com/projects/walk-into-4500-sq-ft-of-japandi-mindfulness-at-this-hyderabad-home-turned-into-a-cafe",
-    dir: "",
-    image: null
+    dir: "assets/projects/ratio",
+    image: ["18.webp", 1333, 2000]
   },
   {
     id: "ratio-indesignlive",
@@ -123,8 +123,8 @@ window.PRESS = [
     byline: "",
     standfirst: "",
     url: "https://www.indesignlive.com/projects/balance-and-ratio-cafe-hyderabad",
-    dir: "",
-    image: null
+    dir: "assets/projects/ratio",
+    image: ["22.webp", 2000, 1333]
   },
   {
     id: "concrete-calm-architecture-plus-design",
