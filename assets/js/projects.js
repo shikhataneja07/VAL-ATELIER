@@ -176,9 +176,8 @@ window.PROJECTS = [
     slug: "ratio",
     title: "Ra:tio",
     category: "Hospitality",
-    /* the eighth photograph leads: the courtyard, and the only wide frame
-       strong enough to carry the project on the home page */
-    cover: 8,
+    /* the studio chose the counter under its lit ceiling to lead */
+    cover: 13,
     status: "finished",
     typology: "",
     location: "",
@@ -236,36 +235,9 @@ window.PROJECTS = [
     images: [["01.webp",2000,1334],["02.webp",1334,2000],["03.webp",2000,1430],["04.webp",1334,2000],["05.webp",2000,1430],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1430]]
   },
   {
-    slug: "kids-spaces-harikha",
-    title: "Kids Spaces Harikha",
-    category: "Residential",
-    status: "finished",
-    typology: "",
-    location: "",
-    area: "",
-    scope: "Interior Design",
-    summary: "",
-    story: [],
-    notes: [],
-    dir: "assets/projects/kids-spaces-harikha",
-    images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1334,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1334],["09.webp",2000,1425],["10.webp",1424,2000],["11.webp",1359,2000]]
-  },
-  {
-    slug: "kids-spaces-akira",
-    title: "Kids Spaces Akira",
-    category: "Residential",
-    status: "finished",
-    typology: "",
-    location: "",
-    area: "",
-    scope: "Interior Design",
-    summary: "",
-    story: [],
-    notes: [],
-    dir: "assets/projects/kids-spaces-akira",
-    images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1349,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",1334,2000],["09.webp",1334,2000],["10.webp",1342,2000],["11.webp",1334,2000],["12.webp",1334,2000],["13.webp",1334,2000]]
-  },
-  {
+    /* Three rooms for the same family: Harikha's bedroom, Akira's bedroom and
+       the playroom they share. They arrived as three folders and are one
+       project, so the photographs run in that order behind a single entry. */
     slug: "kids-spaces",
     title: "Kids Spaces",
     category: "Residential",
@@ -278,7 +250,7 @@ window.PROJECTS = [
     story: [],
     notes: [],
     dir: "assets/projects/kids-spaces",
-    images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1402,2000],["04.webp",1496,2000],["05.webp",1334,2000],["06.webp",1334,2000],["07.webp",2000,1334],["08.webp",1334,2000],["09.webp",1334,2000],["10.webp",2000,1334],["11.webp",1334,2000],["12.webp",1334,2000],["13.webp",1334,2000]]
+    images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1334,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1334],["09.webp",2000,1425],["10.webp",1424,2000],["11.webp",1359,2000],["12.webp",1334,2000],["13.webp",1334,2000],["14.webp",1349,2000],["15.webp",1334,2000],["16.webp",1334,2000],["17.webp",2000,1334],["18.webp",1334,2000],["19.webp",1334,2000],["20.webp",1334,2000],["21.webp",1342,2000],["22.webp",1334,2000],["23.webp",1334,2000],["24.webp",1334,2000],["25.webp",1334,2000],["26.webp",1334,2000],["27.webp",1402,2000],["28.webp",1496,2000],["29.webp",1334,2000],["30.webp",1334,2000],["31.webp",2000,1334],["32.webp",1334,2000],["33.webp",1334,2000],["34.webp",2000,1334],["35.webp",1334,2000],["36.webp",1334,2000],["37.webp",1334,2000]]
   },
   {
     slug: "dsr",
@@ -315,6 +287,8 @@ window.PROJECTS = [
   },
   {
     slug: "aparna-one",
+    /* the living room, chosen by the studio to lead */
+    cover: 4,
     title: "Aparna One",
     /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
     cover: 4,

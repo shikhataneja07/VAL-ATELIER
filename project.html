@@ -69,12 +69,17 @@ window.PAGE = function(VAL){
      difference in height between them, so nothing is cropped and no space is
      left standing empty beside a tall plate. Below 760px it is a single
      column and the run reads straight through. */
-  var shots = p.images.slice(1);
+  /* The photograph the studio chose to lead runs whole at the top, and the
+     gallery is every other one in order. `cover` therefore means the same
+     thing here as it does on the home page and in the archive. */
+  var lead = VAL.cover(p);
+  var shots = p.images.map(function(_, i){ return i; })
+                      .filter(function(i){ return i !== lead; });
   var SIZES = "(max-width: 760px) 92vw, min(576px, 46vw)";
-  var gallery = shots.map(function(im, i){
-    return '<figure class="rv" data-d="' + (i % 3) + '" data-shot="' + (i + 1) + '">' +
+  var gallery = shots.map(function(idx, i){
+    return '<figure class="rv" data-d="' + (i % 3) + '" data-shot="' + idx + '">' +
              '<div class="shot wipe">' +
-               VAL.imgTag(p, i + 1, p.title + ", photograph " + (i + 2), i < 2, SIZES) +
+               VAL.imgTag(p, idx, p.title + ", photograph " + (i + 2), i < 2, SIZES) +
              '</div>' +
            '</figure>';
   }).join("");
@@ -86,8 +91,8 @@ window.PAGE = function(VAL){
     '<section class="mast" style="padding-bottom:0"><div class="wrap wrap--wide">' +
       '<a class="pj-back" href="' + backHref + '"><span class="ar">&larr;</span> ' +
         (p.status === "finished" ? "Selected work" : "Ongoing work") + '</a>' +
-      '<figure class="pj-lead wipe mt-l" style="--ar:' + VAL.ratio(p, 0).toFixed(4) + '">' +
-        VAL.imgTag(p, 0, p.title, true, "(max-width: 760px) 94vw, 60vw") + '</figure>' +
+      '<figure class="pj-lead wipe mt-l" style="--ar:' + VAL.ratio(p, lead).toFixed(4) + '">' +
+        VAL.imgTag(p, lead, p.title, true, "(max-width: 760px) 94vw, 60vw") + '</figure>' +
       '<div class="pj-head">' +
         '<div>' +
           '<span class="label rv-l">' + VAL.esc([p.category, p.typology, p.location].filter(Boolean).join(" · ")) + '</span>' +
@@ -157,7 +162,7 @@ window.PAGE = function(VAL){
     fig.addEventListener("click", function(){ open(parseInt(fig.dataset.shot, 10)); });
   });
   var heroImg = VAL.qs(".pj-lead img", host);
-  if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(0); }); }
+  if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(lead); }); }
 };
 </script>
 <script src="assets/js/val.js"></script>
