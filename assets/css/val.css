@@ -1023,15 +1023,33 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   transition:background .5s var(--ease);
 }
 @media(min-width:820px){.pcard{grid-template-columns:.42fr 1fr;align-items:stretch}}
-.pcard__fig{background:var(--frame);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
-.pcard__fig img{width:100%;height:auto;display:block;transition:transform 1.4s var(--ease)}
+/* Every plate is the same shape and the photograph fills it. The plate used
+   to size itself to the picture and sit centred in a column as tall as the
+   headline beside it, which left a band of empty page above and below a wide
+   photograph — and no two cards matched. The photograph is cropped to the
+   plate here; the whole frame is always on the project's own page. */
+.pcard__fig{background:var(--frame);overflow:hidden;position:relative;
+  display:flex;align-items:stretch;justify-content:center;
+  min-height:clamp(240px,27vw,392px)}
+/* laid out of the flow entirely: a tall photograph used to push its own card
+   taller than the rest, so no two plates matched down the page */
+.pcard__fig img{position:absolute;inset:0;width:100%;height:100%;display:block;
+  object-fit:cover;object-position:center;transition:transform 1.4s var(--ease)}
+/* stacked on a phone, every plate keeps one shape rather than following
+   whatever proportions its own photograph happens to have */
+@media(max-width:819px){
+  .pcard__fig{min-height:0;aspect-ratio:3/2}
+  .pcard__fig--mark{aspect-ratio:auto}
+}
 /* the plate a feature carries until its own cover image arrives: the
    publication set as a masthead, on the studio's own ground */
 .pcard__fig--mark{
   background:var(--putty);
-  min-height:clamp(190px,26vw,300px);
+  /* no min-height of its own: it takes the same one as a photograph plate,
+     so a card still waiting for its cover lines up with the rest */
   padding:clamp(24px,3vw,42px);
   border-right:1px solid var(--line);
+  align-items:center;
 }
 .pcard__mark{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;width:100%}
 .pcard__mark em{
