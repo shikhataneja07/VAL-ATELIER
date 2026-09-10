@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Val Atelier</title>
+<meta name="description" content="Contact Val Atelier. Interior design studio, Hyderabad. Send a plan, a location and a rough timeline, and the studio will reply directly.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/val.css">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#F2EEE7">
+</head>
+<body id="top">
+
+<div class="curtain"><img class="curtain__mark" src="assets/brand/val-atelier-mark-light.png" alt=""></div>
+
+<header data-header></header>
+<noscript><nav class="wrap" style="padding-top:100px"><a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="projects.html">Projects</a> · <a href="press.html">Press</a> · <a href="contact.html">Contact</a></nav></noscript>
+
+<main>
+
+  <section class="mast">
+    <div class="wrap">
+      <div class="crumb rv-l"><i class="bar"></i><span class="label">Enquiries</span></div>
+      <div class="mast__grid">
+        <h1 data-lines>Tell us about|the space.</h1>
+        <p class="lede rv-r" data-d="2">A plan, a location and roughly when you would like to be using it is enough to start. Every enquiry is read and answered by the studio, usually within two working days.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec--tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="ct-grid">
+
+        <!-- DETAILS ---------------------------------------------------- -->
+        <div>
+          <span class="label rv-l">The studio</span>
+          <div class="ct-rows mt-l" data-contact></div>
+
+          <div class="mt-xl rv">
+            <span class="label">Office hours</span>
+            <p class="body mt-l" style="margin-top:18px">Monday to Saturday, 10:00 &ndash; 18:00 IST.<br>Site visits by appointment.</p>
+          </div>
+
+          <div class="mt-xl rv">
+            <span class="label">Working across</span>
+            <p class="d3" style="margin-top:18px">Hyderabad &middot; Bangalore<br><span class="body" style="display:block;margin-top:10px">and elsewhere in India for the right project.</span></p>
+          </div>
+        </div>
+
+        <!-- ENQUIRY ---------------------------------------------------- -->
+        <div class="rv" data-d="1">
+          <span class="label">Enquiry</span>
+          <h2 class="d3 rv-l" style="margin:20px 0 34px">Five fields. Nothing you will have to repeat on a call.</h2>
+
+          <form class="form" data-form novalidate>
+            <div class="form__two">
+              <div class="field">
+                <label for="f-name">Your name</label>
+                <input id="f-name" name="name" type="text" placeholder="Full name" required>
+              </div>
+              <div class="field">
+                <label for="f-email">Email</label>
+                <input id="f-email" name="email" type="email" placeholder="you@example.com" required>
+              </div>
+            </div>
+
+            <div class="form__two">
+              <div class="field">
+                <label for="f-type">Project type</label>
+                <select id="f-type" name="type">
+                  <option>Residence</option>
+                  <option>Apartment</option>
+                  <option>Retail or boutique</option>
+                  <option>Café or restaurant</option>
+                  <option>Salon or wellness</option>
+                  <option>Workspace</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-where">Location</label>
+                <input id="f-where" name="where" type="text" placeholder="City or area">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-msg">About the space</label>
+              <textarea id="f-msg" name="message" placeholder="Size, condition, what you want it to become, and when you would like to start." required></textarea>
+            </div>
+
+            <div class="form__foot">
+              <button class="btn btn--solid" type="submit">Send enquiry <span class="ar">&rarr;</span></button>
+              <p>This opens your mail application with the enquiry ready to send, so nothing is stored on this site.</p>
+            </div>
+            <p class="form__msg" data-form-msg role="status"></p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING IMAGE ---------------------------------------------------- -->
+  <section class="bleed">
+    <div class="bleed__media"><img src="assets/projects/sas-crown/03.webp" width="1600" height="900" alt="" loading="lazy" decoding="async" data-para="0.06"></div>
+    <div class="bleed__in wrap">
+      <span class="label rv-l">Val Atelier</span>
+      <blockquote class="rv-l" data-d="1">A room should feel warm <em>the moment</em> you step into it.</blockquote>
+      <cite class="rv-l" data-d="2">Interior Design Studio &middot; Hyderabad</cite>
+    </div>
+  </section>
+
+</main>
+
+<footer data-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/projects.js"></script>
+<script>
+window.PAGE = function(VAL){
+  var S = window.SITE;
+
+  /* contact rows */
+  var rows = [
+    { k: "Email",     v: S.email,     href: "mailto:" + S.email },
+    { k: "Phone",     v: S.phone,     href: "tel:" + S.phoneLink },
+    { k: "Instagram", v: S.instagram, href: S.instagramLink, ext: true },
+    { k: "Studio",    v: S.addressLines.join(", ") }
+  ];
+  var host = document.querySelector("[data-contact]");
+  if (host){
+    host.innerHTML = rows.map(function(r, i){
+      var inner =
+        '<span class="k">' + VAL.esc(r.k) + '</span>' +
+        '<span class="v">' + VAL.esc(r.v) + '</span>' +
+        (r.href ? '<span class="ar">&rarr;</span>' : "");
+      return r.href
+        ? '<a class="ct-row rv" data-d="' + Math.min(i, 3) + '" href="' + VAL.esc(r.href) + '"' +
+          (r.ext ? ' target="_blank" rel="noopener"' : "") + '>' + inner + "</a>"
+        : '<div class="ct-row rv" data-d="' + Math.min(i, 3) + '">' + inner + "</div>";
+    }).join("");
+  }
+
+  /* enquiry — composed into a mail draft, so the static site keeps no data */
+  var form = document.querySelector("[data-form]");
+  var msg = document.querySelector("[data-form-msg]");
+  if (!form) return;
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var d = new FormData(form);
+    var name = (d.get("name") || "").trim();
+    var email = (d.get("email") || "").trim();
+    var body = (d.get("message") || "").trim();
+
+    if (!name || !email || !body){
+      msg.textContent = "Please add your name, email and a line about the space.";
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      msg.textContent = "That email address does not look right.";
+      return;
+    }
+
+    var lines = [
+      "Name: " + name,
+      "Email: " + email,
+      "Project type: " + (d.get("type") || "Not given"),
+      "Location: " + ((d.get("where") || "").trim() || "Not given"),
+      "",
+      body
+    ];
+    msg.textContent = "Opening your mail application…";
+    window.location.href = "mailto:" + S.email +
+      "?subject=" + encodeURIComponent("Project enquiry from " + name) +
+      "&body=" + encodeURIComponent(lines.join("\n"));
+  });
+};
+</script>
+<script src="assets/js/val.js"></script>
+</body>
+</html>

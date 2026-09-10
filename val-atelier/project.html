@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project · Val Atelier</title>
+<meta name="description" content="A Val Atelier project: the brief, the material palette and the full set of photographs.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/val.css">
+<link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#F2EEE7">
+</head>
+<body id="top">
+
+<div class="curtain"><img class="curtain__mark" src="assets/brand/val-atelier-mark-light.png" alt=""></div>
+
+<header data-header></header>
+<noscript><nav class="wrap" style="padding-top:100px"><a href="index.html">Home</a> · <a href="about.html">About</a> · <a href="projects.html">Projects</a> · <a href="press.html">Press</a> · <a href="contact.html">Contact</a></nav></noscript>
+
+<main data-project></main>
+
+<footer data-footer></footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/projects.js"></script>
+<script>
+window.PAGE = function(VAL){
+  var host = document.querySelector("[data-project]");
+  if (!host) return;
+
+  var slug = new URLSearchParams(location.search).get("p");
+  var p = slug ? VAL.find(slug) : null;
+
+  /* an unknown or missing slug lands somewhere useful rather than blank */
+  if (!p){
+    document.title = "Project not found · Val Atelier";
+    host.innerHTML =
+      '<section class="mast"><div class="wrap">' +
+        '<div class="crumb rv-l"><i class="bar"></i><span class="label">Archive</span></div>' +
+        '<h1 class="d2">That project isn&rsquo;t <em>here.</em></h1>' +
+        '<p class="lede measure mt-l">The link may be out of date, or the project has not been published yet.</p>' +
+        '<div class="mt-l rv"><a class="btn btn--solid" href="projects.html">Back to all projects <span class="ar">&rarr;</span></a></div>' +
+      '</div></section>';
+    return;
+  }
+
+  var siblings = VAL.byStatus(p.status);
+  var at = siblings.indexOf(p);
+  var prev = siblings[(at - 1 + siblings.length) % siblings.length];
+  var next = siblings[(at + 1) % siblings.length];
+
+  document.title = p.title + " · Val Atelier";
+  var desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute("content", p.summary);
+
+  var facts = [
+    ["Typology", p.typology],
+    ["Location", p.location],
+    ["Area",     p.area],
+    ["Scope",    p.scope],
+    ["Status",   p.status === "ongoing" ? "Ongoing" : "Completed"]
+  ].filter(function(f){ return f[1]; }).slice(0, 4);
+
+  /* The photographs run as one sequence down two tightly packed columns.
+     Every picture keeps its own proportions, and the columns absorb the
+     difference in height between them, so nothing is cropped and no space is
+     left standing empty beside a tall plate. Below 760px it is a single
+     column and the run reads straight through. */
+  var shots = p.images.slice(1);
+  var SIZES = "(max-width: 760px) 92vw, min(576px, 46vw)";
+  var gallery = shots.map(function(im, i){
+    return '<figure class="rv" data-d="' + (i % 3) + '" data-shot="' + (i + 1) + '">' +
+             '<div class="shot wipe">' +
+               VAL.imgTag(p, i + 1, p.title + ", photograph " + (i + 2), i < 2, SIZES) +
+             '</div>' +
+           '</figure>';
+  }).join("");
+
+  var backHref = "projects.html#" + p.status;
+
+  host.innerHTML =
+    /* the lead photograph, whole — its own proportions, title underneath */
+    '<section class="mast" style="padding-bottom:0"><div class="wrap wrap--wide">' +
+      '<a class="pj-back" href="' + backHref + '"><span class="ar">&larr;</span> ' +
+        (p.status === "finished" ? "Selected work" : "Ongoing work") + '</a>' +
+      '<figure class="pj-lead wipe mt-l" style="--ar:' + VAL.ratio(p, 0).toFixed(4) + '">' +
+        VAL.imgTag(p, 0, p.title, true, "(max-width: 760px) 94vw, 60vw") + '</figure>' +
+      '<div class="pj-head">' +
+        '<div>' +
+          '<span class="label rv-l">' + VAL.esc([p.category, p.typology, p.location].filter(Boolean).join(" · ")) + '</span>' +
+          '<h1 data-lines>' + VAL.esc(p.title) + '</h1>' +
+        '</div>' +
+        '<p class="body rv" data-d="1">' +
+          (p.status === "finished" ? "Completed" : "Ongoing") + '</p>' +
+      '</div>' +
+    '</div></section>' +
+
+    '<section class="sec--tight"><div class="wrap wrap--wide"><div class="pj-facts rv">' +
+      facts.map(function(f){
+        return '<div><span class="k">' + VAL.esc(f[0]) + '</span><span class="v">' + VAL.esc(f[1]) + '</span></div>';
+      }).join("") +
+    '</div></div>' +
+
+    /* the written copy is optional — a project with none simply goes
+       straight from its facts to its photographs */
+    ((p.summary || (p.story && p.story.length))
+      ? '<section class="sec"><div class="wrap wrap--wide">' +
+          '<div class="pj-story">' +
+            '<div><span class="label rv-l">The brief</span>' +
+              (p.summary ? '<p class="pull rv mt-l" data-d="1">' + VAL.esc(p.summary) + '</p>' : "") +
+            '</div>' +
+            '<div class="rv" data-d="2">' +
+              (p.story || []).map(function(t){ return '<p class="body">' + VAL.esc(t) + '</p>'; }).join("") +
+              (p.notes && p.notes.length
+                ? '<div class="chips">' + p.notes.map(function(n){ return '<span>' + VAL.esc(n) + '</span>'; }).join("") + '</div>'
+                : "") +
+            '</div>' +
+          '</div>' +
+        '</div></section>'
+      : '<div class="wrap wrap--wide" style="padding-top:clamp(40px,6vh,72px)"></div>') +
+
+    '<section class="sec" style="padding-top:0"><div class="wrap wrap--wide">' +
+      '<div class="head__top rv-l"><i class="bar" style="flex:0 0 44px;height:1px;background:var(--brass)"></i>' +
+        '<span class="label">Photographs</span></div>' +
+      '<div class="pj-gal" data-gal>' + gallery + '</div>' +
+    '</div></section>' +
+
+    '<nav class="pj-next" aria-label="More projects">' +
+      '<a class="prev rv-l" href="project.html?p=' + VAL.esc(prev.slug) + '">' +
+        '<span class="label">Previous</span><span class="t">' + VAL.esc(prev.title) + '</span></a>' +
+      '<a class="next rv-r" href="project.html?p=' + VAL.esc(next.slug) + '">' +
+        '<span class="label">Next</span><span class="t">' + VAL.esc(next.title) + '</span></a>' +
+    '</nav>' +
+
+    '<section class="cta">' +
+      '<div class="wrap"><span class="label rv">Enquiries</span>' +
+        '<h2 class="rv" data-d="1">Something like <em>this?</em></h2>' +
+        '<div class="cta__row rv" data-d="2">' +
+          '<a class="btn btn--solid" href="contact.html">Start an enquiry <span class="ar">&rarr;</span></a>' +
+          '<a class="btn" href="' + backHref + '">Back to the archive</a>' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+
+  VAL.splitLines(host);
+  window.dispatchEvent(new Event("scroll"));
+
+  /* full-frame viewer over every photograph in the project */
+  var shots = p.images.map(function(im, i){
+    return { src: p.dir + "/" + im[0], alt: p.title + ", photograph " + (i + 1) };
+  });
+  var open = VAL.lightbox(shots);
+  VAL.qsa("[data-shot]", host).forEach(function(fig){
+    fig.addEventListener("click", function(){ open(parseInt(fig.dataset.shot, 10)); });
+  });
+  var heroImg = VAL.qs(".pj-lead img", host);
+  if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(0); }); }
+};
+</script>
+<script src="assets/js/val.js"></script>
+</body>
+</html>
