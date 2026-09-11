@@ -23,7 +23,11 @@
 
    OPTIONS
        el          selector or element        default "[data-splash]"
-       once        "session" | "always"       default "session"
+       once        "entry"   shown whenever somebody arrives: a direct load,
+                             a refresh, or a link from off the site, but not
+                             when moving from page to page within it (default)
+                 "session"   once a visit
+                 "always"    every single load
        onComplete  called exactly once, whether the sequence ran, was
                    skipped, or had to be cut short
        maxWait     ms before the cover is pulled regardless  default 6000
@@ -59,6 +63,15 @@
   function seen(){
     try { return !!sessionStorage.getItem(SEEN_KEY); } catch (e) { return false; }
   }
+  /* Arriving is not the same as moving about. A splash belongs on the way in
+     — typed, refreshed, or followed from somewhere else — and is an
+     irritation on the way back from the About page. */
+  function fromInsideTheSite(){
+    try {
+      if (!document.referrer) return false;
+      return new URL(document.referrer).origin === location.origin;
+    } catch (e) { return false; }
+  }
   function markSeen(){
     try { sessionStorage.setItem(SEEN_KEY, "1"); } catch (e) {}
   }
@@ -67,7 +80,7 @@
     options = options || {};
     var opt = {
       el:         options.el         || "[data-splash]",
-      once:       options.once       || "session",
+      once:       options.once       || "entry",
       onComplete: options.onComplete || null,
       maxWait:    options.maxWait    || 6000
     };
@@ -92,7 +105,9 @@
 
     /* Nothing to cover, already shown this visit, or stillness asked for:
        hand straight over. */
-    if (!el || prefersStill() || (opt.once === "session" && seen())) { done(); return null; }
+    var skip = (opt.once === "session" && seen()) ||
+               (opt.once === "entry"   && fromInsideTheSite());
+    if (!el || prefersStill() || skip) { done(); return null; }
 
     root.classList.add("is-splashing");
     /* However badly the rest of this goes, the page is handed back. */

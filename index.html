@@ -10,10 +10,11 @@
    back rather than spend its reveal behind the splash. preloader.js reads
    the same flag, so the two can never disagree about whether it runs. */
 (function(){
-  var still = false, seen = false;
+  var still = false, inside = false;
   try { still = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-  try { seen  = !!sessionStorage.getItem('val:splash'); } catch (e) {}
-  window.VAL_SPLASH = !still && !seen;
+  try { inside = !!document.referrer &&
+                 new URL(document.referrer).origin === location.origin; } catch (e) {}
+  window.VAL_SPLASH = !still && !inside;
 })();</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
