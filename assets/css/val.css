@@ -415,7 +415,9 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 html.js .splash{
   position:fixed;inset:0;z-index:9999;
   display:flex;align-items:center;justify-content:center;
-  background:#0a0a0a;color:#d8d4cd;
+  /* the studio's own deepest ink, not a colour borrowed from another
+     studio's branding */
+  background:var(--ink-deep);color:var(--bone-mute);
   will-change:transform;
 }
 @media(prefers-reduced-motion:reduce){html.js .splash{display:none}}
@@ -424,12 +426,13 @@ html.is-splashing{overflow:hidden}
 .splash__lock{text-align:center;transform-origin:50% 50%}
 /* The mark rises out of a clip rather than sliding over the ground, the same
    way a photograph arrives elsewhere on the site. */
-.splash__mark{display:block;overflow:hidden}
+.splash__mark{display:block}
 .splash__mark img{
   /* phase two scales the lockup by 1.045, so it is the size after that which
      has to stay inside the artwork's 1000px */
   display:block;width:clamp(170px,32vw,400px);height:auto;
-  transform:translateY(112%);opacity:0;
+  /* it arrives a little large and closes on its own size */
+  transform:scale(1.08);opacity:0;
 }
 /* nothing moves it if the sequence never runs */
 .splash.is-ready .splash__mark img,
@@ -438,8 +441,8 @@ html:not(.js) .splash__mark img{transform:none;opacity:1}
 /* the sequence without GSAP: the same three phases, same timings */
 .splash.is-css .splash__mark img{animation:splashMark 1s var(--ease-out) both}
 .splash.is-css .splash__lock{animation:splashHold .8s var(--ease-out) 1.2s both}
-.splash.is-css.is-out{transform:translateY(-100%);transition:transform .8s cubic-bezier(.76,0,.24,1)}
-@keyframes splashMark{from{transform:translateY(112%);opacity:0}to{transform:translateY(0);opacity:1}}
+.splash.is-css.is-out{transform:translateX(-100%);transition:transform .8s cubic-bezier(.76,0,.24,1)}
+@keyframes splashMark{from{transform:scale(1.08);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes splashHold{from{transform:scale(1)}to{transform:scale(1.045)}}
 
 /* ---------- page transition curtain ----------

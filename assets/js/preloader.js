@@ -48,7 +48,7 @@
   /* The shape of the sequence, in seconds, so the phases can be read at a
      glance and moved without hunting through the timeline. */
   var T = {
-    mark:       { at: 0.00, dur: 1.00 },                  /* phase 1 */
+    mark:       { at: 0.00, dur: 1.00, from: 1.08 },      /* phase 1 */
     letters:    { at: 0.00, dur: 0.90, stagger: 0.085 },  /*   or, set in type */
     sub:        { at: 0.35, dur: 0.90 },
     hold:       { at: 1.20, dur: 0.80, scale: 1.045 },    /* phase 2 */
@@ -146,13 +146,13 @@
     var gsap = window.gsap;
     var tl = gsap.timeline({ defaults: { ease: "power3.out" }, onComplete: done });
 
-    /* phase 1 — the mark rises out of nothing, clipped so it arrives rather
-       than slides */
+    /* phase 1 — the mark comes up out of nothing and settles: it arrives a
+       little large and closes on its own size as it fades in */
     tl.set(el, { autoAlpha: 1 });
     if (mark){
       tl.fromTo(mark,
-        { yPercent: 112, opacity: 0 },
-        { yPercent: 0, opacity: 1, duration: T.mark.dur },
+        { opacity: 0, scale: T.mark.from },
+        { opacity: 1, scale: 1, duration: T.mark.dur },
         T.mark.at);
     } else {
       tl.fromTo(letters,
@@ -172,9 +172,11 @@
       { scale: T.hold.scale, duration: T.hold.dur, ease: "power1.out" },
       T.hold.at);
 
-    /* phase 3 — the cover leaves upward and the page behind it begins */
+    /* phase 3 — the cover is drawn off sideways and the page behind it
+       begins. Sideways rather than up: the page underneath arrives across
+       the frame instead of being uncovered from beneath. */
     tl.to(el,
-      { yPercent: -100, duration: T.wipe.dur, ease: "power4.inOut" },
+      { xPercent: -100, duration: T.wipe.dur, ease: "power4.inOut" },
       T.wipe.at);
 
     return tl;
