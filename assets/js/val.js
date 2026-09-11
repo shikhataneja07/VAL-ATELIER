@@ -197,7 +197,7 @@
     host.innerHTML =
       '<div class="hdr__in">' +
         '<a class="brand" href="index.html" aria-label="' + esc(SITE.name) + ', home">' +
-          '<img src="assets/brand/val-wordmark.png" alt="' + esc(SITE.name) + '">' +
+          '<img src="assets/brand/val-wordmark.webp" alt="' + esc(SITE.name) + '">' +
           '<span class="brand__tag">' + esc(SITE.tagline) + '<br>' + esc(SITE.city) + '</span>' +
         '</a>' +
         '<nav class="nav" aria-label="Primary">' + links + '</nav>' +
@@ -256,7 +256,7 @@
       '<div class="wrap">' +
         '<div class="foot__grid">' +
           '<div>' +
-            '<img class="foot__mark" src="assets/brand/val-atelier-mark-light.png" alt="' + esc(SITE.name) + '">' +
+            '<img class="foot__mark" src="assets/brand/val-atelier-mark-light.webp" alt="' + esc(SITE.name) + '">' +
             '<p class="lede measure-sm">Interiors made to be lived in. Quiet, material and unhurried.</p>' +
           '</div>' +
           '<div>' +
@@ -514,7 +514,14 @@
     var h = qs(".hero");
     if (!h) return;
     var img = qs("img", h);
-    function lit(){ h.classList.add("is-lit"); }
+    /* A splash screen, where one is running, owns the moment the hero
+       lights: there is nothing to be gained by spending the reveal behind a
+       cover. It calls VAL.lightHero() as it lifts. The cap below is in case
+       that script never arrives at all — the hero is never left dark. */
+    VAL.heroHeld = !!window.VAL_SPLASH;
+    function lit(){ if (!VAL.heroHeld) h.classList.add("is-lit"); }
+    VAL.lightHero = function(){ VAL.heroHeld = false; lit(); };
+    if (VAL.heroHeld) setTimeout(VAL.lightHero, 5200);
     if (!img){ lit(); return; }
     if (img.complete && img.naturalWidth) lit();
     else {

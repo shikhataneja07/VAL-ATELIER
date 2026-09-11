@@ -405,6 +405,43 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .sheet__foot a svg{width:17px;height:17px;fill:currentColor}
 .sheet__foot a:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
 
+/* ---------- splash screen ----------
+   The opening cover. It is display:none by default and only shown once the
+   page has said it can run JavaScript, because a cover that cannot be lifted
+   is a black screen with the site behind it. Same reason it goes when someone
+   has asked for less motion. preloader.js drives it; the rules below are all
+   that is needed to run the sequence when GSAP never arrives. */
+.splash{display:none}
+html.js .splash{
+  position:fixed;inset:0;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  background:#0a0a0a;color:#d8d4cd;
+  will-change:transform;
+}
+@media(prefers-reduced-motion:reduce){html.js .splash{display:none}}
+html.is-splashing{overflow:hidden}
+
+.splash__lock{text-align:center;transform-origin:50% 50%}
+/* The mark rises out of a clip rather than sliding over the ground, the same
+   way a photograph arrives elsewhere on the site. */
+.splash__mark{display:block;overflow:hidden}
+.splash__mark img{
+  /* phase two scales the lockup by 1.045, so it is the size after that which
+     has to stay inside the artwork's 1000px */
+  display:block;width:clamp(170px,32vw,400px);height:auto;
+  transform:translateY(112%);opacity:0;
+}
+/* nothing moves it if the sequence never runs */
+.splash.is-ready .splash__mark img,
+html:not(.js) .splash__mark img{transform:none;opacity:1}
+
+/* the sequence without GSAP: the same three phases, same timings */
+.splash.is-css .splash__mark img{animation:splashMark 1s var(--ease-out) both}
+.splash.is-css .splash__lock{animation:splashHold .8s var(--ease-out) 1.2s both}
+.splash.is-css.is-out{transform:translateY(-100%);transition:transform .8s cubic-bezier(.76,0,.24,1)}
+@keyframes splashMark{from{transform:translateY(112%);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes splashHold{from{transform:scale(1)}to{transform:scale(1.045)}}
+
 /* ---------- page transition curtain ----------
    Without JS the curtain simply sits off-screen and never shows. With JS it
    covers the page before first paint, lifts away on arrival, and drops back
@@ -598,18 +635,17 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   position:absolute;left:var(--pad);z-index:5;
   bottom:clamp(58px,9vh,96px);
   margin:0;
-  /* The studio's mark stands here in place of the name set in type. Its
-     largest size is the one the artwork actually holds: the file is 420px
-     wide, so 210px stays sharp on a retina screen and no wider. A vector
-     copy of the mark would lift that cap. */
+  /* The studio's mark stands here in place of the name set in type, at the
+     largest size the artwork holds: it is 1000px wide, so 340px is still
+     comfortably inside its own pixels on a retina screen. */
   font-size:0;line-height:0;
   filter:drop-shadow(0 2px 34px rgba(10,8,6,.55));
   opacity:0;transform:translateY(22px);filter:blur(10px);
   transition:opacity 1.25s var(--ease-out) .42s,transform 1.4s var(--ease-out) .42s,filter 1.2s var(--ease-out) .42s;
 }
 .hero.is-lit .hero__name{opacity:1;transform:none;filter:none}
-.hero__name img{display:block;width:clamp(132px,17vw,210px);height:auto}
-@media(max-width:700px){.hero__name img{width:clamp(120px,34vw,168px)}}
+.hero__name img{display:block;width:clamp(150px,26vw,340px);height:auto}
+@media(max-width:700px){.hero__name img{width:clamp(140px,42vw,220px)}}
 
 /* which project is on screen, and the way through them */
 .hero__reel{
