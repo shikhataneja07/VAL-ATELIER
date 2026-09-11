@@ -422,38 +422,26 @@ html.js .splash{
 html.is-splashing{overflow:hidden}
 
 .splash__lock{text-align:center;transform-origin:50% 50%}
-.splash__word{
-  display:flex;justify-content:center;
-  font-family:var(--splash-font,var(--sans));
-  /* 600 is the heaviest weight the self-hosted face declares, and the
-     nearest to the mark's own. Asking for 700 has the browser fake a bold
-     it does not have. Link Syne or Montserrat and set --splash-font and
-     --splash-weight to go heavier than this. */
-  font-weight:var(--splash-weight,600);letter-spacing:-.03em;line-height:.9;
-  font-size:clamp(74px,17vw,208px);
+/* The mark rises out of a clip rather than sliding over the ground, the same
+   way a photograph arrives elsewhere on the site. Its largest size is the one
+   the artwork holds: 420px wide, so 240px stays clean on a retina screen and
+   no wider. A vector copy of the mark lifts that cap. */
+.splash__mark{display:block;overflow:hidden}
+.splash__mark img{
+  /* 230 rather than 240: phase two scales the lockup by 1.045, and it is the
+     size after that which has to stay inside the artwork's own pixels */
+  display:block;width:clamp(150px,21vw,230px);height:auto;
+  transform:translateY(112%);opacity:0;
 }
-/* each letter is its own box so it can be carried in on its own beat, and
-   clipped so it rises out of nothing rather than sliding over the ground */
-.splash__word span{display:block;overflow:hidden}
-.splash__word b{display:block;font-weight:inherit}
-.splash__sub{
-  margin-top:clamp(12px,1.6vw,22px);
-  font-family:var(--splash-font,var(--sans));
-  font-weight:400;text-transform:uppercase;
-  font-size:clamp(9px,1vw,13px);letter-spacing:.52em;
-  /* the tracking opens as it arrives, so the indent keeps it centred */
-  text-indent:.52em;color:#9b958c;
-}
+/* nothing moves it if the sequence never runs */
+.splash.is-ready .splash__mark img,
+html:not(.js) .splash__mark img{transform:none;opacity:1}
 
 /* the sequence without GSAP: the same three phases, same timings */
-.splash.is-css .splash__word b{animation:splashLetter .9s var(--ease-out) both}
-.splash.is-css .splash__word span:nth-child(2) b{animation-delay:.085s}
-.splash.is-css .splash__word span:nth-child(3) b{animation-delay:.17s}
-.splash.is-css .splash__sub{animation:splashSub .9s var(--ease-out) .35s both}
+.splash.is-css .splash__mark img{animation:splashMark 1s var(--ease-out) both}
 .splash.is-css .splash__lock{animation:splashHold .8s var(--ease-out) 1.2s both}
 .splash.is-css.is-out{transform:translateY(-100%);transition:transform .8s cubic-bezier(.76,0,.24,1)}
-@keyframes splashLetter{from{transform:translateY(115%);opacity:0}to{transform:translateY(0);opacity:1}}
-@keyframes splashSub{from{opacity:0;letter-spacing:.16em;text-indent:.16em}to{opacity:1;letter-spacing:.52em;text-indent:.52em}}
+@keyframes splashMark{from{transform:translateY(112%);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes splashHold{from{transform:scale(1)}to{transform:scale(1.045)}}
 
 /* ---------- page transition curtain ----------

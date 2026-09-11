@@ -44,7 +44,8 @@
   /* The shape of the sequence, in seconds, so the phases can be read at a
      glance and moved without hunting through the timeline. */
   var T = {
-    letters:    { at: 0.00, dur: 0.90, stagger: 0.085 },  /* phase 1 */
+    mark:       { at: 0.00, dur: 1.00 },                  /* phase 1 */
+    letters:    { at: 0.00, dur: 0.90, stagger: 0.085 },  /*   or, set in type */
     sub:        { at: 0.35, dur: 0.90 },
     hold:       { at: 1.20, dur: 0.80, scale: 1.045 },    /* phase 2 */
     wipe:       { at: 2.00, dur: 0.80 }                   /* phase 3 */
@@ -97,6 +98,11 @@
     /* However badly the rest of this goes, the page is handed back. */
     capId = setTimeout(done, opt.maxWait);
 
+    /* Phase 1 works either way round: a piece of artwork rises out of its
+       clip, or, where the name is set in type instead, the letters come in
+       one after another. Val Atelier uses the mark, because the a in it is a
+       circle and a stroke and no typeface will give you that. */
+    var mark    = el.querySelector("[data-splash-mark]");
     var letters = el.querySelectorAll("[data-splash-letter]");
     var sub     = el.querySelector("[data-splash-sub]");
     var lock    = el.querySelector("[data-splash-lock]") || el.firstElementChild;
@@ -107,27 +113,43 @@
        CDN will actually see. */
     if (!window.gsap || !window.gsap.timeline) {
       el.classList.add("is-css");
+      setTimeout(function(){ el.classList.add("is-ready"); }, T.mark.dur * 1000);
       setTimeout(function(){ el.classList.add("is-out"); }, T.wipe.at * 1000);
       setTimeout(done, TOTAL + 80);
       return null;
     }
 
     /* ---- with GSAP ------------------------------------------------------ */
+    /* The stylesheet holds the mark hidden so it cannot flash before the
+       sequence starts. If GSAP is here but its tween never runs, that would
+       leave a blank cover, so the resting state is restored by class once
+       phase one is over. GSAP writes inline styles, which win over this, so
+       it costs nothing when everything works. */
+    setTimeout(function(){ el.classList.add("is-ready"); },
+               (T.mark.at + T.mark.dur) * 1000 + 120);
+
     var gsap = window.gsap;
     var tl = gsap.timeline({ defaults: { ease: "power3.out" }, onComplete: done });
 
-    /* phase 1 — the name is set, letter by letter, and the word beneath it
-       opens out as it arrives */
+    /* phase 1 — the mark rises out of nothing, clipped so it arrives rather
+       than slides */
     tl.set(el, { autoAlpha: 1 });
-    tl.fromTo(letters,
-      { yPercent: 115, opacity: 0 },
-      { yPercent: 0, opacity: 1, duration: T.letters.dur, stagger: T.letters.stagger },
-      T.letters.at);
-    if (sub){
-      tl.fromTo(sub,
-        { opacity: 0, letterSpacing: "0.16em" },
-        { opacity: 1, letterSpacing: "0.52em", duration: T.sub.dur },
-        T.sub.at);
+    if (mark){
+      tl.fromTo(mark,
+        { yPercent: 112, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: T.mark.dur },
+        T.mark.at);
+    } else {
+      tl.fromTo(letters,
+        { yPercent: 115, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: T.letters.dur, stagger: T.letters.stagger },
+        T.letters.at);
+      if (sub){
+        tl.fromTo(sub,
+          { opacity: 0, letterSpacing: "0.16em" },
+          { opacity: 1, letterSpacing: "0.52em", duration: T.sub.dur },
+          T.sub.at);
+      }
     }
 
     /* phase 2 — held, with a drift too slow to read as movement */
