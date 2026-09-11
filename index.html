@@ -5,16 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Val Atelier · Interior Design Studio</title>
 <meta name="description" content="Val Atelier is a design-led interior architecture studio in Hyderabad led by Vaishnavi Linga, working across residential, retail, hospitality, commercial and corporate interiors.">
-<script>document.documentElement.classList.add('js');
-/* Decided here, before the first paint, so val.js knows to hold the hero
-   back rather than spend its reveal behind the splash. preloader.js reads
-   the same flag, so the two can never disagree about whether it runs. */
-(function(){
-  var still = false, seen = false;
-  try { still = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
-  try { seen  = !!sessionStorage.getItem('val:splash'); } catch (e) {}
-  window.VAL_SPLASH = !still && !seen;
-})();</script>
+<script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/val.css">
@@ -23,20 +14,6 @@
 <meta name="theme-color" content="#F2EEE7">
 </head>
 <body id="top" data-hero-dark>
-
-<!-- SPLASH — the opening sequence. Decorative: the page's real heading is
-     the hero below, so this is hidden from screen readers. Each letter sits
-     in its own clipping box so it can be carried in on its own beat. -->
-<div class="splash" data-splash aria-hidden="true">
-  <div class="splash__lock" data-splash-lock>
-    <!-- the studio's own mark, not the name set in type: the a is a circle
-         and a stroke, which no typeface will give you -->
-    <span class="splash__mark">
-      <img data-splash-mark src="assets/brand/val-atelier-mark-light.png"
-           width="420" height="310" alt="" fetchpriority="high" decoding="async">
-    </span>
-  </div>
-</div>
 
 <div class="curtain"><img class="curtain__mark" src="assets/brand/val-atelier-mark-light.png" alt=""></div>
 
@@ -322,19 +299,6 @@ window.PAGE = function(VAL){
   if (pc) pc.textContent = VAL.pad(press.length) + (press.length === 1 ? " feature" : " features");
 };
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="assets/js/preloader.js"></script>
 <script src="assets/js/val.js"></script>
-<script>
-  /* The cover lifts, and the page behind it begins: the hero lights, and
-     anything already scrolled past is let in. */
-  initPreloader({
-    onComplete: function(){
-      if (window.VAL && VAL.lightHero) VAL.lightHero();
-      document.documentElement.classList.add('is-ready');
-      window.dispatchEvent(new Event('scroll'));
-    }
-  });
-</script>
 </body>
 </html>
