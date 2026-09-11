@@ -739,11 +739,20 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .panel.is-on{display:block;animation:panelIn .75s var(--ease-out) both}
 @keyframes panelIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
 
-/* editorial project grid — two columns, natural proportions. The gap below a
-   card is the gap between the columns plus room for its name, so the field
-   reads evenly rather than opening up a band of empty page between rows. */
-.grid-work{column-gap:clamp(20px,2.6vw,44px)}
-.grid-work > *{margin-bottom:clamp(30px,3.4vw,52px)}
+/* The archive: two columns whose rows line up. It used to be a masonry, and
+   with covers in mixed proportions no two cards down the page began at the
+   same height, so one panel read as tidy and the other as ragged. Every
+   cover now takes the same shape, which is the one crop on this page; the
+   whole frame is on the project's own page. */
+.grid-work{
+  display:grid;grid-template-columns:1fr;
+  gap:clamp(30px,3.4vw,52px) clamp(20px,2.6vw,44px);
+  column-count:auto;
+}
+@media(min-width:721px){.grid-work{grid-template-columns:repeat(2,1fr)}}
+.grid-work > *{margin-bottom:0;break-inside:auto}
+.grid-work .card .shot{aspect-ratio:3/2}
+.grid-work .card .shot img{width:100%;height:100%;object-fit:cover;object-position:center}
 .card{position:relative;display:block}
 .card__n{
   position:absolute;top:16px;left:16px;z-index:3;
@@ -842,21 +851,25 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:34px}
 .chips span{border:1px solid var(--line);padding:10px 16px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
 
-/* The project gallery: one run of photographs down two tightly packed
-   columns. Every picture keeps its own proportions and the columns take up
-   the difference in height between them, so nothing is cropped and no space
-   is left standing empty beside a tall plate. The vertical gap matches the
-   gap between the columns, so the run reads as an even field. */
+/* The project gallery, as a spread. Rows are filled and then scaled to span
+   the column exactly, so the photographs come at different sizes while the
+   space between them never changes: one gap value, used both between two
+   pictures side by side and between one row and the next. project.html works
+   out the widths; everything here is what holds without JavaScript. */
 .pj-gal{
-  column-count:1;column-gap:clamp(12px,1.5vw,22px);
+  display:flex;flex-wrap:wrap;align-items:flex-start;
+  gap:clamp(10px,1.15vw,16px);
   max-width:1180px;margin:0 auto;
 }
 .pj-gal figure{
-  break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;
-  display:block;margin:0 0 clamp(12px,1.5vw,22px);cursor:zoom-in;
+  margin:0;cursor:zoom-in;flex:0 0 auto;
+  /* the resting width, used until justify() measures the page and on a
+     browser with JavaScript turned off */
+  width:calc(50% - clamp(5px,.58vw,8px));
 }
-.pj-gal .shot{display:block}
-@media(min-width:760px){.pj-gal{column-count:2}}
+@media(max-width:639px){.pj-gal figure{width:100%}}
+.pj-gal .shot{display:block;aspect-ratio:var(--r)}
+.pj-gal .shot img{width:100%;height:auto;display:block}
 .pj-gal figcaption{margin-top:11px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 
 .pj-next{border-top:1px solid var(--line);display:grid;gap:1px;background:var(--line)}

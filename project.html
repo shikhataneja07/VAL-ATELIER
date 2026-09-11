@@ -64,22 +64,20 @@ window.PAGE = function(VAL){
     ["Status",   p.status === "ongoing" ? "Ongoing" : "Completed"]
   ].filter(function(f){ return f[1]; }).slice(0, 4);
 
-  /* The photographs run as one sequence down two tightly packed columns.
-     Every picture keeps its own proportions, and the columns absorb the
-     difference in height between them, so nothing is cropped and no space is
-     left standing empty beside a tall plate. Below 760px it is a single
-     column and the run reads straight through. */
-  /* The photograph the studio chose to lead runs whole at the top, and the
-     gallery is every other one in order. `cover` therefore means the same
-     thing here as it does on the home page and in the archive. */
+  /* The photographs run as a magazine spread: rows of mixed sizes, where a
+     wide frame sits next to a narrow one, every picture keeps its own
+     proportions, and each row is scaled so it fills the width exactly. That
+     way the sizes vary but the gaps never do, and no row trails off with
+     space left standing at the end of it. The widths are worked out in
+     justify() below, once the page knows how wide it is. */
   var lead = VAL.cover(p);
   var shots = p.images.map(function(_, i){ return i; })
                       .filter(function(i){ return i !== lead; });
-  var SIZES = "(max-width: 760px) 92vw, min(576px, 46vw)";
   var gallery = shots.map(function(idx, i){
-    return '<figure class="rv" data-d="' + (i % 3) + '" data-shot="' + idx + '">' +
+    return '<figure class="rv" data-d="' + (i % 3) + '" data-shot="' + idx + '"' +
+             ' style="--r:' + VAL.ratio(p, idx).toFixed(5) + '">' +
              '<div class="shot wipe">' +
-               VAL.imgTag(p, idx, p.title + ", photograph " + (i + 2), i < 2, SIZES) +
+               VAL.imgTag(p, idx, p.title + ", photograph " + (i + 2), i < 2, "50vw") +
              '</div>' +
            '</figure>';
   }).join("");
@@ -149,6 +147,77 @@ window.PAGE = function(VAL){
         '</div>' +
       '</div>' +
     '</section>';
+
+  /* ---- the spread -------------------------------------------------------
+     Fill a row with photographs until their combined width would drop the
+     row below a target height, then scale that row so it spans the column
+     exactly. Every picture in a row therefore shares one height while their
+     widths differ, which is what makes a wide frame read against a narrow
+     one. Nothing is cropped: the width follows each picture's own
+     proportions. The gap is a single value, so the space between two
+     photographs side by side is the same as the space between two rows. */
+  function justify(){
+    var gal = VAL.qs("[data-gal]", host);
+    if (!gal) return;
+    var figs = VAL.qsa("figure", gal);
+    if (!figs.length) return;
+    /* the exact width, not the rounded one: clientWidth rounds to whole
+       pixels and rounding up by a fraction is enough to push the last
+       photograph of every row on to a line of its own. Half a pixel is left
+       spare so a row can never overflow. */
+    var W = gal.getBoundingClientRect().width - 0.5;
+    if (W <= 0) return;
+    var G = parseFloat(getComputedStyle(gal).columnGap) || 12;
+    /* on a phone one photograph fills the width; wider than that, a row is
+       aimed at roughly a third of the column's width in height */
+    var target = W < 640 ? W * 1.6 : Math.max(330, Math.min(470, W * 0.36));
+    var limit = W / target;
+
+    var rows = [], cur = [], sum = 0;
+    figs.forEach(function(f){
+      var r = parseFloat(f.style.getPropertyValue("--r")) || 1.5;
+      cur.push({ f: f, r: r }); sum += r;
+      if (sum >= limit){ rows.push(cur); cur = []; sum = 0; }
+    });
+    if (cur.length) rows.push(cur);
+
+    /* A last row left with one tall photograph would tower over everything
+       above it. Pull the picture before it down to keep it company — they
+       are neighbours in the sequence, so the order is undisturbed. */
+    function rowHeight(row){
+      var s = 0; row.forEach(function(x){ s += x.r; });
+      return (W - G * (row.length - 1)) / s;
+    }
+    while (rows.length > 1){
+      var last = rows[rows.length - 1], prev = rows[rows.length - 2];
+      if (rowHeight(last) <= target * 1.45 || prev.length < 2) break;
+      last.unshift(prev.pop());
+    }
+
+    rows.forEach(function(row){
+      var avail = W - G * (row.length - 1);
+      var s = 0; row.forEach(function(x){ s += x.r; });
+      var h = avail / s, used = 0;
+      row.forEach(function(x, i){
+        /* the last one takes whatever rounding left over, so the row spans
+           the column to the pixel rather than a hair short of it */
+        /* kept to a hundredth of a pixel rather than rounded to a whole one:
+           a whole pixel of width is a visible pixel of height, and the
+           photographs in a row are meant to stand exactly level */
+        var w = (i === row.length - 1) ? (avail - used) : Math.round(x.r * h * 100) / 100;
+        used += w;
+        x.f.style.width = w + "px";
+        var im = x.f.querySelector("img");
+        if (im) im.sizes = Math.round(w) + "px";
+      });
+    });
+  }
+  justify();
+  var reflow;
+  window.addEventListener("resize", function(){
+    clearTimeout(reflow);
+    reflow = setTimeout(justify, 120);
+  }, { passive: true });
 
   VAL.splitLines(host);
   window.dispatchEvent(new Event("scroll"));

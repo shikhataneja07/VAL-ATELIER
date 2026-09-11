@@ -39,8 +39,8 @@ window.PRESS = [
     id: "kids-rooms-ad-india",
     outlet: "Architectural Digest India",
     title: "In this Vastu compliant Hyderabad home, the kids' rooms steal the spotlight",
-    project: "",
-    projectSlug: "",
+    project: "Kids Spaces",
+    projectSlug: "kids-spaces",
     date: "",
     byline: "",
     standfirst: "A Hyderabad home planned to Vastu, where the children's rooms carry the strongest ideas in the house.",
@@ -130,17 +130,21 @@ window.PRESS = [
     id: "concrete-calm-architecture-plus-design",
     outlet: "Architecture+Design",
     title: "Val Atelier: a Hyderabad home strikes a balance between concrete and calm",
-    project: "",
-    projectSlug: "",
+    project: "Aparna One",
+    projectSlug: "aparna-one",
     date: "",
     byline: "",
     standfirst: "",
     url: "https://www.architectureplusdesign.in/design/val-atelier-hyderabad-home-strikes-balance-between-concrete-calm/",
-    dir: "",
-    image: null
+    dir: "assets/projects/aparna-one",
+    image: ["07.webp", 1067, 1600]
   },
   {
-    /* last by the studio's choice, not by date */
+    /* Last by the studio's choice, not by date. This is the only feature
+       without a photograph: the house it covers is not one of the projects
+       on the site, so there is nothing here that honestly belongs to it.
+       It keeps the publication's masthead, at the same size as every other
+       plate, until the studio sends either that project or a cover image. */
     id: "family-home-ad-india",
     outlet: "Architectural Digest India",
     title: "Thoughtful design interventions turn this Hyderabad house into a loving family home",
