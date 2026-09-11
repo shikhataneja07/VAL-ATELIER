@@ -41,14 +41,21 @@
           <span class="label rv-l">The studio</span>
           <div class="ct-rows mt-l" data-contact></div>
 
-          <div class="mt-xl rv">
-            <span class="label">Office hours</span>
-            <p class="body mt-l" style="margin-top:18px">Monday to Saturday, 10:00 &ndash; 18:00 IST.<br>Site visits by appointment.</p>
+          <div class="ct-block rv">
+            <span class="label">Studio</span>
+            <span class="v" data-address></span>
           </div>
 
-          <div class="mt-xl rv">
+          <div class="ct-block rv">
+            <span class="label">Office hours</span>
+            <span class="v">Monday to Saturday, 10:00 &ndash; 18:00 IST</span>
+            <span class="n">Site visits by appointment.</span>
+          </div>
+
+          <div class="ct-block rv">
             <span class="label">Working across</span>
-            <p class="d3" style="margin-top:18px">Hyderabad &middot; Bangalore<br><span class="body" style="display:block;margin-top:10px">and elsewhere in India for the right project.</span></p>
+            <span class="v">Hyderabad &middot; Bangalore</span>
+            <span class="n">and elsewhere in India for the right project.</span>
           </div>
         </div>
 
@@ -129,9 +136,11 @@ window.PAGE = function(VAL){
   var rows = [
     { k: "Email",     v: S.email,     href: "mailto:" + S.email },
     { k: "Phone",     v: S.phone,     href: "tel:" + S.phoneLink },
-    { k: "Instagram", v: S.instagram, href: S.instagramLink, ext: true },
-    { k: "Studio",    v: S.addressLines.join(", ") }
+    { k: "Instagram", v: S.instagram, href: S.instagramLink, ext: true }
   ];
+  var addr = document.querySelector("[data-address]");
+  if (addr) addr.textContent = S.addressLines.join(", ");
+
   var host = document.querySelector("[data-contact]");
   if (host){
     host.innerHTML = rows.map(function(r, i){

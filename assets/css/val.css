@@ -345,7 +345,17 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .nav a.is-here{color:var(--brass)}
 .nav a.is-here::after{background:var(--brass);transform:scaleX(1)}
-.hdr__cta{display:none}
+/* The enquiry button is on the bar at every width. On a phone it sits tight
+   against the burger, set smaller and without its arrow, because the room
+   between it and the wordmark is the only room there is. */
+.hdr__cta{display:inline-flex}
+@media(max-width:1019px){
+  .hdr__cta{margin-left:auto;padding:10px 15px;font-size:9.5px;letter-spacing:.16em;gap:0}
+  .hdr__cta .ar{display:none}
+}
+@media(max-width:390px){.hdr__cta{padding:9px 12px;font-size:9px;letter-spacing:.12em}}
+/* it would otherwise sit over the open menu */
+.hdr.is-open .hdr__cta{opacity:0;pointer-events:none;transition:opacity .25s var(--ease)}
 
 /* pages that open on a full-bleed photograph carry the header in reverse
    until the first scroll brings the solid bar in */
@@ -361,7 +371,6 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .hdr.is-over .burger span{background:var(--bone)}
 @media(min-width:1020px){
   .nav{display:flex}
-  .hdr__cta{display:inline-flex}
 }
 
 /* burger */
@@ -563,6 +572,10 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .mast__grid{display:grid;gap:30px}
 @media(min-width:920px){.mast__grid{grid-template-columns:1.4fr 1fr;gap:70px;align-items:end}}
 .mast h1{font-family:var(--disp);font-weight:400;font-size:clamp(42px,7.4vw,104px);line-height:.96;letter-spacing:-.028em}
+/* where the masthead carries the mark instead of the name set in type: the
+   artwork is 1200px, so this stays well inside it on a retina screen */
+.mast h1.mast__mark{font-size:0;line-height:0}
+.mast h1.mast__mark img{display:block;width:clamp(220px,34vw,440px);height:auto}
 .mast .crumb{display:flex;align-items:center;gap:14px;margin-bottom:28px}
 .mast .crumb .bar{width:40px;height:1px;background:var(--brass)}
 
@@ -993,11 +1006,32 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 
 /* ---------- contact ---------- */
 .ct-grid{display:grid;gap:clamp(44px,5vw,84px)}
-@media(min-width:960px){.ct-grid{grid-template-columns:.95fr 1.05fr}}
+/* the form leads: it is the route the studio actually wants people to take,
+   so it takes the wider half and the column beside it reads as a short list
+   of quicker ways to get hold of them rather than a second form */
+@media(min-width:960px){.ct-grid{grid-template-columns:.8fr 1.2fr;gap:clamp(48px,6vw,96px)}}
 .ct-rows{border-top:1px solid var(--line)}
-.ct-row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:16px;padding:22px 2px;border-bottom:1px solid var(--line);position:relative}
+.ct-row{display:grid;grid-template-columns:84px 1fr auto;align-items:center;gap:14px;padding:14px 2px;border-bottom:1px solid var(--line);position:relative}
 .ct-row .k{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
-.ct-row .v{font-family:var(--disp);font-size:clamp(19px,2vw,26px);letter-spacing:-.008em;transition:transform .5s var(--ease-io),color .4s var(--ease)}
+/* The studio column reads as one thing rather than three. Every block under
+   the rows takes the same shape they do: a label, then a line in the display
+   face at the size the rows use, then a note beneath it in the text face.
+   Before this, one block was set entirely in the text face at 15px and the
+   next in the display face at 36px, which is what read as different fonts.
+   The note in the second was also a span carrying .body, and .body is only
+   defined for a p, so it was inheriting the 36px around it. */
+.ct-block{margin-top:clamp(30px,3.8vh,44px)}
+.ct-block .v{
+  display:block;margin-top:14px;
+  font-family:var(--disp);font-size:clamp(16.5px,1.25vw,19px);
+  line-height:1.35;letter-spacing:-.006em;
+}
+.ct-block .n{
+  display:block;margin-top:8px;max-width:40ch;
+  font-size:14.5px;line-height:1.75;color:var(--muted);
+}
+
+.ct-row .v{font-family:var(--disp);font-size:clamp(16.5px,1.25vw,19px);letter-spacing:-.006em;transition:transform .5s var(--ease-io),color .4s var(--ease)}
 .ct-row .ar{color:var(--brass);opacity:0;transform:translateX(-12px);transition:opacity .4s var(--ease),transform .5s var(--ease)}
 @media(hover:hover){
   a.ct-row:hover .v{transform:translateX(10px);color:var(--brass)}
