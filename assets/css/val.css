@@ -898,7 +898,12 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .pj-facts .v{font-family:var(--disp);font-size:clamp(19px,1.7vw,23px);letter-spacing:-.005em}
 
 .pj-story{display:grid;gap:34px}
-@media(min-width:920px){.pj-story{grid-template-columns:.85fr 1.15fr;gap:clamp(44px,5vw,88px)}}
+@media(min-width:920px){
+  /* the two halves sit against each other's middle rather than both hanging
+     from the top, where the brief in the display face runs to a different
+     depth than the copy beside it and the pair looked misaligned */
+  .pj-story{grid-template-columns:.85fr 1.15fr;gap:clamp(44px,5vw,88px);align-items:center}
+}
 .pj-story p + p{margin-top:20px}
 .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:34px}
 .chips span{border:1px solid var(--line);padding:10px 16px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
