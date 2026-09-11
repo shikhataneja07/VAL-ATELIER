@@ -514,7 +514,14 @@
     var h = qs(".hero");
     if (!h) return;
     var img = qs("img", h);
-    function lit(){ h.classList.add("is-lit"); }
+    /* A splash screen, where one is running, owns the moment the hero
+       lights: there is nothing to be gained by spending the reveal behind a
+       cover. It calls VAL.lightHero() as it lifts. The cap below is in case
+       that script never arrives at all — the hero is never left dark. */
+    VAL.heroHeld = !!window.VAL_SPLASH;
+    function lit(){ if (!VAL.heroHeld) h.classList.add("is-lit"); }
+    VAL.lightHero = function(){ VAL.heroHeld = false; lit(); };
+    if (VAL.heroHeld) setTimeout(VAL.lightHero, 5200);
     if (!img){ lit(); return; }
     if (img.complete && img.naturalWidth) lit();
     else {
