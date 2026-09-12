@@ -560,6 +560,28 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .foot ul{list-style:none;display:flex;flex-direction:column;gap:11px}
 .foot ul a,.foot ul span{font-size:14px;color:var(--bone-dim);transition:color .35s var(--ease)}
 .foot ul a:hover{color:var(--brass)}
+/* the Instagram handle, given its own weight in the footer and again on the
+   contact page: the studio posts there before anywhere else */
+.ig{
+  display:inline-flex;align-items:center;gap:15px;margin-top:30px;
+  padding:15px 22px;border:1px solid var(--line-dark);color:var(--bone-dim);
+  transition:border-color .4s var(--ease),color .4s var(--ease),background-color .4s var(--ease);
+}
+.ig:hover{border-color:var(--brass);color:var(--bone);background:rgba(255,255,255,.03)}
+.ig__ic{flex:0 0 auto;display:block}
+.ig__t{display:flex;flex-direction:column;gap:3px;line-height:1.15}
+.ig__h{font-family:var(--disp);font-size:clamp(17px,1.5vw,20px);letter-spacing:-.01em;color:var(--bone)}
+.ig__n{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-mute)}
+.ig .ar{margin-left:6px;transition:transform .4s var(--ease)}
+.ig:hover .ar{transform:translateX(5px)}
+@media(max-width:400px){.ig{gap:12px;padding:13px 16px}.ig__n{letter-spacing:.14em}}
+
+/* on the light contact page the same block reads against the paper */
+.ig--light{border-color:var(--line);color:var(--ink-soft);margin-top:0}
+.ig--light:hover{border-color:var(--brass);color:var(--ink);background:rgba(0,0,0,.02)}
+.ig--light .ig__h{color:var(--ink)}
+.ig--light .ig__n{color:var(--muted)}
+
 .foot__bottom{
   margin-top:clamp(44px,6vh,72px);padding-top:24px;border-top:1px solid var(--line-dark);
   display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;

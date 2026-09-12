@@ -68,7 +68,7 @@
   <section class="cta band-putty">
     <div class="wrap">
       <span class="label rv-l">Enquiries</span>
-      <h2 class="rv" data-d="1">Have a space <em>in mind?</em></h2>
+      <h2 data-lines>Have a space <em>in mind?</em></h2>
       <div class="cta__row rv" data-d="2">
         <a class="btn btn--solid" href="contact.html">Start an enquiry <span class="ar">&rarr;</span></a>
         <a class="btn" href="about.html">About the studio</a>
@@ -140,7 +140,7 @@ window.PAGE = function(VAL){
     return '<div class="empty">' +
              '<div class="empty__top">' +
                '<div><span class="label">' + (status === "ongoing" ? "Ongoing work" : "Selected work") + '</span>' +
-                 '<h2 class="d3 rv-l" style="margin:20px 0 0">' + h.head + '</h2></div>' +
+                 '<h2 class="d3" data-lines style="margin:20px 0 0">' + h.head + '</h2></div>' +
                '<div class="stack-sm">' + h.body.map(function(t){ return '<p class="body">' + VAL.esc(t) + '</p>'; }).join("") + '</div>' +
              '</div>' +
              '<div class="empty__frames" aria-hidden="true">' +

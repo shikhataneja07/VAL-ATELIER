@@ -109,6 +109,16 @@
            (opts.eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"') + '>';
   };
 
+  /* The Instagram glyph, drawn inline: a rounded square, a lens and a
+     highlight. Inline so it costs no request and inherits its colour. */
+  VAL.igMark = function(){
+    return '<svg class="ig__ic" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false">' +
+      '<rect x="2.5" y="2.5" width="19" height="19" rx="5.4" fill="none" stroke="currentColor" stroke-width="1.6"/>' +
+      '<circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.6"/>' +
+      '<circle cx="17.3" cy="6.7" r="1.15" fill="currentColor"/>' +
+    '</svg>';
+  };
+
   /* a press card, shared by the home teaser and the press page */
   VAL.pressCard = function(e){
     var meta = [e.project, e.date, e.byline].filter(Boolean).join(" \u00b7 ");
@@ -258,6 +268,16 @@
           '<div>' +
             '<img class="foot__mark" src="assets/brand/val-atelier-mark-light.webp" alt="' + esc(SITE.name) + '">' +
             '<p class="lede measure-sm">Interiors made to be lived in. Quiet, material and unhurried.</p>' +
+            /* the studio's work goes up here first, so the handle is given
+               its own weight rather than a line in a list */
+            '<a class="ig" href="' + esc(SITE.instagramLink) + '" target="_blank" rel="noopener">' +
+              VAL.igMark() +
+              '<span class="ig__t">' +
+                '<span class="ig__h">' + esc(SITE.instagram) + '</span>' +
+                '<span class="ig__n">The studio on Instagram</span>' +
+              '</span>' +
+              '<span class="ar">&rarr;</span>' +
+            '</a>' +
           '</div>' +
           '<div>' +
             '<h4>Navigate</h4>' +
@@ -272,7 +292,6 @@
             '<ul>' +
               '<li><a href="mailto:' + esc(SITE.email) + '">' + esc(SITE.email) + '</a></li>' +
               '<li><a href="tel:' + esc(SITE.phoneLink) + '">' + esc(SITE.phone) + '</a></li>' +
-              '<li><a href="' + esc(SITE.instagramLink) + '" target="_blank" rel="noopener">Instagram ' + esc(SITE.instagram) + '</a></li>' +
               '<li><span>' + esc((SITE.addressLines || []).join(", ")) + '</span></li>' +
             '</ul>' +
           '</div>' +
@@ -355,6 +374,8 @@
 
   var ioMedia = null, ioText = null;
 
+  var ioWarm = null;
+
   function watch(node){
     var root = node || document;
     if (ioMedia) qsa(MEDIA_SEL, root).forEach(function(n){
@@ -388,6 +409,48 @@
     ioText  = makeObserver({ threshold: 0.1,  rootMargin: "0px 0px -7% 0px" });
     watch(document);
   }
+
+  /* Photographs are fetched well ahead of being needed. The browser's own
+     lazy threshold sits close to the fold, and the wipe uncovers a frame
+     200px before it arrives, so a picture could be revealed before its
+     bytes were in and the frame read as an empty box. Promoting the image
+     a screen and a half early means it is usually already there. */
+  /* run once the page is loaded and the browser has a spare moment */
+  function onIdle(fn){
+    function go(){
+      if (window.requestIdleCallback) window.requestIdleCallback(fn, { timeout: 2500 });
+      else setTimeout(fn, 900);
+    }
+    if (document.readyState === "complete") go();
+    else window.addEventListener("load", go, { once: true });
+  }
+
+  /* The hero is the exception. Its slides are all stacked in the viewport,
+     so nothing about them is off screen to wait for; the reel loads the next
+     one as it turns, and warming them would fetch the whole set at once. */
+  var WARM_SEL = "img[loading=lazy]";
+  function warmable(node){
+    return qsa(WARM_SEL, node || document).filter(function(i){
+      return !i.closest("[data-hero-slides], [data-nowarm]");
+    });
+  }
+  function warm(node){
+    if (!("IntersectionObserver" in window)){
+      warmable(node).forEach(function(i){ i.loading = "eager"; });
+      return;
+    }
+    if (!ioWarm){
+      ioWarm = new IntersectionObserver(function(entries, self){
+        entries.forEach(function(en){
+          if (!en.isIntersecting) return;
+          if (en.target.loading === "lazy") en.target.loading = "eager";
+          self.unobserve(en.target);
+        });
+      }, { rootMargin: "900px 0px 900px 0px" });
+    }
+    warmable(node).forEach(function(i){ ioWarm.observe(i); });
+  }
+  VAL.warm = warm;
 
   /* split a heading on "|" into masked lines that rise in sequence */
   VAL.splitLines = function(node){
@@ -543,6 +606,10 @@
     /* Start watching straight away. A photograph that has already arrived
        should never be waiting on the intro to be allowed on screen. */
     reveals();
+    /* Warming is a courtesy to the next screenful, never a tax on this one:
+       it waits until the page has finished loading and the browser is idle,
+       so fetching what is coming cannot slow down what is already here. */
+    onIdle(function(){ warm(); });
     curtain(function(){ document.documentElement.classList.add("is-ready"); });
   }
 

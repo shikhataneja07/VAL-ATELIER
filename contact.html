@@ -41,6 +41,8 @@
           <span class="label rv-l">The studio</span>
           <div class="ct-rows mt-l" data-contact></div>
 
+          <div class="rv mt-l" data-instagram></div>
+
           <div class="ct-block rv">
             <span class="label">Studio</span>
             <span class="v" data-address></span>
@@ -62,7 +64,7 @@
         <!-- ENQUIRY ---------------------------------------------------- -->
         <div class="rv" data-d="1">
           <span class="label">Enquiry</span>
-          <h2 class="d3 rv-l" style="margin:20px 0 34px">Five fields. Nothing you will have to repeat on a call.</h2>
+          <h2 class="d3" data-lines style="margin:20px 0 34px">Five fields. Nothing you will have to repeat on a call.</h2>
 
           <form class="form" data-form novalidate>
             <div class="form__two">
@@ -135,11 +137,25 @@ window.PAGE = function(VAL){
   /* contact rows */
   var rows = [
     { k: "Email",     v: S.email,     href: "mailto:" + S.email },
-    { k: "Phone",     v: S.phone,     href: "tel:" + S.phoneLink },
-    { k: "Instagram", v: S.instagram, href: S.instagramLink, ext: true }
+    { k: "Phone",     v: S.phone,     href: "tel:" + S.phoneLink }
   ];
   var addr = document.querySelector("[data-address]");
   if (addr) addr.textContent = S.addressLines.join(", ");
+
+  /* the handle gets the same block it has in the footer, on the page where
+     people are already deciding how to get in touch */
+  var ig = document.querySelector("[data-instagram]");
+  if (ig){
+    ig.innerHTML =
+      '<a class="ig ig--light" href="' + VAL.esc(S.instagramLink) + '" target="_blank" rel="noopener">' +
+        VAL.igMark() +
+        '<span class="ig__t">' +
+          '<span class="ig__h">' + VAL.esc(S.instagram) + '</span>' +
+          '<span class="ig__n">The studio on Instagram</span>' +
+        '</span>' +
+        '<span class="ar">&rarr;</span>' +
+      '</a>';
+  }
 
   var host = document.querySelector("[data-contact]");
   if (host){
