@@ -299,6 +299,7 @@
         '<div class="foot__bottom">' +
           '<span>&copy; ' + year + " " + esc(SITE.name) + '</span>' +
           '<span>' + esc(SITE.tagline) + '</span>' +
+          '<span>Designed by ' + esc(SITE.credit) + '</span>' +
           '<a href="#top">Back to top</a>' +
         '</div>' +
       '</div>';

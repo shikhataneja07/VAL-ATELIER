@@ -35,7 +35,7 @@
 window.PROJECTS = [
   {
     slug: "keerthi-club-house",
-    title: "Keerthi Club House",
+    title: "Keerthi Ascent Clubhouse",
     category: "Hospitality",
     status: "ongoing",
     typology: "Club House",
@@ -51,7 +51,7 @@ window.PROJECTS = [
   {
     slug: "keerthi-marketing-office",
     /* the dash in the old title just repeated the typology below it */
-    title: "Keerthi Experiential Centre",
+    title: "Keerthi Ascent Experiential Centre",
     category: "Commercial",
     status: "ongoing",
     typology: "Marketing Office",
@@ -81,7 +81,7 @@ window.PROJECTS = [
   },
   {
     slug: "gmfc",
-    title: "GMFC",
+    title: "GMFC Workspace",
     category: "Corporate",
     status: "ongoing",
     typology: "Research Office",
@@ -96,13 +96,13 @@ window.PROJECTS = [
   },
   {
     slug: "tsk",
-    title: "TSK",
+    title: "Telangana Spice Kitchen",
     /* A spice kitchen, not the jewellery retail this was first filed as. The
        studio confirmed it stays under Retail rather than moving to
        Hospitality — so this is a decision, not an oversight. */
     category: "Retail",
     status: "ongoing",
-    typology: "Spice Kitchen",
+    typology: "Regional Restaurant",
     location: "",
     area: "",
     scope: "Interior Design",
@@ -114,7 +114,7 @@ window.PROJECTS = [
   },
   {
     slug: "dsr-1",
-    title: "DSR 1",
+    title: "DSR the First (Nome)",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -254,7 +254,7 @@ window.PROJECTS = [
   },
   {
     slug: "dsr",
-    title: "DSR",
+    title: "DSR the First",
     category: "Residential",
     status: "finished",
     typology: "Residence",
@@ -272,7 +272,7 @@ window.PROJECTS = [
     /* JBN is Jewellery by Nikita. The line under the name on the site is built
        from typology and location, so fill those in for each project as the
        studio sends them and it appears on its own. */
-    title: "JBN",
+    title: "Jewellery by Nikitha",
     category: "Retail",
     status: "finished",
     typology: "Boutique Jewellery Store",

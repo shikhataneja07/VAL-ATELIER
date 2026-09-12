@@ -24,6 +24,9 @@ window.SITE = {
   instagram:     "@val__atelier",
   instagramLink: "https://www.instagram.com/val__atelier/",
 
+  /* the credit line in the bottom bar */
+  credit:  "Starlit Studio",
+
   city:    "Hyderabad",
   country: "India",
   addressLines: ["Hyderabad, Telangana", "India"],
