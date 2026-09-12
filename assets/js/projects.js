@@ -32,6 +32,29 @@
              photographs, so nothing looks unfinished in the meantime.
    ========================================================================== */
 
+/* ==========================================================================
+   THE HERO REEL
+   --------------------------------------------------------------------------
+   The opening slideshow, in order, chosen by the studio rather than derived
+   from the work. Each entry is a project slug and the 1-based photograph
+   within that project, so the reel can still name what you are looking at
+   and link to it.
+
+   A project may appear more than once: these are photographs picked on their
+   own merit, not one-per-project.
+
+   Leave this empty and the hero falls back to the lead of every category, as
+   it did before.
+   ========================================================================== */
+window.HERO = [
+  ["dsr",             19],
+  ["aparna-one",       6],
+  ["aparna-one",      17],
+  ["kids-spaces",      1],
+  ["zvezda-boutique",  2],
+  ["the-good-side",    2]
+];
+
 window.PROJECTS = [
   {
     slug: "keerthi-club-house",
@@ -306,6 +329,26 @@ window.PROJECTS = [
     notes: [],
     dir: "assets/projects/aparna-one",
     images: [["01.webp",1067,1600],["02.webp",1067,1600],["03.webp",1067,1600],["04.webp",1600,1067],["05.webp",1067,1600],["06.webp",1067,1600],["07.webp",1067,1600],["08.webp",1067,1600],["09.webp",1067,1600],["10.webp",1067,1600],["11.webp",1067,1600],["12.webp",1067,1600],["13.webp",1067,1600],["14.webp",1067,1600],["15.webp",1067,1600],["16.webp",1067,1600],["17.webp",1067,1600],["18.webp",1067,1600],["19.webp",1067,1600],["20.webp",1031,1600],["21.webp",1067,1600]]
+  },
+  {
+    slug: "vessela",
+    title: "Vessela",
+    category: "Residential",
+    status: "finished",
+    typology: "Residence",
+    location: "Hyderabad",
+    area: "",
+    scope: "Interior Design",
+    /* Published by Architectural Digest India. The write-up below was drawn
+       from the photographs rather than from the feature, which the studio is
+       to check against the published text. */
+    summary: "A family home in Hyderabad where one warm, grounded palette carries the whole house and every room is given a single thing of its own to be remembered by.",
+    story: ["Timber beams run across the living room ceiling and a cluster of black cone pendants drops through them, holding the seating together without a wall to do it. Linen sheers sit behind terracotta drapes so the light can be softened by degrees through the day, and marble floors keep the ground quiet under a knotted wool rug.", "The rooms are allowed their own character. A rose sofa and a tropical canvas give the second living space its colour, the kitchen runs blush cabinetry against pale timber with a live edge counter to eat at, and the bedrooms take opposite paths, one in a tufted headboard against fluted timber, the other in deep blue panelling. A guest bathroom is laid in pink herringbone against speckled terrazzo.", "Nothing in it is precious. The jute, the cotton, the marble and the timber are all surfaces a family can live on, which is what makes the house feel lived in rather than arranged."],
+    notes: [],
+    /* the wide living room, which is the whole house in one frame */
+    cover: 17,
+    dir: "assets/projects/vessela",
+    images: [["01.webp",1333,2000],["02.webp",2000,1333],["03.webp",1333,2000],["04.webp",1333,2000],["05.webp",1333,2000],["06.webp",1333,2000],["07.webp",1333,2000],["08.webp",1333,2000],["09.webp",2000,1333],["10.webp",1333,2000],["11.webp",1333,2000],["12.webp",1333,2000],["13.webp",1333,2000],["14.webp",1333,2000],["15.webp",1333,2000],["16.webp",2000,1333],["17.webp",2000,1333],["18.webp",1333,2000]]
   }
 
   /* ------------------------------------------------------------------------

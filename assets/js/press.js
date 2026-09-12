@@ -140,22 +140,21 @@ window.PRESS = [
     image: ["07.webp", 1067, 1600]
   },
   {
-    /* Last by the studio's choice, not by date. This is the only feature
-       without a photograph: the house it covers is not one of the projects
-       on the site, so there is nothing here that honestly belongs to it.
-       It keeps the publication's masthead, at the same size as every other
-       plate, until the studio sends either that project or a cover image. */
+    /* Last by the studio's choice, not by date. This one carried the
+       publication's masthead rather than a photograph, because the house it
+       covers was not yet on the site. It is now: Vessela, whose own
+       photographs the plate is taken from. */
     id: "family-home-ad-india",
     outlet: "Architectural Digest India",
     title: "Thoughtful design interventions turn this Hyderabad house into a loving family home",
-    project: "",
-    projectSlug: "",
+    project: "Vessela",
+    projectSlug: "vessela",
     date: "",
     byline: "",
     standfirst: "A Hyderabad house reshaped, room by room, into a home built around how one family actually lives.",
     url: "https://www.architecturaldigest.in/story/thoughtful-design-interventions-turn-this-hyderabad-house-into-a-loving-family-home/",
-    dir: "",
-    image: null
+    dir: "assets/projects/vessela",
+    image: ["04.webp", 1333, 2000]
   }
 
   /* -----------------------------------------------------------------------

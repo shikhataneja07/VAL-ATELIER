@@ -192,18 +192,31 @@ window.PAGE = function(VAL){
     var host = document.querySelector("[data-hero-slides]");
     if (!host) return;
 
-    /* the same leads the posters use, de-duplicated and kept in order — no
-       project appears here that is not already in the work */
-    var seen = {}, shots = [];
-    VAL.categories("finished").concat(VAL.categories("ongoing")).forEach(function(c){
-      var p = c.lead;
-      if (p && !seen[p.slug]){ seen[p.slug] = 1; shots.push(p); }
+    /* The studio's own selection, where it has made one: a project and the
+       photograph within it, in order. A project may appear twice, because
+       these are frames chosen on their own merit rather than one apiece.
+       Without a selection this falls back to the lead of every category,
+       de-duplicated, which is how the reel was first built. */
+    var shots = [];
+    (window.HERO || []).forEach(function(pick){
+      var p = VAL.find(pick[0]);
+      if (!p) return;
+      var i = pick[1] - 1;
+      if (i < 0 || i >= p.images.length) i = VAL.cover(p);
+      shots.push({ p: p, i: i });
     });
+    if (!shots.length){
+      var seen = {};
+      VAL.categories("finished").concat(VAL.categories("ongoing")).forEach(function(c){
+        var p = c.lead;
+        if (p && !seen[p.slug]){ seen[p.slug] = 1; shots.push({ p: p, i: VAL.cover(p) }); }
+      });
+    }
     if (!shots.length) return;
 
-    host.innerHTML = shots.map(function(p, i){
+    host.innerHTML = shots.map(function(s, i){
       return '<figure class="hero__slide' + (i === 0 ? " is-on" : "") + '">' +
-               VAL.imgTag(p, VAL.cover(p), p.title, i === 0, "100vw") +
+               VAL.imgTag(s.p, s.i, s.p.title, i === 0, "100vw") +
              '</figure>';
     }).join("");
 
@@ -238,7 +251,7 @@ window.PAGE = function(VAL){
     function paint(){
       slides.forEach(function(s, i){ s.classList.toggle("is-on", i === at); });
       if (count) count.textContent = VAL.pad(at + 1) + " / " + VAL.pad(shots.length);
-      if (name)  name.textContent  = shots[at].title;
+      if (name)  name.textContent  = shots[at].p.title;
       wake(slides[at]);
       /* the one after it follows a moment later, so it is ready for the
          cross-fade without competing with the frame you are actually looking at */
