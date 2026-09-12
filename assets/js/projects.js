@@ -213,8 +213,8 @@ window.PROJECTS = [
     location: "",
     area: "",
     scope: "Interior Design",
-    summary: "",
-    story: [],
+    summary: "Tucked away in the heart of Jubilee Hills, this 1,500 sq ft boutique is a quiet little world of its own, soft, feminine and beautifully detailed.",
+    story: ["Designed with a gentle, almost poetic restraint, the space uses a neutral palette to let the garments take centre stage. Botanical reliefs finished by hand wrap the walls, adding depth and character without ever overwhelming the eye.", "The curved ceiling floats above the space like a wave, creating movement and a sense of calm, while the delicate gold rails and arched windows bring in a touch of romance. Every corner feels intentional, warm and thoughtfully composed, a small boutique with a big soul, made to make every piece of clothing feel special."],
     notes: [],
     dir: "assets/projects/zvezda-boutique",
     images: [["01.webp",2000,1333],["02.webp",1333,2000],["03.webp",1333,2000],["04.webp",1333,2000],["05.webp",2000,1333],["06.webp",1333,2000],["07.webp",1333,2000],["08.webp",1333,2000]]
