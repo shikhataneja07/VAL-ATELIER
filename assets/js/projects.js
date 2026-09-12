@@ -88,6 +88,9 @@ window.PROJECTS = [
     location: "",
     area: "",
     scope: "Interior Design",
+    /* its 04 is the prayer room, which leads on nothing: the lounge reads as
+       the workspace the write-up describes */
+    cover: 4,
     summary: "This workspace is designed with a calm, understated language that balances focus with comfort.",
     story: ["Soft neutral tones, textured walls, stone surfaces, and warm finishes create a refined and cohesive atmosphere. Clean lined meeting areas, relaxed lounge spaces, and sculptural lighting give each zone its own quiet character. Natural light and subtle detailing soften the overall mood, making the office feel composed, welcoming, and thoughtfully lived in."],
     notes: [],
