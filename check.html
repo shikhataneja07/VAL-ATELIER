@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>File check &middot; Val Atelier</title>
+<!--
+  A page for the person building the site, not for a visitor. It asks the
+  server for every photograph the site refers to and reports which of them are
+  not there, so "this project is not showing up" turns into a list of the exact
+  files that are missing and the folder they were expected in.
+
+  It is linked from nowhere and indexed by nobody. Delete it whenever it has
+  served its purpose; nothing else on the site refers to it.
+-->
+<style>
+  :root{--ink:#17140F;--bone:#F2EEE7;--line:#DCD5C8;--bad:#A33A2A;--good:#3E6B4F;--mute:#7B7264}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bone);color:var(--ink);
+       font:14px/1.6 ui-sans-serif,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+       padding:28px clamp(16px,4vw,56px) 80px}
+  h1{font-size:22px;letter-spacing:-.01em;margin:0 0 4px}
+  .sub{color:var(--mute);margin:0 0 22px}
+  button{font:inherit;padding:10px 18px;border:1px solid var(--ink);background:var(--ink);
+         color:var(--bone);cursor:pointer}
+  button[disabled]{opacity:.45;cursor:default}
+  #sum{margin:22px 0 10px;padding:14px 16px;border:1px solid var(--line);background:#fff}
+  #sum b{font-size:17px}
+  table{border-collapse:collapse;width:100%;margin-top:14px;background:#fff}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:400}
+  td.n{text-align:right;white-space:nowrap}
+  tr.bad td{background:#FBF2F0}
+  .ok{color:var(--good)}
+  .no{color:var(--bad);font-weight:600}
+  code{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:#F6F2EA;padding:1px 5px}
+  .paths{margin:6px 0 0;padding:0;list-style:none}
+  .paths li{margin:2px 0}
+  .note{margin-top:26px;color:var(--mute);max-width:70ch}
+</style>
+</head>
+<body>
+
+<h1>File check</h1>
+<p class="sub">Asks this server for every photograph the site refers to, and lists the ones that are not there.</p>
+
+<button id="go">Run the check</button>
+<div id="sum" hidden></div>
+<div id="out"></div>
+
+<p class="note">A project whose folder is missing, misnamed or holds differently named files
+shows every one of its photographs as missing here. A project with only its
+<code>sm/</code> or <code>md/</code> files missing still displays, because the site now falls back
+to the full size original, but those files are worth restoring.</p>
+
+<script src="assets/js/projects.js"></script>
+<script>
+(function(){
+  var out = document.getElementById("out");
+  var sum = document.getElementById("sum");
+  var go  = document.getElementById("go");
+
+  /* every file the site could ask this server for, project by project */
+  function planFor(p){
+    var hero = {};
+    (window.HERO || []).forEach(function(h){ if (h[0] === p.slug) hero[h[1] - 1] = 1; });
+    var files = [];
+    (p.images || []).forEach(function(im, i){
+      var base = im[0].replace(/\.[a-z]+$/i, ".webp");
+      files.push({ url: p.dir + "/" + im[0],        kind: "full" });
+      files.push({ url: p.dir + "/sm/" + base,      kind: "small" });
+      if (hero[i] && im[1] > 1400) files.push({ url: p.dir + "/md/" + base, kind: "hero" });
+    });
+    return files;
+  }
+
+  function head(url){
+    return fetch(url, { method: "HEAD", cache: "no-store" })
+      .then(function(r){ return r.ok; })
+      .catch(function(){ return false; });
+  }
+
+  /* a handful at a time, so a phone does not open three hundred sockets */
+  function run(jobs, width, each){
+    var at = 0;
+    function next(){
+      if (at >= jobs.length) return Promise.resolve();
+      var job = jobs[at++];
+      return job().then(each).then(next);
+    }
+    var lanes = [];
+    for (var i = 0; i < width; i++) lanes.push(next());
+    return Promise.all(lanes);
+  }
+
+  go.addEventListener("click", function(){
+    go.disabled = true; go.textContent = "Checking…";
+    var projects = window.PROJECTS || [];
+    var rows = {}, jobs = [], total = 0;
+
+    projects.forEach(function(p){
+      rows[p.slug] = { p: p, missing: [], checked: 0, total: 0 };
+      planFor(p).forEach(function(f){
+        rows[p.slug].total++; total++;
+        jobs.push(function(){
+          return head(f.url).then(function(ok){
+            return { slug: p.slug, url: f.url, kind: f.kind, ok: ok };
+          });
+        });
+      });
+    });
+
+    var done = 0, gone = 0;
+    run(jobs, 8, function(r){
+      if (!r) return;
+      done++;
+      var row = rows[r.slug];
+      row.checked++;
+      if (!r.ok){ row.missing.push(r); gone++; }
+      if (done % 25 === 0) go.textContent = "Checking… " + done + " / " + total;
+    }).then(function(){
+      var bad = projects.filter(function(p){ return rows[p.slug].missing.length; });
+      sum.hidden = false;
+      sum.innerHTML = gone
+        ? "<b class='no'>" + gone + " of " + total + " files are missing</b>, across " +
+          bad.length + " project" + (bad.length === 1 ? "" : "s") + "."
+        : "<b class='ok'>All " + total + " files are on the server.</b>";
+
+      var html = "<table><tr><th>Project</th><th>Folder the site looks in</th>" +
+                 "<th class='n'>Missing</th><th>What is missing</th></tr>";
+      projects.forEach(function(p){
+        var row = rows[p.slug], m = row.missing;
+        html += "<tr class='" + (m.length ? "bad" : "") + "'>" +
+          "<td>" + p.title + "<br><code>" + p.slug + "</code></td>" +
+          "<td><code>" + p.dir + "</code></td>" +
+          "<td class='n'>" + (m.length ? "<span class='no'>" + m.length + " / " + row.total + "</span>"
+                                       : "<span class='ok'>none</span>") + "</td>" +
+          "<td>" + (m.length ? renderMissing(m) : "") + "</td></tr>";
+      });
+      html += "</table>";
+      out.innerHTML = html;
+      go.textContent = "Run the check again"; go.disabled = false;
+    });
+  });
+
+  function renderMissing(m){
+    var kinds = {};
+    m.forEach(function(r){ kinds[r.kind] = (kinds[r.kind] || 0) + 1; });
+    var lede = kinds.full
+      ? "<div>the photographs themselves are not in that folder</div>"
+      : "<div>only the smaller copies are missing, the page still shows</div>";
+    var list = "<ul class='paths'>";
+    m.slice(0, 4).forEach(function(r){ list += "<li><code>" + r.url + "</code></li>"; });
+    if (m.length > 4) list += "<li>and " + (m.length - 4) + " more</li>";
+    return lede + list + "</ul>";
+  }
+})();
+</script>
+</body>
+</html>

@@ -8,6 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="build" content="2026-09-15 · white nav bar, Merge Stones, Cousins">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -27,7 +28,7 @@
       <div class="crumb rv-l"><i class="bar"></i><span class="label">Archive</span></div>
       <div class="mast__grid">
         <h1 data-lines>Projects</h1>
-        <p class="lede rv-r" data-d="2">Homes, club houses, marketing suites, offices, a jewellery boutique and a spice kitchen. Open a project to see the full set of photographs.</p>
+        <p class="lede rv-r" data-d="2">Homes, club houses, marketing suites, offices, a jewellery boutique, a marble showroom and a spice kitchen. Open a project to see the full set of photographs.</p>
       </div>
     </div>
   </section>
@@ -82,12 +83,15 @@
 
 <script src="assets/js/site.js"></script>
 <script src="assets/js/projects.js"></script>
+<script src="assets/js/press.js"></script>
 <script src="assets/js/categories.js"></script>
 <script>
 window.PAGE = function(VAL){
 
   function card(p, i){
     var meta = VAL.descriptor(p) || p.scope;
+    /* where a project has been published, the card says so */
+    var feat = VAL.featuredLine(p.slug);
     return '<a class="card plate hov rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
              '<div class="shot wipe">' +
                /* the first row is on screen at load — it must not wait for a scroll */
@@ -97,6 +101,7 @@ window.PAGE = function(VAL){
              '<figcaption>' +
                '<span class="ttl">' + VAL.esc(p.title) + '<span class="sub">' + VAL.esc(meta) + '</span></span>' +
                (p.area ? '<span class="meta">' + VAL.esc(p.area) + '</span>' : "") +
+               (feat ? '<span class="card__feat">' + VAL.esc(feat) + '</span>' : "") +
              '</figcaption>' +
              '<span class="card__go">View project <span class="ar">&rarr;</span></span>' +
            '</a>';

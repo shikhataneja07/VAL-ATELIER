@@ -51,12 +51,12 @@ window.PRESS = [
     title: "In this Vastu compliant Hyderabad home, the kids' rooms steal the spotlight",
     project: "Sky, Teddy and the Play Room",
     /* the piece covers all three rooms, so it is featured on all three */
-    projectSlug: ["kids-sky", "kids-teddy", "kids-play-room"],
+    projectSlug: ["sky", "teddy", "playroom"],
     date: "",
     byline: "",
     standfirst: "A Hyderabad home planned to Vastu, where the children's rooms carry the strongest ideas in the house.",
     url: "https://www.architecturaldigest.in/story/in-this-vastu-compliant-hyderabad-home-the-kids-rooms-steal-the-spotlight-val-atelier-vaishnavi-linga/",
-    dir: "assets/projects/kids-sky",
+    dir: "assets/projects/sky",
     image: ["01.webp", 1334, 2000]
   },
   {

@@ -72,11 +72,39 @@
   };
   VAL.ratio = function(p, i){ return p.images[i][1] / p.images[i][2]; };
 
+  /* Which outlets have published a project, in the order the record holds
+     them, without repeating an outlet that ran more than one piece. A feature
+     can cover several projects, so projectSlug takes a list as well as a
+     single slug. Returns an empty array where a project has no coverage, and
+     an empty string from the line below, so callers can print it blind. */
+  VAL.featuredIn = function(slug){
+    var seen = {}, out = [];
+    (window.PRESS || []).forEach(function(e){
+      var on = e.projectSlug;
+      var list = Array.isArray(on) ? on : (on ? [on] : []);
+      if (list.indexOf(slug) < 0 || !e.outlet || seen[e.outlet]) return;
+      seen[e.outlet] = 1;
+      out.push(e.outlet);
+    });
+    return out;
+  };
+
+  /* One line for a card: the outlet where there is one, and a count where
+     there are several, since Ra:tio alone has run in six. */
+  VAL.featuredLine = function(slug){
+    var o = VAL.featuredIn(slug);
+    if (!o.length) return "";
+    if (o.length === 1) return "Featured in " + o[0];
+    var words = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    var n = o.length - 1;
+    return "Featured in " + o[0] + " and " + (words[n] || n) + " other" + (n > 1 ? "s" : "");
+  };
+
   /* The line printed under a project's name: what it is, and where. Both are
      optional, so a project with neither simply shows its name and a project
      with only one shows only that. Nothing is invented to fill the slot. */
   VAL.descriptor = function(p){
-    return [p.typology, p.location].filter(Boolean).join(", ");
+    return [p.typology, p.location, p.year].filter(Boolean).join(", ");
   };
 
   /* Image markup with the space reserved, so nothing jumps while loading, and
@@ -86,17 +114,46 @@
   var SIZES_DEFAULT = "(max-width: 720px) 92vw, 46vw";
   var SMALL_BOX = 800;
   function smallWidth(w){ return Math.min(w, SMALL_BOX); }
-  VAL.imgTag = function(p, i, alt, eager, sizes){
+  /* opts.md names a middle width where one has been built, so a slot that is
+     wider than the small file but nowhere near the full one does not have to
+     take the full one. Only the opening uses it so far. */
+  VAL.imgTag = function(p, i, alt, eager, sizes, opts){
+    opts = opts || {};
     var im = p.images[i];
     var full = p.dir + "/" + im[0];
     var small = p.dir + "/sm/" + im[0].replace(/\.[a-z]+$/i, ".webp");
+    var mid = opts.md && im[1] > opts.md
+      ? esc(p.dir + "/md/" + im[0].replace(/\.[a-z]+$/i, ".webp")) + " " + opts.md + "w, "
+      : "";
     return '<img src="' + esc(small) + '"' +
-           ' srcset="' + esc(small) + ' ' + smallWidth(im[1]) + 'w, ' + esc(full) + ' ' + im[1] + 'w"' +
+           ' srcset="' + esc(small) + ' ' + smallWidth(im[1]) + 'w, ' + mid + esc(full) + ' ' + im[1] + 'w"' +
+           ' data-full="' + esc(full) + '"' +
            ' sizes="' + esc(sizes || SIZES_DEFAULT) + '"' +
            ' width="' + im[1] + '" height="' + im[2] + '"' +
            ' alt="' + esc(alt || p.title) + '" ' +
            (eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"') + '>';
   };
+
+  /* ---- a missing derivative must not blank the picture ---------------------
+     The browser picks ONE candidate out of a srcset and, if that file is not
+     on the server, it gives up: it does not quietly try the next one. So a
+     single sm/ or md/ file that failed to upload takes the whole photograph
+     off the page, and the slot just sits empty.
+
+     Every tag above carries the full size original on data-full, which is the
+     one file that is always there. When a candidate fails, the set is dropped
+     and that original is used instead. Captured on the way down because an
+     image error does not bubble. */
+  document.addEventListener("error", function(e){
+    var im = e.target;
+    if (!im || im.tagName !== "IMG" || im.dataset.fellBack) return;
+    var full = im.getAttribute("data-full");
+    if (!full || im.currentSrc === new URL(full, location.href).href) return;
+    im.dataset.fellBack = "1";
+    im.removeAttribute("srcset");
+    im.removeAttribute("sizes");
+    im.setAttribute("src", full);
+  }, true);
 
   /* the same treatment for a plain path (studio photographs, portrait) */
   VAL.plainImg = function(src, w, h, alt, opts){
@@ -104,6 +161,7 @@
     var small = src.replace(/([^/]+)$/, "sm/$1").replace(/\.[a-z]+$/i, ".webp");
     return '<img src="' + esc(small) + '"' +
            ' srcset="' + esc(small) + ' ' + smallWidth(w) + 'w, ' + esc(src) + ' ' + w + 'w"' +
+           ' data-full="' + esc(src) + '"' +
            ' sizes="' + esc(opts.sizes || SIZES_DEFAULT) + '"' +
            ' width="' + w + '" height="' + h + '" alt="' + esc(alt) + '" ' +
            (opts.eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"') + '>';
@@ -127,14 +185,55 @@
      each other. */
   VAL.pressOrder = function(list){
     if (!window.PRESS_MIX || list.length < 3) return list.slice();
-    var rest = list.slice(1), out = [list[0]];
-    while (rest.length){
-      var last = out[out.length - 1].outlet;
-      var i = 0;
-      for (var k = 0; k < rest.length; k++){
-        if (rest[k].outlet !== last){ i = k; break; }
+
+    /* Vaishnavi asked for the last piece in the record to close the run, so it
+       is held back from the mixing and put on the end afterwards. */
+    var tail = list[list.length - 1];
+    list = list.slice(0, -1);
+    var total = list.length;
+
+    /* Group by outlet, keeping the written order inside each, and take the
+       outlets that appear most often first. Architectural Digest has run the
+       work four times and every other title once, so AD is the one that has
+       to be spread. */
+    var by = {}, outlets = [];
+    list.forEach(function(e){
+      if (!by[e.outlet]){ by[e.outlet] = []; outlets.push(e.outlet); }
+      by[e.outlet].push(e);
+    });
+    outlets.sort(function(a, b){ return by[b].length - by[a].length; });
+
+    /* Each outlet's pieces are laid at evenly spaced positions across the
+       whole run rather than alternated from the front, which used to leave
+       one of them stranded at the end. Where a position is taken the piece
+       goes to the nearest free one on either side. */
+    var slots = new Array(total);
+    outlets.forEach(function(o){
+      var items = by[o], n = items.length;
+      items.forEach(function(e, i){
+        var want = Math.floor(i * total / n), at = -1;
+        for (var d = 0; d < total && at < 0; d++){
+          if (want + d < total && slots[want + d] === undefined) at = want + d;
+          else if (want - d >= 0 && slots[want - d] === undefined) at = want - d;
+        }
+        slots[at < 0 ? slots.length : at] = e;
+      });
+    });
+    var out = slots.filter(Boolean);
+
+    out.push(tail);
+
+    /* A last pass in case two from the same outlet still land side by side,
+       the closing piece included: swap the second one on with the next piece
+       that differs. */
+    for (var i = 1; i < out.length; i++){
+      if (out[i].outlet !== out[i - 1].outlet) continue;
+      for (var j = i + 1; j < out.length; j++){
+        if (out[j].outlet === out[i - 1].outlet) continue;
+        if (j + 1 < out.length && out[j + 1].outlet === out[i].outlet) continue;
+        var t = out[i]; out[i] = out[j]; out[j] = t;
+        break;
       }
-      out.push(rest.splice(i, 1)[0]);
     }
     return out;
   };
@@ -227,8 +326,14 @@
     host.innerHTML =
       '<div class="hdr__in">' +
         '<a class="brand" href="index.html" aria-label="' + esc(SITE.name) + ', home">' +
-          '<img src="assets/brand/val-wordmark.webp" alt="' + esc(SITE.name) + '">' +
-          '<span class="brand__tag">' + esc(SITE.tagline) + '<br>' + esc(SITE.city) + '</span>' +
+          /* The whole lockup, val and ATELIER both, rather than the val glyphs
+             on their own. Two files, not one inverted: the light artwork keeps
+             the studio's own two tones, which an invert filter only
+             approximates. Whichever ground the bar is on, the other fades out. */
+          '<span class="brand__mark">' +
+            '<img class="brand__ink" src="assets/brand/val-lockup-ink.webp" width="282" height="200" alt="' + esc(SITE.name) + '">' +
+            '<img class="brand__lit" src="assets/brand/val-lockup-light.webp" width="282" height="200" alt="" aria-hidden="true">' +
+          '</span>' +
         '</a>' +
         '<nav class="nav" aria-label="Primary">' + links + '</nav>' +
         '<a class="btn hdr__cta" href="contact.html">Enquire <span class="ar">&rarr;</span></a>' +
@@ -259,13 +364,13 @@
       if (e.key === "Escape" && sheet.classList.contains("is-open")) toggle(false);
     });
 
-    /* hide on the way down, return on the way up */
-    var overHero = document.body.hasAttribute("data-hero-dark");
+    /* Hide on the way down, return on the way up. The bar used to change its
+       dress as well, going through on the home page's opening and solid once
+       the reader had left it; it is the page's own ground at every scroll
+       position now, so there is nothing left to toggle but the hiding. */
     var last = window.scrollY, tick = false;
     function onScroll(){
       var y = window.scrollY;
-      host.classList.toggle("is-solid", y > 30);
-      if (overHero) host.classList.toggle("is-over", y <= 30 && !sheet.classList.contains("is-open"));
       if (!sheet.classList.contains("is-open")){
         host.classList.toggle("is-up", y > last && y > 240);
       }
@@ -535,7 +640,14 @@
         }
         continue;
       }
-      out.push({ k: beat.k, items: [take(beat.want)] });
+      var pick = take(beat.want), kind = beat.k;
+      /* A full bleed band and a wide one are landscape shapes. A portrait
+         frame forced into either is cropped to a slice, which is what happens
+         on the kids rooms where nearly every frame is portrait and the
+         sequence has no landscape one to give the beat. Where that is the
+         case the beat steps down to a single, which shows the whole picture. */
+      if ((kind === "bleed" || kind === "wide") && pick.r < 1.15) kind = "single";
+      out.push({ k: kind, items: [pick] });
     }
     /* close on a full-bleed where the last picture can carry one */
     var last = out[out.length - 1];

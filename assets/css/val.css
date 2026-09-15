@@ -226,7 +226,7 @@
   --pad:clamp(20px,5vw,64px);
   --maxw:1320px;
   --sec:clamp(76px,11vh,152px);
-  --nav-h:82px;
+  --nav-h:108px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -266,7 +266,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .d3{font-family:var(--disp);font-weight:400;font-size:clamp(23px,2.7vw,36px);line-height:1.12;letter-spacing:-.012em}
 .d4{font-family:var(--disp);font-weight:400;font-size:clamp(19px,1.7vw,23px);line-height:1.25;letter-spacing:-.005em}
 em,.it{font-style:italic}
-.lede{font-weight:300;font-size:clamp(16.5px,1.35vw,19px);line-height:1.62;color:var(--ink-soft)}
+/* Vaishnavi's note: these two or three line paragraphs were pulling the eye
+   harder than the work they introduce, so they come down a step. */
+.lede{font-weight:300;font-size:clamp(14.5px,1.1vw,16.5px);line-height:1.7;color:var(--ink-soft)}
 .band-ink .lede{color:var(--bone-dim)}
 p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;max-width:58ch}
 .band-ink p.body{color:var(--bone-dim)}
@@ -323,22 +325,38 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .hdr{
   /* above .sheet (65) so the burger stays tappable while the menu is open */
   position:fixed;top:0;left:0;right:0;z-index:66;
-  border-bottom:1px solid transparent;
-  transition:transform .6s var(--ease),background .5s var(--ease),border-color .5s var(--ease);
+  /* The bar is a bar now, not a layer laid over the picture. It is the page's
+     own ground with the page's own ink on it, and the photograph starts
+     underneath it, so nothing on the bar has to fight a photograph to be read
+     and the picture keeps its top edge. */
+  background:var(--bone);border-bottom:1px solid var(--line);
+  transition:transform .6s var(--ease);
 }
-.hdr.is-solid{background:rgba(242,238,231,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom-color:var(--line)}
 .hdr.is-up{transform:translateY(-102%)}
 .hdr.is-open{transform:none;background:transparent;border-bottom-color:transparent}
+/* the enquiry button is the one thing on the bar meant to be pressed */
+.hdr__cta{border-radius:999px}
 .hdr__in{display:flex;align-items:center;justify-content:space-between;gap:24px;height:var(--nav-h);padding:0 var(--pad)}
+
 .brand{display:flex;align-items:center;gap:14px;z-index:72;position:relative}
-.brand img{height:23px;width:auto}
-.brand__tag{
-  font-size:9px;letter-spacing:.34em;text-transform:uppercase;color:var(--muted);
-  padding-left:14px;border-left:1px solid var(--line);line-height:1.3;
-}
-@media(max-width:600px){.brand__tag{display:none}}
-.hdr.is-open .brand__tag{color:var(--bone-mute);border-left-color:var(--line-dark)}
-.hdr.is-open .brand img{filter:invert(1) brightness(1.35)}
+/* The lockup is the studio's name, and nothing else on the opening says it
+   now, so it is set to be read rather than merely recognised. The ATELIER line
+   is only 8% of the artwork's height: at the 46px a bar usually takes, it
+   stood under 4px tall and read as a smudge. At 72px it is 6px and reads as
+   the word. The bar grew with it.
+
+   Both files are stacked in the same box and the bar fades between them, so
+   neither ground gets an inverted approximation of the other's artwork. Both
+   are the one tone cut: the master sets ATELIER in a dark blue grey, which is
+   right where the splash and the footer show the lockup large, and invisible
+   over a photograph at this size. */
+.brand__mark{position:relative;display:block;flex:0 0 auto;height:72px}
+.brand__mark img{display:block;height:100%;width:auto}
+.brand__ink,.brand__lit{transition:opacity .45s var(--ease)}
+.brand__lit{position:absolute;left:0;top:0;opacity:0}
+.hdr.is-open .brand__ink{opacity:0}
+.hdr.is-open .brand__lit{opacity:1}
+@media(max-width:820px){:root{--nav-h:92px}.brand__mark{height:58px}}
 
 .nav{display:none;align-items:center;gap:38px}
 .nav a{position:relative;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:6px 0;color:var(--ink)}
@@ -348,7 +366,7 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .nav a.is-here::after{background:var(--brass);transform:scaleX(1)}
 /* The enquiry button is on the bar at every width. On a phone it sits tight
    against the burger, set smaller and without its arrow, because the room
-   between it and the wordmark is the only room there is. */
+   between it and the lockup is the only room there is. */
 .hdr__cta{display:inline-flex}
 @media(max-width:1019px){
   .hdr__cta{margin-left:auto;padding:10px 15px;font-size:9.5px;letter-spacing:.16em;gap:0}
@@ -358,18 +376,6 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 /* it would otherwise sit over the open menu */
 .hdr.is-open .hdr__cta{opacity:0;pointer-events:none;transition:opacity .25s var(--ease)}
 
-/* pages that open on a full-bleed photograph carry the header in reverse
-   until the first scroll brings the solid bar in */
-.hdr.is-over .brand img{filter:invert(1) brightness(1.4)}
-.hdr.is-over .brand__tag{color:var(--bone-dim);border-left-color:rgba(242,238,231,.28)}
-.hdr.is-over .nav a{color:var(--bone)}
-.hdr.is-over .nav a::after{background:var(--bone)}
-.hdr.is-over .nav a.is-here{color:#DCCBAC}
-.hdr.is-over .nav a.is-here::after{background:#DCCBAC}
-.hdr.is-over .btn{color:var(--bone);border-color:rgba(242,238,231,.55)}
-.hdr.is-over .btn::before{background:var(--bone)}
-.hdr.is-over .btn:hover{color:var(--ink);border-color:var(--bone)}
-.hdr.is-over .burger span{background:var(--bone)}
 @media(min-width:1020px){
   .nav{display:flex}
 }
@@ -544,13 +550,21 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .plate{display:block}
 .plate figcaption{
   margin-top:15px;padding-top:13px;border-top:1px solid var(--line);
-  display:flex;justify-content:space-between;align-items:baseline;gap:18px;
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:18px;
 }
 .band-ink .plate figcaption{border-top-color:var(--line-dark)}
 .plate .ttl{font-family:var(--disp);font-size:clamp(19px,1.7vw,23px);font-weight:400;letter-spacing:-.008em;transition:color .4s var(--ease)}
 .plate .sub{display:block;font-family:var(--body);font-size:12.5px;color:var(--muted);margin-top:4px;letter-spacing:0}
 .plate .meta{flex-shrink:0;text-align:right;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-ink);line-height:1.6}
 .plate:hover .ttl{color:var(--brass-ink)}
+/* where a project has been published, the card carries a line saying so. It
+   takes a row of its own under the name and the area, which is why the caption
+   is allowed to wrap; nothing else in a caption is wide enough to need it. */
+.card__feat{
+  flex:0 0 100%;margin-top:9px;
+  font-size:10px;font-weight:600;letter-spacing:.14em;line-height:1.6;
+  text-transform:uppercase;color:var(--brass-ink);
+}
 
 /* ---------- footer ---------- */
 .foot{background:var(--ink);color:var(--bone);padding:clamp(56px,8vh,90px) 0 34px}
@@ -618,58 +632,41 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    COMPONENTS
    ========================================================================== */
 
-/* ---------- home hero — full-bleed, text over the photograph ----------
-   One full-viewport image at every width. The type plate is absolutely
-   positioned over it and stays hidden until the photograph has decoded, so
-   nothing is ever read against an empty well. */
-/* Every frame in the reel is shot 2:3, so the opening takes that proportion
-   instead of the screen's. On a phone that is the full width and nothing is
-   cropped at all; on anything wider the plate is held to the screen height and
-   centred on the ink, so the whole photograph is always there. */
-/* The opening takes the shape of the photographs it is showing. --hero-ar is
-   the frames' own width over height, set from the files themselves before the
-   first paint, so a portrait set and a landscape set each get an opening that
-   fits them rather than one hard coded to 2:3. It never grows past the screen,
-   and the frame inside is shown whole. */
-.hero{position:relative;height:min(100svh,calc(100vw / var(--hero-ar,.667)));
-  min-height:0;overflow:hidden;background:var(--ink)}
+/* ---- THE OPENING: full bleed, the work behind the name -------------------
+   One photograph filling the screen and every word set on it. The bar runs
+   across the head, the studio's name sits low on the left, and what is on
+   screen, with the way through it, sits low on the right. A wash at the top
+   and the foot is all that holds the white type up, so the middle of the
+   picture is never touched. */
+.hero{
+  position:relative;width:100%;overflow:hidden;background:var(--ink);
+  /* the bar stands above it rather than on it, so the two together are one
+     screen and the photograph owns every pixel of its own */
+  margin-top:var(--nav-h);
+  height:calc(100svh - var(--nav-h));min-height:460px;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 var(--pad) clamp(26px,4.6vh,54px);
+}
 
 /* the work itself, one frame at a time */
 .hero__slides{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease)}
+.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
 .hero__slide.is-on{opacity:1}
-.hero__slide img{
-  width:100%;height:100%;object-fit:contain;object-position:center;
-}
-/* The frame used to drift, scaling to 1.035. Any scale above 1 pushes the
-   edges out of the opening, which is the cropping Vaishnavi is seeing, so the
-   drift goes and the photograph sits whole. The reel still changes on its own,
-   and each frame still fades in. */
+.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:center}
 
-.hero__veil{
+/* Only the head and the foot, and only as far in as the type reaches. The
+   middle two fifths of every photograph are left alone. */
+.hero__scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
-  /* the first stop guarantees a readable band behind the header whatever the
-     photograph is doing up there */
-  background:linear-gradient(180deg,rgba(20,17,14,.62) 0,rgba(20,17,14,.30) 130px,rgba(20,17,14,.10) 34%,rgba(20,17,14,.40) 62%,rgba(20,17,14,.90) 100%);
-}
-/* a graded vignette rather than a flat scrim — the corners fall away and the
-   name always lands on its own base, whatever the photograph is doing */
-.hero__grade{
-  position:absolute;inset:0;z-index:2;pointer-events:none;
+  /* Only the foot now. The head of the picture carries no type at all since
+     the bar came off it, so it carries no wash either: the top two thirds of
+     every frame are the photograph at full strength. */
   background:
-    linear-gradient(to top,rgba(16,13,11,.86) 0,rgba(16,13,11,.52) 24%,rgba(16,13,11,.14) 50%,rgba(16,13,11,0) 70%),
-    radial-gradient(120% 88% at 50% 40%,rgba(20,17,14,0) 34%,rgba(20,17,14,.42) 76%,rgba(14,12,10,.72) 100%),
-    linear-gradient(96deg,rgba(28,34,44,.20) 0,rgba(28,34,44,0) 48%);
-  opacity:0;transition:opacity 1.6s var(--ease) .3s;
+    /* the foot has to hold its type over a wall in full sun as readily as
+       over a dark room */
+    linear-gradient(0deg,rgba(10,9,8,.80) 0,rgba(10,9,8,.58) 11%,rgba(10,9,8,.34) 22%,rgba(10,9,8,.14) 34%,rgba(10,9,8,.04) 45%,rgba(10,9,8,0) 58%);
 }
-.hero.is-lit .hero__grade{opacity:1}
-@media(max-width:900px){
-  .hero__grade{
-    background:
-      linear-gradient(to top,rgba(16,13,11,.90) 0,rgba(16,13,11,.66) 32%,rgba(16,13,11,.26) 58%,rgba(16,13,11,0) 80%),
-      radial-gradient(140% 80% at 50% 32%,rgba(20,17,14,0) 30%,rgba(20,17,14,.38) 78%,rgba(14,12,10,.64) 100%);
-  }
-}
+
 /* letterbox bars that retract as the frame opens */
 .hero__bar{position:absolute;left:0;right:0;height:clamp(26px,5.5vh,58px);z-index:4;background:var(--ink);pointer-events:none;
   transition:transform 1.5s var(--ease-io) .15s}
@@ -678,92 +675,105 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .hero.is-lit .hero__bar--t{transform:translateY(-100%)}
 .hero.is-lit .hero__bar--b{transform:translateY(100%)}
 
-/* the studio's name, and nothing else */
-.hero__name{
-  position:absolute;left:var(--pad);z-index:5;
-  bottom:clamp(58px,9vh,96px);
-  margin:0;
-  /* The studio's mark stands here in place of the name set in type, at the
-     largest size the artwork holds: it is 1000px wide, so 340px is still
-     comfortably inside its own pixels on a retina screen. */
-  font-size:0;line-height:0;
-  filter:drop-shadow(0 2px 34px rgba(10,8,6,.55));
-  opacity:0;transform:translateY(22px);filter:blur(10px);
-  transition:opacity 1.25s var(--ease-out) .42s,transform 1.4s var(--ease-out) .42s,filter 1.2s var(--ease-out) .42s;
-}
-.hero.is-lit .hero__name{opacity:1;transform:none;filter:none}
-.hero__name img{display:block;width:clamp(150px,26vw,340px);height:auto}
-@media(max-width:700px){.hero__name img{width:clamp(140px,42vw,220px)}}
-
-/* which project is on screen, and the way through them */
-.hero__reel{
-  position:absolute;right:var(--pad);z-index:5;
-  bottom:clamp(58px,9vh,96px);          /* shares the name's baseline */
-  display:grid;justify-items:end;gap:16px;text-align:right;
-  opacity:0;transform:translateX(24px);
-  transition:opacity 1s var(--ease-out) .95s,transform 1.1s var(--ease-out) .95s;
-}
-.hero.is-lit .hero__reel{opacity:1;transform:none}
-.hero__reel-txt{display:grid;gap:7px;justify-items:end}
-.hero__count{font-size:10px;letter-spacing:.26em;color:rgba(215,207,192,.66)}
-.hero__proj{
-  font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--bone);
-  padding-bottom:8px;border-bottom:1px solid rgba(242,238,231,.55);
-}
-.hero__arrows{display:flex;gap:1px;background:rgba(242,238,231,.28)}
-.hero__arrow{
-  width:52px;height:46px;display:flex;align-items:center;justify-content:center;
-  background:rgba(20,17,14,.42);color:var(--bone);border:0;cursor:pointer;
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
-  transition:background .4s var(--ease),color .4s var(--ease);
-}
-.hero__arrow svg{width:19px;height:19px}
-.hero__arrow:hover{background:var(--bone);color:var(--ink)}
-.hero__arrow:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-@media(max-width:700px){
-  .hero__reel{gap:12px}
-  .hero__arrow{width:46px;height:42px}
-}
-/* a phone has no room for both in one band, so the reel sits above the name */
-@media(max-width:760px){
-  .hero__reel{bottom:clamp(146px,21vh,206px)}
+/* the two halves of the foot, on one baseline */
+.hero__foot{
+  position:relative;z-index:3;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:clamp(24px,4vw,72px);
 }
 
-/* ---- the mark and its line, over the frame ------------------------------
-   The frame was inset to the right on wide screens, which left most of the
-   opening as bare ink. Vaishnavi wants the photograph to hold the screen, so
-   it fills the opening again and the mark sits over it, low on the left, with
-   the studio's line under it. */
-.hero__lede{position:absolute;z-index:5;left:var(--pad);bottom:clamp(58px,9vh,96px)}
-.hero__name{position:static;left:auto;bottom:auto}
+/* ---- the line, low on the left -----------------------------------------
+   The studio's name is the bar's lockup and nothing of it is drawn on the
+   photograph, so what stands here is the studio's own line, left on the same
+   edge the lockup above it starts on, with the deck opposite. Two columns,
+   one at each end of the picture. */
+.hero__lede{position:relative;z-index:4;min-width:0}
+/* read but not seen */
+.u-hide{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip-path:inset(50%);white-space:nowrap;border:0}
+/* Left, not centred, and set larger than it was. The lockup above it begins
+   on this edge and the deck answers from the other, so the opening reads as
+   two columns with the photograph between them; a centred line would sit
+   between the two and belong to neither. With the name no longer above it,
+   it is the only thing holding the left, so it is given the weight to do it,
+   in the studio's own display face rather than a fourth voice. */
 .hero__sub{
-  display:none;margin:clamp(14px,2vh,22px) 0 0;max-width:38ch;
-  font-size:clamp(12.5px,1vw,15px);line-height:1.7;color:var(--bone-dim);
+  display:block;margin:0;max-width:19ch;
+  font-family:var(--disp);font-weight:400;letter-spacing:-.006em;
+  font-size:clamp(19px,1.7vw,27px);line-height:1.38;color:var(--bone);
   opacity:0;transform:translateY(14px);
   transition:opacity 1.1s var(--ease-out) .72s,transform 1.2s var(--ease-out) .72s;
 }
-@media(min-width:760px){.hero__sub{display:block}}
 .hero.is-lit .hero__sub{opacity:1;transform:none}
-
-.hero__foot{
-  position:absolute;left:var(--pad);right:var(--pad);bottom:24px;z-index:5;
-  display:flex;justify-content:space-between;align-items:flex-end;gap:18px;
-  padding-right:var(--wa-foot);
-  font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(215,207,192,.72);
+.hero__cue{
+  display:flex;align-items:center;gap:11px;margin-top:clamp(16px,2.6vh,30px);
+  font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(242,238,231,.72);
   opacity:0;transition:opacity .8s var(--ease) 1.2s;
 }
-.hero.is-lit .hero__foot{opacity:1}
-.hero__cue{display:flex;align-items:center;gap:11px}
-.hero__cue i{width:44px;height:1px;background:rgba(215,207,192,.4);position:relative;overflow:hidden}
+.hero.is-lit .hero__cue{opacity:1}
+.hero__cue i{width:44px;height:1px;background:rgba(242,238,231,.4);position:relative;overflow:hidden}
 .hero__cue i::after{content:"";position:absolute;inset:0 auto 0 0;width:40%;background:var(--brass);animation:cue 2.8s var(--ease) infinite}
+
+/* ---- what is on screen, low on the right -------------------------------- */
+.hero__deck{
+  position:relative;z-index:4;flex:0 0 auto;
+  display:flex;flex-direction:column;align-items:flex-end;text-align:right;
+  gap:clamp(7px,1vh,11px);
+  opacity:0;transform:translateY(16px);
+  transition:opacity 1s var(--ease-out) .95s,transform 1.1s var(--ease-out) .95s;
+}
+.hero.is-lit .hero__deck{opacity:1;transform:none}
+.hero__count{font-size:11px;letter-spacing:.24em;color:rgba(242,238,231,.78);font-variant-numeric:tabular-nums}
+.hero__proj{
+  font-family:var(--disp);font-weight:400;letter-spacing:-.008em;
+  font-size:clamp(18px,1.5vw,25px);line-height:1.2;color:var(--bone);
+}
+.hero__meta{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,238,231,.6)}
+/* two square plates, parted by a hairline rather than run together */
+.hero__arrows{display:flex;gap:1px;background:rgba(14,12,10,.45);margin-top:clamp(6px,1.2vh,14px)}
+.hero__arrow{
+  width:clamp(42px,3.4vw,52px);height:clamp(42px,3.4vw,52px);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bone);color:var(--ink);border:0;cursor:pointer;
+  transition:background .4s var(--ease),color .4s var(--ease);
+}
+.hero__arrow svg{width:19px;height:19px}
+.hero__arrow:hover{background:var(--ink);color:var(--bone)}
+.hero__arrow:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* ---- narrower than a laptop --------------------------------------------
+   The same composition, closed up: the name comes down, and the deck runs as
+   a line under it with the frame's name at one end and the way through it at
+   the other. The bar has already gone behind its own menu by here. */
+@media(max-width:820px){
+  .hero{padding-bottom:clamp(22px,3.6vh,38px)}
+  .hero__foot{flex-direction:column;align-items:stretch;gap:clamp(20px,3.2vh,30px)}
+  .hero__sub{max-width:22ch}
+  .hero__cue{display:none}
+  /* the three lines stack in one column and the arrows stand beside them,
+     however many of the lines a given width is showing */
+  .hero__deck{
+    display:grid;grid-template-columns:1fr auto;align-items:end;
+    gap:4px clamp(14px,4vw,24px);width:100%;text-align:left;justify-items:start;
+  }
+  .hero__count,.hero__proj,.hero__meta{grid-column:1}
+  .hero__arrows{grid-column:2;grid-row:1 / -1;align-self:end;justify-self:end;margin-top:0}
+}
+
+/* a phone: the same again, smaller, and the record line drops away */
+@media(max-width:520px){
+  .hero__proj{font-size:17px}
+  .hero__meta{display:none}
+  .hero__arrow{width:40px;height:40px}
+  .hero__arrow svg{width:17px;height:17px}
+  .hero__count{font-size:10px}
+}
+
 @keyframes cue{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
-@media(max-width:560px){.hero__foot{display:none}}
 
 @media(prefers-reduced-motion:reduce){
-  .hero.is-lit .hero__slide.is-on img{animation:none}
   .hero__bar{display:none}
-  .hero__grade,.hero__reel,.hero__foot{opacity:1 !important;transform:none !important}
-  .hero__name{opacity:1 !important;transform:none !important;filter:none !important}
+  .hero__deck,.hero__cue,.hero__sub{opacity:1 !important;transform:none !important}
   .hero__slide{transition:none}
 }
 
@@ -883,7 +893,8 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    whole frame is on the project's own page. */
 .grid-work{
   display:grid;grid-template-columns:1fr;
-  gap:clamp(30px,3.4vw,52px) clamp(20px,2.6vw,44px);
+  /* the archive closes up with the home page, same reason */
+  gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
   column-count:auto;
 }
 @media(min-width:721px){.grid-work{grid-template-columns:repeat(2,1fr)}}
@@ -1381,8 +1392,11 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    Every project as a plate with its name beneath it, three across. The images
    keep their own proportions — nothing is cropped to make a tidy rectangle —
    so each one sits on the row's baseline and the names line up under them. */
+/* Vaishnavi found the three plates too far apart twice over, so the gaps come
+   in again: the column gap is now a third of what it started at and the row
+   gap not much more than half. */
 .pgrid{
-  display:grid;gap:clamp(30px,3.6vw,58px) clamp(20px,2.4vw,40px);
+  display:grid;gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
   grid-template-columns:1fr;
   margin-top:clamp(30px,4.5vh,54px);
 }
@@ -1444,8 +1458,8 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    simply the finished one. */
 html:not(.js) .rv, html:not(.js) .rv-l, html:not(.js) .rv-r,
 html:not(.js) .ptile, html:not(.js) .card, html:not(.js) .pcard,
-html:not(.js) .hero__name, html:not(.js) .hero__grade,
-html:not(.js) .hero__reel, html:not(.js) .hero__foot, html:not(.js) .hero__sub,
+html:not(.js) .hero__scrim,
+html:not(.js) .hero__deck, html:not(.js) .hero__cue, html:not(.js) .hero__sub,
 html:not(.js) .intro__role{opacity:1;transform:none;filter:none}
 html:not(.js) .ln > i{transform:none}
 html:not(.js) .shot.wipe img,
@@ -1455,7 +1469,7 @@ html:not(.js) .hero__bar{display:none}
 
 @media print{
   .rv, .rv-l, .rv-r, .ptile, .card, .pcard,
-  .hero__name, .hero__grade, .hero__reel, .hero__foot, .hero__sub,
+  .hero__scrim, .hero__deck, .hero__cue, .hero__sub,
   .intro__role{opacity:1 !important;transform:none !important;filter:none !important}
   .ln > i{transform:none !important}
   .shot.wipe img, .pj-lead.wipe img{clip-path:none !important}

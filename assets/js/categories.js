@@ -16,14 +16,14 @@
 window.LEADS = {
   "finished:Residential": "aparna-one",
   "finished:Retail":      "jbn",
+  "finished:Hospitality": "the-good-side",
 
   "ongoing:Residential":  "sas-crown",
   "ongoing:Hospitality":  "keerthi-club-house",
-  "ongoing:Commercial":   "keerthi-marketing-office",
-  "ongoing:Corporate":    "gmfc",
-  "ongoing:Retail":       "tsk"
+  "ongoing:Retail":       "merge-stones",
+  "ongoing:Workspace":    "gmfc"
 };
 
 /* Preferred order. Any category found in the data but missing from this list
    is still shown — it just goes last. */
-window.CATEGORY_ORDER = ["Residential", "Retail", "Hospitality", "Commercial", "Corporate"];
+window.CATEGORY_ORDER = ["Residential", "Hospitality", "Retail", "Workspace"];

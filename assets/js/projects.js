@@ -47,12 +47,11 @@
    it did before.
    ========================================================================== */
 window.HERO = [
-  ["dsr",             19],
-  ["aparna-one",       6],
-  ["aparna-one",      17],
-  ["kids-sky",         1],
-  ["zvezda-boutique",  2],
-  ["the-good-side",    2]
+  ["the-good-side",       1],
+  ["ratio",               8],
+  ["sas-crown",          24],
+  ["keerthi-club-house", 28],
+  ["dsr-1",              23]
 ];
 
 /* ==========================================================================
@@ -77,8 +76,9 @@ window.PROJECTS = [
     category: "Hospitality",
     status: "ongoing",
     typology: "Club House",
-    location: "",
-    area: "",
+    location: "Bangalore",
+    area: "26,000 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "This clubhouse is imagined as a refined social retreat where design, wellness, and leisure come together with quiet ease.",
     story: ["Sculptural forms, warm wood finishes, textured neutral surfaces, and art led details give the spaces a calm yet distinctive identity. From the welcoming reception and curated corridors to the serene studio and lounge areas, every zone is designed to feel immersive, elegant, and effortlessly functional. The result is a contemporary clubhouse that feels inviting, elevated, and deeply considered."],
@@ -93,14 +93,15 @@ window.PROJECTS = [
     slug: "keerthi-marketing-office",
     /* the dash in the old title just repeated the typology below it */
     title: "Keerthi Ascent Experiential Centre",
-    category: "Commercial",
+    category: "Hospitality",
     status: "ongoing",
-    typology: "Marketing Office",
-    location: "",
-    area: "",
+    typology: "Experiential Centre",
+    location: "Bangalore",
+    area: "8500 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "The space is imagined as a calm, immersive environment where architecture and landscape quietly shape the visitor experience.",
-    story: ["Textured surfaces, warm finishes, filtered light, and sculptural details create a refined sense of depth across the reception, lounge, discussion, and meeting spaces. Large openings and planted moments soften the interiors, allowing the spaces to feel connected, open, and unhurried. The atmosphere is understated yet memorable: a place designed not just to present, but to draw people in and let the experience unfold naturally."],
+    story: ["Textured surfaces, warm finishes, filtered light, and sculptural details create a refined sense of depth across the reception, lounge, discussion, and meeting spaces. Large openings and planted moments soften the interiors, allowing the spaces to feel connected, open, and unhurried. The atmosphere is understated yet memorable, a place designed not just to present, but to draw people in and let the experience unfold naturally."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -110,30 +111,34 @@ window.PROJECTS = [
   },
   {
     slug: "sas-crown",
-    title: "SAS Crown",
+    title: "SAS Crown (SAS Home)",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
-    location: "",
-    area: "",
+    location: "Kokapet, Hyderabad",
+    area: "8000 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "This residence is conceived as a layered, contemporary home where warm timber, stone, and soft neutral finishes create a rich yet understated backdrop.",
-    story: ["Muted greens and terracotta accents bring depth and personality, while sculptural furniture, patterned surfaces, and curated artwork add a distinct visual rhythm. Screens, refined joinery, and carefully composed lighting give each space its own character while maintaining a strong sense of continuity. The home feels expressive without being excessive: warm, artistic, and quietly sophisticated."],
+    story: ["Muted greens and terracotta accents bring depth and personality, while sculptural furniture, patterned surfaces, and curated artwork add a distinct visual rhythm. Screens, refined joinery, and carefully composed lighting give each space its own character while maintaining a strong sense of continuity. The home feels expressive without being excessive, warm, artistic, and quietly sophisticated."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13, 14],
+    /* 09 and 11 are the same lounge and the sequence was setting them side by
+       side. 09 comes out of the selection; the file stays where it is. */
+    select: [1, 2, 3, 4, 6, 7, 8, 11, 12, 13, 14],
     dir: "assets/projects/sas-crown",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",944,1080],["26.webp",708,1080],["27.webp",1600,900],["28.webp",1600,900],["29.webp",1600,900],["30.webp",1600,900],["31.webp",1600,900],["32.webp",1600,900],["33.webp",1600,900],["34.webp",1600,900],["35.webp",1252,1080],["36.webp",1600,900],["37.webp",1600,900],["38.webp",1600,900],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1600,900],["44.webp",1600,900]]
   },
   {
     slug: "gmfc",
     title: "GMFC Workspace",
-    category: "Corporate",
+    category: "Workspace",
     status: "ongoing",
-    typology: "Research Office",
-    location: "",
-    area: "",
+    typology: "Workspace",
+    location: "Jubilee Hills, Hyderabad",
+    area: "4000 sq ft",
+    year: "",
     scope: "Interior Design",
     /* its 04 is the prayer room, which leads on nothing: the lounge reads as
        the workspace the write-up describes */
@@ -143,7 +148,12 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    /* This project's files are not in name order: position 1 is 32.webp, the
+       prayer room seen through the glazed screen, which was opening the
+       gallery full bleed. It comes out, and the boardroom at position 18
+       (16.webp) takes its place, which is what the project is actually for.
+       Position 2 is 33.webp, the same shrine closer in, and is still here. */
+    select: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 18],
     dir: "assets/projects/gmfc",
     images: [["32.webp",1600,900],["33.webp",749,1080],["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1325,1080],["06.webp",1325,1080],["07.webp",1326,1080],["08.webp",1326,1080],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1406,1080],["25.webp",714,1080],["26.webp",861,1080],["27.webp",1268,1051],["28.webp",736,1080],["29.webp",1600,900],["30.webp",1242,1080],["31.webp",709,1080],["34.webp",1142,1080],["35.webp",1600,900],["36.webp",1600,900],["37.webp",1600,900]]
   },
@@ -153,11 +163,12 @@ window.PROJECTS = [
     /* A spice kitchen, not the jewellery retail this was first filed as. The
        studio confirmed it stays under Retail rather than moving to
        Hospitality — so this is a decision, not an oversight. */
-    category: "Retail",
+    category: "Hospitality",
     status: "ongoing",
     typology: "Regional Restaurant",
-    location: "",
-    area: "",
+    location: "Nagole",
+    area: "24,500 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "This dining space is envisioned as a warm, immersive setting where contemporary design meets subtle Indian character.",
     story: ["Rich timber tones, cane detailing, earthy flooring, and muted green accents create a layered and tactile atmosphere. Architectural arches, latticework, and sculptural lighting add rhythm while celebrating craft in a refined way. The space carries a quiet sense of nostalgia, reimagined through a distinctly modern lens."],
@@ -174,11 +185,12 @@ window.PROJECTS = [
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
-    location: "",
-    area: "",
+    location: "Gachibowli, Hyderabad",
+    area: "5000 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "This residence is shaped by a quiet, contemporary sensibility, where soft neutrals and warm timber create a calm, cohesive backdrop.",
-    story: ["Sculptural furniture, subtle detailing, and curated artwork bring depth without overwhelming the spaces. Natural light moves gently through the interiors, adding softness and warmth throughout the day. The home feels composed yet effortless: refined in character, intimate in mood, and designed to be lived in with ease."],
+    story: ["Sculptural furniture, subtle detailing, and curated artwork bring depth without overwhelming the spaces. Natural light moves gently through the interiors, adding softness and warmth throughout the day. The home feels composed yet effortless, refined in character, intimate in mood, and designed to be lived in with ease."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -188,12 +200,13 @@ window.PROJECTS = [
   },
   {
     slug: "wdsr",
-    title: "WDSR",
+    title: "WDSR (Aurea)",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
-    location: "",
-    area: "",
+    location: "Kondapur, Hyderabad",
+    area: "3500 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "This living space is designed around a calm, contemporary palette of warm wood, textured neutrals, and soft earthy tones.",
     story: ["Sculptural furniture, layered lighting, and curated artwork bring character while keeping the atmosphere relaxed and uncluttered. Subtle screens, refined wall detailing, and generous daylight add depth and rhythm throughout. Its appeal lies in the balance of comfort and restraint, creating a home that feels effortless, warm, and quietly refined."],
@@ -205,6 +218,47 @@ window.PROJECTS = [
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900]]
   },
   {
+    slug: "merge-stones",
+    title: "Merge Stones",
+    category: "Retail",
+    status: "ongoing",
+    typology: "Experiential Marble Showroom",
+    location: "Shamshabad, Hyderabad",
+    area: "8000 sq ft",
+    year: "",
+    scope: "Interior Design",
+    summary: "This experiential marble showroom is conceived as an immersive journey through material, mood, and space.",
+    story: ["Dramatic lighting, sculptural forms, and richly textured surfaces come together to elevate stone beyond display and turn it into an atmosphere. Each zone is carefully composed to highlight the depth, character, and artistry of marble in a refined architectural setting. What emerges is a space that feels bold and atmospheric, where stone becomes the experience rather than simply the material."],
+    notes: [],
+    /* the lounge against the green marble wall: the stone is the project, and
+       this is the frame that says so */
+    cover: 5,
+    select: [1, 2, 3, 4, 5, 6],
+    dir: "assets/projects/merge-stones",
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1295,1080],["05.webp",1617,1080],["06.webp",1078,1080]]
+  },
+  {
+    slug: "cousins",
+    title: "Cousins",
+    category: "Hospitality",
+    status: "ongoing",
+    typology: "Coffee and Bar",
+    location: "Jubilee Hills, Hyderabad",
+    area: "1200 sq ft",
+    year: "",
+    scope: "Interior Design",
+    summary: "A contemporary coffee shop by day and cocktail bar by night, designed through a balance of stainless steel, warm wood, and distinctive details.",
+    story: ["Layered lighting transforms the atmosphere from bright and inviting to intimate and sophisticated after dark."],
+    notes: [],
+    /* the bar itself, which is the half of the room the name is about */
+    cover: 4,
+    /* 02 and 03 are the same wall from two steps apart, so the sequence shows
+       one of them and the other is set aside */
+    select: [1, 3, 4],
+    dir: "assets/projects/cousins",
+    images: [["01.webp",1920,1080],["02.webp",1391,1080],["03.webp",1470,1080],["04.webp",1920,1080]]
+  },
+  {
     slug: "sindhus-baby-room",
     title: "Sindhu's Baby Room",
     category: "Residential",
@@ -212,6 +266,7 @@ window.PROJECTS = [
     typology: "Children's Room",
     location: "",
     area: "",
+    year: "",
     scope: "Interior Design",
     summary: "",
     story: [],
@@ -242,12 +297,12 @@ window.PROJECTS = [
     cover: 13,
     status: "finished",
     typology: "Speciality Coffee House",
-    location: "Hyderabad",
-    area: "",
-    year: "2025",
+    location: "Jubilee Hills, Hyderabad",
+    area: "3800 sq ft",
+    year: "2026",
     scope: "Interior Design",
     summary: "This coffee house is conceived as a quiet, design led escape with an effortless sense of warmth and sophistication.",
-    story: ["Natural timber, muted textures, and crisp architectural detailing create a refined yet relaxed visual language. Soft lighting, intimate seating, and crafted elements bring a subtle richness to the space without feeling overstated. The space settles into a calm, contemporary rhythm: inviting, tactile, and quietly memorable."],
+    story: ["Natural timber, muted textures, and crisp architectural detailing create a refined yet relaxed visual language. Soft lighting, intimate seating, and crafted elements bring a subtle richness to the space without feeling overstated. The space settles into a calm, contemporary rhythm, inviting, tactile, and quietly memorable."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -258,12 +313,12 @@ window.PROJECTS = [
   {
     slug: "the-good-side",
     title: "The Good Side",
-    category: "Wellness",
+    category: "Hospitality",
     status: "finished",
     typology: "Luxury Salon and Makeup Studio",
-    location: "Hyderabad",
-    area: "",
-    year: "2025",
+    location: "Jubilee Hills, Hyderabad",
+    area: "6000 sq ft",
+    year: "2026",
     scope: "Interior Design",
     summary: "The Good Side is a luxury desert inspired salon in Hyderabad designed as a serene and immersive retreat that blends earthy elegance with contemporary minimalism.",
     story: ["Inspired by the raw beauty of desert landscapes, the project features warm terracotta toned textured walls, sculptural architectural forms, muted neutral palettes, and soft ambient lighting to create a calming yet sophisticated atmosphere."],
@@ -282,6 +337,7 @@ window.PROJECTS = [
     typology: "",
     location: "",
     area: "",
+    year: "",
     scope: "Interior Design",
     summary: "Tucked away in the heart of Jubilee Hills, this 1,500 sq ft boutique is a quiet little world of its own, soft, feminine and beautifully detailed.",
     story: ["Designed with a gentle, almost poetic restraint, the space uses a neutral palette to let the garments take centre stage. Botanical reliefs finished by hand wrap the walls, adding depth and character without ever overwhelming the eye.", "The curved ceiling floats above the space like a wave, creating movement and a sense of calm, while the delicate gold rails and arched windows bring in a touch of romance. Every corner feels intentional, warm and thoughtfully composed, a small boutique with a big soul, made to make every piece of clothing feel special."],
@@ -295,9 +351,9 @@ window.PROJECTS = [
     category: "Retail",
     status: "finished",
     typology: "Pet Store",
-    location: "Hyderabad",
-    area: "",
-    year: "2025",
+    location: "Madhapur, Hyderabad",
+    area: "3000 sq ft",
+    year: "2026",
     scope: "Interior Design",
     summary: "Designed as a cheerful and contemporary pet retail experience in Hyderabad, the space pairs warm timber with playful mustard and green accents.",
     story: ["Rounded forms, integrated display niches, and open shelving keep the store visually soft while making products easy to browse. A dedicated grooming zone is seamlessly woven into the layout, balancing function with character. The result is a warm, friendly environment that feels thoughtfully designed for both pets and their people."],
@@ -310,67 +366,73 @@ window.PROJECTS = [
        together and were shown as a single entry; Vaishnavi has since said the
        playroom is its own project and the two bedrooms are separate, so the
        eleven photographs stand on their own again. */
-    slug: "kids-sky",
-    title: "Sky",
+    slug: "sky",
+    title: "Kid’s Room (Sky)",
     category: "Residential",
     status: "finished",
     typology: "Kids Spaces",
-    location: "Hyderabad",
+    location: "Jubilee Hills, Hyderabad",
     area: "",
-    year: "2025",
+    year: "2024",
     scope: "Interior Design",
-    summary: "This kids' room is designed as a luxurious yet playful retreat, where imagination is expressed through refined detailing and a soft, serene palette.",
-    story: ["Powder blue accents, bespoke wall art, tactile fabrics, and sculptural forms create a sophisticated sense of whimsy. Thoughtfully designed furniture and curated decor bring warmth and personality while maintaining a calm, uncluttered aesthetic. The result is an elegant, dreamlike space that feels youthful, elevated, and timeless."],
+    summary: "This kids’ room is designed as a luxurious yet playful retreat, where imagination is expressed through refined detailing and a soft, serene palette.",
+    story: ["Powder blue accents, bespoke wall art, tactile fabrics, and sculptural forms create a sophisticated sense of whimsy. Thoughtfully designed furniture and curated décor bring warmth and personality while maintaining a calm, uncluttered aesthetic. The result is an elegant, dreamlike space that feels youthful, elevated, and timeless."],
     notes: [],
-    dir: "assets/projects/kids-sky",
+    /* a landscape frame, so the card is not cropped to a slice: the aeroplane wall, which is the frame the studio chose to lead with */
+    cover: 8,
+    dir: "assets/projects/sky",
     images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1334,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1334],["09.webp",2000,1425],["10.webp",1424,2000],["11.webp",1359,2000]]
   },
   {
     /* Teddy, Akira's bedroom. */
-    slug: "kids-teddy",
-    title: "Teddy",
+    slug: "teddy",
+    title: "Akira’s Room (Teddy)",
     category: "Residential",
     status: "finished",
     typology: "Kids Spaces",
-    location: "Hyderabad",
+    location: "Jubilee Hills, Hyderabad",
     area: "",
     year: "2025",
     scope: "Interior Design",
-    summary: "This children's bedroom is designed as a soft, whimsical retreat with a refined contemporary character.",
+    summary: "This children’s bedroom is designed as a soft, whimsical retreat with a refined contemporary character.",
     story: ["Sculptural furniture, rounded detailing, and charming custom elements bring a sense of personality while keeping the space clean and sophisticated. Thoughtfully integrated storage and delicate styling complete a dreamy, intimate room that feels youthful, elegant, and effortlessly chic."],
     notes: [],
-    dir: "assets/projects/kids-teddy",
+    /* a landscape frame, so the card is not cropped to a slice: the bear on the cloud, the one landscape frame in the room */
+    cover: 6,
+    dir: "assets/projects/teddy",
     images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1349,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",1334,2000],["09.webp",1334,2000],["10.webp",1342,2000],["11.webp",1334,2000],["12.webp",1334,2000],["13.webp",1334,2000]]
   },
   {
     /* The play room the two of them share. */
-    slug: "kids-play-room",
+    slug: "playroom",
     title: "Play Room",
     category: "Residential",
     status: "finished",
-    typology: "Kids Spaces",
-    location: "Hyderabad",
+    typology: "Fun Kids Space",
+    location: "Jubilee Hills, Hyderabad",
     area: "",
     year: "2025",
     scope: "Interior Design",
     summary: "Warm timber finishes, soft pastel accents, and whimsical forms create an inviting and playful atmosphere.",
     story: ["The immersive wildlife mural adds depth and storytelling, while integrated shelving and activity zones keep the space functional and organised. Gentle lighting and organic curves soften the interior, creating a nurturing environment for creativity, exploration, and everyday learning."],
     notes: [],
-    dir: "assets/projects/kids-play-room",
+    /* a landscape frame, so the card is not cropped to a slice: the whole room, mural and all */
+    cover: 7,
+    dir: "assets/projects/playroom",
     images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1402,2000],["04.webp",1496,2000],["05.webp",1334,2000],["06.webp",1334,2000],["07.webp",2000,1334],["08.webp",1334,2000],["09.webp",1334,2000],["10.webp",2000,1334],["11.webp",1334,2000],["12.webp",1334,2000],["13.webp",1334,2000]]
   },
   {
     slug: "dsr",
-    title: "DSR the First",
+    title: "DSR the First (Concrete Canvas)",
     category: "Residential",
     status: "finished",
     typology: "Residence",
-    location: "Hyderabad",
-    area: "",
-    year: "2022",
+    location: "Gachibowli, Hyderabad",
+    area: "5000 sq ft",
+    year: "2023",
     scope: "Interior Design",
     summary: "A home shaped by sculptural silhouettes, warm woods, and quiet moments of contrast.",
-    story: ["Soft neutrals create an effortless backdrop, while expressive lighting, art, and deep green marble add character. Every space feels composed yet relaxed, balancing clean geometry with tactile warmth. Its character comes through in the details: artful, contemporary, and unmistakably individual."],
+    story: ["Soft neutrals create an effortless backdrop, while expressive lighting, art, and deep green marble add character. Every space feels composed yet relaxed, balancing clean geometry with tactile warmth. Its character comes through in the details, artful, contemporary, and unmistakably individual."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -388,7 +450,7 @@ window.PROJECTS = [
     status: "finished",
     typology: "Boutique Jewellery Store",
     location: "Bangalore",
-    area: "",
+    area: "6000 sq ft",
     year: "2026",
     scope: "Interior Design",
     summary: "This jewellery store is envisioned as a chic, contemporary space with a rich and understated sense of luxury.",
@@ -404,18 +466,18 @@ window.PROJECTS = [
     slug: "aparna-one",
     /* the living room, chosen by the studio to lead */
     cover: 4,
-    title: "Aparna One",
+    title: "Aparna One (Mysa)",
     /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
     cover: 4,
     category: "Residential",
     status: "finished",
     typology: "Residence",
-    location: "Hyderabad",
-    area: "",
-    year: "2024",
+    location: "Shaikpet, Hyderabad",
+    area: "3200 sq ft",
+    year: "2023",
     scope: "Interior Design",
     summary: "This residence is designed as a calm and contemporary home, where clean lines are softened by warm materials and subtle detailing.",
-    story: ["A muted palette, sage toned cabinetry, sculptural furniture, and natural textures create a relaxed and cohesive character. Gentle architectural forms and filtered daylight bring depth and softness throughout the interiors. The home carries a quiet sense of ease: refined in expression, warm in character, and effortless to live in."],
+    story: ["A muted palette, sage toned cabinetry, sculptural furniture, and natural textures create a relaxed and cohesive character. Gentle architectural forms and filtered daylight bring depth and softness throughout the interiors. The home carries a quiet sense of ease, refined in expression, warm in character, and effortless to live in."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -459,6 +521,7 @@ window.PROJECTS = [
     typology: "Residence",
     location: "Hyderabad",
     area: "0,000 sq ft",
+    year: "",
     scope: "Interior Design",
     summary: "One line that says what the project is.",
     story: [ "First paragraph.", "Second paragraph." ],
