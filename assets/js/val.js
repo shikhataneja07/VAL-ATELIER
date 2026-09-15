@@ -119,6 +119,26 @@
     '</svg>';
   };
 
+  /* Spread the outlets out, so the run does not open with the same
+     publication three times. Greedy rather than clever: walk the list and
+     take the first entry whose outlet is not the one just placed, falling
+     back to the next entry when every remaining one matches. Stable, so two
+     features from the same outlet keep their written order relative to
+     each other. */
+  VAL.pressOrder = function(list){
+    if (!window.PRESS_MIX || list.length < 3) return list.slice();
+    var rest = list.slice(1), out = [list[0]];
+    while (rest.length){
+      var last = out[out.length - 1].outlet;
+      var i = 0;
+      for (var k = 0; k < rest.length; k++){
+        if (rest[k].outlet !== last){ i = k; break; }
+      }
+      out.push(rest.splice(i, 1)[0]);
+    }
+    return out;
+  };
+
   /* a press card, shared by the home teaser and the press page */
   VAL.pressCard = function(e){
     var meta = [e.project, e.date, e.byline].filter(Boolean).join(" \u00b7 ");
@@ -452,6 +472,76 @@
     warmable(node).forEach(function(i){ ioWarm.observe(i); });
   }
   VAL.warm = warm;
+
+  /* ======================================================================
+     THE PROJECT SEQUENCE
+     ----------------------------------------------------------------------
+     A project is read, not browsed. Instead of every photograph at one size,
+     the set is laid out as a run of beats, each with a different scale, and
+     the beats are filled from the photographs the project actually has.
+
+       bleed    a landscape across the whole screen. the opening and the close
+       wide     a landscape across the container
+       single   one picture at its own size, centred, with air
+       pair     two side by side, close together
+       offset   one portrait pushed to the right, its caption alone at the left
+
+     Two rules make it feel authored rather than generated. Beats ask for an
+     orientation and take the nearest match within a short lookahead, so the
+     studio's own order survives; and the space inside a pair is small while
+     the space between beats is large, which is what gives the page its
+     rhythm rather than its texture.
+
+     The pattern is not fixed per project: a set of mostly portraits will
+     fall into pairs and offsets, a set of mostly landscapes into wides and
+     bleeds. The layout answers the imagery.
+     ====================================================================== */
+  var BEATS = [
+    { k: "bleed",  want: "land", n: 1 },
+    { k: "single", want: "any",  n: 1 },
+    { k: "pair",   want: "port", n: 2 },
+    { k: "offset", want: "port", n: 1 },
+    { k: "wide",   want: "land", n: 1 },
+    { k: "pair",   want: "port", n: 2 },
+    { k: "single", want: "any",  n: 1 }
+  ];
+  var LOOKAHEAD = 4;
+
+  VAL.sequence = function(items){
+    /* items: [{ i, r }] in the studio's order. r is width over height. */
+    var q = items.slice(), out = [], b = 0;
+    function suits(x, want){
+      if (want === "any")  return true;
+      if (want === "land") return x.r >= 1.15;
+      return x.r <= 0.92;
+    }
+    function take(want){
+      var lim = Math.min(LOOKAHEAD, q.length);
+      for (var k = 0; k < lim; k++){ if (suits(q[k], want)) return q.splice(k, 1)[0]; }
+      return q.shift();
+    }
+    while (q.length){
+      var beat = BEATS[b % BEATS.length]; b++;
+      /* a pair needs two, and two that are close in shape, or it reads as a
+         mistake rather than a pairing */
+      if (beat.n === 2){
+        if (q.length < 2) { out.push({ k: "single", items: [q.shift()] }); continue; }
+        var a = take(beat.want), c = take(beat.want);
+        if (Math.abs(a.r - c.r) > 0.45){
+          out.push({ k: "single", items: [a] });
+          out.push({ k: "single", items: [c] });
+        } else {
+          out.push({ k: "pair", items: [a, c] });
+        }
+        continue;
+      }
+      out.push({ k: beat.k, items: [take(beat.want)] });
+    }
+    /* close on a full-bleed where the last picture can carry one */
+    var last = out[out.length - 1];
+    if (last && last.items.length === 1 && last.items[0].r >= 1.15) last.k = "bleed";
+    return out;
+  };
 
   /* split a heading on "|" into masked lines that rise in sequence */
   VAL.splitLines = function(node){

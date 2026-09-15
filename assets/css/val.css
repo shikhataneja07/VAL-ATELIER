@@ -205,8 +205,9 @@
   --putty:#E8E1D6;
   --frame:#DED7CB;
   --line:#D8D1C5;
-  --muted:#8A8276;
-  --brass:#9A7B4F;
+  --muted:#665F54;      /* 5.45:1 on bone, 4.86:1 on putty; was #8A8276 at 3.28 and 2.93 */
+  --brass:#9A7B4F;      /* rules, hairlines, grounds: not for text */
+  --brass-ink:#745B30;  /* the same brass for text: 5.53:1 on bone, 4.93:1 on putty */
   --ink:#23201C;
 
   --ink-soft:#43403A;
@@ -258,7 +259,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   display:inline-block;font-family:var(--body);font-size:10.5px;font-weight:500;
   letter-spacing:.3em;text-transform:uppercase;color:var(--muted);line-height:1.4;
 }
-.label--brass{color:var(--brass)}
+.label--brass{color:var(--brass-ink)}
 .disp{font-family:var(--disp);font-weight:400;line-height:1.02;letter-spacing:-.018em}
 .d1{font-family:var(--disp);font-weight:400;font-size:clamp(40px,7vw,98px);line-height:.98;letter-spacing:-.022em}
 .d2{font-family:var(--disp);font-weight:400;font-size:clamp(30px,4.6vw,62px);line-height:1.04;letter-spacing:-.018em}
@@ -271,7 +272,7 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .band-ink p.body{color:var(--bone-dim)}
 .measure{max-width:44ch}
 .measure-sm{max-width:34ch}
-.num{font-family:var(--disp);font-size:12.5px;letter-spacing:.05em;color:var(--brass)}
+.num{font-family:var(--disp);font-size:12.5px;letter-spacing:.05em;color:var(--brass-ink)}
 
 /* section head — label, rule, title, note */
 .head{margin-bottom:clamp(40px,6vh,72px)}
@@ -343,7 +344,7 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .nav a{position:relative;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;padding:6px 0;color:var(--ink)}
 .nav a::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease-io)}
 .nav a:hover::after{transform:scaleX(1);transform-origin:left}
-.nav a.is-here{color:var(--brass)}
+.nav a.is-here{color:var(--brass-ink)}
 .nav a.is-here::after{background:var(--brass);transform:scaleX(1)}
 /* The enquiry button is on the bar at every width. On a phone it sits tight
    against the burger, set smaller and without its arrow, because the room
@@ -402,7 +403,7 @@ p.body{font-size:15.5px;line-height:1.8;color:var(--ink-soft);font-weight:400;ma
 .sheet.is-open .sheet__nav a:nth-child(3){transition-delay:.30s}
 .sheet.is-open .sheet__nav a:nth-child(4){transition-delay:.37s}
 .sheet.is-open .sheet__nav a:nth-child(5){transition-delay:.44s}
-.sheet__nav a:hover{color:var(--brass)}
+.sheet__nav a:hover{color:var(--brass-ink)}
 .sheet__foot{margin-top:40px;opacity:0;transition:opacity .6s var(--ease) .5s}
 .sheet.is-open .sheet__foot{opacity:1}
 .sheet__foot a{
@@ -548,8 +549,8 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .band-ink .plate figcaption{border-top-color:var(--line-dark)}
 .plate .ttl{font-family:var(--disp);font-size:clamp(19px,1.7vw,23px);font-weight:400;letter-spacing:-.008em;transition:color .4s var(--ease)}
 .plate .sub{display:block;font-family:var(--body);font-size:12.5px;color:var(--muted);margin-top:4px;letter-spacing:0}
-.plate .meta{flex-shrink:0;text-align:right;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);line-height:1.6}
-.plate:hover .ttl{color:var(--brass)}
+.plate .meta{flex-shrink:0;text-align:right;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass-ink);line-height:1.6}
+.plate:hover .ttl{color:var(--brass-ink)}
 
 /* ---------- footer ---------- */
 .foot{background:var(--ink);color:var(--bone);padding:clamp(56px,8vh,90px) 0 34px}
@@ -559,7 +560,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .foot h4{font-size:10.5px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-mute);margin-bottom:20px}
 .foot ul{list-style:none;display:flex;flex-direction:column;gap:11px}
 .foot ul a,.foot ul span{font-size:14px;color:var(--bone-dim);transition:color .35s var(--ease)}
-.foot ul a:hover{color:var(--brass)}
+.foot ul a:hover{color:var(--brass-ink)}
 /* the Instagram handle, given its own weight in the footer and again on the
    contact page: the studio posts there before anywhere else */
 .ig{
@@ -597,7 +598,9 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* where the masthead carries the mark instead of the name set in type: the
    artwork is 1200px, so this stays well inside it on a retina screen */
 .mast h1.mast__mark{font-size:0;line-height:0}
-.mast h1.mast__mark img{display:block;width:clamp(220px,34vw,440px);height:auto}
+/* the mark is the page title here, so it should read as a name, not fill the
+   screen: it was reaching 440px and taking the whole first fold with it */
+.mast h1.mast__mark img{display:block;width:clamp(120px,14vw,200px);height:auto}
 .mast .crumb{display:flex;align-items:center;gap:14px;margin-bottom:28px}
 .mast .crumb .bar{width:40px;height:1px;background:var(--brass)}
 
@@ -619,22 +622,29 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    One full-viewport image at every width. The type plate is absolutely
    positioned over it and stays hidden until the photograph has decoded, so
    nothing is ever read against an empty well. */
-.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--ink)}
+/* Every frame in the reel is shot 2:3, so the opening takes that proportion
+   instead of the screen's. On a phone that is the full width and nothing is
+   cropped at all; on anything wider the plate is held to the screen height and
+   centred on the ink, so the whole photograph is always there. */
+/* The opening takes the shape of the photographs it is showing. --hero-ar is
+   the frames' own width over height, set from the files themselves before the
+   first paint, so a portrait set and a landscape set each get an opening that
+   fits them rather than one hard coded to 2:3. It never grows past the screen,
+   and the frame inside is shown whole. */
+.hero{position:relative;height:min(100svh,calc(100vw / var(--hero-ar,.667)));
+  min-height:0;overflow:hidden;background:var(--ink)}
 
 /* the work itself, one frame at a time */
 .hero__slides{position:absolute;inset:0;z-index:0;overflow:hidden}
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s var(--ease)}
 .hero__slide.is-on{opacity:1}
 .hero__slide img{
-  width:100%;height:100%;object-fit:cover;object-position:center;
-  transform:scale(1.035);transition:transform 2.4s var(--ease-out);
+  width:100%;height:100%;object-fit:contain;object-position:center;
 }
-/* the live frame settles, then keeps drifting — it never sits still */
-.hero.is-lit .hero__slide.is-on img{transform:scale(1);animation:hero-drift 26s var(--ease-io) 2.4s infinite alternate}
-/* the drift used to reach 1.07, which meant the frame spent most of its time
-   enlarged past the file's own pixels; 1.035 keeps the movement and hands back
-   most of the sharpness */
-@keyframes hero-drift{from{transform:scale(1)}to{transform:scale(1.035) translate3d(-.8%,-.7%,0)}}
+/* The frame used to drift, scaling to 1.035. Any scale above 1 pushes the
+   edges out of the opening, which is the cropping Vaishnavi is seeing, so the
+   drift goes and the photograph sits whole. The reel still changes on its own,
+   and each frame still fades in. */
 
 .hero__veil{
   position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -719,6 +729,22 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   .hero__reel{bottom:clamp(146px,21vh,206px)}
 }
 
+/* ---- the mark and its line, over the frame ------------------------------
+   The frame was inset to the right on wide screens, which left most of the
+   opening as bare ink. Vaishnavi wants the photograph to hold the screen, so
+   it fills the opening again and the mark sits over it, low on the left, with
+   the studio's line under it. */
+.hero__lede{position:absolute;z-index:5;left:var(--pad);bottom:clamp(58px,9vh,96px)}
+.hero__name{position:static;left:auto;bottom:auto}
+.hero__sub{
+  display:none;margin:clamp(14px,2vh,22px) 0 0;max-width:38ch;
+  font-size:clamp(12.5px,1vw,15px);line-height:1.7;color:var(--bone-dim);
+  opacity:0;transform:translateY(14px);
+  transition:opacity 1.1s var(--ease-out) .72s,transform 1.2s var(--ease-out) .72s;
+}
+@media(min-width:760px){.hero__sub{display:block}}
+.hero.is-lit .hero__sub{opacity:1;transform:none}
+
 .hero__foot{
   position:absolute;left:var(--pad);right:var(--pad);bottom:24px;z-index:5;
   display:flex;justify-content:space-between;align-items:flex-end;gap:18px;
@@ -741,14 +767,35 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   .hero__slide{transition:none}
 }
 
-/* marquee strip */
-.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:17px 0;overflow:hidden}
-.strip__track{display:flex;width:max-content;animation:drift 46s linear infinite}
-.strip__group{display:flex;align-items:center;gap:0}
-.strip__group span{font-family:var(--disp);font-size:clamp(14px,1.25vw,17px);color:var(--muted);white-space:nowrap;padding:0 24px}
-.strip__group i{width:4px;height:4px;border-radius:50%;background:var(--brass);opacity:.6;flex:0 0 4px}
-@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.strip:hover .strip__track{animation-play-state:paused}
+/* ---------- the studio in figures, running as a band -----------------------
+   A marquee, but set as a monograph would set it: each fact is a figure in the
+   display face with its caption under it, divided by hairlines, rather than a
+   line of text sliding past. It runs on the ink so the movement sits in a dark
+   band between two quiet ones, and it holds still when the pointer is on it or
+   when the reader has asked for less motion. The second group is the same list
+   again, which is what makes the loop seamless: the track travels exactly half
+   its width, so the copy lands where the original began. */
+.tally{overflow:hidden;padding:clamp(30px,4.6vh,52px) 0;
+  border-top:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}
+.tally__track{display:flex;width:max-content;animation:tally 64s linear infinite}
+.tally__group{display:flex}
+.tally__item{display:grid;gap:clamp(9px,1.1vh,13px);align-content:center;
+  padding:0 clamp(28px,3.8vw,64px);border-right:1px solid var(--line-dark);white-space:nowrap}
+.tally__fig{font-family:var(--disp);font-weight:400;line-height:1;
+  font-size:clamp(22px,3.2vw,48px);letter-spacing:-.02em;color:var(--bone)}
+.tally__lab{font-size:10px;font-weight:600;letter-spacing:.16em;line-height:1;
+  text-transform:uppercase;color:var(--brass)}
+@keyframes tally{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tally:hover .tally__track{animation-play-state:paused}
+/* nothing should move for a reader who has asked it not to: the band settles
+   into a centred row instead, and the duplicate list is dropped */
+@media(prefers-reduced-motion:reduce){
+  .tally__track{animation:none;width:100%}
+  .tally__group{flex-wrap:wrap;justify-content:center;width:100%}
+  .tally__group[aria-hidden="true"]{display:none}
+  .tally__item{padding-block:clamp(12px,1.6vh,18px)}
+  .tally__item:last-child{border-right:0}
+}
 
 /* ---------- approach / numbered principles ---------- */
 .princ{display:grid;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -761,7 +808,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .princ__cell h4{font-family:var(--disp);font-weight:400;font-size:23px;letter-spacing:-.01em;margin-bottom:12px}
 .princ__cell p{font-size:14.5px;line-height:1.78;color:var(--ink-soft)}
 .princ__cell::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:var(--brass);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease-io)}
-@media(hover:hover){.princ__cell:hover::after{transform:scaleX(1)}.princ__cell:hover .n{color:var(--brass)}}
+@media(hover:hover){.princ__cell:hover::after{transform:scaleX(1)}.princ__cell:hover .n{color:var(--brass-ink)}}
 
 /* section footer link into the archive */
 .sec-foot{
@@ -770,11 +817,27 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 }
 
 /* ---------- the principal designer, on the home page ---------- */
+/* Her own line, opening the section. It used to sit in the column above her
+   name at 29px over a 22ch measure, which ran it five lines deep and put a
+   large serif directly under a much larger one. It now runs across the page
+   at a quieter size on a wide measure, so it reads as one held thought
+   rather than a narrow stack, and the name below it is clearly the louder
+   of the two. */
+.intro__say{
+  font-family:var(--disp);font-weight:400;
+  font-size:clamp(17px,1.5vw,21px);line-height:1.5;letter-spacing:-.004em;
+  color:var(--brass-ink);max-width:54ch;
+  margin:clamp(22px,3vh,34px) 0 clamp(34px,4.6vh,58px);
+  padding-left:clamp(14px,1.6vw,22px);border-left:1px solid var(--brass);
+}
+.intro__say em{font-style:italic}
+@media(max-width:899px){.intro__say{max-width:none}}
+
 .person{display:grid;gap:clamp(28px,4vw,68px);align-items:center}
 @media(min-width:900px){.person{grid-template-columns:.85fr 1.15fr}}
 .person__fig img{width:100%;height:auto;display:block}
 .person__name{font-family:var(--disp);font-weight:400;font-size:clamp(38px,5.6vw,78px);line-height:1;letter-spacing:-.026em}
-.person__role{margin-top:14px;font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brass)}
+.person__role{margin-top:14px;font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-ink)}
 
 /* ---------- studio strip (image + text) ---------- */
 .duo{display:grid;gap:clamp(34px,4vw,72px);align-items:center}
@@ -793,7 +856,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   display:inline-block;font-family:var(--disp);font-size:clamp(19px,2.1vw,28px);
   padding-bottom:8px;border-bottom:1px solid var(--line-dark);transition:border-color .45s var(--ease),color .45s var(--ease);
 }
-.cta__mail:hover{color:var(--brass);border-bottom-color:var(--brass)}
+.cta__mail:hover{color:var(--brass-ink);border-bottom-color:var(--brass)}
 .cta__row{margin-top:42px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
 
 /* ---------- projects archive ---------- */
@@ -803,7 +866,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
   transition:color .4s var(--ease);
 }
-.tabs button .c{font-family:var(--disp);font-size:11px;letter-spacing:.04em;color:var(--brass);margin-left:8px;vertical-align:super}
+.tabs button .c{font-family:var(--disp);font-size:11px;letter-spacing:.04em;color:var(--brass-ink);margin-left:8px;vertical-align:super}
 .tabs button::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .55s var(--ease-io)}
 .tabs button:hover{color:var(--ink)}
 .tabs button.is-on{color:var(--ink)}
@@ -843,7 +906,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
   transition:color .4s var(--ease);
 }
-.card:hover .card__go{color:var(--brass)}
+.card:hover .card__go{color:var(--brass-ink)}
 .card__go .ar{transition:transform .45s var(--ease)}
 .card:hover .card__go .ar{transform:translateX(7px)}
 
@@ -853,12 +916,12 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;
   padding:22px 4px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;
 }
-.index-list .n{font-family:var(--disp);font-size:12px;color:var(--brass);width:26px}
+.index-list .n{font-family:var(--disp);font-size:12px;color:var(--brass-ink);width:26px}
 .index-list .t{font-family:var(--disp);font-size:clamp(21px,2.6vw,34px);letter-spacing:-.014em;transition:transform .55s var(--ease-io),color .4s var(--ease)}
 .index-list .m{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:right}
-.index-list .ar{position:absolute;right:4px;opacity:0;transform:translateX(-14px);transition:opacity .4s var(--ease),transform .5s var(--ease);color:var(--brass)}
+.index-list .ar{position:absolute;right:4px;opacity:0;transform:translateX(-14px);transition:opacity .4s var(--ease),transform .5s var(--ease);color:var(--brass-ink)}
 @media(hover:hover){
-  .index-list a:hover .t{transform:translateX(18px);color:var(--brass)}
+  .index-list a:hover .t{transform:translateX(18px);color:var(--brass-ink)}
   .index-list a:hover .m{opacity:0}
   .index-list a:hover .ar{opacity:1;transform:translateX(0)}
 }
@@ -909,10 +972,17 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .pj-head .label{display:block;margin-bottom:16px}
 .pj-back{display:inline-flex;align-items:center;gap:10px;font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:color .4s var(--ease)}
 .pj-back .ar{transition:transform .45s var(--ease)}
-.pj-back:hover{color:var(--brass)}
+.pj-back:hover{color:var(--brass-ink)}
 .pj-back:hover .ar{transform:translateX(-7px)}
 
 /* only the rows that have a value are printed, so the grid fits what it gets */
+/* the four facts under a project name: understated, editorial, and never
+   competing with the name above it */
+.pj-line{
+  margin-top:14px;font-size:13px;line-height:1.6;color:var(--muted);
+  letter-spacing:.005em;max-width:52ch;
+}
+
 .pj-facts{display:grid;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
   grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .pj-facts > div{background:var(--bone);padding:26px clamp(18px,2vw,28px)}
@@ -935,21 +1005,69 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    space between them never changes: one gap value, used both between two
    pictures side by side and between one row and the next. project.html works
    out the widths; everything here is what holds without JavaScript. */
-.pj-gal{
-  display:flex;flex-wrap:wrap;align-items:flex-start;
-  gap:clamp(10px,1.15vw,16px);
-  max-width:1180px;margin:0 auto;
+/* ==========================================================================
+   THE PROJECT SEQUENCE
+   The rhythm lives in two numbers: the space inside a pair is small, the
+   space between beats is large. Everything else is scale.
+   ========================================================================== */
+.seq{--seq-gap:16px}
+.seq__b{margin-block:clamp(64px,9vh,140px)}
+.seq__b:first-child{margin-top:clamp(40px,5vh,72px)}
+.seq__b:last-child{margin-bottom:0}
+.seq__f{margin:0}
+.seq .shot{display:block;aspect-ratio:var(--r)}
+.seq .shot img{width:100%;height:auto;display:block}
+
+/* one landscape across the whole screen: the opening and the close */
+.seq__b--bleed{
+  margin-inline:calc(50% - 50vw);width:100vw;
+  margin-block:clamp(72px,11vh,168px);
 }
-.pj-gal figure{
-  margin:0;cursor:zoom-in;flex:0 0 auto;
-  /* the resting width, used until justify() measures the page and on a
-     browser with JavaScript turned off */
-  width:calc(50% - clamp(5px,.58vw,8px));
+.seq__b--bleed .shot{aspect-ratio:auto;height:clamp(320px,86vh,900px)}
+.seq__b--bleed .shot img{height:100%;object-fit:cover}
+
+/* across the container */
+.seq__b--wide .shot{aspect-ratio:var(--r)}
+
+/* one picture at its own size, with air either side */
+.seq__b--single{max-width:min(100%,72ch)}
+@media(min-width:760px){
+  .seq__b--single{width:78%;margin-inline:auto}
+  .seq__b--single .seq__f[style*="--r:0."]{margin-inline:auto}
 }
-@media(max-width:639px){.pj-gal figure{width:100%}}
-.pj-gal .shot{display:block;aspect-ratio:var(--r)}
-.pj-gal .shot img{width:100%;height:auto;display:block}
-.pj-gal figcaption{margin-top:11px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* two together: this is the only place the gap is small */
+.seq__b--pair{display:grid;gap:var(--seq-gap)}
+@media(min-width:760px){.seq__b--pair{grid-template-columns:1fr 1fr;align-items:start}}
+
+/* a portrait pushed to the right, the left column left empty on purpose */
+@media(min-width:760px){
+  .seq__b--offset{display:grid;grid-template-columns:1fr minmax(0,46%);gap:clamp(24px,4vw,64px)}
+  .seq__b--offset .seq__f{grid-column:2}
+}
+@media(max-width:759px){
+  .seq__b--offset{width:82%;margin-inline:auto 0}
+  .seq__b{margin-block:clamp(44px,7vh,86px)}
+  .seq__b--bleed{margin-block:clamp(52px,8vh,96px)}
+  .seq__b--bleed .shot{height:clamp(300px,62vh,560px)}
+}
+
+/* where a project has been published: the outlet, the headline, and a link
+   straight to the article */
+.pj-feat{padding-top:0}
+.feat{list-style:none;margin-top:clamp(20px,2.4vw,32px);border-top:1px solid var(--line)}
+.feat li{border-bottom:1px solid var(--line)}
+.feat a{
+  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:6px 20px;
+  padding:clamp(16px,1.6vw,22px) 0;transition:color .4s var(--ease);
+}
+@media(min-width:760px){.feat a{grid-template-columns:15rem 1fr auto}}
+.feat a:hover{color:var(--brass-ink)}
+.feat__o{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:color .4s var(--ease)}
+.feat a:hover .feat__o{color:var(--brass-ink)}
+.feat__t{font-family:var(--disp);font-size:clamp(17px,1.5vw,21px);line-height:1.3;letter-spacing:-.01em}
+.feat .ar{justify-self:end;transition:transform .4s var(--ease)}
+.feat a:hover .ar{transform:translateX(5px)}
 
 .pj-next{border-top:1px solid var(--line);display:grid;gap:1px;background:var(--line)}
 @media(min-width:760px){.pj-next{grid-template-columns:1fr 1fr}}
@@ -979,7 +1097,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .lb__bar{position:absolute;left:0;right:0;top:0;height:clamp(56px,8vh,86px);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,5vw,90px)}
 .lb__bar .c{font-size:10.5px;letter-spacing:.24em;color:var(--bone-mute)}
 .lb__x{font-size:10.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--bone-dim);transition:color .35s var(--ease)}
-.lb__x:hover{color:var(--brass)}
+.lb__x:hover{color:var(--brass-ink)}
 .lb__nav{position:absolute;left:0;right:0;bottom:0;height:clamp(56px,8vh,86px);display:flex;align-items:center;justify-content:center;gap:14px}
 .lb__nav button{width:50px;height:50px;border:1px solid rgba(242,238,231,.28);border-radius:50%;color:var(--bone);display:flex;align-items:center;justify-content:center;font-size:16px;transition:background .4s var(--ease),color .4s var(--ease),border-color .4s var(--ease)}
 .lb__nav button:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
@@ -1003,7 +1121,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   a.dir:hover::before{transform:translateY(0)}
   a.dir:hover p{color:var(--bone-dim)}
   a.dir:hover .label{color:var(--bone-mute)}
-  a.dir:hover .go{color:var(--brass)}
+  a.dir:hover .go{color:var(--brass-ink)}
   a.dir:hover .go .ar{transform:translateX(7px)}
 }
 .dir.is-soon{cursor:default}
@@ -1014,7 +1132,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .svc{list-style:none;border-top:1px solid var(--line)}
 .svc > li{border-bottom:1px solid var(--line)}
 .svc__head{width:100%;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;padding:26px 4px;text-align:left}
-.svc__head .n{font-family:var(--disp);font-size:12px;color:var(--brass);width:26px}
+.svc__head .n{font-family:var(--disp);font-size:12px;color:var(--brass-ink);width:26px}
 .svc__head .t{font-family:var(--disp);font-size:clamp(21px,2.4vw,32px);letter-spacing:-.014em;transition:color .4s var(--ease)}
 .svc__head .pm{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;flex:0 0 34px;transition:background .45s var(--ease),border-color .45s var(--ease)}
 .svc__head .pm::before,.svc__head .pm::after{content:"";position:absolute;background:var(--ink);transition:transform .5s var(--ease-io),background .45s var(--ease)}
@@ -1023,7 +1141,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .svc > li.is-open .svc__head .pm{background:var(--ink);border-color:var(--ink)}
 .svc > li.is-open .svc__head .pm::before,.svc > li.is-open .svc__head .pm::after{background:var(--bone)}
 .svc > li.is-open .svc__head .pm::after{transform:scaleY(0)}
-.svc > li.is-open .svc__head .t{color:var(--brass)}
+.svc > li.is-open .svc__head .t{color:var(--brass-ink)}
 .svc__body{overflow:hidden;height:0;transition:height .6s var(--ease-io)}
 .svc__body > div{padding:0 4px 32px;display:grid;gap:26px}
 @media(min-width:820px){.svc__body > div{grid-template-columns:1fr 1fr;gap:56px;padding-left:46px}}
@@ -1059,9 +1177,9 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 }
 
 .ct-row .v{font-family:var(--disp);font-size:clamp(16.5px,1.25vw,19px);letter-spacing:-.006em;transition:transform .5s var(--ease-io),color .4s var(--ease)}
-.ct-row .ar{color:var(--brass);opacity:0;transform:translateX(-12px);transition:opacity .4s var(--ease),transform .5s var(--ease)}
+.ct-row .ar{color:var(--brass-ink);opacity:0;transform:translateX(-12px);transition:opacity .4s var(--ease),transform .5s var(--ease)}
 @media(hover:hover){
-  a.ct-row:hover .v{transform:translateX(10px);color:var(--brass)}
+  a.ct-row:hover .v{transform:translateX(10px);color:var(--brass-ink)}
   a.ct-row:hover .ar{opacity:1;transform:translateX(0)}
 }
 @media(max-width:560px){
@@ -1085,17 +1203,34 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 @media(min-width:640px){.form__two{display:grid;grid-template-columns:1fr 1fr;gap:26px}}
 .form__foot{display:flex;flex-wrap:wrap;align-items:center;gap:18px 26px;margin-top:6px}
 .form__foot p{font-size:12.5px;color:var(--muted);max-width:34ch}
-.form__msg{font-size:13px;color:var(--brass);min-height:20px}
+.form__msg{font-size:13px;color:var(--brass-ink);min-height:20px}
 
 /* ---------- about ---------- */
 .quote{
   font-family:var(--disp);font-weight:400;font-size:clamp(26px,3.9vw,54px);line-height:1.16;
   letter-spacing:-.02em;max-width:22ch;
 }
-.timeline{list-style:none;border-top:1px solid var(--line)}
-.timeline li{display:grid;gap:14px;padding:30px 2px;border-bottom:1px solid var(--line)}
-@media(min-width:760px){.timeline li{grid-template-columns:.32fr 1fr;gap:46px;align-items:start}}
-.timeline h4{font-family:var(--disp);font-weight:400;font-size:clamp(21px,2.1vw,28px);letter-spacing:-.012em}
+/* ---------- how a project runs, as five named steps ----------------------
+   Vaishnavi asked for four or five named steps at one line each: naming them
+   is what makes an intangible service read as structured. They ran as a
+   stacked list of paragraphs, which buried the names. They now sit across the
+   page as five cells on a wide screen, two on a tablet and one on a phone,
+   sharing the hairline grid the principles already use. The name and its line
+   are separated by layout rather than by a dash. */
+.steps{list-style:none;display:grid;gap:1px;background:var(--line);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media(min-width:680px){.steps{grid-template-columns:1fr 1fr}}
+@media(min-width:1040px){.steps{grid-template-columns:repeat(5,1fr)}}
+.steps li{background:var(--bone);display:grid;align-content:start;
+  gap:clamp(10px,1.3vh,15px);padding:clamp(26px,3.4vh,38px) clamp(18px,1.7vw,26px)}
+.band-putty .steps li{background:var(--putty)}
+.steps .num{font-family:var(--body);font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--brass-ink)}
+/* one of the five names runs to two lines, so every name is given the height
+   of two: it keeps the five one-liners on a common baseline across the row */
+.steps h4{font-family:var(--disp);font-weight:400;line-height:1.14;
+  font-size:clamp(20px,1.9vw,25px);letter-spacing:-.012em}
+@media(min-width:1040px){.steps h4{min-height:2.28em}}
+.steps p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
 
 
 /* ---------- full-bleed statement band ---------- */
@@ -1176,14 +1311,14 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 }
 .pcard__body{padding:clamp(28px,3.4vw,52px);display:flex;flex-direction:column;gap:16px;justify-content:center}
 .pcard__outlet{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px}
-.pcard__outlet .o{font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brass)}
+.pcard__outlet .o{font-size:10.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--brass-ink)}
 .pcard__outlet .m{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 .pcard h3{font-family:var(--disp);font-weight:400;font-size:clamp(23px,2.7vw,38px);line-height:1.12;letter-spacing:-.016em;max-width:26ch}
 .pcard p{font-size:15px;line-height:1.75;color:var(--ink-soft);max-width:52ch}
 .pcard__go{margin-top:6px}
 @media(hover:hover){
   .pcard:hover .pcard__fig img{transform:scale(1.045)}
-  .pcard:hover h3{color:var(--brass)}
+  .pcard:hover h3{color:var(--brass-ink)}
 }
 .pcard h3{transition:color .4s var(--ease)}
 .press-note{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;margin-top:clamp(28px,4vh,44px)}
@@ -1215,8 +1350,19 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 @media(max-width:600px){:root{--wa-size:52px}.wa::after{display:none}}
 
 /* ---------- studio & principal designer, one section ---------- */
+/* The portrait was centred already, but against a column twice its height,
+   so it sat in the middle of a lot of nothing. With the quote lifted out and
+   the studio's own paragraphs moved below, the two sides are close enough in
+   height that centring reads as level rather than as a gap. The portrait also
+   takes a larger share of the row than it did. */
 .intro{display:grid;gap:clamp(30px,4vw,72px);align-items:center}
-@media(min-width:900px){.intro{grid-template-columns:.82fr 1.18fr}}
+@media(min-width:900px){.intro{grid-template-columns:1fr 1.12fr}}
+/* between a tablet and a small laptop the text runs long and narrow, so the
+   portrait takes more of the row to keep the two sides near the same height */
+@media(min-width:900px) and (max-width:1179px){.intro{grid-template-columns:1.18fr 1fr}}
+/* the studio's own room, closing the section across the full measure */
+.intro__room{display:grid;gap:clamp(14px,1.8vh,22px)}
+@media(min-width:900px){.intro__room{grid-template-columns:1fr 1fr;gap:clamp(30px,4vw,72px)}}
 .intro__fig img{width:100%;height:auto;display:block}
 .intro__name{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.026em}
 /* The credit used to butt straight up against the name and run nearly as wide
@@ -1227,7 +1373,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   border-top:1px solid var(--line);
   max-width:min(100%, 430px);
   font-size:10px;font-weight:600;letter-spacing:.14em;line-height:1.8;
-  text-transform:uppercase;color:var(--brass);
+  text-transform:uppercase;color:var(--brass-ink);
 }
 .intro__rule{height:1px;background:var(--line);margin:clamp(26px,3.4vh,40px) 0}
 
@@ -1269,7 +1415,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .band-putty .ptile__name{color:var(--ink)}
 @media(hover:hover){
   .ptile:hover .ptile__fig{transform:translateY(-6px)}
-  .ptile:hover .ptile__name{color:var(--brass)}
+  .ptile:hover .ptile__name{color:var(--brass-ink)}
 }
 
 /* ---------- archive category filter ---------- */
@@ -1281,7 +1427,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 }
 .filters button:hover{color:var(--ink);border-color:var(--ink)}
 .filters button.is-on{background:var(--ink);border-color:var(--ink);color:var(--bone)}
-.filters button .c{margin-left:8px;color:var(--brass);font-family:var(--disp);font-size:11px;vertical-align:super}
+.filters button .c{margin-left:8px;color:var(--brass-ink);font-family:var(--disp);font-size:11px;vertical-align:super}
 .filters button.is-on .c{color:#DCCBAC}
 
 /* ---------- nothing may stay hidden -------------------------------------

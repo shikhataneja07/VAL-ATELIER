@@ -74,7 +74,7 @@
 <script>
 window.PAGE = function(VAL){
   var host = document.querySelector("[data-press]");
-  var entries = window.PRESS || [];
+  var entries = VAL.pressOrder(window.PRESS || []);
   if (host) host.innerHTML = entries.map(VAL.pressCard).join("");
   var count = document.querySelector("[data-press-count]");
   if (count) count.textContent = VAL.pad(entries.length) + (entries.length === 1 ? " feature" : " features");

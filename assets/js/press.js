@@ -18,13 +18,23 @@
 
 window.PRESS_HOME_COUNT = 4;
 
+/* The order the cards appear in. The entries below are grouped by project,
+   which put three Architectural Digest features in a row at the top; the
+   studio asked for the outlets to alternate so the record reads as broad
+   rather than repetitive. This interleaves them at render time, so entries
+   can still be written and edited in whatever order suits.
+
+   It keeps the first entry first, then never places two features from the
+   same outlet next to each other while an alternative is available. */
+window.PRESS_MIX = true;
+
 window.PRESS = [
   {
     id: "goodside-ad-india",
     outlet: "Architectural Digest India",
     title: "The Goodside Salon by Val Atelier",
     project: "The Goodside Salon",
-    projectSlug: "",
+    projectSlug: "the-good-side",
     date: "",
     byline: "",
     standfirst: "",
@@ -39,13 +49,14 @@ window.PRESS = [
     id: "kids-rooms-ad-india",
     outlet: "Architectural Digest India",
     title: "In this Vastu compliant Hyderabad home, the kids' rooms steal the spotlight",
-    project: "Kids Spaces",
-    projectSlug: "kids-spaces",
+    project: "Sky, Teddy and the Play Room",
+    /* the piece covers all three rooms, so it is featured on all three */
+    projectSlug: ["kids-sky", "kids-teddy", "kids-play-room"],
     date: "",
     byline: "",
     standfirst: "A Hyderabad home planned to Vastu, where the children's rooms carry the strongest ideas in the house.",
     url: "https://www.architecturaldigest.in/story/in-this-vastu-compliant-hyderabad-home-the-kids-rooms-steal-the-spotlight-val-atelier-vaishnavi-linga/",
-    dir: "assets/projects/kids-spaces",
+    dir: "assets/projects/kids-sky",
     image: ["01.webp", 1334, 2000]
   },
   {
@@ -53,7 +64,7 @@ window.PRESS = [
     outlet: "Architectural Digest India",
     title: "This 1970s Hyderabad home is transformed into a soulful cafe with thoughtful design",
     project: "Ra:tio",
-    projectSlug: "",
+    projectSlug: "ratio",
     date: "",
     byline: "",
     standfirst: "A 1970s house in Jubilee Hills reworked into a cafe built around stone, timber and daylight.",
@@ -66,7 +77,7 @@ window.PRESS = [
     outlet: "Interior Daily",
     title: "A 1970s home transformed into a Japandi inspired cafe in Hyderabad by Val Atelier",
     project: "Ra:tio",
-    projectSlug: "",
+    projectSlug: "ratio",
     date: "",
     byline: "",
     standfirst: "The Netherlands based design title on the Jubilee Hills house that became a cafe.",
@@ -79,7 +90,7 @@ window.PRESS = [
     outlet: "Love That Design",
     title: "Ra:tio Cafe, Hyderabad",
     project: "Ra:tio",
-    projectSlug: "",
+    projectSlug: "ratio",
     date: "",
     byline: "",
     standfirst: "Covered by one of the Middle East's leading design and architecture publications.",
@@ -92,7 +103,7 @@ window.PRESS = [
     outlet: "Commercial Design",
     title: "This 1970s Hyderabad home finds new life as a soulful, design led cafe",
     project: "Ra:tio",
-    projectSlug: "",
+    projectSlug: "ratio",
     date: "",
     byline: "",
     standfirst: "",
@@ -105,7 +116,7 @@ window.PRESS = [
     outlet: "Architect and Interiors India",
     title: "Walk into 4,500 sq ft of Japandi mindfulness at this Hyderabad home turned into a cafe",
     project: "Ra:tio",
-    projectSlug: "",
+    projectSlug: "ratio",
     date: "",
     byline: "",
     standfirst: "",
@@ -118,7 +129,7 @@ window.PRESS = [
     outlet: "Indesignlive",
     title: "Balance and Ra:tio, a cafe in Hyderabad",
     project: "Ra:tio",
-    projectSlug: "",
+    projectSlug: "ratio",
     date: "",
     byline: "",
     standfirst: "",
@@ -147,7 +158,7 @@ window.PRESS = [
     id: "family-home-ad-india",
     outlet: "Architectural Digest India",
     title: "Thoughtful design interventions turn this Hyderabad house into a loving family home",
-    project: "Vessela",
+    project: "Vasella Meadows",
     projectSlug: "vessela",
     date: "",
     byline: "",
