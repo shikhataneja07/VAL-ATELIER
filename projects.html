@@ -49,11 +49,6 @@
         <div class="filters" data-filters="ongoing"></div>
         <div class="grid-work mgrid" data-grid="ongoing"></div>
         <div data-empty="ongoing"></div>
-
-        <div class="mt-xl" data-index-wrap="ongoing">
-          <div class="head__top rv-l"><i class="bar" style="flex:0 0 44px;height:1px;background:var(--brass)"></i><span class="label">Index</span></div>
-          <ol class="index-list" data-index="ongoing"></ol>
-        </div>
       </div>
 
       <!-- FINISHED --------------------------------------------------- -->
@@ -105,17 +100,6 @@ window.PAGE = function(VAL){
              '</figcaption>' +
              '<span class="card__go">View project <span class="ar">&rarr;</span></span>' +
            '</a>';
-  }
-
-  function row(p, i){
-    var meta = [p.typology, p.location, p.area].filter(Boolean).join(" · ");
-    return '<li class="rv" data-d="' + Math.min(i, 3) + '">' +
-             '<a href="project.html?p=' + VAL.esc(p.slug) + '" data-peek="' + VAL.esc(VAL.src(p, 0)) + '">' +
-               '<span class="n">' + VAL.pad(i + 1) + '</span>' +
-               '<span class="t">' + VAL.esc(p.title) + '</span>' +
-               '<span class="m">' + VAL.esc(meta) + '</span>' +
-               '<span class="ar">&rarr;</span>' +
-             '</a></li>';
   }
 
   /* copy for a category that is designed and waiting rather than populated */
@@ -170,9 +154,6 @@ window.PAGE = function(VAL){
     var grid = document.querySelector('[data-grid="' + status + '"]');
     if (grid){ grid.innerHTML = shown.map(card).join(""); VAL.watch(grid); }
 
-    var list = document.querySelector('[data-index="' + status + '"]');
-    if (list){ list.innerHTML = shown.map(row).join(""); VAL.watch(list); }
-
     var counter = document.querySelector('[data-count="' + status + '"]');
     if (counter) counter.textContent = VAL.pad(set.length);
 
@@ -210,9 +191,6 @@ window.PAGE = function(VAL){
     if (set.length && !populated) populated = status;
     buildFilters(status);
     render(status);
-
-    var wrap = document.querySelector('[data-index-wrap="' + status + '"]');
-    if (wrap && !set.length) wrap.remove();
 
     var empty = document.querySelector('[data-empty="' + status + '"]');
     if (empty) empty.outerHTML = set.length ? "" : holding(status);
