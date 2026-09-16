@@ -43,7 +43,7 @@ window.PRESS = [
        the card opens the feature rather than Instagram. */
     url: "https://www.instagram.com/p/Db2znBGEmij/",
     dir: "assets/projects/the-good-side",
-    image: ["01.webp", 2000, 1333]
+    image: ["02.webp", 1333, 2000]
   },
   {
     id: "kids-rooms-ad-india",
@@ -70,7 +70,7 @@ window.PRESS = [
     standfirst: "A 1970s house in Jubilee Hills reworked into a cafe built around stone, timber and daylight.",
     url: "https://www.architecturaldigest.in/story/this-1970s-hyderabad-home-is-transformed-into-a-soulful-cafe-with-thoughtful-design-ratio-restaurant/",
     dir: "assets/projects/ratio",
-    image: ["13.webp", 2000, 1333]
+    image: ["04.webp", 1333, 2000]
   },
   {
     id: "ratio-interior-daily",
@@ -83,7 +83,7 @@ window.PRESS = [
     standfirst: "The Netherlands based design title on the Jubilee Hills house that became a cafe.",
     url: "https://www.interiordaily.com/article/9808843/a-1970s-home-transformed-into-a-japandi-inspired-cafe-in-hyderabad-by-val-atelier/",
     dir: "assets/projects/ratio",
-    image: ["08.webp", 2000, 1383]
+    image: ["17.webp", 1333, 2000]
   },
   {
     id: "ratio-love-that-design",
@@ -96,7 +96,7 @@ window.PRESS = [
     standfirst: "Covered by one of the Middle East's leading design and architecture publications.",
     url: "https://www.lovethatdesign.com/project/ratio-cafe-hyderabad/",
     dir: "assets/projects/ratio",
-    image: ["01.webp", 1333, 2000]
+    image: ["18.webp", 1333, 2000]
   },
   {
     id: "ratio-commercial-design",
@@ -109,7 +109,7 @@ window.PRESS = [
     standfirst: "",
     url: "https://www.commercialdesignindia.com/projects/this-1970s-hyderabad-home-finds-new-life-as-a-soulful-design-led-cafe",
     dir: "assets/projects/ratio",
-    image: ["11.webp", 1333, 2000]
+    image: ["19.webp", 1333, 2000]
   },
   {
     id: "ratio-architect-and-interiors",
@@ -122,7 +122,7 @@ window.PRESS = [
     standfirst: "",
     url: "https://www.architectandinteriorsindia.com/projects/walk-into-4500-sq-ft-of-japandi-mindfulness-at-this-hyderabad-home-turned-into-a-cafe",
     dir: "assets/projects/ratio",
-    image: ["18.webp", 1333, 2000]
+    image: ["20.webp", 1333, 2000]
   },
   {
     id: "ratio-indesignlive",
@@ -148,7 +148,7 @@ window.PRESS = [
     standfirst: "",
     url: "https://www.architectureplusdesign.in/design/val-atelier-hyderabad-home-strikes-balance-between-concrete-calm/",
     dir: "assets/projects/aparna-one",
-    image: ["07.webp", 1067, 1600]
+    image: ["12.webp", 1067, 1600]
   },
   {
     /* Last by the studio's choice, not by date. This one carried the
@@ -165,7 +165,7 @@ window.PRESS = [
     standfirst: "A Hyderabad house reshaped, room by room, into a home built around how one family actually lives.",
     url: "https://www.architecturaldigest.in/story/thoughtful-design-interventions-turn-this-hyderabad-house-into-a-loving-family-home/",
     dir: "assets/projects/vasella-meadows",
-    image: ["04.webp", 1333, 2000]
+    image: ["16.webp", 2000, 1333]
   }
 
   /* -----------------------------------------------------------------------
