@@ -1066,7 +1066,16 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   margin-inline:calc(50% - 50vw);width:100vw;
   margin-block:clamp(72px,11vh,168px);
 }
-.seq__b--bleed .shot{aspect-ratio:auto;height:clamp(320px,86vh,900px)}
+/* The band was a fixed height at any width, so on a wide screen it turned into
+   a letterbox and took a quarter out of the photograph: 17% off a 16:9 frame at
+   1920 by 1080, which is a ceiling and a floor gone. It takes its height from
+   the picture's own proportions now and only gives way where that would run
+   past the screen, so a frame is shown whole wherever it fits and clipped by a
+   little rather than a lot where it does not. */
+.seq__b--bleed .shot{
+  aspect-ratio:auto;
+  height:min(calc(100vw / var(--r, 1.778)), clamp(320px, 100vh, 1400px));
+}
 .seq__b--bleed .shot img{height:100%;object-fit:cover}
 
 /* across the container */
@@ -1092,7 +1101,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   .seq__b--offset{width:82%;margin-inline:auto 0}
   .seq__b{margin-block:clamp(44px,7vh,86px)}
   .seq__b--bleed{margin-block:clamp(52px,8vh,96px)}
-  .seq__b--bleed .shot{height:clamp(300px,62vh,560px)}
+  .seq__b--bleed .shot{height:min(calc(100vw / var(--r, 1.778)), clamp(300px,62vh,560px))}
 }
 
 /* where a project has been published: the outlet, the headline, and a link

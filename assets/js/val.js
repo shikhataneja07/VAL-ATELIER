@@ -177,25 +177,26 @@
       serve(full);
       return;
     }
-    if (stage !== "small" && stage !== "bare"){
-      var small = full.replace(/\/([^\/]+)$/, "/sm/$1").replace(/\.[a-z]+$/i, ".webp");
-      if (im.currentSrc !== here(small)){
-        im.dataset.fellBack = "small";
-        serve(small);
-        return;
-      }
-    }
     /* The library is numbered 01, 02, 09 so the files sort in the order the
        studio put them in. A folder rebuilt by hand tends to come back as 1, 2,
        9 instead, and every frame in it then misses by one character. Try the
-       name without its leading zeros before giving up: it costs one request on
-       a project that is already failing, and it saves a set of photographs
-       from disappearing over a rename. */
-    if (stage !== "bare"){
+       name without its leading zeros first, because that file is the full size
+       one: dropping to the 800px copy instead would put a small picture in a
+       1440px frame while the large one sat there under a different name. */
+    if (stage !== "bare" && stage !== "small"){
       var bare = full.replace(/\/0+(\d+)(\.[a-z]+)$/i, "/$1$2");
       if (bare !== full && im.currentSrc !== here(bare)){
         im.dataset.fellBack = "bare";
         serve(bare);
+        return;
+      }
+    }
+    /* and only then the small copy, which is better than an empty frame */
+    if (stage !== "small"){
+      var small = full.replace(/\/([^\/]+)$/, "/sm/$1").replace(/\.[a-z]+$/i, ".webp");
+      if (im.currentSrc !== here(small)){
+        im.dataset.fellBack = "small";
+        serve(small);
         return;
       }
     }

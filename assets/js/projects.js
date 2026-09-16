@@ -93,7 +93,7 @@ window.PROJECTS = [
        carry it, so 06, 08 and 09 stand down. None of them is deleted: all
        fifty two photographs stay in the folder and any of them can come
        back by adding its number here. */
-    select: [1, 49, 3, 4, 23, 5, 7, 10, 11, 17, 45, 12],
+    select: [1, 49, 3, 28, 23, 5, 7, 10, 11, 17, 45, 12],
     dir: "assets/projects/keerthi-club-house",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",1600,900],["26.webp",1600,900],["27.webp",1600,900],["28.webp",1600,900],["29.webp",1600,900],["30.webp",1600,900],["31.webp",1600,900],["32.webp",1600,900],["33.webp",1600,900],["34.webp",1600,900],["35.webp",1600,900],["36.webp",1600,900],["37.webp",1600,900],["38.webp",1600,900],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1012,1080],["44.webp",1600,900],["45.webp",1600,900],["46.webp",1600,900],["47.webp",1600,900],["48.webp",1600,900],["49.webp",1600,900],["50.webp",1600,900],["51.webp",1600,900],["52.webp",1600,900]]
   },
@@ -119,7 +119,18 @@ window.PROJECTS = [
     /* the open plan floor with the curved panelling behind it: the frame
        that says workspace before anything else does */
     cover: 31,
-    select: [1, 3, 4, 7, 8, 9, 10, 11, 13, 24, 28, 30, 31],
+    /* Rebuilt around one rule: no two frames of the same thing, and no
+       photograph taken from the ceiling. The set the studio sent leans hard on
+       overhead views and several are the same room twice: 02 and 03 are one
+       round table shot twice, 05 and 06 one stair, 26 and 27 one desk, 36 and
+       38 one washroom. Those and the rest of the overheads stand down.
+
+       What is here instead walks the building: reception, the entrance stair
+       with the model, the dark lobby, the lift landing, the stair from the
+       floor, two lounges that are genuinely different rooms, the glass meeting
+       room, the boardroom, the breakout, the desks and one detail. Nothing is
+       deleted, all 43 stay in the folder. */
+    select: [1, 4, 33, 43, 7, 9, 41, 15, 24, 28, 30, 35, 31],
     dir: "assets/projects/keerthi-marketing-office",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",537,1080],["09.webp",1600,900],["10.webp",921,1080],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1110,1080],["16.webp",1600,900],["17.webp",1058,1080],["18.webp",1600,900],["19.webp",1568,1063],["20.webp",1016,1080],["21.webp",923,1080],["22.webp",1600,900],["23.webp",1504,1071],["24.webp",1215,1080],["25.webp",973,1080],["26.webp",1600,851],["27.webp",1600,849],["28.webp",1066,1080],["29.webp",1066,1080],["30.webp",1090,1080],["31.webp",1496,1080],["32.webp",1600,977],["33.webp",1600,900],["34.webp",1600,1020],["35.webp",1177,1055],["36.webp",1600,994],["37.webp",1273,1080],["38.webp",1600,1024],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1600,900]]
   },
