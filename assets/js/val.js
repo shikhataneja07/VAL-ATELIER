@@ -1,6 +1,6 @@
 /* ==========================================================================
    VAL ATELIER — behaviour
-   Header / footer, page transitions, viewport reveals, parallax, cursor peek,
+   Header / footer, page transitions, viewport reveals, parallax,
    the project rail and the lightbox. Everything degrades to a plain, working
    page if JavaScript never arrives.
    ========================================================================== */
@@ -423,6 +423,8 @@
         '</div>' +
         '<div class="foot__bottom">' +
           '<span>&copy; ' + year + " " + esc(SITE.name) + '</span>' +
+          /* the photographs are the studio's own work and are not free to take */
+          '<span>All photographs and renders &copy; ' + esc(SITE.name) + '. All rights reserved.</span>' +
           '<span>' + esc(SITE.tagline) + '</span>' +
           '<span>Designed by ' + esc(SITE.credit) + '</span>' +
           '<a href="#top">Back to top</a>' +
@@ -691,39 +693,6 @@
   }
   VAL.parallax = parallax;
 
-  /* --------------------------------------------------------- cursor peek -- */
-  VAL.peek = function(){
-    if (REDUCED || !window.matchMedia("(hover: hover)").matches) return;
-    var links = qsa("[data-peek]");
-    if (!links.length) return;
-    var box = el("div", "peek", '<img alt="">');
-    document.body.appendChild(box);
-    var img = qs("img", box);
-    var tx = 0, ty = 0, cx = 0, cy = 0, raf = null, live = false;
-
-    function loop(){
-      cx += (tx - cx) * 0.13;
-      cy += (ty - cy) * 0.13;
-      box.style.transform = "translate3d(" + cx + "px," + cy + "px,0)" + (live ? " scale(1)" : " scale(.9)");
-      raf = requestAnimationFrame(loop);
-    }
-    function place(e){
-      tx = Math.min(e.clientX + 30, window.innerWidth - 260);
-      ty = Math.max(16, Math.min(e.clientY - 140, window.innerHeight - 310));
-    }
-    links.forEach(function(a){
-      a.addEventListener("mouseenter", function(e){
-        img.src = a.dataset.peek;
-        place(e); cx = tx; cy = ty;          /* land in place, then follow */
-        live = true; box.classList.add("on");
-        if (!raf) raf = requestAnimationFrame(loop);
-      });
-      a.addEventListener("mousemove", place);
-      a.addEventListener("mouseleave", function(){
-        live = false; box.classList.remove("on");
-      });
-    });
-  };
 
   /* ----------------------------------------------------------- lightbox -- */
   VAL.lightbox = function(shots){
@@ -805,7 +774,6 @@
     if (typeof window.PAGE === "function") window.PAGE(VAL);
     hero();                       /* after PAGE — the page renders the first frame */
     parallax();
-    VAL.peek();
     /* Start watching straight away. A photograph that has already arrived
        should never be waiting on the intro to be allowed on screen. */
     reveals();

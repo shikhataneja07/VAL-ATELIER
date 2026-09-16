@@ -49,9 +49,9 @@
 window.HERO = [
   ["the-good-side",       1],
   ["ratio",               8],
-  ["sas-crown",          24],
+  ["zvezda-boutique",     9],
   ["keerthi-club-house", 28],
-  ["dsr-1",              23]
+  ["tsk",                11]
 ];
 
 /* ==========================================================================
@@ -105,7 +105,13 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13],
+    /* The studio swapped three frames: the table seen from above for 24,
+       and the two of the stair and the raked garden, which were the same
+       feature twice, for 30 and 28. Set aside, not deleted. */
+    /* the open plan floor with the curved panelling behind it: the frame
+       that says workspace before anything else does */
+    cover: 31,
+    select: [1, 3, 4, 7, 8, 9, 10, 11, 13, 24, 28, 30, 31],
     dir: "assets/projects/keerthi-marketing-office",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",537,1080],["09.webp",1600,900],["10.webp",921,1080],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1110,1080],["16.webp",1600,900],["17.webp",1058,1080],["18.webp",1600,900],["19.webp",1568,1063],["20.webp",1016,1080],["21.webp",923,1080],["22.webp",1600,900],["23.webp",1504,1071],["24.webp",1215,1080],["25.webp",973,1080],["26.webp",1600,851],["27.webp",1600,849],["28.webp",1066,1080],["29.webp",1066,1080],["30.webp",1090,1080],["31.webp",1496,1080],["32.webp",1600,977],["33.webp",1600,900],["34.webp",1600,1020],["35.webp",1177,1055],["36.webp",1600,994],["37.webp",1273,1080],["38.webp",1600,1024],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1600,900]]
   },
@@ -140,9 +146,9 @@ window.PROJECTS = [
     area: "4000 sq ft",
     year: "",
     scope: "Interior Design",
-    /* its 04 is the prayer room, which leads on nothing: the lounge reads as
-       the workspace the write-up describes */
-    cover: 4,
+    /* the open plan floor: desks, monitors and task chairs, so the card
+       reads as a workspace at a glance rather than as a lounge */
+    cover: 15,
     summary: "This workspace is designed with a calm, understated language that balances focus with comfort.",
     story: ["Soft neutral tones, textured walls, stone surfaces, and warm finishes create a refined and cohesive atmosphere. Clean lined meeting areas, relaxed lounge spaces, and sculptural lighting give each zone its own quiet character. Natural light and subtle detailing soften the overall mood, making the office feel composed, welcoming, and thoughtfully lived in."],
     notes: [],
@@ -153,7 +159,7 @@ window.PROJECTS = [
        gallery full bleed. It comes out, and the boardroom at position 18
        (16.webp) takes its place, which is what the project is actually for.
        Position 2 is 33.webp, the same shrine closer in, and is still here. */
-    select: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 18],
+    select: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 18],
     dir: "assets/projects/gmfc",
     images: [["32.webp",1600,900],["33.webp",749,1080],["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1325,1080],["06.webp",1325,1080],["07.webp",1326,1080],["08.webp",1326,1080],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1406,1080],["25.webp",714,1080],["26.webp",861,1080],["27.webp",1268,1051],["28.webp",736,1080],["29.webp",1600,900],["30.webp",1242,1080],["31.webp",709,1080],["34.webp",1142,1080],["35.webp",1600,900],["36.webp",1600,900],["37.webp",1600,900]]
   },
@@ -194,7 +200,10 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    /* the living room under the arc lamp, which carries the furniture and
+       the artwork rather than a sideboard against a wall */
+    cover: 21,
+    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 21],
     dir: "assets/projects/dsr-1",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1208,1080],["07.webp",1600,900],["08.webp",1323,1080],["09.webp",1438,1080],["10.webp",780,1080],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1304,1080],["15.webp",1458,1080],["16.webp",1189,1080],["17.webp",1600,900],["18.webp",1430,1080],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",1600,900]]
   },
@@ -213,6 +222,9 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
+    /* the living room in full daylight, which is the sculptural furniture
+       and the curated artwork the write up describes */
+    cover: 9,
     select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     dir: "assets/projects/wdsr",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900]]
@@ -294,7 +306,9 @@ window.PROJECTS = [
     title: "Ra:tio",
     category: "Hospitality",
     /* the studio chose the counter under its lit ceiling to lead */
-    cover: 13,
+    /* the courtyard, which is what the place is: the counter shots are already
+       doing duty in the press cards and the hero */
+    cover: 10,
     status: "finished",
     typology: "Speciality Coffee House",
     location: "Jubilee Hills, Hyderabad",
@@ -343,7 +357,11 @@ window.PROJECTS = [
     story: ["Designed with a gentle, almost poetic restraint, the space uses a neutral palette to let the garments take centre stage. Botanical reliefs finished by hand wrap the walls, adding depth and character without ever overwhelming the eye.", "The curved ceiling floats above the space like a wave, creating movement and a sense of calm, while the delicate gold rails and arched windows bring in a touch of romance. Every corner feels intentional, warm and thoughtfully composed, a small boutique with a big soul, made to make every piece of clothing feel special."],
     notes: [],
     dir: "assets/projects/zvezda-boutique",
-    images: [["01.webp",2000,1333],["02.webp",1333,2000],["03.webp",1333,2000],["04.webp",1333,2000],["05.webp",2000,1333],["06.webp",1333,2000],["07.webp",1333,2000],["08.webp",1333,2000]]
+    /* 09 is 01 with the lighting track cropped off the top, cut for the
+       opening. The gallery shows 01 whole, so 09 is set aside from the
+       sequence rather than shown twice. */
+    select: [1, 2, 3, 4, 5, 6, 7, 8],
+    images: [["01.webp",2000,1333],["02.webp",1333,2000],["03.webp",1333,2000],["04.webp",1333,2000],["05.webp",2000,1333],["06.webp",1333,2000],["07.webp",1333,2000],["08.webp",1333,2000],["09.webp",2000,893]]
   },
   {
     slug: "floof-and-co",
@@ -436,7 +454,10 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    /* the sectional against the timber wall with the sculptural lamp: the
+       silhouettes and the quiet contrast the write up is about */
+    cover: 17,
+    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17],
     dir: "assets/projects/dsr",
     images: [["01.webp",1600,1067],["02.webp",1067,1600],["03.webp",1067,1600],["04.webp",1067,1600],["05.webp",1067,1600],["06.webp",1067,1600],["07.webp",1066,1600],["08.webp",1067,1600],["09.webp",1067,1600],["10.webp",1067,1600],["11.webp",1067,1600],["12.webp",1067,1600],["13.webp",1067,1600],["14.webp",1067,1600],["15.webp",1067,1600],["16.webp",1067,1600],["17.webp",1600,1067],["18.webp",1067,1600],["19.webp",1067,1600],["20.webp",1067,1600],["21.webp",1067,1600],["22.webp",1600,1067]]
   },
