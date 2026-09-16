@@ -203,7 +203,10 @@ window.PROJECTS = [
     /* the living room under the arc lamp, which carries the furniture and
        the artwork rather than a sideboard against a wall */
     cover: 21,
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 21],
+    /* The studio's own order, so it is written out rather than sorted: 19
+       stands where 01 did and 17 where 09 did, and 12 now comes before 11.
+       01 and 09 are set aside, not deleted. */
+    select: [19, 2, 3, 4, 5, 6, 7, 8, 17, 10, 12, 11, 21],
     dir: "assets/projects/dsr-1",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1208,1080],["07.webp",1600,900],["08.webp",1323,1080],["09.webp",1438,1080],["10.webp",780,1080],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1304,1080],["15.webp",1458,1080],["16.webp",1189,1080],["17.webp",1600,900],["18.webp",1430,1080],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",1600,900]]
   },

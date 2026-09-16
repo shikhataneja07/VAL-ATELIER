@@ -1398,11 +1398,15 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   display:flex;flex-direction:column;justify-content:flex-start;
   text-align:center;color:inherit;
 }
+/* A fixed opening, the same 3:2 the archive cards use. Without it the tile
+   takes the shape of whatever photograph leads the project, so one cover cut
+   1.39 next to two cut 1.78 stood taller than its neighbours and threw the
+   names out of line. The frame is the constant; the photograph fills it. */
 .ptile__fig{
-  display:block;width:100%;background:var(--frame);overflow:hidden;
+  display:block;width:100%;aspect-ratio:3/2;background:var(--frame);overflow:hidden;
   transition:transform .7s var(--ease-io);
 }
-.ptile__fig img{width:100%;height:auto;display:block}
+.ptile__fig img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .ptile__name{
   display:block;margin-top:18px;
   font-family:var(--disp);font-weight:400;font-size:clamp(17px,1.5vw,21px);
