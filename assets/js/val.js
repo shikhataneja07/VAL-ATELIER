@@ -183,11 +183,25 @@
        name without its leading zeros first, because that file is the full size
        one: dropping to the 800px copy instead would put a small picture in a
        1440px frame while the large one sat there under a different name. */
-    if (stage !== "bare" && stage !== "small"){
+    if (stage !== "bare" && stage !== "mid" && stage !== "small"){
       var bare = full.replace(/\/0+(\d+)(\.[a-z]+)$/i, "/$1$2");
       if (bare !== full && im.currentSrc !== here(bare)){
         im.dataset.fellBack = "bare";
         serve(bare);
+        return;
+      }
+    }
+    /* then the 1600px copy where one was built. This tier used to be skipped
+       altogether, and that was the difference between a 1600px picture and an
+       800px one in a full bleed frame: a missing full size file dropped the
+       opening straight to the small copy and stretched it across the screen.
+       A slot with no md/ file simply falls through to the small copy as
+       before, so this costs nothing where the tier does not exist. */
+    if (stage !== "mid" && stage !== "small"){
+      var mid = full.replace(/\/([^\/]+)$/, "/md/$1").replace(/\.[a-z]+$/i, ".webp");
+      if (im.currentSrc !== here(mid)){
+        im.dataset.fellBack = "mid";
+        serve(mid);
         return;
       }
     }
