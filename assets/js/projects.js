@@ -128,9 +128,14 @@ window.PROJECTS = [
        What is here instead walks the building: reception, the entrance stair
        with the model, the dark lobby, the lift landing, the stair from the
        floor, two lounges that are genuinely different rooms, the glass meeting
-       room, the boardroom, the breakout, the desks and one detail. Nothing is
-       deleted, all 43 stay in the folder. */
-    select: [1, 4, 33, 43, 7, 9, 41, 15, 24, 28, 30, 35, 31],
+       room, the boardroom, the breakout and the desks. Nothing is deleted, all
+       43 stay in the folder.
+
+       The stair at 07 and the washroom vanity at 35 came out at the studio's
+       word. In their place: 29, the wall the tower render is shown on, which is
+       the one thing in the building that says what the office is for, and 14,
+       the waiting lounge. */
+    select: [1, 4, 33, 43, 29, 9, 41, 15, 24, 28, 30, 14, 31],
     dir: "assets/projects/keerthi-marketing-office",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",537,1080],["09.webp",1600,900],["10.webp",921,1080],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1110,1080],["16.webp",1600,900],["17.webp",1058,1080],["18.webp",1600,900],["19.webp",1568,1063],["20.webp",1016,1080],["21.webp",923,1080],["22.webp",1600,900],["23.webp",1504,1071],["24.webp",1215,1080],["25.webp",973,1080],["26.webp",1600,851],["27.webp",1600,849],["28.webp",1066,1080],["29.webp",1066,1080],["30.webp",1090,1080],["31.webp",1496,1080],["32.webp",1600,977],["33.webp",1600,900],["34.webp",1600,1020],["35.webp",1177,1055],["36.webp",1600,994],["37.webp",1273,1080],["38.webp",1600,1024],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1600,900]]
   },
@@ -147,11 +152,20 @@ window.PROJECTS = [
     summary: "This residence is conceived as a layered, contemporary home where warm timber, stone, and soft neutral finishes create a rich yet understated backdrop.",
     story: ["Muted greens and terracotta accents bring depth and personality, while sculptural furniture, patterned surfaces, and curated artwork add a distinct visual rhythm. Screens, refined joinery, and carefully composed lighting give each space its own character while maintaining a strong sense of continuity. The home feels expressive without being excessive, warm, artistic, and quietly sophisticated."],
     notes: [],
-    /* the frames the sequence shows, chosen for variety: near
-       duplicate views are set aside, nothing is deleted */
-    /* 09 and 11 are the same lounge and the sequence was setting them side by
-       side. 09 comes out of the selection; the file stays where it is. */
-    select: [1, 2, 3, 4, 6, 7, 8, 11, 12, 13, 14],
+    /* The frames the sequence shows, written in the order they walk the house:
+       entrance, corridor, living, dining, kitchen, media room, passage, the two
+       bedrooms, a vanity, and the study at the end.
+
+       The set repeats itself badly if taken whole. 06, 07 and 08 are one
+       kitchen from three steps apart, so only 08 is shown. 02 and 03 are one
+       living room, so only 02 is. 04 and 05 are one dining table, 09 10 and 11
+       are one media room, and 27 to 31 are one bedroom five times over. One of
+       each is enough.
+
+       A house was being shown without a single bedroom in it, which is the
+       other half of this: 27 and 36 are in now, with the vanity at 33 and the
+       corridor at 23. Nothing is deleted, all 44 stay in the folder. */
+    select: [1, 23, 2, 4, 8, 11, 12, 27, 36, 33, 13, 14],
     dir: "assets/projects/sas-crown",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",944,1080],["26.webp",708,1080],["27.webp",1600,900],["28.webp",1600,900],["29.webp",1600,900],["30.webp",1600,900],["31.webp",1600,900],["32.webp",1600,900],["33.webp",1600,900],["34.webp",1600,900],["35.webp",1252,1080],["36.webp",1600,900],["37.webp",1600,900],["38.webp",1600,900],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1600,900],["44.webp",1600,900]]
   },
@@ -403,6 +417,12 @@ window.PROJECTS = [
     story: ["Rounded forms, integrated display niches, and open shelving keep the store visually soft while making products easy to browse. A dedicated grooming zone is seamlessly woven into the layout, balancing function with character. The result is a warm, friendly environment that feels thoughtfully designed for both pets and their people."],
     notes: [],
     dir: "assets/projects/floof-and-co",
+    /* Eight photographs, and four of them are one view: 03, 04, 05 and 08 all
+       look across the shop floor at the same counter. One of them carries it,
+       and 08 is the one with the most life in it. What is left reads as four
+       different things: the shopfront, the floor, the grooming window and the
+       dog on the plinth. The other four stay in the folder. */
+    select: [1, 8, 6, 2],
     images: [["01.webp",2000,1334],["02.webp",1334,2000],["03.webp",2000,1430],["04.webp",1334,2000],["05.webp",2000,1430],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1430]]
   },
   {
@@ -553,7 +573,11 @@ window.PROJECTS = [
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
     select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    dir: "assets/projects/vessela",
+    /* The folder is vasella-meadows because that is what the studio's own
+       archive is called, and a folder rebuilt from it comes back under that
+       name every time. The slug stays vessela so links already shared keep
+       working; the two are allowed to differ. */
+    dir: "assets/projects/vasella-meadows",
     images: [["01.webp",1333,2000],["02.webp",2000,1333],["03.webp",1333,2000],["04.webp",1333,2000],["05.webp",1333,2000],["06.webp",1333,2000],["07.webp",1333,2000],["08.webp",1333,2000],["09.webp",2000,1333],["10.webp",1333,2000],["11.webp",1333,2000],["12.webp",1333,2000],["13.webp",1333,2000],["14.webp",1333,2000],["15.webp",1333,2000],["16.webp",2000,1333],["17.webp",2000,1333],["18.webp",1333,2000]]
   }
 

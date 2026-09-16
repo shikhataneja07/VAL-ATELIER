@@ -164,7 +164,7 @@ window.PRESS = [
     byline: "",
     standfirst: "A Hyderabad house reshaped, room by room, into a home built around how one family actually lives.",
     url: "https://www.architecturaldigest.in/story/thoughtful-design-interventions-turn-this-hyderabad-house-into-a-loving-family-home/",
-    dir: "assets/projects/vessela",
+    dir: "assets/projects/vasella-meadows",
     image: ["04.webp", 1333, 2000]
   }
 
