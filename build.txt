@@ -1,4 +1,4 @@
-2026-09-16 · vasella folder name fixed, three selections cleaned
+2026-09-16 · clubhouse takes 6, 38 and 50
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

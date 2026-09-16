@@ -88,12 +88,17 @@ window.PROJECTS = [
        now: the entrance with the green console (49), the theatre lounge (23),
        the cardio room (17) and the children's garden at dusk (45).
 
-       Four went the other way. 02 is the same lounge as 03 seen from above,
-       and the games room had five angles of one room (06 to 10) where two
-       carry it, so 06, 08 and 09 stand down. None of them is deleted: all
-       fifty two photographs stay in the folder and any of them can come
-       back by adding its number here. */
-    select: [1, 49, 3, 28, 23, 5, 7, 10, 11, 17, 45, 12],
+       02 is the same lounge as 03 seen from above, and the games room had
+       five angles of one room, 06 to 10, where one carries it.
+
+       06, 38 and 50 are in at the studio's word: the games room, the bedroom
+       with the green headboard and the corridor with the sculpture. The
+       second games room view and the second gym view came out to make room,
+       so the twelve frames are twelve different rooms.
+
+       None of it is deleted: all fifty two photographs stay in the folder
+       and any of them comes back by adding its number here. */
+    select: [1, 49, 3, 28, 23, 5, 6, 50, 17, 38, 45, 12],
     dir: "assets/projects/keerthi-club-house",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",1600,900],["26.webp",1600,900],["27.webp",1600,900],["28.webp",1600,900],["29.webp",1600,900],["30.webp",1600,900],["31.webp",1600,900],["32.webp",1600,900],["33.webp",1600,900],["34.webp",1600,900],["35.webp",1600,900],["36.webp",1600,900],["37.webp",1600,900],["38.webp",1600,900],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1012,1080],["44.webp",1600,900],["45.webp",1600,900],["46.webp",1600,900],["47.webp",1600,900],["48.webp",1600,900],["49.webp",1600,900],["50.webp",1600,900],["51.webp",1600,900],["52.webp",1600,900]]
   },
