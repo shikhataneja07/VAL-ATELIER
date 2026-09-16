@@ -286,6 +286,10 @@ window.PROJECTS = [
     summary: "",
     story: [],
     notes: [],
+    /* the studio picked the wide view of the room as the cover; 01, which
+       stood here before, is not dropped, it simply falls into the gallery
+       like every other frame that is not the lead */
+    cover: 3,
     dir: "assets/projects/sindhus-baby-room",
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900]]
   },

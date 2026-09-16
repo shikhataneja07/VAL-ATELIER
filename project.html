@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-15 · white nav bar, Merge Stones, Cousins">
+<meta name="build" content="2026-09-16 · recovers images named without leading zeros">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -140,6 +140,29 @@ window.PAGE = function(VAL){
       }).join("") +
     '</div></div>' +
 
+    /* Where the work has been published, say so on the project itself and
+       link each one to the article. Nothing is rendered for a project with
+       no coverage. */
+    (function(){
+      var features = (window.PRESS || []).filter(function(e){
+        // a piece can cover more than one project, so projectSlug takes a list too
+        var on = e.projectSlug;
+        return Array.isArray(on) ? on.indexOf(p.slug) > -1 : on === p.slug;
+      });
+      if (!features.length) return "";
+      return '<section class="sec--tight pj-feat"><div class="wrap wrap--wide">' +
+        '<span class="label rv-l">Featured in</span>' +
+        '<ul class="feat rv" data-d="1">' +
+          features.map(function(e){
+            return '<li><a href="' + VAL.esc(e.url) + '" target="_blank" rel="noopener">' +
+                     '<span class="feat__o">' + VAL.esc(e.outlet) + '</span>' +
+                     (e.title ? '<span class="feat__t">' + VAL.esc(e.title) + '</span>' : "") +
+                     '<span class="ar">&rarr;</span>' +
+                   '</a></li>';
+          }).join("") +
+        '</ul></div></section>';
+    })() +
+
     /* the written copy is optional — a project with none simply goes
        straight from its facts to its photographs */
     ((p.summary || (p.story && p.story.length))
@@ -169,28 +192,6 @@ window.PAGE = function(VAL){
       '<div class="seq" data-gal>' + gallery + '</div>' +
     '</div></section>' +
 
-    /* Where the work has been published, say so on the project itself and
-       link each one to the article. Nothing is rendered for a project with
-       no coverage. */
-    (function(){
-      var features = (window.PRESS || []).filter(function(e){
-        // a piece can cover more than one project, so projectSlug takes a list too
-        var on = e.projectSlug;
-        return Array.isArray(on) ? on.indexOf(p.slug) > -1 : on === p.slug;
-      });
-      if (!features.length) return "";
-      return '<section class="sec--tight pj-feat"><div class="wrap wrap--wide">' +
-        '<span class="label rv-l">Featured in</span>' +
-        '<ul class="feat rv" data-d="1">' +
-          features.map(function(e){
-            return '<li><a href="' + VAL.esc(e.url) + '" target="_blank" rel="noopener">' +
-                     '<span class="feat__o">' + VAL.esc(e.outlet) + '</span>' +
-                     (e.title ? '<span class="feat__t">' + VAL.esc(e.title) + '</span>' : "") +
-                     '<span class="ar">&rarr;</span>' +
-                   '</a></li>';
-          }).join("") +
-        '</ul></div></section>';
-    })() +
 
     '<nav class="pj-next" aria-label="More projects">' +
       '<a class="prev rv-l" href="project.html?p=' + VAL.esc(prev.slug) + '">' +

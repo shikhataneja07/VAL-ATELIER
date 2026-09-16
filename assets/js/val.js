@@ -100,6 +100,15 @@
     return "Featured in " + o[0] + " and " + (words[n] || n) + " other" + (n > 1 ? "s" : "");
   };
 
+  /* The mark laid over a cover photograph where the project has been
+     published. It says only that, because the outlets are named in full on the
+     project's own page and on the press page. A project with no coverage gets
+     an empty string, so callers can print it blind. */
+  VAL.featTag = function(slug){
+    if (!VAL.featuredIn(slug).length) return "";
+    return '<span class="shot__feat">Featured</span>';
+  };
+
   /* The line printed under a project's name: what it is, and where. Both are
      optional, so a project with neither simply shows its name and a project
      with only one shows only that. Nothing is invented to fill the slot. */
@@ -144,16 +153,78 @@
      one file that is always there. When a candidate fails, the set is dropped
      and that original is used instead. Captured on the way down because an
      image error does not bubble. */
-  document.addEventListener("error", function(e){
-    var im = e.target;
-    if (!im || im.tagName !== "IMG" || im.dataset.fellBack) return;
+  /* A photograph is offered in three sizes and the browser picks one. If the
+     file it picked is not on the server, work down the other two rather than
+     leaving a broken icon in the middle of the page: the full size file, then
+     the 800px one. Only when all three are gone does the image step aside and
+     let the frame's own plate stand, which looks like a considered empty frame
+     instead of a fault. Each stage is tried once. */
+  function recover(im){
+    if (!im || im.tagName !== "IMG") return;
     var full = im.getAttribute("data-full");
-    if (!full || im.currentSrc === new URL(full, location.href).href) return;
-    im.dataset.fellBack = "1";
-    im.removeAttribute("srcset");
-    im.removeAttribute("sizes");
-    im.setAttribute("src", full);
-  }, true);
+    if (!full) return;
+
+    function serve(src){
+      im.removeAttribute("srcset");
+      im.removeAttribute("sizes");
+      im.setAttribute("src", src);
+    }
+    function here(u){ return new URL(u, location.href).href; }
+    var stage = im.dataset.fellBack || "";
+
+    if (!stage && im.currentSrc !== here(full)){
+      im.dataset.fellBack = "full";
+      serve(full);
+      return;
+    }
+    if (stage !== "small" && stage !== "bare"){
+      var small = full.replace(/\/([^\/]+)$/, "/sm/$1").replace(/\.[a-z]+$/i, ".webp");
+      if (im.currentSrc !== here(small)){
+        im.dataset.fellBack = "small";
+        serve(small);
+        return;
+      }
+    }
+    /* The library is numbered 01, 02, 09 so the files sort in the order the
+       studio put them in. A folder rebuilt by hand tends to come back as 1, 2,
+       9 instead, and every frame in it then misses by one character. Try the
+       name without its leading zeros before giving up: it costs one request on
+       a project that is already failing, and it saves a set of photographs
+       from disappearing over a rename. */
+    if (stage !== "bare"){
+      var bare = full.replace(/\/0+(\d+)(\.[a-z]+)$/i, "/$1$2");
+      if (bare !== full && im.currentSrc !== here(bare)){
+        im.dataset.fellBack = "bare";
+        serve(bare);
+        return;
+      }
+    }
+    im.dataset.fellBack = "gone";
+    im.style.visibility = "hidden";
+  }
+
+  document.addEventListener("error", function(e){ recover(e.target); }, true);
+
+  /* The listener above only hears what fails after this file has run, and the
+     opening photograph is fetched at high priority long before that: on a
+     server missing it, the hero failed silently and showed a broken icon. So
+     sweep for anything already finished and blank, now and once more when the
+     page has settled, and put the same recovery through it. */
+  function sweep(){
+    var list = document.images, i, im;
+    for (i = 0; i < list.length; i++){
+      im = list[i];
+      /* currentSrc is the discriminator, and it has to be there. A lazy frame
+         the browser has chosen not to fetch yet also reads complete with a
+         natural width of zero, and pulling those through recovery stripped
+         their srcset and dragged every slide of the opening down at full size.
+         An image that genuinely failed has a currentSrc: it tried something. */
+      if (im.complete && im.naturalWidth === 0 && im.currentSrc && !im.dataset.fellBack) recover(im);
+    }
+  }
+  sweep();
+  if (document.readyState === "complete") setTimeout(sweep, 0);
+  else window.addEventListener("load", sweep);
 
   /* the same treatment for a plain path (studio photographs, portrait) */
   VAL.plainImg = function(src, w, h, alt, opts){

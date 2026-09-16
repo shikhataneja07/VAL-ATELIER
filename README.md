@@ -142,7 +142,7 @@ for src in glob.glob("assets/projects/*/*.webp"):
     im = Image.open(src).convert("RGB")
     if im.width > 800:
         im = im.resize((800, round(im.height * 800 / im.width)), Image.LANCZOS)
-    im.save(os.path.join(d, "sm", os.path.splitext(f)[0] + ".webp"), "WEBP", quality=72, method=6)
+    im.save(os.path.join(d, "sm", os.path.splitext(f)[0] + ".webp"), "WEBP", quality=92, method=6)
 EOF
 ```
 
@@ -221,13 +221,38 @@ review design work on:
 **One master per photograph at 2560px on the longest edge covers every slot on the site.**
 That is the number to ask the studio for.
 
-At 1x nothing on the site is enlarged today. At 2x the large slots still are, because
-1600px is all that exists here: the hero by 1.86x, the project lead by 1.56x, the full
-width gallery plate by 1.48x, and the About studio photograph by 2.24x. That last one was
-1169 x 780 in the archive the studio sent, and no processing recovers detail that was never
-captured in the file. The suite asserts both ceilings so they cannot quietly get worse.
+At 1x nothing on the site is enlarged today, measured across all 21 projects: 247 distinct
+slots, one of them over 1:1 and that one by 1.21x. At 2x, 191 of those 247 are enlarged,
+most commonly by 1.6x, because 1600px is all that exists for thirteen of the projects. No
+processing recovers detail that was never in the file. The suite asserts both ceilings so
+they cannot quietly get worse.
 
-Small variants live in `sm/` at 800px. Regenerate them after adding photographs:
+**The compression in the source material is the harder ceiling, and it is not the site's
+doing.** The studio's own archives arrive as WebP already capped at 1600px on the long edge
+with a median of 0.60 bits per pixel, and some frames as low as 0.13. Across the whole
+library of 457 the median is 0.45 bits per pixel; a photograph wants roughly 1.0 to 1.5.
+That is what reads as softness even at 1:1, where nothing is being enlarged at all. The
+site's own re-encode of those files is not the cause, and was measured to prove it: 42.7 dB
+median against the studio's originals, which is invisible. The fix is upstream, in the
+export, not here.
+
+Small variants live in `sm/` at 800px, and a `md/` tier at 1600px exists where the opening
+needs one. **Both are encoded at quality 92, not 72.** They were written at 72 originally,
+which cost a median 38.1 dB against the full file and showed as smeared texture in exactly
+the place it is least forgivable: a phone loads the 800px file for every photograph on the
+site, and so does every small tile on a laptop. At 92 the median is 42.9 dB, which does not
+show. The tier grows from 18.8 MB to 35.2 MB across 460 files, and the home page opens at
+0.93 MB rather than 0.76, which is the right way round for a site whose whole job is the
+photographs.
+
+One guard goes with it: a derivative has to be worth fetching, so if the 800px copy weighs
+more than three quarters of the 1600px file it came from, quality steps down until it does,
+with a floor of 82. Without that, 78 of them came out heavier than the originals, where the
+browser would be better off taking the original. 297 of the 460 sit at 92 and 23 at the
+floor. The snippet below is the simple version; the full one lives in the commit that
+rebuilt the tier.
+
+Regenerate them after adding photographs:
 
 ```bash
 python3 - <<'EOF'
@@ -240,7 +265,7 @@ for src in glob.glob("assets/projects/*/*.webp"):
     im = Image.open(src).convert("RGB")
     if im.width > 800:
         im = im.resize((800, round(im.height * 800 / im.width)), Image.LANCZOS)
-    im.save(os.path.join(d, "sm", os.path.splitext(f)[0] + ".webp"), "WEBP", quality=72, method=6)
+    im.save(os.path.join(d, "sm", os.path.splitext(f)[0] + ".webp"), "WEBP", quality=92, method=6)
 EOF
 ```
 

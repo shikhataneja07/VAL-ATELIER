@@ -18,7 +18,7 @@
 })();</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-15 · white nav bar, Merge Stones, Cousins">
+<meta name="build" content="2026-09-16 · recovers images named without leading zeros">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -93,6 +93,10 @@
         <div class="head__grid">
           <h2 class="d2" data-lines>Selected <em>work.</em></h2>
           <p class="body rv-r measure" data-d="1">A few of the completed projects, with the full set of photographs behind each one.</p>
+        </div>
+        <div class="claim rv" data-d="2">
+          <span class="claim__fig">50+</span>
+          <span class="claim__lab">projects completed since the studio opened. The work shown here is a selection of those.</span>
         </div>
       </div>
       <div class="pgrid" data-grid="finished"></div>
@@ -361,6 +365,8 @@ window.PAGE = function(VAL){
                '<span class="ptile__fig shot wipe">' +
                  /* the hero fills the screen, so no plate is visible at load */
                VAL.imgTag(p, VAL.cover(p), p.title, false, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
+                 /* published work says so on the picture itself */
+                 VAL.featTag(p.slug) +
                '</span>' +
                '<span class="ptile__name">' + VAL.esc(p.title) + '</span>' +
                (VAL.descriptor(p) ? '<span class="ptile__meta">' + VAL.esc(VAL.descriptor(p)) + '</span>' : "") +

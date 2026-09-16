@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-15 · white nav bar, Merge Stones, Cousins">
+<meta name="build" content="2026-09-16 · recovers images named without leading zeros">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -33,7 +33,10 @@
           <!-- what is published here is a selection: the studio has finished
                well over fifty, and both tabs below show the ones chosen to
                stand for the rest -->
-          <p class="note">More than fifty projects completed since the studio opened. Selected and ongoing work shown here is a selection of those.</p>
+          <div class="claim">
+            <span class="claim__fig">50+</span>
+            <span class="claim__lab">projects completed since the studio opened. Selected and ongoing work shown here is a selection of those.</span>
+          </div>
         </div>
       </div>
     </div>
@@ -98,6 +101,8 @@ window.PAGE = function(VAL){
                /* the first row is on screen at load — it must not wait for a scroll */
                VAL.imgTag(p, VAL.cover(p), p.title, i < 2, "(max-width: 720px) 92vw, 44vw") +
                '<span class="card__n">' + VAL.pad(i + 1) + '</span>' +
+               /* published work says so on the picture itself, opposite the number */
+               VAL.featTag(p.slug) +
              '</div>' +
              '<figcaption>' +
                '<span class="ttl">' + VAL.esc(p.title) + '<span class="sub">' + VAL.esc(meta) + '</span></span>' +

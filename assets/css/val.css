@@ -574,6 +574,32 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   text-transform:uppercase;color:var(--brass-ink);
 }
 
+/* The studio's count, said once and said properly. It was a grey footnote
+   under the archive lede, which is where a number goes to be ignored; set at
+   display size against a rule it reads as the claim it is. The figure and the
+   line sit on the same baseline, and stack on a phone where they cannot. */
+.claim{
+  /* centred against the figure rather than sat on its baseline: a line of type
+     two or three deep hangs off a baseline and reads as though it slipped */
+  display:flex;align-items:center;gap:clamp(16px,1.9vw,28px);
+  margin-top:clamp(24px,3.2vw,38px);padding-top:clamp(18px,2.2vw,26px);
+  border-top:1px solid var(--line);
+}
+.claim__fig{
+  flex:0 0 auto;
+  font-family:var(--disp);font-weight:400;
+  font-size:clamp(48px,6.2vw,92px);line-height:.88;letter-spacing:-.035em;
+  color:var(--ink);
+}
+.claim__lab{
+  max-width:34ch;
+  font-size:clamp(12.5px,.95vw,14px);line-height:1.65;color:var(--muted);
+}
+@media(max-width:560px){
+  .claim{flex-direction:column;gap:10px}
+  .claim__lab{max-width:none}
+}
+
 /* ---------- footer ---------- */
 .foot{background:var(--ink);color:var(--bone);padding:clamp(56px,8vh,90px) 0 34px}
 .foot__grid{display:grid;gap:44px}
@@ -929,6 +955,25 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
   color:var(--ink);background:var(--bone);padding:7px 11px;
 }
+/* Where a project has been published, the photograph itself carries a small
+   mark saying so, opposite the frame number. It is set on the bone the rest of
+   the site is set on, with the brass dot the studio uses elsewhere, so it reads
+   as the site speaking rather than a sticker stuck on the picture. */
+.shot__feat{
+  position:absolute;top:16px;right:16px;z-index:3;   /* level with the frame number opposite */
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--body);line-height:1;
+  font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);background:var(--bone);padding:7px 11px;
+  box-shadow:0 1px 16px rgba(10,9,8,.16);
+}
+.shot__feat::before{
+  content:"";flex:0 0 auto;width:4px;height:4px;border-radius:50%;background:var(--brass);
+}
+@media(max-width:640px){
+  .shot__feat{top:10px;right:10px;padding:6px 9px;font-size:8.5px;letter-spacing:.18em}
+}
+
 .card__go{
   margin-top:14px;display:inline-flex;align-items:center;gap:9px;
   font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);
@@ -1052,7 +1097,10 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 
 /* where a project has been published: the outlet, the headline, and a link
    straight to the article */
-.pj-feat{padding-top:0}
+/* The press record now sits under the project's facts rather than after its
+   photographs, so a reader is told the work has been published before they
+   scroll it. The brief below carries its own space, so this one closes tight. */
+.pj-feat{padding-top:clamp(38px,4.6vh,60px);padding-bottom:0}
 .feat{list-style:none;margin-top:clamp(20px,2.4vw,32px);border-top:1px solid var(--line)}
 .feat li{border-bottom:1px solid var(--line)}
 .feat a{
