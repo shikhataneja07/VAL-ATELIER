@@ -72,6 +72,60 @@
   };
   VAL.ratio = function(p, i){ return p.images[i][1] / p.images[i][2]; };
 
+  /* ---- one shape for a set of plates --------------------------------------
+     A grid of covers reads as one set only if the plates are the same size,
+     and these plates are never cropped, so the size has to come from the
+     photographs themselves: the set agrees on a shape and every project lends
+     a frame that has it. The shape is whichever ratio every project in the
+     set can actually supply, nearest to what their covers already are, so it
+     is the studio's own material that decides it and it follows the work when
+     projects are added or refiled. Where a set has no shape in common each
+     plate keeps its own, which still beats cutting into a photograph.
+     `skip` optionally rules out frames already spoken for elsewhere on the
+     page, so the same photograph is not shown twice. */
+  var SAME_SHAPE = 0.02;            /* 1600x900 and 1599x900 are one shape */
+
+  VAL.frameChoices = function(p, skip){
+    var out = [], cov = VAL.cover(p), k;
+    if (!skip || !skip(p, cov)) out.push(cov);
+    for (k = 0; k < p.images.length; k++){
+      if (k !== cov && (!skip || !skip(p, k))) out.push(k);
+    }
+    if (!out.length) out.push(cov);
+    return out;
+  };
+
+  VAL.sharedShape = function(set, skip){
+    if (!set || set.length < 2) return 0;
+    var lists = set.map(function(p){
+      return VAL.frameChoices(p, skip).map(function(i){ return VAL.ratio(p, i); });
+    });
+    var covers = set.map(function(p){ return VAL.ratio(p, VAL.cover(p)); })
+                    .sort(function(a, b){ return a - b; });
+    var want = covers[Math.floor(covers.length / 2)];
+    var best = 0, bestGap = Infinity;
+    lists[0].forEach(function(r){
+      var everyone = lists.every(function(l){
+        return l.some(function(x){ return Math.abs(x - r) / r <= SAME_SHAPE; });
+      });
+      if (!everyone) return;
+      var gap = Math.abs(r - want);
+      if (gap < bestGap){ bestGap = gap; best = r; }
+    });
+    return best;
+  };
+
+  VAL.frameFor = function(p, shape, skip){
+    var free = VAL.frameChoices(p, skip);
+    if (!shape) return free[0];
+    var pick = free[0], gap = Infinity;
+    free.forEach(function(i){
+      var d = Math.abs(VAL.ratio(p, i) - shape);
+      if (d < gap){ gap = d; pick = i; }
+    });
+    return pick;
+  };
+
   /* Which outlets have published a project, in the order the record holds
      them, without repeating an outlet that ran more than one piece. A feature
      can cover several projects, so projectSlug takes a list as well as a

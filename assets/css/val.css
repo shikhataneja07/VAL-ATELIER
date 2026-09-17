@@ -948,20 +948,18 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    justified rows now, the same as the home grid: the card takes its cover's
    proportions and grows in proportion to them, so a row reaches one shared
    height, fills the width exactly, and no photograph is cropped to get there. */
+/* Two across rather than three. Every plate in a tab is the same shape, so
+   the column count can simply be stated: two even columns, each plate taking
+   its shared shape, which makes every cover in the archive the same size
+   without a photograph being cut to get there. At three the covers came out
+   small for an archive whose whole job is to be looked at. */
 .grid-work{
-  display:flex;flex-wrap:wrap;align-items:flex-start;
+  display:grid;grid-template-columns:1fr;align-items:start;
   /* the archive closes up with the home page, same reason */
   gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
 }
-.grid-work > *{margin-bottom:0;break-inside:auto}
-.grid-work > .card{
-  flex-grow:var(--r, 1.5);
-  flex-shrink:1;
-  flex-basis:calc(var(--r, 1.5) * 220px);
-  max-width:calc(var(--r, 1.5) * 430px);
-  min-width:0;
-}
-@media(max-width:720px){ .grid-work > .card{flex-basis:100%;max-width:100%} }
+@media(min-width:900px){ .grid-work{grid-template-columns:repeat(2,1fr)} }
+.grid-work > *{margin-bottom:0;break-inside:auto;min-width:0}
 .grid-work .card .shot{aspect-ratio:var(--r, auto)}
 .grid-work .card .shot img{width:100%;height:auto;display:block}
 .card{position:relative;display:block}
@@ -1124,8 +1122,20 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 @media(max-width:759px){
   .seq__b--offset{width:82%;margin-inline:auto 0}
   .seq__b{margin-block:clamp(44px,7vh,86px)}
-  .seq__b--bleed{margin-block:clamp(52px,8vh,96px)}
-  .seq__b--bleed .shot{height:min(calc(100vw / var(--r, 1.778)), clamp(300px,62vh,560px))}
+  /* A band that runs to both edges reads as a statement on a wide screen,
+     where the photographs either side of it are held well inside the margin.
+     On a phone the margin is a thin gutter, so the same band stops looking
+     deliberate and starts looking like the one picture that lost its edges.
+     It sits on the gutter with the rest of them here, and keeps its own
+     proportions, so the column of photographs runs straight down the page. */
+  .seq__b--bleed{
+    margin-inline:0;width:auto;
+    margin-block:clamp(52px,8vh,96px);
+  }
+  .seq__b--bleed .shot{
+    width:auto;height:auto;
+    aspect-ratio:var(--r, 1.778);
+  }
 }
 
 /* where a project has been published: the outlet, the headline, and a link

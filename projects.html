@@ -92,16 +92,22 @@
 <script>
 window.PAGE = function(VAL){
 
-  function card(p, i){
+  /* One shape for the whole tab, worked out over every project filed under it
+     rather than over whatever the category chips leave on screen, so filtering
+     never changes the size of a plate. */
+  var SHAPE = { ongoing: 0, finished: 0 };
+
+  function card(p, i, shape){
     var meta = VAL.descriptor(p) || p.scope;
     /* where a project has been published, the card says so */
     var feat = VAL.featuredLine(p.slug);
+    var f = VAL.frameFor(p, shape);
     return '<a class="card plate hov rv" data-d="' + (i % 3) + '"' +
-             ' style="--r:' + VAL.ratio(p, VAL.cover(p)).toFixed(5) + '"' +
+             ' style="--r:' + VAL.ratio(p, f).toFixed(5) + '"' +
              ' href="project.html?p=' + VAL.esc(p.slug) + '">' +
              '<div class="shot wipe">' +
                /* the first row is on screen at load — it must not wait for a scroll */
-               VAL.imgTag(p, VAL.cover(p), p.title, i < 2, "(max-width: 720px) 92vw, 44vw") +
+               VAL.imgTag(p, f, p.title, i < 2, "(max-width: 720px) 92vw, 44vw") +
                '<span class="card__n">' + VAL.pad(i + 1) + '</span>' +
                /* published work says so on the picture itself, opposite the number */
                VAL.featTag(p.slug) +
@@ -163,9 +169,13 @@ window.PAGE = function(VAL){
     var set = VAL.byStatus(status);
     var pick = filterState[status];
     var shown = pick === "All" ? set : set.filter(function(p){ return p.category === pick; });
+    if (!SHAPE[status]) SHAPE[status] = VAL.sharedShape(set);
 
     var grid = document.querySelector('[data-grid="' + status + '"]');
-    if (grid){ grid.innerHTML = shown.map(card).join(""); VAL.watch(grid); }
+    if (grid){
+      grid.innerHTML = shown.map(function(p, i){ return card(p, i, SHAPE[status]); }).join("");
+      VAL.watch(grid);
+    }
 
     var counter = document.querySelector('[data-count="' + status + '"]');
     if (counter) counter.textContent = VAL.pad(set.length);

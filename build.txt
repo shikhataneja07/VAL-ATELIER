@@ -1,4 +1,4 @@
-2026-09-17f · press rail no longer shifts on load, closed menu out of the tab order
+2026-09-17g · archive two across at one size, gallery band on the gutter on a phone
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
