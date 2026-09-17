@@ -1,4 +1,4 @@
-2026-09-17i · the rosette on the home page too, not only the archive
+2026-09-17j · the plain 50+ back on the home page, the portrait centred on the writing
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

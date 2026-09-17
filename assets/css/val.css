@@ -1502,47 +1502,29 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 @media(max-width:600px){:root{--wa-size:52px}.wa::after{display:none}}
 
 /* ---------- studio & principal designer, one section ---------- */
-/* The portrait was centred already, but against a column twice its height,
-   so it sat in the middle of a lot of nothing. With the quote lifted out and
-   the studio's own paragraphs moved below, the two sides are close enough in
-   height that centring reads as level rather than as a gap. The portrait also
-   takes a larger share of the row than it did. */
+/* The portrait on the left, everything written about the studio on the right:
+   her name, the credit, the biography, then the hairline and the studio's own
+   room. The writing used to break in two here, with the paragraphs about the
+   room dropping onto a row of their own beneath the portrait, which left the
+   whole left column empty under the photograph and read as a hole rather than
+   as structure. One column of writing gives the portrait a single block to sit
+   against, and centring it against the whole of that is what balances the two
+   sides. */
 .intro{display:grid;gap:clamp(30px,4vw,72px);align-items:center}
 @media(min-width:900px){.intro{grid-template-columns:1fr 1.12fr}}
 /* between a tablet and a small laptop the text runs long and narrow, so the
    portrait takes more of the row to keep the two sides near the same height */
 @media(min-width:900px) and (max-width:1179px){.intro{grid-template-columns:1.18fr 1fr}}
-/* the studio's own room, closing the section across the full measure */
-/* Two equal columns of prose closed the section, and because the second
-   paragraph runs a line shorter than the first it stopped in mid air and left
-   a notch, with the button hanging below the left column and nothing beneath
-   the right. The block read as a shape rather than as writing.
-   It sits on the same two column grid as the portrait and the biography above
-   it now, in the second column, with the button directly under the prose. The
-   width on the left is the portrait's column carrying on, so the eye reads it
-   as the page's structure rather than as a paragraph that gave up early, and
-   the block closes as a rectangle instead of an L. */
-.intro__room{display:grid;gap:clamp(30px,4vw,72px)}
-@media(min-width:900px){
-  .intro__room{grid-template-columns:1fr 1.12fr}
-  .intro__room__body{grid-column:2}
-}
-@media(min-width:900px) and (max-width:1179px){
-  .intro__room{grid-template-columns:1.18fr 1fr}
-}
 .intro__room__body{display:grid;gap:clamp(14px,1.8vh,22px)}
 .intro__room__go{margin-top:clamp(12px,1.6vh,20px)}
-/* Above about 1500px the column stops widening but the portrait keeps
-   growing with it, so it stood some 125px taller than the writing beside it
-   and the row was centred on a picture that overshot the text top and bottom.
-   Capping its height lets the two columns finish together: the photograph
-   simply sits narrower in its column, centred, still whole and still uncropped.
-   Below that width the portrait is already the shorter of the two and the cap
-   does nothing. */
+/* The photograph takes the whole of its column, so it stands as tall as it can
+   against the writing beside it and the slack left over is small and even, half
+   above and half below. It is never cropped: the frame is the picture's own
+   shape and the height simply follows the width. */
+.intro__fig{align-self:center}
 .intro__fig img{
   display:block;height:auto;
-  width:auto;max-width:100%;
-  max-height:720px;
+  width:100%;max-width:100%;
   margin-inline:auto;
 }
 .intro__name{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.026em}
