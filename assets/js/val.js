@@ -333,7 +333,11 @@
        cover into assets/press/<id>/ and fill in dir and image to replace it. */
     var hasFig = !!(e.image && e.dir);
     var fig = hasFig
-      ? '<div class="pcard__fig">' +
+      /* The plate carries its photograph's proportions, so the card stands at
+         its full height from the first frame rather than starting flat and
+         growing when the picture resolves. Without this the whole rail below
+         a card jumped as each plate found its size. */
+      ? '<div class="pcard__fig" style="--r:' + (e.image[1] / e.image[2]).toFixed(5) + '">' +
           /* the plate is small, so it takes the small file like every other
              photograph on the site rather than the full size original */
           VAL.plainImg(e.dir + "/" + e.image[0], e.image[1], e.image[2],
@@ -870,6 +874,21 @@
     curtain(function(){ document.documentElement.classList.add("is-ready"); });
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
-  else boot();
+  /* This file is the last element on every page, so by the time it runs the
+     whole document above it is parsed and there is nothing left to wait for.
+     Waiting for DOMContentLoaded anyway let the browser paint the page with
+     the lists still empty, and the press rail in particular then pushed the
+     rest of the page down when its ten features arrived: a shift of 0.45,
+     intermittent, depending on which won the race. Building during parse
+     means the first frame the reader sees is the finished one. The listener
+     stays as the fallback for anywhere this file is not last. */
+  if (document.readyState === "loading" && document.currentScript &&
+      document.currentScript.parentNode === document.body &&
+      !document.currentScript.nextElementSibling){
+    boot();
+  } else if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
 })();
