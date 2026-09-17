@@ -96,7 +96,7 @@ window.PRESS = [
     standfirst: "Covered by one of the Middle East's leading design and architecture publications.",
     url: "https://www.lovethatdesign.com/project/ratio-cafe-hyderabad/",
     dir: "assets/projects/ratio",
-    image: ["21.webp", 1333, 2000]
+    image: ["20.webp", 1333, 2000]
   },
   {
     id: "ratio-commercial-design",
@@ -122,7 +122,7 @@ window.PRESS = [
     standfirst: "",
     url: "https://www.architectandinteriorsindia.com/projects/walk-into-4500-sq-ft-of-japandi-mindfulness-at-this-hyderabad-home-turned-into-a-cafe",
     dir: "assets/projects/ratio",
-    image: ["20.webp", 1333, 2000]
+    image: ["21.webp", 1333, 2000]
   },
   {
     id: "ratio-indesignlive",

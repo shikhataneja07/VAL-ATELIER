@@ -375,13 +375,56 @@ window.PAGE = function(VAL){
     var pp = (window.PROJECTS || []).filter(function(x){ return x.dir === e.dir; })[0];
     if (pp) TAKEN[pp.slug + ":" + e.image[0]] = 1;
   });
-  function tileFrame(p){
-    var i = VAL.cover(p);
-    if (!TAKEN[p.slug + ":" + p.images[i][0]]) return i;
-    for (var k = 0; k < p.images.length; k++){
-      if (!TAKEN[p.slug + ":" + p.images[k][0]]) return k;
+  /* Frames this project can still lend the grid, the cover first where it is
+     free, since that is the studio's own choice of what leads the project. */
+  function freeFrames(p){
+    var out = [], cov = VAL.cover(p), k;
+    if (!TAKEN[p.slug + ":" + p.images[cov][0]]) out.push(cov);
+    for (k = 0; k < p.images.length; k++){
+      if (k !== cov && !TAKEN[p.slug + ":" + p.images[k][0]]) out.push(k);
     }
-    return i;
+    if (!out.length) out.push(cov);
+    return out;
+  }
+
+  /* The plates in a row are meant to read as one set, and the row justifies on
+     height, so a plate's width follows the shape of its photograph: a portrait
+     cover next to two landscape ones comes out visibly narrower. Cropping it
+     to match is the one thing this grid does not do, so the row agrees on a
+     shape instead and every project lends a frame that has it.
+     The shape is whichever ratio every project in the row can actually supply,
+     nearest to what the covers already are, so it is the studio's own material
+     that decides it rather than a number written in here. Where a row has no
+     shape in common the plates keep their own, which is the old behaviour and
+     still beats cutting into a photograph. */
+  var SAME = 0.02;                       /* 1600x900 and 1599x900 are one shape */
+  function rowShape(set){
+    if (set.length < 2) return 0;
+    var lists = set.map(function(p){
+      return freeFrames(p).map(function(i){ return VAL.ratio(p, i); });
+    });
+    var covers = set.map(function(p){ return VAL.ratio(p, VAL.cover(p)); }).sort(function(a, b){ return a - b; });
+    var want = covers[Math.floor(covers.length / 2)];
+    var best = 0, bestGap = Infinity;
+    lists[0].forEach(function(r){
+      var everyone = lists.every(function(l){
+        return l.some(function(x){ return Math.abs(x - r) / r <= SAME; });
+      });
+      if (!everyone) return;
+      var gap = Math.abs(r - want);
+      if (gap < bestGap){ bestGap = gap; best = r; }
+    });
+    return best;
+  }
+  function tileFrame(p, shape){
+    var free = freeFrames(p);
+    if (!shape) return free[0];
+    var pick = free[0], gap = Infinity;
+    free.forEach(function(i){
+      var d = Math.abs(VAL.ratio(p, i) - shape);
+      if (d < gap){ gap = d; pick = i; }
+    });
+    return pick;
   }
 
   function buildGrid(status){
@@ -390,9 +433,11 @@ window.PAGE = function(VAL){
     var all = VAL.byStatus(status);
     if (!all.length){ host.remove(); return; }
     var set = all.slice(0, HOME_TILES);
+    /* one shape for the whole row, so the three plates match */
+    var shape = rowShape(set);
 
     host.innerHTML = set.map(function(p, i){
-      var tf = tileFrame(p);
+      var tf = tileFrame(p, shape);
       return '<a class="ptile rv" data-d="' + (i % 3) + '"' +
                ' style="--r:' + VAL.ratio(p, tf).toFixed(5) + '"' +
                ' href="project.html?p=' + VAL.esc(p.slug) + '">' +
