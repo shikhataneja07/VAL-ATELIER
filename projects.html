@@ -96,7 +96,9 @@ window.PAGE = function(VAL){
     var meta = VAL.descriptor(p) || p.scope;
     /* where a project has been published, the card says so */
     var feat = VAL.featuredLine(p.slug);
-    return '<a class="card plate hov rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
+    return '<a class="card plate hov rv" data-d="' + (i % 3) + '"' +
+             ' style="--r:' + VAL.ratio(p, VAL.cover(p)).toFixed(5) + '"' +
+             ' href="project.html?p=' + VAL.esc(p.slug) + '">' +
              '<div class="shot wipe">' +
                /* the first row is on screen at load — it must not wait for a scroll */
                VAL.imgTag(p, VAL.cover(p), p.title, i < 2, "(max-width: 720px) 92vw, 44vw") +

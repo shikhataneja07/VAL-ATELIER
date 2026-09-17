@@ -934,20 +934,26 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    same height, so one panel read as tidy and the other as ragged. Every
    cover now takes the same shape, which is the one crop on this page; the
    whole frame is on the project's own page. */
+/* The card was locked to 3:2 with the photograph filling it, which cut up to
+   a quarter off a cover that was not that shape. The archive is laid out as
+   justified rows now, the same as the home grid: the card takes its cover's
+   proportions and grows in proportion to them, so a row reaches one shared
+   height, fills the width exactly, and no photograph is cropped to get there. */
 .grid-work{
-  display:grid;grid-template-columns:1fr;
+  display:flex;flex-wrap:wrap;align-items:flex-start;
   /* the archive closes up with the home page, same reason */
   gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
-  column-count:auto;
 }
-@media(min-width:721px){.grid-work{grid-template-columns:repeat(2,1fr)}}
 .grid-work > *{margin-bottom:0;break-inside:auto}
-/* The card used to be locked to 3:2 with the photograph filling it, which cut
-   up to a quarter off a cover that was not that shape. The card takes the
-   photograph's proportions instead, and the cards hang from the top of their
-   row so a tall one does not drag a short one's caption down the page. */
-.grid-work{align-items:start}
-.grid-work .card .shot{aspect-ratio:var(--ar, auto)}
+.grid-work > .card{
+  flex-grow:var(--r, 1.5);
+  flex-shrink:1;
+  flex-basis:calc(var(--r, 1.5) * 220px);
+  max-width:calc(var(--r, 1.5) * 430px);
+  min-width:0;
+}
+@media(max-width:720px){ .grid-work > .card{flex-basis:100%;max-width:100%} }
+.grid-work .card .shot{aspect-ratio:var(--r, auto)}
 .grid-work .card .shot img{width:100%;height:auto;display:block}
 .card{position:relative;display:block}
 .card__n{
@@ -1444,18 +1450,36 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* Vaishnavi found the three plates too far apart twice over, so the gaps come
    in again: the column gap is now a third of what it started at and the row
    gap not much more than half. */
+/* Justified rows, the way a picture editor lays a page out. Every plate keeps
+   its photograph's own proportions, so nothing is cropped, and the row is
+   what absorbs the difference: each plate grows in proportion to how wide its
+   picture is, which lands every plate in a row at one shared height and fills
+   the line edge to edge. Wide covers take more of the row than tall ones, the
+   gaps stay constant, and the names sit level because the pictures above them
+   do. The arithmetic is flexbox's: give a plate a basis and a grow factor
+   both scaled by its aspect ratio and the row solves itself at any width,
+   with no measuring in JavaScript. */
 .pgrid{
-  display:grid;gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
-  grid-template-columns:1fr;
+  display:flex;flex-wrap:wrap;
+  gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
   margin-top:clamp(30px,4.5vh,54px);
 }
-@media(min-width:640px){.pgrid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
-/* Each plate starts at the top of its column. Covers are not all the same
-   shape, and hanging them from the bottom of the row left an empty band of
-   page above the shorter ones. Its name now sits directly under its own
-   photograph instead. */
-.pgrid{align-items:start}
+/* Both the basis and the grow factor are scaled by the aspect ratio, so the
+   width a plate ends up with is proportional to it, and a plate whose frame
+   is width/ratio tall therefore lands at the same height as every other plate
+   in the row. The cap stops a panorama from swallowing a short last row. */
+.pgrid > .ptile{
+  flex-grow:var(--r, 1.5);
+  flex-shrink:1;
+  flex-basis:calc(var(--r, 1.5) * 150px);
+  max-width:calc(var(--r, 1.5) * 330px);
+  min-width:0;
+}
+/* below 640 the row is one plate wide and the ratio no longer decides anything */
+@media(max-width:639px){ .pgrid > .ptile{flex-basis:100%;max-width:100%} }
+/* Plates hang from the top of the row. With the row justified they all reach
+   the same height anyway, so this only matters on the last row of a wrap. */
+.pgrid{align-items:flex-start}
 .ptile{
   display:flex;flex-direction:column;justify-content:flex-start;
   text-align:center;color:inherit;
@@ -1467,7 +1491,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    (.pgrid has align-items:start) so each name sits directly under its own
    photograph rather than being pushed down to match the tallest. */
 .ptile__fig{
-  display:block;width:100%;aspect-ratio:var(--ar, auto);background:var(--frame);
+  display:block;width:100%;aspect-ratio:var(--r, auto);background:var(--frame);
   overflow:hidden;transition:transform .7s var(--ease-io);
 }
 .ptile__fig img{width:100%;height:auto;display:block}

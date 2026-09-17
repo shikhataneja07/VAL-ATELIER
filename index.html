@@ -387,10 +387,13 @@ window.PAGE = function(VAL){
     var set = all.slice(0, HOME_TILES);
 
     host.innerHTML = set.map(function(p, i){
-      return '<a class="ptile rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
+      var tf = tileFrame(p);
+      return '<a class="ptile rv" data-d="' + (i % 3) + '"' +
+               ' style="--r:' + VAL.ratio(p, tf).toFixed(5) + '"' +
+               ' href="project.html?p=' + VAL.esc(p.slug) + '">' +
                '<span class="ptile__fig shot wipe">' +
                  /* the hero fills the screen, so no plate is visible at load */
-               VAL.imgTag(p, tileFrame(p), p.title, false, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
+               VAL.imgTag(p, tf, p.title, false, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
                  /* published work says so on the picture itself */
                  VAL.featTag(p.slug) +
                '</span>' +
