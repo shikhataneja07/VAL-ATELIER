@@ -32,16 +32,13 @@ window.PRESS = [
   {
     id: "goodside-ad-india",
     outlet: "Architectural Digest India",
-    title: "The Goodside Salon by Val Atelier",
+    title: "This new salon in Hyderabad takes its cues from the Atacama Desert",
     project: "The Goodside Salon",
     projectSlug: "the-good-side",
     date: "",
     byline: "",
     standfirst: "",
-    /* TO REPLACE — this is the studio's announcement post, not the article
-       itself. Swap in the Architectural Digest India URL when you have it, so
-       the card opens the feature rather than Instagram. */
-    url: "https://www.instagram.com/p/Db2znBGEmij/",
+    url: "https://www.architecturaldigest.in/story/this-new-salon-in-hyderabad-takes-its-cues-from-the-atacama-desert/",
     dir: "assets/projects/the-good-side",
     image: ["02.webp", 1333, 2000]
   },

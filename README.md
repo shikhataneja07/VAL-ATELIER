@@ -292,11 +292,13 @@ picture replaces the masthead on its own. `assets/press/README.txt` has the two 
 The order is the studio's, not chronological. The Goodside Salon leads and the Hyderabad
 family home sits last by their request.
 
-**Two things in there still need checking against the live articles.** The headlines were
-taken from each publication's own URL because the build environment could not reach them,
-so read them once against the real pages. And the Goodside Salon entry links to the
-studio's announcement post rather than the article itself: swap in the Architectural Digest
-URL when you have it.
+**The headlines still need checking against the live articles.** Each one is that
+publication's own URL read back as a sentence, because the build environment cannot reach
+the pages themselves, so read them once against the real thing.
+
+The Goodside Salon entry used to link to the studio's announcement post rather than the
+feature. It carries the Architectural Digest India URL now, and its headline comes from
+that URL the same way the others do.
 
 ### The gallery inside a project
 
