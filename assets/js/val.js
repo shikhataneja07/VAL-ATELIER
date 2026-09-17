@@ -910,12 +910,93 @@
     setTimeout(lit, 2600);           /* never leave the hero blank */
   }
 
+  /* ---- the studio's count, drawn -------------------------------------------
+     The claim appears twice, on the home page and at the head of the archive,
+     and both get the same drawing: one hairline for each finished project
+     swung round a point, every fifth run longer so the ring reads as a
+     measure rather than as ornament, a compass leg sweeping the circumference
+     while the figure counts up under it, and the plus last, because the claim
+     is fifty and more rather than exactly fifty.
+     The figure in the markup is the real text and stays that way: the ring is
+     aria-hidden and built only when the block comes into view. Without script
+     there is no ring and the claim reads as it always did; with motion turned
+     down the finished drawing is simply already there. */
+  function tally(){
+    qsa("[data-tally]").forEach(function(mark){
+      if (mark.dataset.tallyDone) return;
+      mark.dataset.tallyDone = "1";
+      var n = parseInt(mark.dataset.tally, 10) || 0;
+      if (!n) return;
+
+      /* in a 100 unit box. The inner radius clears the figure: at the largest
+         size "50+" is about 150px across and the tick ring opens to 169px, so
+         the plus never crowds the marks. */
+      var R = 48, INNER = 38, LONG = 33;
+      var svg = '<svg class="claim__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">';
+      for (var i = 0; i < n; i++){
+        var a = (i / n) * Math.PI * 2 - Math.PI / 2;   /* start at twelve o'clock */
+        var big = i % 5 === 0;
+        var r0 = big ? LONG : INNER;
+        svg += '<line class="claim__tick' + (big ? " claim__tick--long" : "") + '"' +
+               ' style="--i:' + i + '"' +
+               ' x1="' + (50 + Math.cos(a) * r0).toFixed(2) + '"' +
+               ' y1="' + (50 + Math.sin(a) * r0).toFixed(2) + '"' +
+               ' x2="' + (50 + Math.cos(a) * R).toFixed(2) + '"' +
+               ' y2="' + (50 + Math.sin(a) * R).toFixed(2) + '"' +
+               ' vector-effect="non-scaling-stroke"/>';
+      }
+      var len = 2 * Math.PI * R;
+      svg += '<circle class="claim__sweep" cx="50" cy="50" r="' + R + '"' +
+             ' transform="rotate(-90 50 50)" vector-effect="non-scaling-stroke"' +
+             ' style="--len:' + len.toFixed(2) + ';stroke-dasharray:' + len.toFixed(2) + '"/>';
+      svg += "</svg>";
+      mark.insertAdjacentHTML("afterbegin", svg);
+      mark.classList.add("is-armed");
+
+      var fig = mark.querySelector(".claim__fig");
+      var plus = fig ? fig.querySelector(".claim__plus") : null;
+      var digits = null;
+      if (fig && plus){
+        digits = document.createTextNode(REDUCED ? String(n) : "0");
+        fig.insertBefore(digits, plus);
+        /* drop the static digits that were there for the no script case */
+        while (fig.firstChild !== digits) fig.removeChild(fig.firstChild);
+      }
+
+      function run(){
+        mark.classList.add("is-drawn");
+        if (!digits) return;
+        if (REDUCED){ digits.nodeValue = String(n); return; }
+        var t0 = 0, DUR = 1150;
+        requestAnimationFrame(function step(t){
+          if (!t0) t0 = t;
+          var k = Math.min(1, (t - t0) / DUR);
+          var e = 1 - Math.pow(1 - k, 3);      /* eases out, so the last numbers land */
+          digits.nodeValue = String(Math.round(e * n));
+          if (k < 1) requestAnimationFrame(step);
+          else digits.nodeValue = String(n);
+        });
+      }
+
+      if (!("IntersectionObserver" in window)){ run(); return; }
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(en){
+          if (!en.isIntersecting) return;
+          io.disconnect();
+          run();
+        });
+      }, { rootMargin: "0px 0px -12% 0px", threshold: .35 });
+      io.observe(mark);
+    });
+  }
+
   function boot(){
     buildHeader();
     buildFooter();
     whatsapp();
     VAL.splitLines(document);
     if (typeof window.PAGE === "function") window.PAGE(VAL);
+    tally();
     hero();                       /* after PAGE — the page renders the first frame */
     parallax();
     /* Start watching straight away. A photograph that has already arrived

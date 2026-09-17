@@ -170,74 +170,6 @@ window.PAGE = function(VAL){
   }
 
   var populated = null;
-  /* ---- the count, drawn ----------------------------------------------------
-     Fifty hairlines swung round a point, one for each finished project, every
-     fifth one longer so the ring reads as a measure. A compass leg sweeps the
-     circumference while the figure counts up under it, and the plus arrives
-     last, because the claim is fifty AND MORE rather than exactly fifty.
-     The figure in the markup is the real text and stays that way: the ring is
-     aria-hidden, and if the script never runs, or the reader has asked for
-     less movement, the finished drawing is simply what is already there. */
-  function tally(){
-    var mark = document.querySelector("[data-tally]");
-    if (!mark) return;
-    var n = parseInt(mark.dataset.tally, 10) || 0;
-    if (!n) return;
-
-    var R = 46, INNER = 34, LONG = 29;        /* in a 100 unit box */
-    var svg = '<svg class="claim__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">';
-    for (var i = 0; i < n; i++){
-      var a = (i / n) * Math.PI * 2 - Math.PI / 2;   /* start at twelve o'clock */
-      var big = i % 5 === 0;
-      var r0 = big ? LONG : INNER;
-      svg += '<line class="claim__tick' + (big ? ' claim__tick--long' : '') + '"' +
-             ' style="--i:' + i + '"' +
-             ' x1="' + (50 + Math.cos(a) * r0).toFixed(2) + '"' +
-             ' y1="' + (50 + Math.sin(a) * r0).toFixed(2) + '"' +
-             ' x2="' + (50 + Math.cos(a) * R).toFixed(2) + '"' +
-             ' y2="' + (50 + Math.sin(a) * R).toFixed(2) + '"' +
-             ' vector-effect="non-scaling-stroke"/>';
-    }
-    /* the compass leg: a circle drawn from twelve o'clock, clockwise */
-    var len = 2 * Math.PI * R;
-    svg += '<circle class="claim__sweep" cx="50" cy="50" r="' + R + '"' +
-           ' transform="rotate(-90 50 50)" vector-effect="non-scaling-stroke"' +
-           ' style="--len:' + len.toFixed(2) + ';stroke-dasharray:' + len.toFixed(2) + '"/>';
-    svg += '</svg>';
-    mark.insertAdjacentHTML("afterbegin", svg);
-    mark.classList.add("is-armed");
-
-    var fig = mark.querySelector(".claim__fig");
-    var plus = fig ? fig.querySelector(".claim__plus") : null;
-    var digits = document.createTextNode(VAL.reduced ? String(n) : "0");
-    if (fig){ fig.insertBefore(digits, fig.firstChild); fig.removeChild(fig.childNodes[1]); }
-
-    function run(){
-      mark.classList.add("is-drawn");
-      if (VAL.reduced || !fig){ digits.nodeValue = String(n); return; }
-      var t0 = 0, DUR = 1150;
-      requestAnimationFrame(function step(t){
-        if (!t0) t0 = t;
-        var k = Math.min(1, (t - t0) / DUR);
-        /* eases out, so the last few numbers land rather than race */
-        var e = 1 - Math.pow(1 - k, 3);
-        digits.nodeValue = String(Math.round(e * n));
-        if (k < 1) requestAnimationFrame(step);
-        else digits.nodeValue = String(n);
-      });
-    }
-
-    if (!("IntersectionObserver" in window)){ run(); return; }
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(en){
-        if (!en.isIntersecting) return;
-        io.disconnect();
-        run();
-      });
-    }, { rootMargin: "0px 0px -12% 0px", threshold: .35 });
-    io.observe(mark);
-  }
-
   var filterState = { ongoing: "All", finished: "All" };
 
   function render(status){
@@ -327,7 +259,6 @@ window.PAGE = function(VAL){
   if (wantTab === "finished" || wantTab === "ongoing") select(wantTab);
   else if (populated) select(populated);
 
-  tally();
 };
 </script>
 <script src="assets/js/val.js"></script>
