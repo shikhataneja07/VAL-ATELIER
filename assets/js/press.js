@@ -135,7 +135,7 @@ window.PRESS = [
     standfirst: "",
     url: "https://www.indesignlive.com/projects/balance-and-ratio-cafe-hyderabad",
     dir: "assets/projects/ratio",
-    image: ["22.webp", 2000, 1333]
+    image: ["02.webp", 1333, 2000]
   },
   {
     id: "concrete-calm-architecture-plus-design",
@@ -147,8 +147,8 @@ window.PRESS = [
     byline: "",
     standfirst: "",
     url: "https://www.architectureplusdesign.in/design/val-atelier-hyderabad-home-strikes-balance-between-concrete-calm/",
-    dir: "assets/projects/aparna-one",
-    image: ["12.webp", 1067, 1600]
+    dir: "assets/projects/ratio",
+    image: ["06.webp", 1333, 2000]
   },
   {
     /* Last by the studio's choice, not by date. This one carried the
@@ -165,7 +165,7 @@ window.PRESS = [
     standfirst: "A Hyderabad house reshaped, room by room, into a home built around how one family actually lives.",
     url: "https://www.architecturaldigest.in/story/thoughtful-design-interventions-turn-this-hyderabad-house-into-a-loving-family-home/",
     dir: "assets/projects/vasella-meadows",
-    image: ["16.webp", 2000, 1333]
+    image: ["18.webp", 1333, 2000]
   }
 
   /* -----------------------------------------------------------------------

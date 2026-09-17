@@ -1336,8 +1336,14 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 
 /* ---------- press ---------- */
 .press{display:grid;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* The features were separated by the container's hairline alone, so one
+   plate finished a pixel above the next one started and the rail read as a
+   single block of photographs. A little room inside each card sets them
+   apart without turning the hairline into a band: enough to see where one
+   feature ends, not so much that the rail loses its rhythm. */
 .pcard{
   background:var(--bone);display:grid;gap:0;position:relative;overflow:hidden;
+  padding-block:clamp(14px,1.8vh,22px);
   transition:background .5s var(--ease);
 }
 @media(min-width:820px){.pcard{grid-template-columns:.42fr 1fr;align-items:start}}
