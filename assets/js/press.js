@@ -96,7 +96,7 @@ window.PRESS = [
     standfirst: "Covered by one of the Middle East's leading design and architecture publications.",
     url: "https://www.lovethatdesign.com/project/ratio-cafe-hyderabad/",
     dir: "assets/projects/ratio",
-    image: ["18.webp", 1333, 2000]
+    image: ["21.webp", 1333, 2000]
   },
   {
     id: "ratio-commercial-design",

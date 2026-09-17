@@ -1,4 +1,4 @@
-2026-09-17 · photographs uncropped, justified grids, Keerthi model flat added
+2026-09-17b · studio block reset on the page grid, Ra:tio press plates made distinct
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
