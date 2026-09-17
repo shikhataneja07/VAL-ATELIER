@@ -353,6 +353,32 @@ window.PAGE = function(VAL){
   /* ---- the quiet grid: every project as a plate with its name under it ---- */
   /* the home page shows a few from each status; the archive holds the rest */
   var HOME_TILES = 3;
+
+  /* The opening reel and this grid sit on the same page, so a project whose
+     cover is also one of the reel's frames showed the same photograph twice
+     on the way down. The plate steps to the first frame the reel is not
+     already using. Only the home plate moves: the project's cover is what it
+     was on the archive, on its own page and everywhere else. */
+  var TAKEN = {};
+  (window.HERO || []).forEach(function(pick){
+    var hp = VAL.find(pick[0]);
+    if (hp) TAKEN[hp.slug + ":" + hp.images[pick[1] - 1][0]] = 1;
+  });
+  /* the press plates are on this page too, below the work */
+  (window.PRESS || []).forEach(function(e){
+    if (!e.dir || !e.image) return;
+    var pp = (window.PROJECTS || []).filter(function(x){ return x.dir === e.dir; })[0];
+    if (pp) TAKEN[pp.slug + ":" + e.image[0]] = 1;
+  });
+  function tileFrame(p){
+    var i = VAL.cover(p);
+    if (!TAKEN[p.slug + ":" + p.images[i][0]]) return i;
+    for (var k = 0; k < p.images.length; k++){
+      if (!TAKEN[p.slug + ":" + p.images[k][0]]) return k;
+    }
+    return i;
+  }
+
   function buildGrid(status){
     var host = document.querySelector('[data-grid="' + status + '"]');
     if (!host) return;
@@ -361,10 +387,13 @@ window.PAGE = function(VAL){
     var set = all.slice(0, HOME_TILES);
 
     host.innerHTML = set.map(function(p, i){
-      return '<a class="ptile rv" data-d="' + (i % 3) + '" href="project.html?p=' + VAL.esc(p.slug) + '">' +
+      var tf = tileFrame(p);
+      return '<a class="ptile rv" data-d="' + (i % 3) + '"' +
+               ' style="--r:' + VAL.ratio(p, tf).toFixed(5) + '"' +
+               ' href="project.html?p=' + VAL.esc(p.slug) + '">' +
                '<span class="ptile__fig shot wipe">' +
                  /* the hero fills the screen, so no plate is visible at load */
-               VAL.imgTag(p, VAL.cover(p), p.title, false, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
+               VAL.imgTag(p, tf, p.title, false, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
                  /* published work says so on the picture itself */
                  VAL.featTag(p.slug) +
                '</span>' +

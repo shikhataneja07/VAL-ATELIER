@@ -934,16 +934,27 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
    same height, so one panel read as tidy and the other as ragged. Every
    cover now takes the same shape, which is the one crop on this page; the
    whole frame is on the project's own page. */
+/* The card was locked to 3:2 with the photograph filling it, which cut up to
+   a quarter off a cover that was not that shape. The archive is laid out as
+   justified rows now, the same as the home grid: the card takes its cover's
+   proportions and grows in proportion to them, so a row reaches one shared
+   height, fills the width exactly, and no photograph is cropped to get there. */
 .grid-work{
-  display:grid;grid-template-columns:1fr;
+  display:flex;flex-wrap:wrap;align-items:flex-start;
   /* the archive closes up with the home page, same reason */
   gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
-  column-count:auto;
 }
-@media(min-width:721px){.grid-work{grid-template-columns:repeat(2,1fr)}}
 .grid-work > *{margin-bottom:0;break-inside:auto}
-.grid-work .card .shot{aspect-ratio:3/2}
-.grid-work .card .shot img{width:100%;height:100%;object-fit:cover;object-position:center}
+.grid-work > .card{
+  flex-grow:var(--r, 1.5);
+  flex-shrink:1;
+  flex-basis:calc(var(--r, 1.5) * 220px);
+  max-width:calc(var(--r, 1.5) * 430px);
+  min-width:0;
+}
+@media(max-width:720px){ .grid-work > .card{flex-basis:100%;max-width:100%} }
+.grid-work .card .shot{aspect-ratio:var(--r, auto)}
+.grid-work .card .shot img{width:100%;height:auto;display:block}
 .card{position:relative;display:block}
 .card__n{
   position:absolute;top:16px;left:16px;z-index:3;
@@ -1067,16 +1078,20 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   margin-block:clamp(72px,11vh,168px);
 }
 /* The band was a fixed height at any width, so on a wide screen it turned into
-   a letterbox and took a quarter out of the photograph: 17% off a 16:9 frame at
-   1920 by 1080, which is a ceiling and a floor gone. It takes its height from
-   the picture's own proportions now and only gives way where that would run
-   past the screen, so a frame is shown whole wherever it fits and clipped by a
-   little rather than a lot where it does not. */
+   a letterbox and took a quarter out of the photograph. Taking the height from
+   the picture's own proportions fixed most of that, but it still clipped
+   whatever ran past the screen: 19% off the widest frames at 1440 by 900.
+   Nothing is clipped now. The frame keeps its own proportions and the height
+   ceiling is met by narrowing the band rather than by cutting the picture, so
+   a photograph that would stand taller than the screen simply stops short of
+   the two edges instead of losing its ceiling and its floor. */
 .seq__b--bleed .shot{
-  aspect-ratio:auto;
-  height:min(calc(100vw / var(--r, 1.778)), clamp(320px, 100vh, 1400px));
+  aspect-ratio:var(--r, 1.778);
+  height:auto;
+  width:min(100vw, calc(clamp(320px, 92vh, 1400px) * var(--r, 1.778)));
+  margin-inline:auto;
 }
-.seq__b--bleed .shot img{height:100%;object-fit:cover}
+.seq__b--bleed .shot img{height:auto;object-fit:fill}
 
 /* across the container */
 .seq__b--wide .shot{aspect-ratio:var(--r)}
@@ -1325,23 +1340,19 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   background:var(--bone);display:grid;gap:0;position:relative;overflow:hidden;
   transition:background .5s var(--ease);
 }
-@media(min-width:820px){.pcard{grid-template-columns:.42fr 1fr;align-items:stretch}}
-/* Every plate is the same shape and the photograph fills it. The plate used
-   to size itself to the picture and sit centred in a column as tall as the
-   headline beside it, which left a band of empty page above and below a wide
-   photograph — and no two cards matched. The photograph is cropped to the
-   plate here; the whole frame is always on the project's own page. */
+@media(min-width:820px){.pcard{grid-template-columns:.42fr 1fr;align-items:start}}
+/* Every plate used to be the same shape with the photograph filling it, which
+   took as much as 40% off a frame whose proportions did not match the plate.
+   The picture is shown whole now and the plate follows it, so the cards no
+   longer all match down the page. That is the trade the studio asked for: a
+   photograph is never cut to square up a column. */
 .pcard__fig{background:var(--frame);overflow:hidden;position:relative;
-  display:flex;align-items:stretch;justify-content:center;
-  min-height:clamp(240px,27vw,392px)}
-/* laid out of the flow entirely: a tall photograph used to push its own card
-   taller than the rest, so no two plates matched down the page */
-.pcard__fig img{position:absolute;inset:0;width:100%;height:100%;display:block;
-  object-fit:cover;object-position:center;transition:transform 1.4s var(--ease)}
-/* stacked on a phone, every plate keeps one shape rather than following
-   whatever proportions its own photograph happens to have */
+  display:block;min-height:0}
+.pcard__fig img{position:static;width:100%;height:auto;display:block;
+  transition:transform 1.4s var(--ease)}
+/* stacked on a phone the plate still follows its own photograph */
 @media(max-width:819px){
-  .pcard__fig{min-height:0;aspect-ratio:3/2}
+  .pcard__fig{min-height:0;aspect-ratio:auto}
   .pcard__fig--mark{aspect-ratio:auto}
 }
 /* the plate a feature carries until its own cover image arrives: the
@@ -1439,31 +1450,51 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* Vaishnavi found the three plates too far apart twice over, so the gaps come
    in again: the column gap is now a third of what it started at and the row
    gap not much more than half. */
+/* Justified rows, the way a picture editor lays a page out. Every plate keeps
+   its photograph's own proportions, so nothing is cropped, and the row is
+   what absorbs the difference: each plate grows in proportion to how wide its
+   picture is, which lands every plate in a row at one shared height and fills
+   the line edge to edge. Wide covers take more of the row than tall ones, the
+   gaps stay constant, and the names sit level because the pictures above them
+   do. The arithmetic is flexbox's: give a plate a basis and a grow factor
+   both scaled by its aspect ratio and the row solves itself at any width,
+   with no measuring in JavaScript. */
 .pgrid{
-  display:grid;gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
-  grid-template-columns:1fr;
+  display:flex;flex-wrap:wrap;
+  gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
   margin-top:clamp(30px,4.5vh,54px);
 }
-@media(min-width:640px){.pgrid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1000px){.pgrid{grid-template-columns:repeat(3,1fr)}}
-/* Each plate starts at the top of its column. Covers are not all the same
-   shape, and hanging them from the bottom of the row left an empty band of
-   page above the shorter ones. Its name now sits directly under its own
-   photograph instead. */
-.pgrid{align-items:start}
+/* Both the basis and the grow factor are scaled by the aspect ratio, so the
+   width a plate ends up with is proportional to it, and a plate whose frame
+   is width/ratio tall therefore lands at the same height as every other plate
+   in the row. The cap stops a panorama from swallowing a short last row. */
+.pgrid > .ptile{
+  flex-grow:var(--r, 1.5);
+  flex-shrink:1;
+  flex-basis:calc(var(--r, 1.5) * 150px);
+  max-width:calc(var(--r, 1.5) * 330px);
+  min-width:0;
+}
+/* below 640 the row is one plate wide and the ratio no longer decides anything */
+@media(max-width:639px){ .pgrid > .ptile{flex-basis:100%;max-width:100%} }
+/* Plates hang from the top of the row. With the row justified they all reach
+   the same height anyway, so this only matters on the last row of a wrap. */
+.pgrid{align-items:flex-start}
 .ptile{
   display:flex;flex-direction:column;justify-content:flex-start;
   text-align:center;color:inherit;
 }
-/* A fixed opening, the same 3:2 the archive cards use. Without it the tile
-   takes the shape of whatever photograph leads the project, so one cover cut
-   1.39 next to two cut 1.78 stood taller than its neighbours and threw the
-   names out of line. The frame is the constant; the photograph fills it. */
+/* The tile was locked to 3:2 with the photograph filling it, so a cover that
+   was not that shape lost its edges. The plate takes the cover's own
+   proportions now, which is what the grid was described as doing all along:
+   a tidy row is not a reason to crop. The tiles hang from the top of the row
+   (.pgrid has align-items:start) so each name sits directly under its own
+   photograph rather than being pushed down to match the tallest. */
 .ptile__fig{
-  display:block;width:100%;aspect-ratio:3/2;background:var(--frame);overflow:hidden;
-  transition:transform .7s var(--ease-io);
+  display:block;width:100%;aspect-ratio:var(--r, auto);background:var(--frame);
+  overflow:hidden;transition:transform .7s var(--ease-io);
 }
-.ptile__fig img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.ptile__fig img{width:100%;height:auto;display:block}
 .ptile__name{
   display:block;margin-top:18px;
   font-family:var(--disp);font-weight:400;font-size:clamp(17px,1.5vw,21px);
