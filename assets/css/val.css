@@ -594,11 +594,72 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   margin-top:clamp(24px,3.2vw,38px);padding-top:clamp(18px,2.2vw,26px);
   border-top:1px solid var(--line);
 }
+/* The figure sits at the centre of a drafted rosette: fifty hairlines swung
+   round a point, one for each finished project, with every fifth one run a
+   little longer so it reads as a measure rather than as ornament. The ring is
+   brass on bone like every other accent here, and it is drawn at a hair's
+   weight so it carries the number without shouting over it. */
+.claim__mark{
+  flex:0 0 auto;position:relative;
+  display:grid;place-items:center;
+  width:clamp(148px,15.5vw,224px);aspect-ratio:1;   /* reserved, so nothing jumps */
+}
+.claim__ring{
+  position:absolute;inset:0;width:100%;height:100%;
+  overflow:visible;pointer-events:none;
+}
+.claim__tick{
+  stroke:var(--brass);stroke-width:1;stroke-linecap:butt;
+  opacity:.55;transform-origin:50% 50%;
+}
+.claim__tick--long{opacity:.9}
+.claim__sweep{
+  fill:none;stroke:var(--brass);stroke-width:1;opacity:.85;
+  stroke-linecap:round;
+}
 .claim__fig{
-  flex:0 0 auto;
+  flex:0 0 auto;position:relative;
   font-family:var(--disp);font-weight:400;
   font-size:clamp(48px,6.2vw,92px);line-height:.88;letter-spacing:-.035em;
   color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.claim__plus{font-style:normal;color:var(--brass-ink)}
+
+/* ---- the drawing, where it is wanted ----
+   The resting state is the finished rosette, so a visitor without script, or
+   one who has asked for less movement, sees the complete drawing rather than
+   an empty ring. Only once the script has marked the block as ready does it
+   start from nothing and draw itself in. */
+.js .claim__mark.is-armed .claim__tick{opacity:0;transform:scale(.55)}
+.js .claim__mark.is-armed .claim__sweep{stroke-dashoffset:var(--len)}
+.js .claim__mark.is-armed .claim__plus{opacity:0}
+
+/* these have to outweigh the armed rules above, which carry .js as well */
+.js .claim__mark.is-armed.is-drawn .claim__tick{
+  opacity:.55;transform:scale(1);
+  transition:opacity .5s var(--ease-out), transform .7s var(--ease-out);
+  transition-delay:calc(var(--i) * 17ms);
+}
+.js .claim__mark.is-armed.is-drawn .claim__tick--long{opacity:.9}
+.js .claim__mark.is-armed.is-drawn .claim__sweep{
+  stroke-dashoffset:0;
+  transition:stroke-dashoffset 1.15s var(--ease-io);
+}
+.js .claim__mark.is-armed.is-drawn .claim__plus{
+  opacity:1;transition:opacity .45s var(--ease) .95s;
+}
+@media(prefers-reduced-motion:reduce){
+  .js .claim__mark.is-armed .claim__tick{opacity:.55;transform:none}
+  .js .claim__mark.is-armed .claim__tick--long{opacity:.9}
+  .js .claim__mark.is-armed .claim__sweep{stroke-dashoffset:0}
+  .js .claim__mark.is-armed .claim__plus{opacity:1}
+  .js .claim__mark.is-armed.is-drawn .claim__tick,
+  .js .claim__mark.is-armed.is-drawn .claim__sweep,
+  .js .claim__mark.is-armed.is-drawn .claim__plus{transition:none}
+}
+@media(max-width:560px){
+  .claim__mark{width:clamp(132px,42vw,168px)}
 }
 .claim__lab{
   max-width:34ch;
@@ -1471,7 +1532,19 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 }
 .intro__room__body{display:grid;gap:clamp(14px,1.8vh,22px)}
 .intro__room__go{margin-top:clamp(12px,1.6vh,20px)}
-.intro__fig img{width:100%;height:auto;display:block}
+/* Above about 1500px the column stops widening but the portrait keeps
+   growing with it, so it stood some 125px taller than the writing beside it
+   and the row was centred on a picture that overshot the text top and bottom.
+   Capping its height lets the two columns finish together: the photograph
+   simply sits narrower in its column, centred, still whole and still uncropped.
+   Below that width the portrait is already the shorter of the two and the cap
+   does nothing. */
+.intro__fig img{
+  display:block;height:auto;
+  width:auto;max-width:100%;
+  max-height:720px;
+  margin-inline:auto;
+}
 .intro__name{font-family:var(--disp);font-weight:400;font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.026em}
 /* The credit used to butt straight up against the name and run nearly as wide
    as it, which read as two lines fighting. It now sits clear of the name, on
