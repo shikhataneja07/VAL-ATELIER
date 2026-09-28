@@ -1,4 +1,4 @@
-2026-09-28b · services cut to full interior design, styling and consultancy
+2026-09-28c · careers on the contact page and in the header, services moved to About, By appointment only on About
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

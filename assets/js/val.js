@@ -550,7 +550,8 @@
           '</div>' +
           '<div>' +
             '<h4>Navigate</h4>' +
-            '<ul>' + (SITE.nav || []).map(function(n){
+            /* Careers is a header link only; the footer keeps the page list */
+            '<ul>' + (SITE.nav || []).filter(function(n){ return !n.headerOnly; }).map(function(n){
               return '<li><a href="' + esc(n.href) + '">' + esc(n.label) + '</a></li>';
             }).join("") +
               '<li><a href="services.html">Services</a></li>' +

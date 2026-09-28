@@ -712,6 +712,10 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* ---------- shared page masthead ---------- */
 .mast{padding:calc(var(--nav-h) + clamp(56px,9vh,116px)) 0 clamp(40px,6vh,76px);position:relative}
 .mast__grid{display:grid;gap:30px}
+/* About: a single line where the lede used to be */
+.mast__appt{font-family:var(--disp);font-style:italic;font-size:clamp(20px,2vw,28px);letter-spacing:-.01em;color:var(--ink-soft)}
+#careers{scroll-margin-top:var(--nav-h)}
+#careers a.u{text-decoration:underline;text-underline-offset:3px}
 /* the lede and the line under it read as one column of text */
 .mast__lede{display:grid;gap:clamp(12px,1.6vh,18px)}
 /* a quieter second line: set smaller and lighter than the lede so it reads as
@@ -925,6 +929,8 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .princ{display:grid;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 @media(min-width:720px){.princ{grid-template-columns:1fr 1fr}}
 @media(min-width:1080px){.princ{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:1080px){.princ--three{grid-template-columns:repeat(3,1fr)}}
+a.princ__cell{display:block;color:inherit}
 .princ__cell{background:var(--bone);padding:clamp(28px,3vw,42px) clamp(22px,2.4vw,34px);position:relative;overflow:hidden}
 .band-putty .princ__cell{background:var(--putty)}
 .princ__cell .n{font-family:var(--disp);font-style:italic;font-size:clamp(30px,3.4vw,44px);color:var(--frame);line-height:1;margin-bottom:26px;transition:color .5s var(--ease)}

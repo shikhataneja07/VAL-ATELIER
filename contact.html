@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-28b · services: interior design, styling, consultancy">
+<meta name="build" content="2026-09-28c · careers on contact and in header, services on about">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -59,16 +59,6 @@
             <span class="label">Working across</span>
             <span class="v">Hyderabad &middot; Bangalore</span>
             <span class="n">and elsewhere in India for the right project.</span>
-          </div>
-
-          <div class="ct-block rv">
-            <span class="label">Services</span>
-            <ul class="ct-svc">
-              <li><a href="services.html"><span class="i">01</span><span class="t">Full interior design</span><span class="ar">&rarr;</span></a></li>
-              <li><a href="services.html"><span class="i">02</span><span class="t">Styling</span><span class="ar">&rarr;</span></a></li>
-              <li><a href="services.html"><span class="i">03</span><span class="t">Consultancy</span><span class="ar">&rarr;</span></a></li>
-            </ul>
-            <span class="n">What each one includes is on the <a href="services.html" style="text-decoration:underline;text-underline-offset:3px">services page</a>.</span>
           </div>
         </div>
 
@@ -169,6 +159,22 @@
     </div>
   </section>
 
+  <!-- CAREERS -------------------------------------------------------- -->
+  <section class="sec band-putty" id="careers">
+    <div class="wrap">
+      <div class="head">
+        <div class="head__top rv-l"><i class="bar"></i><span class="label">Careers</span></div>
+        <div class="head__grid">
+          <h2 class="d2" data-lines>Work with <em>the studio.</em></h2>
+          <div class="stack rv-r" data-d="1">
+            <p class="body measure">The studio is small and every project is worked on closely, from the first drawing to the site. Architects and interior designers who want to work that way are welcome to write in.</p>
+            <p class="body measure">Send your CV and a portfolio to <a class="u" data-careers-mail href="contact.html">the studio</a>, with &ldquo;Careers&rdquo; in the subject line.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CLOSING IMAGE ---------------------------------------------------- -->
   <section class="bleed">
     <div class="bleed__media"><img src="assets/projects/sas-crown/03.webp" width="1600" height="900" alt="" loading="lazy" decoding="async" data-para="0.06"></div>
@@ -195,6 +201,13 @@ window.PAGE = function(VAL){
     { k: "Phone",     v: S.phone,     href: "tel:" + S.phoneLink }
   ];
   var addr = document.querySelector("[data-address]");
+
+  /* careers: the same studio address, with the subject already filled in */
+  var cm = document.querySelector("[data-careers-mail]");
+  if (cm){
+    cm.href = "mailto:" + S.email + "?subject=" + encodeURIComponent("Careers");
+    cm.textContent = S.email;
+  }
   if (addr) addr.textContent = S.addressLines.join(", ");
 
   /* the handle gets the same block it has in the footer, on the page where

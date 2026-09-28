@@ -37,6 +37,7 @@ window.SITE = {
     { label: "About",    href: "about.html" },
     { label: "Projects", href: "projects.html" },
     { label: "Press",    href: "press.html" },
-    { label: "Contact",  href: "contact.html" }
+    { label: "Contact",  href: "contact.html" },
+    { label: "Careers",  href: "contact.html#careers", headerOnly: true }
   ]
 };
