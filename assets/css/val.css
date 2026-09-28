@@ -698,7 +698,8 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* on the light contact page the same block reads against the paper */
 .ig--light{border-color:var(--line);color:var(--ink-soft);margin-top:0}
 .ig--light:hover{border-color:var(--brass);color:var(--ink);background:rgba(0,0,0,.02)}
-.ig--light .ig__h{color:var(--ink)}
+.ig--light .ig__h{color:var(--ink);font-size:clamp(15px,1.15vw,17px)}
+.ig--light .ig__n{font-size:9.5px}
 .ig--light .ig__n{color:var(--muted)}
 
 .foot__bottom{
@@ -1318,15 +1319,26 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 .ct-block{margin-top:clamp(30px,3.8vh,44px)}
 .ct-block .v{
   display:block;margin-top:14px;
-  font-family:var(--disp);font-size:clamp(16.5px,1.25vw,19px);
+  font-family:var(--disp);font-size:clamp(15px,1.05vw,16.5px);
   line-height:1.35;letter-spacing:-.006em;
 }
 .ct-block .n{
   display:block;margin-top:8px;max-width:40ch;
-  font-size:14.5px;line-height:1.75;color:var(--muted);
+  font-size:13.5px;line-height:1.7;color:var(--muted);
+}
+/* Services: the four ways of working, each a line in the same display face
+   as the blocks around it, linking through to the services page */
+.ct-svc{list-style:none;margin-top:14px;border-top:1px solid var(--line)}
+.ct-svc a{display:grid;grid-template-columns:26px 1fr auto;align-items:baseline;gap:10px;padding:10px 2px;border-bottom:1px solid var(--line)}
+.ct-svc .i{font-family:var(--disp);font-size:11px;color:var(--brass-ink)}
+.ct-svc .t{font-family:var(--disp);font-size:clamp(15px,1.05vw,16.5px);letter-spacing:-.006em;transition:transform .5s var(--ease-io),color .4s var(--ease)}
+.ct-svc .ar{color:var(--brass-ink);opacity:0;transform:translateX(-12px);transition:opacity .4s var(--ease),transform .5s var(--ease)}
+@media(hover:hover){
+  .ct-svc a:hover .t{transform:translateX(8px);color:var(--brass-ink)}
+  .ct-svc a:hover .ar{opacity:1;transform:translateX(0)}
 }
 
-.ct-row .v{font-family:var(--disp);font-size:clamp(16.5px,1.25vw,19px);letter-spacing:-.006em;transition:transform .5s var(--ease-io),color .4s var(--ease)}
+.ct-row .v{font-family:var(--disp);font-size:clamp(15px,1.05vw,16.5px);letter-spacing:-.006em;transition:transform .5s var(--ease-io),color .4s var(--ease)}
 .ct-row .ar{color:var(--brass-ink);opacity:0;transform:translateX(-12px);transition:opacity .4s var(--ease),transform .5s var(--ease)}
 @media(hover:hover){
   a.ct-row:hover .v{transform:translateX(10px);color:var(--brass-ink)}
