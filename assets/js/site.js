@@ -10,7 +10,7 @@
 window.SITE = {
   name:    "Val Atelier",
 
-  tagline: "Interior Design Studio",
+  tagline: "Design-led interior architecture studio",
 
   /* TO CONFIRM — replace with the studio's real address */
   email:   "studio@valatelier.in",
