@@ -9,6 +9,13 @@
 
   var SITE = window.SITE || {};
   var PROJECTS = window.PROJECTS || [];
+  /* Areas always carry a thousands comma ("8,500 sq ft", "24,500 sq ft"),
+     however they were typed into projects.js */
+  PROJECTS.forEach(function(p){
+    if (p.area) p.area = String(p.area).replace(/\d{4,}/g, function(n){
+      return n.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+  });
   var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var VAL = window.VAL = {};
   VAL.reduced = REDUCED;          /* pages read this before starting anything that loops */
