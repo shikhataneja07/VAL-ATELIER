@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-29d · contact intro removed">
+<meta name="build" content="2026-09-29e · 50+ caption, selected work first, two-sentence intros">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -42,7 +42,7 @@
             <div class="claim__mark" data-tally="50">
               <span class="claim__fig">50<i class="claim__plus">+</i></span>
             </div>
-            <span class="claim__lab">projects completed since the studio opened. Selected and ongoing work shown here is a selection of those.</span>
+            <span class="claim__lab">projects completed since 2018.<br>Here are a few selected ones.</span>
           </div>
         </div>
       </div>
@@ -52,27 +52,26 @@
   <section class="sec--tight" style="padding-top:0">
     <div class="wrap">
       <div class="tabs" role="tablist" aria-label="Project categories">
-        <button role="tab" id="tab-ongoing" aria-controls="panel-ongoing" aria-selected="true" class="is-on" data-tab="ongoing">
-          Ongoing work <span class="c" data-count="ongoing"></span>
-        </button>
-        <button role="tab" id="tab-finished" aria-controls="panel-finished" aria-selected="false" data-tab="finished">
+        <button role="tab" id="tab-finished" aria-controls="panel-finished" aria-selected="true" class="is-on" data-tab="finished">
           Selected work <span class="c" data-count="finished"></span>
         </button>
-      </div>
-
-      <!-- ONGOING ---------------------------------------------------- -->
-      <div class="panel is-on" id="panel-ongoing" role="tabpanel" aria-labelledby="tab-ongoing" data-panel="ongoing">
-        <div class="filters" data-filters="ongoing"></div>
-        <div class="grid-work mgrid" data-grid="ongoing"></div>
-        <div data-empty="ongoing"></div>
+        <button role="tab" id="tab-ongoing" aria-controls="panel-ongoing" aria-selected="false" data-tab="ongoing">
+          Ongoing work <span class="c" data-count="ongoing"></span>
+        </button>
       </div>
 
       <!-- FINISHED --------------------------------------------------- -->
-      <div class="panel" id="panel-finished" role="tabpanel" aria-labelledby="tab-finished" data-panel="finished" hidden>
+      <div class="panel is-on" id="panel-finished" role="tabpanel" aria-labelledby="tab-finished" data-panel="finished">
         <div class="filters" data-filters="finished"></div>
         <div class="grid-work mgrid" data-grid="finished"></div>
-
         <div data-empty="finished"></div>
+      </div>
+
+      <!-- ONGOING ---------------------------------------------------- -->
+      <div class="panel" id="panel-ongoing" role="tabpanel" aria-labelledby="tab-ongoing" data-panel="ongoing" hidden>
+        <div class="filters" data-filters="ongoing"></div>
+        <div class="grid-work mgrid" data-grid="ongoing"></div>
+        <div data-empty="ongoing"></div>
       </div>
     </div>
   </section>
@@ -216,7 +215,8 @@ window.PAGE = function(VAL){
     });
   }
 
-  ["ongoing", "finished"].forEach(function(status){
+  /* selected work first, then ongoing: the first with projects opens */
+  ["finished", "ongoing"].forEach(function(status){
     var set = VAL.byStatus(status);
     if (set.length && !populated) populated = status;
     buildFilters(status);

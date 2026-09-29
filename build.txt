@@ -1,4 +1,4 @@
-2026-09-29d · the intro paragraph at the top of the contact page removed
+2026-09-29e · 50+ since 2018 caption, selected work before ongoing, intros at two sentences
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
