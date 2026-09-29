@@ -1,4 +1,4 @@
-2026-09-29j · the Scroll cue removed from the home page hero
+2026-09-29k · selected and ongoing intros reworded; the studio called a design-led interior architecture studio throughout
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
