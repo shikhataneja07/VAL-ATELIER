@@ -42,7 +42,7 @@ its previous/next navigation all read from that one array.
   status: "finished",              // "ongoing" or "finished" — this files it under the right tab
   typology: "Residence",
   location: "Hyderabad",
-  area: "3,200 sq ft",             // leave "" out and the row is simply not printed
+  area: "3,200 sq ft",             // leave "" out and the row is simply not printed; the comma is added if you forget it
   scope: "Interior Design",
   summary: "One line, used as the pull quote on the project page.",
   story: [ "First paragraph.", "Second paragraph." ],

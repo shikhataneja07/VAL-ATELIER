@@ -9,6 +9,13 @@
 
   var SITE = window.SITE || {};
   var PROJECTS = window.PROJECTS || [];
+  /* Areas always carry a thousands comma ("8,500 sq ft", "24,500 sq ft"),
+     however they were typed into projects.js */
+  PROJECTS.forEach(function(p){
+    if (p.area) p.area = String(p.area).replace(/\d{4,}/g, function(n){
+      return n.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    });
+  });
   var REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var VAL = window.VAL = {};
   VAL.reduced = REDUCED;          /* pages read this before starting anything that loops */
@@ -558,7 +565,7 @@
         '</div>' +
         '<div class="foot__bottom">' +
           /* the photographs are the studio's own work and are not free to take */
-          '<span>All photographs and renders. All rights reserved.</span>' +
+          '<span>&copy; ' + new Date().getFullYear() + '. All rights reserved, including all photographs and renders.</span>' +
           '<span>' + esc(SITE.tagline) + '</span>' +
           /* the photographer's credit, printed once a name is set in site.js */
           (SITE.photographer ? '<span>Photography by ' + esc(SITE.photographer) + '</span>' : '') +
