@@ -565,7 +565,7 @@
         '</div>' +
         '<div class="foot__bottom">' +
           /* the photographs are the studio's own work and are not free to take */
-          '<span>All photographs and renders. All rights reserved.</span>' +
+          '<span>&copy; ' + new Date().getFullYear() + '. All rights reserved, including all photographs and renders.</span>' +
           '<span>' + esc(SITE.tagline) + '</span>' +
           /* the photographer's credit, printed once a name is set in site.js */
           (SITE.photographer ? '<span>Photography by ' + esc(SITE.photographer) + '</span>' : '') +
