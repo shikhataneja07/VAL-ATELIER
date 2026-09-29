@@ -302,26 +302,27 @@ that URL the same way the others do.
 
 ### The gallery inside a project
 
-A project carries twenty to fifty photographs, and running them as equal plates in equal
-rows reads as a contact sheet. The gallery is a magazine spread instead: a five step cycle
-of column spans across a twelve column field, `[7, 5, 12, 5, 7]`, so two paired rows sit
-either side of one full width photograph, and the narrow plate of each pair hangs lower
-than the wide one beside it.
+The studio asked for the photographs to be laid out the way a magazine lays out a story:
+one narrow gutter everywhere, every row running the full width, no pockets of empty page,
+and every picture in a row standing the same height. **`VAL.spread` in `val.js`** composes
+the rows from the shapes of the pictures, trying these layouts in rotation:
 
-Every cycle fills twelve columns exactly, so the rhythm never leaves a hole however many
-photographs a project has. A photograph left alone at the end takes the full width rather
-than hanging off one side: positions 1 and 4 of the cycle are the ones that would otherwise
-be waiting for a partner, and `project.html` widens the last plate when it lands on either.
+| Layout | Pictures |
+| --- | --- |
+| `open` | one wide landscape across the page |
+| `duo` | two portraits side by side |
+| `stackL` | a portrait beside two landscapes stacked (and `stackR`, mirrored) |
+| `trio` | three portraits in a row |
+| `duoL` | two landscapes side by side |
 
-**The spans are decided in `project.html`, not in the stylesheet**, because the same number
-also picks the `sizes` hint for that plate. A full width photograph asks the browser for a
-1040px file and a narrow one for 428px; if the layout lived in CSS and the hint in JS the
-two would drift apart the first time either changed. The stylesheet only reads the
-`data-span` the script writes.
+It takes pictures from a window six ahead, so the order in `select` (or in `images`) is
+kept as closely as the shapes allow. Anything left that fits no layout is set as a plain
+justified row; a last portrait joins the row above rather than standing alone.
 
-The suite checks all of it on three projects of very different lengths, 21, 51 and 6
-photographs: every plate a different file, at least three distinct widths, and every row
-adding up to twelve.
+**Nothing is measured.** Within a row each figure's `flex-grow` is its own width over
+height, which makes every picture the same height with nothing cropped. The stacked
+column grows by the pair's combined proportions, so it stands exactly as tall as the
+portrait beside it; the one gutter inside it is taken evenly from the two pictures.
 
 ### Nothing may stay hidden
 
