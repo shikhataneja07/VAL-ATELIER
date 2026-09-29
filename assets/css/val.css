@@ -675,7 +675,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* ---------- footer ---------- */
 .foot{background:var(--ink);color:var(--bone);padding:clamp(56px,8vh,90px) 0 34px}
 .foot__grid{display:grid;gap:44px}
-@media(min-width:820px){.foot__grid{grid-template-columns:1fr 1fr;gap:56px}}
+@media(min-width:820px){.foot__grid{grid-template-columns:auto auto;justify-content:space-between;align-items:center;gap:56px}}
 .foot__mark{width:132px;opacity:.9;margin-bottom:24px}
 .foot h4{font-size:10.5px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-mute);margin-bottom:20px}
 .foot ul{list-style:none;display:flex;flex-direction:column;gap:11px}
@@ -710,19 +710,6 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 }
 .foot__bottom span,.foot__bottom a{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--bone-mute)}
 .foot__bottom a:hover{color:var(--bone)}
-/* on two columns the bar follows them: the rights line fills the left half,
-   and the rest starts under the studio column */
-@media(min-width:1200px){
-  .foot__bottom{justify-content:flex-start}
-  .foot__bottom > span:first-child{flex:0 0 50%;padding-right:28px}
-  .foot__bottom > span:last-child{margin-left:auto}
-}
-/* narrower two-column widths: the right-hand lines stack under the studio column */
-@media(min-width:820px) and (max-width:1199px){
-  .foot__bottom{display:grid;grid-template-columns:1fr 1fr;column-gap:56px}
-  .foot__bottom > span:first-child{grid-row:1 / span 3}
-  .foot__bottom > span:not(:first-child){grid-column:2}
-}
 
 /* ---------- shared page masthead ---------- */
 .mast{padding:calc(var(--nav-h) + clamp(56px,9vh,116px)) 0 clamp(40px,6vh,76px);position:relative}
