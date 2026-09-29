@@ -594,6 +594,8 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   margin-top:clamp(24px,3.2vw,38px);padding-top:clamp(18px,2.2vw,26px);
   border-top:1px solid var(--line);
 }
+/* with no lede above it, the rule has nothing to separate */
+.mast__lede > .claim:first-child{margin-top:0;padding-top:0;border-top:0}
 /* The figure sits at the centre of a drafted rosette: fifty hairlines swung
    round a point, one for each finished project, with every fifth one run a
    little longer so it reads as a measure rather than as ornament. The ring is
