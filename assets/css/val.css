@@ -1139,82 +1139,35 @@ a.princ__cell{display:block;color:inherit}
 .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:34px}
 .chips span{border:1px solid var(--line);padding:10px 16px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
 
-/* The project gallery, as a spread. Rows are filled and then scaled to span
-   the column exactly, so the photographs come at different sizes while the
-   space between them never changes: one gap value, used both between two
-   pictures side by side and between one row and the next. project.html works
-   out the widths; everything here is what holds without JavaScript. */
 /* ==========================================================================
-   THE PROJECT SEQUENCE
-   The rhythm lives in two numbers: the space inside a pair is small, the
-   space between beats is large. Everything else is scale.
+   THE PROJECT SPREADS
+   Laid out the way a magazine lays out a story. One gutter, the same between
+   two pictures side by side as between one row and the next. Every row runs
+   the full width. Within a row each figure grows in proportion to its own
+   width over height, which makes every picture in the row exactly the same
+   height with nothing cropped: the widths are (row width less gutters) times
+   r over the sum of r, so each height comes out as the same quotient.
    ========================================================================== */
-.seq{--seq-gap:16px}
-.seq__b{margin-block:clamp(64px,9vh,140px)}
-.seq__b:first-child{margin-top:clamp(40px,5vh,72px)}
-.seq__b:last-child{margin-bottom:0}
-.seq__f{margin:0}
-.seq .shot{display:block;aspect-ratio:var(--r)}
-.seq .shot img{width:100%;height:auto;display:block}
+.mag{--g:clamp(6px,.85vw,14px);display:flex;flex-direction:column;gap:var(--g);margin-top:clamp(32px,4.5vh,60px)}
+.mag__row{display:flex;gap:var(--g);align-items:stretch}
+.mag__f{margin:0;flex:var(--r) 1 0;min-width:0;cursor:zoom-in}
+.mag__f .shot{aspect-ratio:var(--r);height:100%}
+.mag__f .shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+@media(hover:hover){.mag__f:hover .shot img{transform:scale(1.025)}}
 
-/* one landscape across the whole screen: the opening and the close */
-.seq__b--bleed{
-  margin-inline:calc(50% - 50vw);width:100vw;
-  margin-block:clamp(72px,11vh,168px);
-}
-/* The band was a fixed height at any width, so on a wide screen it turned into
-   a letterbox and took a quarter out of the photograph. Taking the height from
-   the picture's own proportions fixed most of that, but it still clipped
-   whatever ran past the screen: 19% off the widest frames at 1440 by 900.
-   Nothing is clipped now. The frame keeps its own proportions and the height
-   ceiling is met by narrowing the band rather than by cutting the picture, so
-   a photograph that would stand taller than the screen simply stops short of
-   the two edges instead of losing its ceiling and its floor. */
-.seq__b--bleed .shot{
-  aspect-ratio:var(--r, 1.778);
-  height:auto;
-  width:min(100vw, calc(clamp(320px, 92vh, 1400px) * var(--r, 1.778)));
-  margin-inline:auto;
-}
-.seq__b--bleed .shot img{height:auto;object-fit:fill}
+/* The stack: a portrait beside two landscapes, one above the other. The
+   column grows by the proportions of the pair stacked, so it stands as tall
+   as the portrait; the two inside share that height by their own shapes,
+   and the one gutter between them is taken from the pictures (a few pixels,
+   evenly), not added to the row. */
+.mag__col{flex:var(--r) 1 0;min-width:0;display:flex;flex-direction:column;gap:var(--g)}
+.mag__col .mag__f{flex:calc(1 / var(--r)) 1 0;min-height:0}
+.mag__col .mag__f .shot{aspect-ratio:auto;height:100%}
 
-/* across the container */
-.seq__b--wide .shot{aspect-ratio:var(--r)}
-
-/* one picture at its own size, with air either side */
-.seq__b--single{max-width:min(100%,72ch)}
-@media(min-width:760px){
-  .seq__b--single{width:78%;margin-inline:auto}
-  .seq__b--single .seq__f[style*="--r:0."]{margin-inline:auto}
-}
-
-/* two together: this is the only place the gap is small */
-.seq__b--pair{display:grid;gap:var(--seq-gap)}
-@media(min-width:760px){.seq__b--pair{grid-template-columns:1fr 1fr;align-items:start}}
-
-/* a portrait pushed to the right, the left column left empty on purpose */
-@media(min-width:760px){
-  .seq__b--offset{display:grid;grid-template-columns:1fr minmax(0,46%);gap:clamp(24px,4vw,64px)}
-  .seq__b--offset .seq__f{grid-column:2}
-}
-@media(max-width:759px){
-  .seq__b--offset{width:82%;margin-inline:auto 0}
-  .seq__b{margin-block:clamp(44px,7vh,86px)}
-  /* A band that runs to both edges reads as a statement on a wide screen,
-     where the photographs either side of it are held well inside the margin.
-     On a phone the margin is a thin gutter, so the same band stops looking
-     deliberate and starts looking like the one picture that lost its edges.
-     It sits on the gutter with the rest of them here, and keeps its own
-     proportions, so the column of photographs runs straight down the page. */
-  .seq__b--bleed{
-    margin-inline:0;width:auto;
-    margin-block:clamp(52px,8vh,96px);
-  }
-  .seq__b--bleed .shot{
-    width:auto;height:auto;
-    aspect-ratio:var(--r, 1.778);
-  }
-}
+/* a single portrait, which only happens when a project has one picture to
+   show, is held to half the page rather than standing a screen and a half tall */
+.mag__row--lone{justify-content:center}
+.mag__row--lone .mag__f{flex:0 0 50%}
 
 /* where a project has been published: the outlet, the headline, and a link
    straight to the article */

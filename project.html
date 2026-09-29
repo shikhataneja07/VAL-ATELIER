@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-29n · about quote set as body text">
+<meta name="build" content="2026-09-29o · project galleries as magazine spreads">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -65,12 +65,8 @@ window.PAGE = function(VAL){
     ["Year",     p.year]
   ].filter(function(f){ return f[1]; });
 
-  /* The photographs run as a magazine spread: rows of mixed sizes, where a
-     wide frame sits next to a narrow one, every picture keeps its own
-     proportions, and each row is scaled so it fills the width exactly. That
-     way the sizes vary but the gaps never do, and no row trails off with
-     space left standing at the end of it. The widths are worked out in
-     justify() below, once the page knows how wide it is. */
+  /* The photographs run as magazine spreads: one narrow gutter throughout,
+     every row the full width, every picture in a row the same height. */
   var lead = VAL.cover(p);
 
   /* The set the project shows: the studio's own selection where it has made
@@ -86,27 +82,39 @@ window.PAGE = function(VAL){
   }
   var shots = chosen.filter(function(i){ return i !== lead; }).slice(0, cap);
 
-  /* laid out as a sequence of beats rather than a grid of equals */
-  var beats = VAL.sequence(shots.map(function(i){
+  /* laid out as magazine spreads: see VAL.spread */
+  var rows = VAL.spread(shots.map(function(i){
     return { i: i, r: VAL.ratio(p, i) };
   }));
 
   var n = 0;
-  var gallery = beats.map(function(beat, bi){
-    var figs = beat.items.map(function(x){
-      n++;
-      var sizes = beat.k === "bleed" ? "100vw"
-                : beat.k === "wide"   ? "92vw"
-                : beat.k === "pair"   ? "(max-width:759px) 92vw, 44vw"
-                : beat.k === "offset" ? "(max-width:759px) 92vw, 40vw"
-                :                       "(max-width:759px) 92vw, 66vw";
-      return '<figure class="seq__f" data-shot="' + x.i + '" style="--r:' + x.r.toFixed(5) + '">' +
-               '<div class="shot' + (beat.k === "bleed" ? " wipe" : "") + '">' +
-                 VAL.imgTag(p, x.i, p.title + ", photograph " + (n + 1), bi < 1, sizes) +
-               '</div>' +
-             '</figure>';
-    }).join("");
-    return '<div class="seq__b seq__b--' + beat.k + ' rv" data-d="' + (bi % 3) + '">' + figs + '</div>';
+  function fig(x, sizes, first){
+    n++;
+    return '<figure class="mag__f" data-shot="' + x.i + '" style="--r:' + x.r.toFixed(5) + '">' +
+             '<div class="shot">' +
+               VAL.imgTag(p, x.i, p.title + ", photograph " + (n + 1), first, sizes) +
+             '</div>' +
+           '</figure>';
+  }
+  var HALF = "(max-width:759px) 50vw, 46vw", THIRD = "(max-width:759px) 34vw, 31vw";
+  var gallery = rows.map(function(row, ri){
+    var first = ri < 1, it = row.items, inner;
+    if (row.k === "stackL" || row.k === "stackR"){
+      var tall = row.k === "stackL" ? it[0] : it[2];
+      var pair = row.k === "stackL" ? [it[1], it[2]] : [it[0], it[1]];
+      /* the column of two carries the proportions of the pair stacked, so
+         it stands exactly as tall as the portrait beside it */
+      var colR = 1 / (1 / pair[0].r + 1 / pair[1].r);
+      var col = '<div class="mag__col" style="--r:' + colR.toFixed(5) + '">' +
+                  pair.map(function(x){ return fig(x, HALF, first); }).join("") + '</div>';
+      var side = fig(tall, HALF, first);
+      inner = row.k === "stackL" ? side + col : col + side;
+    } else {
+      var sizes = it.length === 1 ? "92vw" : it.length === 2 ? HALF : THIRD;
+      inner = it.map(function(x){ return fig(x, sizes, first); }).join("");
+    }
+    var lone = it.length === 1 && it[0].r < 1.12 ? " mag__row--lone" : "";
+    return '<div class="mag__row mag__row--' + row.k + lone + ' rv">' + inner + '</div>';
   }).join("");
 
   var backHref = "projects.html#" + p.status;
@@ -189,7 +197,7 @@ window.PAGE = function(VAL){
     '<section class="sec" style="padding-top:0"><div class="wrap wrap--wide">' +
       '<div class="head__top rv-l"><i class="bar" style="flex:0 0 44px;height:1px;background:var(--brass)"></i>' +
         '<span class="label">Photographs</span></div>' +
-      '<div class="seq" data-gal>' + gallery + '</div>' +
+      '<div class="mag" data-gal>' + gallery + '</div>' +
     '</div></section>' +
 
 
@@ -210,9 +218,9 @@ window.PAGE = function(VAL){
       '</div>' +
     '</section>';
 
-  /* The sequence needs no measuring pass: each beat is sized in the
-     stylesheet and each figure carries its own ratio, so the layout is
-     right on the first paint and at every width without JavaScript. */
+  /* The spreads need no measuring pass: each row is sized in the
+     stylesheet from the ratios its figures carry, so the layout is right
+     on the first paint and at every width. */
 
   VAL.splitLines(host);
   window.dispatchEvent(new Event("scroll"));

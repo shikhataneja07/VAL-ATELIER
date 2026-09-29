@@ -798,6 +798,81 @@
     return out;
   };
 
+  /* The magazine spread. The studio asked for the photographs to be laid out
+     the way a magazine lays out a story: one narrow gutter everywhere, every
+     row running the full width, and no pockets of empty page. Each row is one
+     of a handful of classic layouts, chosen from the shapes of the pictures:
+
+       open    one landscape across the page
+       duo     two portraits side by side
+       duoL    two landscapes side by side
+       trio    three portraits in a row
+       stackL  a tall portrait with two landscapes stacked beside it
+       stackR  the same, mirrored
+
+     The layouts are tried in rotation so the page has a rhythm, taking
+     pictures from a short window ahead so the studio's own order is kept as
+     closely as the shapes allow. Rows are sized in the stylesheet by each
+     picture's proportions, so every picture in a row stands the same height
+     and nothing needs measuring. */
+  var SPREADS = ["open", "duo", "stackL", "trio", "duoL", "stackR"];
+  var SPREAD_NEEDS = {
+    open:   ["L"],
+    duo:    ["P", "P"],
+    duoL:   ["L", "L"],
+    trio:   ["P", "P", "P"],
+    stackL: ["P", "L", "L"],
+    stackR: ["L", "L", "P"]
+  };
+  var SPREAD_AHEAD = 6;
+
+  VAL.spread = function(items){
+    /* items: [{ i, r }] in the studio's order. r is width over height. */
+    var q = items.slice(), rows = [], turn = 0;
+    function shape(x){ return x.r >= 1.12 ? "L" : "P"; }
+    /* Can this layout be filled from the window ahead? Returns the picks in
+       the order the layout wants them, or null. */
+    function fill(kind){
+      var want = SPREAD_NEEDS[kind], used = [], picks = [];
+      var lim = Math.min(SPREAD_AHEAD, q.length);
+      for (var w = 0; w < want.length; w++){
+        var found = -1;
+        for (var k = 0; k < lim; k++){
+          if (used.indexOf(k) < 0 && shape(q[k]) === want[w]){ found = k; break; }
+        }
+        if (found < 0) return null;
+        used.push(found); picks.push(q[found]);
+      }
+      /* the opener only takes a frame wide enough to carry the page */
+      if (kind === "open" && picks[0].r < 1.3) return null;
+      used.sort(function(a, b){ return b - a; }).forEach(function(k){ q.splice(k, 1); });
+      return picks;
+    }
+    while (q.length){
+      var placed = false;
+      for (var t = 0; t < SPREADS.length && !placed; t++){
+        var kind = SPREADS[(turn + t) % SPREADS.length];
+        var picks = fill(kind);
+        if (picks){ rows.push({ k: kind, items: picks }); turn += t + 1; placed = true; }
+      }
+      if (placed) continue;
+      /* Nothing in the rotation fits what is left: set the next two as one
+         justified row, whatever their shapes, or a last landscape alone. */
+      if (q.length >= 2) rows.push({ k: "row", items: q.splice(0, 2) });
+      else if (shape(q[0]) === "L") rows.push({ k: "open", items: q.splice(0, 1) });
+      else {
+        /* a last portrait never stands alone at full width: it joins the row
+           above, which simply becomes one picture longer */
+        var last = rows[rows.length - 1];
+        if (last && last.items.length < 4){
+          last.items.push(q.shift());
+          last.k = "row";
+        } else rows.push({ k: "row", items: q.splice(0, 1) });
+      }
+    }
+    return rows;
+  };
+
   /* split a heading on "|" into masked lines that rise in sequence */
   VAL.splitLines = function(node){
     qsa("[data-lines]", node || document).forEach(function(h){
