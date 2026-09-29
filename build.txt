@@ -1,4 +1,4 @@
-2026-09-29i · footer: studio details on the right edge, centred against the logo block; Interior Design Studio removed from the bottom bar
+2026-09-29j · the Scroll cue removed from the home page hero
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
