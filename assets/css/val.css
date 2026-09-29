@@ -673,7 +673,7 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* ---------- footer ---------- */
 .foot{background:var(--ink);color:var(--bone);padding:clamp(56px,8vh,90px) 0 34px}
 .foot__grid{display:grid;gap:44px}
-@media(min-width:820px){.foot__grid{grid-template-columns:1.3fr .8fr .8fr;gap:56px}}
+@media(min-width:820px){.foot__grid{grid-template-columns:1.6fr 1fr;gap:56px}}
 .foot__mark{width:132px;opacity:.9;margin-bottom:24px}
 .foot h4{font-size:10.5px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--bone-mute);margin-bottom:20px}
 .foot ul{list-style:none;display:flex;flex-direction:column;gap:11px}

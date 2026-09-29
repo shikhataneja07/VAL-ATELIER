@@ -529,7 +529,6 @@
   function buildFooter(){
     var host = qs("[data-footer]");
     if (!host) return;
-    var year = new Date().getFullYear();
     host.className = "foot";
     host.innerHTML =
       '<div class="wrap">' +
@@ -549,15 +548,6 @@
             '</a>' +
           '</div>' +
           '<div>' +
-            '<h4>Navigate</h4>' +
-            /* Careers is a header link only; the footer keeps the page list */
-            '<ul>' + (SITE.nav || []).filter(function(n){ return !n.headerOnly; }).map(function(n){
-              return '<li><a href="' + esc(n.href) + '">' + esc(n.label) + '</a></li>';
-            }).join("") +
-              '<li><a href="services.html">Services</a></li>' +
-            '</ul>' +
-          '</div>' +
-          '<div>' +
             '<h4>Studio</h4>' +
             '<ul>' +
               '<li><a href="mailto:' + esc(SITE.email) + '">' + esc(SITE.email) + '</a></li>' +
@@ -567,12 +557,12 @@
           '</div>' +
         '</div>' +
         '<div class="foot__bottom">' +
-          '<span>&copy; ' + year + " " + esc(SITE.name) + '</span>' +
           /* the photographs are the studio's own work and are not free to take */
-          '<span>All photographs and renders &copy; ' + esc(SITE.name) + '. All rights reserved.</span>' +
+          '<span>All photographs and renders. All rights reserved.</span>' +
           '<span>' + esc(SITE.tagline) + '</span>' +
-          '<span>Designed by ' + esc(SITE.credit) + '</span>' +
-          '<a href="#top">Back to top</a>' +
+          /* the photographer's credit, printed once a name is set in site.js */
+          (SITE.photographer ? '<span>Photography by ' + esc(SITE.photographer) + '</span>' : '') +
+          '<span>Website by ' + esc(SITE.credit) + '</span>' +
         '</div>' +
       '</div>';
   }
