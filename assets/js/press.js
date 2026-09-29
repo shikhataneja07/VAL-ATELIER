@@ -150,9 +150,10 @@ window.PRESS = [
   {
     id: "jewellery-store-elle-decor-india",
     outlet: "ELLE DECOR India",
-    title: "Hyderabad based Val Atelier conceptualises this boutique jewellery store as an epitome of elegance and luxury",
-    /* not tied to a project on the site: the studio has not sent photographs
-       of the store this covers, so it is listed as a feature on its own */
+    title: "VAL Atelier fashions a wholesome and luxurious jewellery showroom",
+    /* a four floor, 10,000 sq ft jewellery store in Somajiguda, Hyderabad,
+       which is not on the site: the studio has not sent photographs of it,
+       so it is listed as a feature on its own */
     project: "",
     projectSlug: "",
     date: "",
