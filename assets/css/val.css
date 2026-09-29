@@ -1148,7 +1148,7 @@ a.princ__cell{display:block;color:inherit}
    height with nothing cropped: the widths are (row width less gutters) times
    r over the sum of r, so each height comes out as the same quotient.
    ========================================================================== */
-.mag{--g:clamp(6px,.85vw,14px);display:flex;flex-direction:column;gap:var(--g);margin-top:clamp(32px,4.5vh,60px)}
+.mag{--g:clamp(3px,.4vw,6px);display:flex;flex-direction:column;gap:var(--g);margin-top:clamp(32px,4.5vh,60px)}
 .mag__row{display:flex;gap:var(--g);align-items:stretch}
 .mag__f{margin:0;flex:var(--r) 1 0;min-width:0;cursor:zoom-in}
 .mag__f .shot{aspect-ratio:var(--r);height:100%}
