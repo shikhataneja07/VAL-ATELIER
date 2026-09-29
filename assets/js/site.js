@@ -26,6 +26,9 @@ window.SITE = {
 
   /* the credit line in the bottom bar */
   credit:  "Starlit Studio",
+  /* the photographer, credited in the bottom bar as "Photography by …";
+     left empty, the line is not printed */
+  photographer: "",
 
   city:    "Hyderabad",
   country: "India",
