@@ -148,6 +148,20 @@ window.PRESS = [
     image: ["06.webp", 1333, 2000]
   },
   {
+    id: "jewellery-store-elle-decor-india",
+    outlet: "ELLE DECOR India",
+    title: "Hyderabad based Val Atelier conceptualises this boutique jewellery store as an epitome of elegance and luxury",
+    /* not tied to a project on the site: the studio has not sent photographs
+       of the store this covers, so it is listed as a feature on its own */
+    project: "",
+    projectSlug: "",
+    date: "",
+    byline: "",
+    standfirst: "",
+    /* no photograph: the card carries the publication's masthead */
+    url: "https://elledecor.in/hyderabad-based-val-atelier-conceptualises-this-boutique-jewellery-store-as-an-epitome-of-elegance-and-luxury/"
+  },
+  {
     /* Last by the studio's choice, not by date. This one carried the
        publication's masthead rather than a photograph, because the house it
        covers was not yet on the site. It is now: Vessela, whose own
