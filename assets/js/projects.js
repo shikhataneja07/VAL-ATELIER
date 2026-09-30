@@ -374,13 +374,22 @@ window.PROJECTS = [
     title: "The Good Side",
     category: "Hospitality",
     status: "finished",
-    typology: "Luxury Salon and Makeup Studio",
+    typology: "Salon + Makeup Studio",
     location: "Jubilee Hills, Hyderabad",
-    area: "6,000 sq ft",
+    area: "6,500 sq ft",
     year: "2026",
     scope: "Interior Design",
-    summary: "The Good Side is a luxury desert inspired salon in Hyderabad designed as a serene and immersive retreat that blends earthy elegance with contemporary minimalism.",
-    story: ["Inspired by the raw beauty of desert landscapes, the project features warm terracotta toned textured walls, sculptural architectural forms, muted neutral palettes, and soft ambient lighting to create a calming yet sophisticated atmosphere."],
+    /* Vaishnavi's own copy, September 2026. Dashes and loose hyphens are
+       rewritten to the site's rule; the words are hers. */
+    summary: "The Good Side was conceived as more than a salon: a beauty destination designed around the idea of slowing down and feeling cared for.",
+    story: [
+      "The project began with an unusually open brief. Having previously designed two spaces for the client, Makeup by Harika, there was an established sense of trust and creative freedom. What initially began as a search for an existing villa soon evolved into the decision to build an entirely new structure from the ground up, allowing VAL Atelier to shape the architecture, interiors, landscape, light and circulation as one cohesive experience.",
+      "Inspired by the earthy landscapes and mineral tones of the Atacama Desert, the design developed into a desert brutalist language: warm, monolithic and restrained. Sandstone, textured concrete, cement surfaces and stone aggregates sit within a tightly controlled palette of browns, muted reds and layered neutrals, creating richness through texture and material honesty rather than ornamentation.",
+      "Rather than referencing conventional salons, the spatial experience draws from hospitality, spas and wellness retreats. The arrival begins with landscape and water, creating a softer transition from the city outside. Inside, natural light, filtered views, greenery, warm lighting and carefully considered sight lines create moments of stillness throughout the journey. Even highly functional experiences were reconsidered: pedicure stations overlook water and landscape, while lighting around hair wash stations was positioned to eliminate direct glare.",
+      "With a significant part of the project dedicated to a makeup studio, photography also became integral to the architecture. Instead of creating a single designated photo spot, the intention was for the entire project to become the backdrop, with every opening, courtyard, material and framed view contributing to a recognisable visual identity.",
+      "Perhaps the most defining aspect of The Good Side is the speed at which it came together. From an empty plot to a fully operational 6,500 sq ft space, the entire project was completed in approximately four months. Architecture, interiors, landscape, lighting and detailing were developed almost simultaneously, demanding an exceptionally fast and fluid design and execution process. Despite that pace, the project retained the clarity and restraint of its original vision from beginning to end.",
+      "The result is a beauty space that feels less transactional and more restorative: slower, softer and quieter, where beauty and wellness exist within the same emotional experience."
+    ],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */

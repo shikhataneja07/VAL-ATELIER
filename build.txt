@@ -1,4 +1,4 @@
-2026-09-30a · the Featured in list removed from every project page
+2026-09-30b · gallery gutters in straight lines, story text set among the photographs, new Good Side copy
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

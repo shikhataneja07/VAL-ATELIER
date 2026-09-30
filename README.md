@@ -319,10 +319,16 @@ It takes pictures from a window six ahead, so the order in `select` (or in `imag
 kept as closely as the shapes allow. Anything left that fits no layout is set as a plain
 justified row; a last portrait joins the row above rather than standing alone.
 
-**Nothing is measured.** Within a row each figure's `flex-grow` is its own width over
-height, which makes every picture the same height with nothing cropped. The stacked
-column grows by the pair's combined proportions, so it stands exactly as tall as the
-portrait beside it; the one gutter inside it is taken evenly from the two pictures.
+**Every row sits on the same columns**, halves or thirds of the page, so the gutters run in
+straight lines from one row to the next. Each cell takes the average shape of the pictures
+in its row (`--cr`, written per row) and a picture fills its cell, trimmed a little where
+its own shape differs. The studio preferred straight gutters to untrimmed frames.
+
+**Text spreads break up the photographs.** The first paragraph of `story` stays in the brief
+above the gallery; every later paragraph is set among the photographs, beside one picture
+held back for it (portraits first), on alternating sides, one spread every few rows. A
+project needs at least two paragraphs of `story` to get any; with more paragraphs than
+spreads (one per three photographs), the rest join the last one.
 
 ### Nothing may stay hidden
 
