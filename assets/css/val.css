@@ -1149,25 +1149,49 @@ a.princ__cell{display:block;color:inherit}
    r over the sum of r, so each height comes out as the same quotient.
    ========================================================================== */
 .mag{--g:clamp(3px,.4vw,6px);display:flex;flex-direction:column;gap:var(--g);margin-top:clamp(32px,4.5vh,60px)}
-.mag__row{display:flex;gap:var(--g);align-items:stretch}
-.mag__f{margin:0;flex:var(--r) 1 0;min-width:0;cursor:zoom-in}
-.mag__f .shot{aspect-ratio:var(--r);height:100%}
+/* Every row is laid on the same columns, halves or thirds of the page, so
+   the gutters run in straight lines down the whole spread. A cell takes the
+   average shape of the pictures in its row (--cr, set per row) and each
+   picture fills its cell, trimmed a little where its own shape differs. */
+.mag__row{display:grid;gap:var(--g)}
+.mag__row--c1{grid-template-columns:1fr}
+.mag__row--c2,.mag__row--stack,.mag__row--text{grid-template-columns:1fr 1fr}
+.mag__row--c3{grid-template-columns:repeat(3,1fr)}
+.mag__row--c4{grid-template-columns:repeat(4,1fr)}
+.mag__f{margin:0;min-width:0;cursor:zoom-in}
+.mag__f .shot{aspect-ratio:var(--cr);height:100%}
 .mag__f .shot img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
 @media(hover:hover){.mag__f:hover .shot img{transform:scale(1.025)}}
 
-/* The stack: a portrait beside two landscapes, one above the other. The
-   column grows by the proportions of the pair stacked, so it stands as tall
-   as the portrait; the two inside share that height by their own shapes,
-   and the one gutter between them is taken from the pictures (a few pixels,
-   evenly), not added to the row. */
-.mag__col{flex:var(--r) 1 0;min-width:0;display:flex;flex-direction:column;gap:var(--g)}
-.mag__col .mag__f{flex:calc(1 / var(--r)) 1 0;min-height:0}
+/* The stack: a portrait in one half, two landscapes one above the other in
+   the other half. The portrait's cell sets the row's height; the two beside
+   it share it, less the one gutter between them. */
+/* height 0 with a full minimum: the column takes the row's height from the
+   portrait and never adds its own pictures' heights to it */
+.mag__col{display:grid;grid-template-rows:1fr 1fr;gap:var(--g);height:0;min-height:100%}
+.mag__col .mag__f{min-height:0}
 .mag__col .mag__f .shot{aspect-ratio:auto;height:100%}
 
 /* a single portrait, which only happens when a project has one picture to
    show, is held to half the page rather than standing a screen and a half tall */
-.mag__row--lone{justify-content:center}
-.mag__row--lone .mag__f{flex:0 0 50%}
+.mag__row--lone{justify-items:center}
+.mag__row--lone .mag__f{width:50%}
+
+/* The text spread: a picture in one half, a passage of the story in the
+   other, so the photographs read as a story rather than a stream. The
+   picture keeps its own shape here; the passage sits against its middle. */
+.mag__row--text{align-items:center;margin-block:clamp(18px,3vh,40px)}
+.mag__row--flip .mag__f{order:2}
+.mag__text{padding:clamp(20px,4.5vw,88px);max-width:40rem}
+.mag__row--flip .mag__text{justify-self:end}
+.mag__rule{display:block;width:44px;height:1px;background:var(--brass);margin-bottom:clamp(20px,2.6vh,30px)}
+.mag__text p{font-family:var(--disp);font-size:clamp(16.5px,1.3vw,20px);line-height:1.6;letter-spacing:-.004em;color:var(--ink-soft)}
+.mag__text p + p{margin-top:1em}
+@media(max-width:759px){
+  .mag__row--text{grid-template-columns:1fr;margin-block:clamp(14px,3vh,28px)}
+  .mag__row--flip .mag__f{order:0}
+  .mag__text{padding:clamp(22px,6vw,32px) 4px 6px}
+}
 
 /* where a project has been published: the outlet, the headline, and a link
    straight to the article */

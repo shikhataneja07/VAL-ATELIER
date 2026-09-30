@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-30a · featured in list removed from project pages">
+<meta name="build" content="2026-09-30b · straight gallery gutters, text spreads, Good Side copy">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -82,40 +82,99 @@ window.PAGE = function(VAL){
   }
   var shots = chosen.filter(function(i){ return i !== lead; }).slice(0, cap);
 
+  /* The written story is split: the brief above the photographs keeps its
+     first paragraph, and the rest are set among the photographs, each one
+     beside a picture, so the pictures read as a story rather than a stream. */
+  var story = (p.story || []).slice();
+  var briefCopy = story.length ? [story.shift()] : [];
+  var breaks = story;
+
+  /* One picture is held back for each text spread, portraits first, taken
+     evenly through the set so the spreads show different parts of it. */
+  var pool = shots.map(function(i){ return { i: i, r: VAL.ratio(p, i) }; });
+  var held = [];
+  if (breaks.length && pool.length > 3){
+    var room = Math.min(breaks.length, Math.floor(pool.length / 3));
+    breaks = story.slice(0, room);
+    /* more paragraphs than spreads: the rest join the last spread */
+    var extra = story.slice(room);
+    if (extra.length) breaks[room - 1] = [breaks[room - 1]].concat(extra).join("\n\n");
+    for (var h = 0; h < room; h++){
+      var from = Math.floor((h + 1) * pool.length / (room + 1));
+      var pick = -1;
+      for (var k = 0; k < pool.length && pick < 0; k++){
+        var at2 = (from + k) % pool.length;
+        if (pool[at2].r < 1.12) pick = at2;
+      }
+      if (pick < 0) pick = Math.min(from, pool.length - 1);
+      held.push(pool.splice(pick, 1)[0]);
+    }
+  } else {
+    /* too few pictures to break up: the copy stays in the brief */
+    briefCopy = briefCopy.concat(breaks);
+    breaks = [];
+  }
+
   /* laid out as magazine spreads: see VAL.spread */
-  var rows = VAL.spread(shots.map(function(i){
-    return { i: i, r: VAL.ratio(p, i) };
-  }));
+  var rows = VAL.spread(pool);
 
   var n = 0;
   function fig(x, sizes, first){
     n++;
-    return '<figure class="mag__f" data-shot="' + x.i + '" style="--r:' + x.r.toFixed(5) + '">' +
+    return '<figure class="mag__f" data-shot="' + x.i + '">' +
              '<div class="shot">' +
                VAL.imgTag(p, x.i, p.title + ", photograph " + (n + 1), first, sizes) +
              '</div>' +
            '</figure>';
   }
+  function mean(list){ return list.reduce(function(t, x){ return t + x.r; }, 0) / list.length; }
   var HALF = "(max-width:759px) 50vw, 46vw", THIRD = "(max-width:759px) 34vw, 31vw";
-  var gallery = rows.map(function(row, ri){
-    var first = ri < 1, it = row.items, inner;
+
+  /* Every row sits on the same columns: halves or thirds of the page, so the
+     gutters run in straight lines from one row to the next. Each cell takes
+     the average shape of the pictures in its row, and a picture fills its
+     cell, trimmed a little where its own shape differs. */
+  function rowHTML(row, first){
+    var it = row.items;
     if (row.k === "stackL" || row.k === "stackR"){
       var tall = row.k === "stackL" ? it[0] : it[2];
       var pair = row.k === "stackL" ? [it[1], it[2]] : [it[0], it[1]];
-      /* the column of two carries the proportions of the pair stacked, so
-         it stands exactly as tall as the portrait beside it */
-      var colR = 1 / (1 / pair[0].r + 1 / pair[1].r);
-      var col = '<div class="mag__col" style="--r:' + colR.toFixed(5) + '">' +
-                  pair.map(function(x){ return fig(x, HALF, first); }).join("") + '</div>';
+      /* the portrait's cell is set so that both it and the two landscapes
+         beside it give up the least of their frames */
+      var cr = (tall.r + mean(pair) / 2) / 2;
+      var col = '<div class="mag__col">' + pair.map(function(x){ return fig(x, HALF, first); }).join("") + '</div>';
       var side = fig(tall, HALF, first);
-      inner = row.k === "stackL" ? side + col : col + side;
-    } else {
-      var sizes = it.length === 1 ? "92vw" : it.length === 2 ? HALF : THIRD;
-      inner = it.map(function(x){ return fig(x, sizes, first); }).join("");
+      return '<div class="mag__row mag__row--stack rv" style="--cr:' + cr.toFixed(4) + '">' +
+               (row.k === "stackL" ? side + col : col + side) + '</div>';
     }
-    var lone = it.length === 1 && it[0].r < 1.12 ? " mag__row--lone" : "";
-    return '<div class="mag__row mag__row--' + row.k + lone + ' rv">' + inner + '</div>';
-  }).join("");
+    if (it.length === 1){
+      var lone = it[0].r < 1.12 ? " mag__row--lone" : "";
+      return '<div class="mag__row mag__row--c1' + lone + ' rv" style="--cr:' + it[0].r.toFixed(4) + '">' +
+               fig(it[0], "92vw", first) + '</div>';
+    }
+    var sizes = it.length === 2 ? HALF : THIRD;
+    return '<div class="mag__row mag__row--c' + it.length + ' rv" style="--cr:' + mean(it).toFixed(4) + '">' +
+             it.map(function(x){ return fig(x, sizes, first); }).join("") + '</div>';
+  }
+  function textHTML(x, copy, flip){
+    var paras = String(copy).split("\n\n").map(function(t){ return '<p>' + VAL.esc(t) + '</p>'; }).join("");
+    return '<div class="mag__row mag__row--text' + (flip ? " mag__row--flip" : "") + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
+             fig(x, HALF, false) +
+             '<div class="mag__text"><i class="mag__rule"></i>' + paras + '</div>' +
+           '</div>';
+  }
+
+  /* a text spread after every few rows, spaced evenly down the page */
+  var every = held.length ? Math.max(2, Math.round(rows.length / (held.length + 1))) : 0;
+  var gallery = "", t = 0;
+  rows.forEach(function(row, ri){
+    gallery += rowHTML(row, ri < 1);
+    if (every && t < held.length && (ri + 1) % every === 0 && ri < rows.length - 1){
+      gallery += textHTML(held[t], breaks[t], t % 2 === 1); t++;
+    }
+  });
+  /* any spread that did not find a place joins the end */
+  for (; t < held.length; t++) gallery += textHTML(held[t], breaks[t], t % 2 === 1);
 
   var backHref = "projects.html#" + p.status;
 
@@ -163,7 +222,7 @@ window.PAGE = function(VAL){
               (p.summary ? '<p class="pull rv" data-d="1">' + VAL.esc(p.summary) + '</p>' : "") +
             '</div>' +
             '<div class="rv" data-d="2">' +
-              (p.story || []).map(function(t){ return '<p class="body">' + VAL.esc(t) + '</p>'; }).join("") +
+              briefCopy.map(function(t){ return '<p class="body">' + VAL.esc(t) + '</p>'; }).join("") +
               (p.notes && p.notes.length
                 ? '<div class="chips">' + p.notes.map(function(n){ return '<span>' + VAL.esc(n) + '</span>'; }).join("") + '</div>'
                 : "") +
