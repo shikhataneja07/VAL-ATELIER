@@ -324,11 +324,12 @@ straight lines from one row to the next. Each cell takes the average shape of th
 in its row (`--cr`, written per row) and a picture fills its cell, trimmed a little where
 its own shape differs. The studio preferred straight gutters to untrimmed frames.
 
-**Text spreads break up the photographs.** The first paragraph of `story` stays in the brief
-above the gallery; every later paragraph is set among the photographs, beside one picture
-held back for it (portraits first), on alternating sides, one spread every few rows. A
-project needs at least two paragraphs of `story` to get any; with more paragraphs than
-spreads (one per three photographs), the rest join the last one.
+**Text spreads break up the photographs.** The summary stays above the gallery as the brief;
+the whole of `story` is set among the photographs, one passage beside one picture held
+back for it (portraits first), on alternating sides, one spread for about every three
+photographs. Where `story` has fewer paragraphs than that, it is split into sentences, so a
+three sentence story still gives three breaks. A project with fewer than four photographs,
+or no `story`, has none.
 
 ### Nothing may stay hidden
 

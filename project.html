@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-30b · straight gallery gutters, text spreads, Good Side copy">
+<meta name="build" content="2026-09-30c · text spreads on every project">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -82,37 +82,42 @@ window.PAGE = function(VAL){
   }
   var shots = chosen.filter(function(i){ return i !== lead; }).slice(0, cap);
 
-  /* The written story is split: the brief above the photographs keeps its
-     first paragraph, and the rest are set among the photographs, each one
-     beside a picture, so the pictures read as a story rather than a stream. */
-  var story = (p.story || []).slice();
-  var briefCopy = story.length ? [story.shift()] : [];
-  var breaks = story;
-
-  /* One picture is held back for each text spread, portraits first, taken
-     evenly through the set so the spreads show different parts of it. */
+  /* The written story is set among the photographs, a passage beside a
+     picture every few rows, so the pictures read as a story rather than a
+     stream. The summary stays above them as the brief. There is one spread
+     for every three pictures or so; where the story has fewer paragraphs
+     than that, it is split into its sentences, so even a short story gives
+     every project its breaks. */
   var pool = shots.map(function(i){ return { i: i, r: VAL.ratio(p, i) }; });
+  var paras = (p.story || []).filter(Boolean);
+  var want = pool.length >= 3 ? Math.floor(pool.length / 3) : 0;
+  var units = paras, glue = "\n\n";
+  if (units.length < want){
+    units = [];
+    paras.forEach(function(t){ units = units.concat(t.split(/(?<=[.!?])\s+(?=[A-Z])/)); });
+    glue = " ";
+  }
+  var room = Math.min(want, units.length);
+  /* the passages, in order, shared as evenly as they go */
+  var breaks = [];
+  for (var c = 0; c < room; c++){
+    breaks.push(units.slice(Math.floor(c * units.length / room), Math.floor((c + 1) * units.length / room)).join(glue));
+  }
+  /* too few pictures to break up: the copy stays in the brief */
+  var briefCopy = room ? [] : paras;
+
+  /* One picture is held back for each spread, portraits first, taken evenly
+     through the set so the spreads show different parts of it. */
   var held = [];
-  if (breaks.length && pool.length > 3){
-    var room = Math.min(breaks.length, Math.floor(pool.length / 3));
-    breaks = story.slice(0, room);
-    /* more paragraphs than spreads: the rest join the last spread */
-    var extra = story.slice(room);
-    if (extra.length) breaks[room - 1] = [breaks[room - 1]].concat(extra).join("\n\n");
-    for (var h = 0; h < room; h++){
-      var from = Math.floor((h + 1) * pool.length / (room + 1));
-      var pick = -1;
-      for (var k = 0; k < pool.length && pick < 0; k++){
-        var at2 = (from + k) % pool.length;
-        if (pool[at2].r < 1.12) pick = at2;
-      }
-      if (pick < 0) pick = Math.min(from, pool.length - 1);
-      held.push(pool.splice(pick, 1)[0]);
+  for (var h = 0; h < room; h++){
+    var from = Math.floor((h + 1) * pool.length / (room + 1));
+    var pick = -1;
+    for (var k = 0; k < pool.length && pick < 0; k++){
+      var at2 = (from + k) % pool.length;
+      if (pool[at2].r < 1.12) pick = at2;
     }
-  } else {
-    /* too few pictures to break up: the copy stays in the brief */
-    briefCopy = briefCopy.concat(breaks);
-    breaks = [];
+    if (pick < 0) pick = Math.min(from, pool.length - 1);
+    held.push(pool.splice(pick, 1)[0]);
   }
 
   /* laid out as magazine spreads: see VAL.spread */
@@ -217,7 +222,7 @@ window.PAGE = function(VAL){
              top: the two never read as level. It is an eyebrow for the whole
              block now, so the two columns centre against each other. */
           '<span class="label rv-l">The brief</span>' +
-          '<div class="pj-story mt-l">' +
+          '<div class="pj-story mt-l' + (briefCopy.length ? '' : ' pj-story--solo') + '">' +
             '<div>' +
               (p.summary ? '<p class="pull rv" data-d="1">' + VAL.esc(p.summary) + '</p>' : "") +
             '</div>' +
