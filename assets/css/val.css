@@ -1183,7 +1183,8 @@ a.princ__cell{display:block;color:inherit}
 /* The text spread: a picture in one half, a passage of the story in the
    other, so the photographs read as a story rather than a stream. The
    picture keeps its own shape here; the passage sits against its middle. */
-.mag__row--text{align-items:center;margin-block:clamp(18px,3vh,40px)}
+/* no extra margin: the spread sits on the same one gutter as every other row */
+.mag__row--text{align-items:center}
 .mag__row--flip .mag__f{order:2}
 .mag__text{padding:clamp(20px,4.5vw,88px);max-width:40rem}
 .mag__row--flip .mag__text{justify-self:end}
@@ -1191,7 +1192,7 @@ a.princ__cell{display:block;color:inherit}
 .mag__text p{font-family:var(--disp);font-size:clamp(16.5px,1.3vw,20px);line-height:1.6;letter-spacing:-.004em;color:var(--ink-soft)}
 .mag__text p + p{margin-top:1em}
 @media(max-width:759px){
-  .mag__row--text{grid-template-columns:1fr;margin-block:clamp(14px,3vh,28px)}
+  .mag__row--text{grid-template-columns:1fr}
   .mag__row--flip .mag__f{order:0}
   .mag__text{padding:clamp(22px,6vw,32px) 4px 6px}
 }
