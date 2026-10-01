@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-01d · editorial archive for selected and ongoing work">
+<meta name="build" content="2026-10-01e · editorial project gallery, listings restored">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -168,8 +168,8 @@ window.PAGE = function(VAL){
     else held.push([take(kind !== "note")]);
   });
 
-  /* laid out as magazine spreads: see VAL.spread */
-  var rows = VAL.spread(pool);
+  /* laid out as editorial spreads: see VAL.gallerySpreads */
+  var rows = VAL.gallerySpreads(pool);
 
   var n = 0;
   function fig(x, sizes, first){
@@ -188,26 +188,34 @@ window.PAGE = function(VAL){
      the average shape of the pictures in its row, and a picture fills its
      cell, trimmed a little where its own shape differs. */
   function rowHTML(row, first){
-    var it = row.items;
-    if (row.k === "stackL" || row.k === "stackR"){
-      var tall = row.k === "stackL" ? it[0] : it[2];
-      var pair = row.k === "stackL" ? [it[1], it[2]] : [it[0], it[1]];
-      /* the portrait's cell is set so that both it and the two landscapes
-         beside it give up the least of their frames */
-      var cr = (tall.r + mean(pair) / 2) / 2;
-      var col = '<div class="mag__col">' + pair.map(function(x){ return fig(x, HALF, first); }).join("") + '</div>';
-      var side = fig(tall, HALF, first);
-      return '<div class="mag__row mag__row--stack rv" style="--cr:' + cr.toFixed(4) + '">' +
-               (row.k === "stackL" ? side + col : col + side) + '</div>';
+    var it = row.items, k = row.k;
+    function slot(x, cls, ar, sizes){
+      return '<div class="eg__slot ' + cls + '" style="--ar:' + ar + '">' + fig(x, sizes, first) + '</div>';
     }
-    if (it.length === 1){
-      var lone = it[0].r < 1.12 ? " mag__row--lone" : "";
-      return '<div class="mag__row mag__row--c1' + lone + ' rv" style="--cr:' + it[0].r.toFixed(4) + '">' +
-               fig(it[0], "92vw", first) + '</div>';
+    var BIG = "(max-width:759px) 92vw, 58vw", MID = "(max-width:759px) 92vw, 50vw", SMALL = "(max-width:759px) 60vw, 34vw";
+    var html;
+    if (k === "full"){
+      html = slot(it[0], "eg__full", Math.min(Math.max(it[0].r, 1.45), 2.1).toFixed(4), "92vw");
+    } else if (k === "folio" || k === "folioR"){
+      html = slot(it[0], "eg__big", "4 / 5", BIG) + slot(it[1], "eg__small", "3 / 2", SMALL);
+    } else if (k === "pair" || k === "pairR"){
+      html = slot(it[0], "eg__tall", "4 / 5", MID) + slot(it[1], "eg__low", "4 / 3", MID);
+    } else if (k === "trio"){
+      html = slot(it[0], "eg__main", "3 / 2", BIG) +
+             '<div class="eg__stack">' + slot(it[1], "", "auto", SMALL) + slot(it[2], "", "auto", SMALL) + '</div>';
+    } else if (k === "stagger"){
+      html = slot(it[0], "eg__tall", "4 / 5", MID) + slot(it[1], "eg__tall2", "4 / 5", MID);
+    } else if (k === "folioP"){
+      html = slot(it[0], "eg__big", "4 / 5", BIG) + slot(it[1], "eg__small", "4 / 5", SMALL);
+    } else if (k === "triptych"){
+      html = it.map(function(x){ return slot(x, "eg__third", "3 / 4", "(max-width:759px) 46vw, 30vw"); }).join("");
+    } else if (k === "duo"){
+      html = slot(it[0], "eg__half", "1 / 1", MID) + slot(it[1], "eg__half", "1 / 1", MID);
+    } else {
+      var standing = it[0].r < 1.12;
+      html = slot(it[0], "eg__inset" + (standing ? " eg__inset--p" : ""), standing ? "4 / 5" : "16 / 10", MID);
     }
-    var sizes = it.length === 2 ? HALF : THIRD;
-    return '<div class="mag__row mag__row--c' + it.length + ' rv" style="--cr:' + mean(it).toFixed(4) + '">' +
-             it.map(function(x){ return fig(x, sizes, first); }).join("") + '</div>';
+    return '<div class="eg eg--' + k + ' rv">' + html + '</div>';
   }
   function textHTML(t){
     var kind = kinds[t], xs = held[t], x = xs[0], copy = breaks[t];
