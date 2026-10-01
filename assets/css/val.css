@@ -1158,7 +1158,7 @@ a.princ__cell{display:block;color:inherit}
    picture fills its cell, trimmed a little where its own shape differs. */
 .mag__row{display:grid;gap:var(--g)}
 .mag__row--c1{grid-template-columns:1fr}
-.mag__row--c2,.mag__row--stack,.mag__row--text{grid-template-columns:1fr 1fr}
+.mag__row--c2,.mag__row--stack{grid-template-columns:1fr 1fr}
 .mag__row--c3{grid-template-columns:repeat(3,1fr)}
 .mag__row--c4{grid-template-columns:repeat(4,1fr)}
 .mag__f{margin:0;min-width:0;cursor:zoom-in}
@@ -1180,21 +1180,50 @@ a.princ__cell{display:block;color:inherit}
 .mag__row--lone{justify-items:center}
 .mag__row--lone .mag__f{width:50%}
 
-/* The text spread: a picture in one half, a passage of the story in the
-   other, so the photographs read as a story rather than a stream. The
-   picture keeps its own shape here; the passage sits against its middle. */
-/* no extra margin: the spread sits on the same one gutter as every other row */
-.mag__row--text{align-items:center}
-.mag__row--flip .mag__f{order:2}
-.mag__text{padding:clamp(20px,4.5vw,88px);max-width:40rem}
-.mag__row--flip .mag__text{justify-self:end}
-.mag__rule{display:block;width:44px;height:1px;background:var(--brass);margin-bottom:clamp(20px,2.6vh,30px)}
-.mag__text p{font-family:var(--disp);font-size:clamp(16.5px,1.3vw,20px);line-height:1.6;letter-spacing:-.004em;color:var(--ink-soft)}
-.mag__text p + p{margin-top:1em}
+/* ==========================================================================
+   EDITORIAL BREAKS
+   Set among the photographs the way a studio monograph sets its text: a
+   small heading, a short passage in the text face, and open page around it.
+   The rows of photographs stay tight; the white space lives inside these.
+   ========================================================================== */
+.ed{--edpad:clamp(28px,6vw,120px)}
+.ed__h{font-family:var(--disp);font-weight:400;text-transform:uppercase;letter-spacing:.06em;
+  font-size:clamp(20px,1.9vw,28px);line-height:1.1;color:var(--ink)}
+.ed__body p{font-family:var(--body);font-size:clamp(13px,.95vw,14.5px);line-height:1.8;color:var(--ink-soft);max-width:46ch}
+.ed__body p + p{margin-top:1em}
+
+/* brief: a picture in one half; the heading at the top of the other half,
+   the passage at its foot, the page open between them */
+.ed--brief{display:grid;grid-template-columns:1fr 1fr;gap:var(--g)}
+.ed--brief .ed__copy{display:flex;flex-direction:column;justify-content:space-between;gap:40px;
+  padding:clamp(24px,3.4vw,56px) var(--edpad) clamp(24px,3.4vw,56px) clamp(24px,3.4vw,56px)}
+.ed--brief.ed--flip .mag__f{order:2}
+.ed--brief .mag__f .shot{aspect-ratio:var(--cr)}
+
+/* note: the passage on one side, a smaller picture set in from the other */
+.ed--note{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--g);align-items:center;
+  padding-block:clamp(56px,10vh,140px)}
+.ed--note .ed__copy{grid-column:2 / span 4}
+.ed--note .ed__body{margin-top:clamp(22px,3vh,34px)}
+.ed--note .mag__f{grid-column:8 / span 5}
+.ed--note .mag__f .shot{aspect-ratio:var(--cr)}
+.ed--note.ed--flip .ed__copy{grid-column:8 / span 4;grid-row:1}
+.ed--note.ed--flip .mag__f{grid-column:1 / span 5;grid-row:1}
+
+/* statement: one passage set large and centred, nothing else */
+.ed--statement{padding:clamp(64px,12vh,160px) var(--edpad);text-align:center}
+.ed--statement p{font-family:var(--disp);font-weight:400;font-size:clamp(20px,2.1vw,32px);line-height:1.35;
+  letter-spacing:-.01em;color:var(--ink);max-width:30ch;margin-inline:auto}
+
 @media(max-width:759px){
-  .mag__row--text{grid-template-columns:1fr}
-  .mag__row--flip .mag__f{order:0}
-  .mag__text{padding:clamp(22px,6vw,32px) 4px 6px}
+  .ed--brief,.ed--note{grid-template-columns:1fr}
+  .ed--brief.ed--flip .mag__f{order:0}
+  .ed--brief .ed__copy{padding:28px 4px 36px;gap:18px}
+  .ed--note{padding-block:44px}
+  .ed--note .ed__copy,.ed--note.ed--flip .ed__copy{grid-column:1;grid-row:auto;padding:0 4px 22px}
+  .ed--note .mag__f,.ed--note.ed--flip .mag__f{grid-column:1;grid-row:auto;width:78%;justify-self:end}
+  .ed--note.ed--flip .mag__f{justify-self:start}
+  .ed--statement{padding:56px 8px}
 }
 
 /* where a project has been published: the outlet, the headline, and a link

@@ -324,12 +324,23 @@ straight lines from one row to the next. Each cell takes the average shape of th
 in its row (`--cr`, written per row) and a picture fills its cell, trimmed a little where
 its own shape differs. The studio preferred straight gutters to untrimmed frames.
 
-**Text spreads break up the photographs.** The summary stays above the gallery as the brief;
-the whole of `story` is set among the photographs, one passage beside one picture held
-back for it (portraits first), on alternating sides, one spread for about every three
-photographs. Where `story` has fewer paragraphs than that, it is split into sentences, so a
-three sentence story still gives three breaks. A project with fewer than four photographs,
-or no `story`, has none.
+**Editorial breaks set the story among the photographs**, the way a studio monograph does:
+a small serif heading, a short passage in the text face, and open page around it. The
+photograph rows stay tight; the white space lives inside the breaks. Three layouts take
+turns:
+
+| Layout | What it is |
+| --- | --- |
+| `brief` | a picture in one half; the heading at the top of the other half, the passage at its foot |
+| `statement` | one short passage (240 characters or fewer) set large and centred, no picture |
+| `note` | the heading and passage on one side, a smaller picture set in from the other |
+
+The summary stays above the gallery as the brief; all of `story` goes into the breaks.
+Written paragraphs each keep their own break (up to one per two photographs); a story
+with fewer paragraphs than one per three photographs is split into sentences instead.
+Headings default to neutral words (The space, Material, In detail, Light, Atmosphere,
+and The result for the last); give a project `storyHeads: [...]`, one per paragraph, to
+name its own, as The Good Side does.
 
 ### Nothing may stay hidden
 

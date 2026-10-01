@@ -1,4 +1,4 @@
-2026-09-30d · the gap around text spreads matches every other gap in the gallery
+2026-10-01a · project galleries broken by editorial text: brief, statement and note layouts
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
