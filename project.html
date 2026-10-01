@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-01a · editorial breaks in project galleries">
+<meta name="build" content="2026-10-01b · feature and aside layouts in project galleries">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -109,38 +109,57 @@ window.PAGE = function(VAL){
   /* too few pictures to break up: the copy stays in the brief */
   var briefCopy = room ? [] : paras;
 
-  /* Each passage takes one of three editorial layouts, in turn:
+  /* Each passage takes one of five editorial layouts, in turn:
+       feature    a tall picture filling the left half to the edge of the
+                  screen; in the right half a smaller picture running to the
+                  other edge, the heading and passage beneath it, and the
+                  project's number at the foot
+       aside      a picture running to the left edge, the heading and passage
+                  beside it, set against its top, open page around
+       statement  one short passage set large and centred, no picture
        brief      a picture in one half; a heading at the top of the other
                   half and the passage at its foot, open page between
-       statement  one short passage set large and centred, no picture
        note       a heading and the passage on one side, a smaller picture
                   set in from the other, with white space around both
      A statement only takes a passage short enough to read as one line of
-     thought; a longer one becomes a note. */
+     thought; a longer one becomes a brief. */
+  var ORDER = ["feature", "aside", "statement", "brief", "note"];
+  var NEED = { feature: 2, aside: 1, statement: 0, brief: 1, note: 1 };
   var kinds = breaks.map(function(copy, c){
-    var turn = c % 3;
-    if (turn === 1) return copy.length <= 240 ? "statement" : "note";
-    return turn === 0 ? "brief" : "note";
+    var kind = ORDER[c % ORDER.length];
+    if (kind === "statement" && copy.length > 240) kind = "brief";
+    return kind;
   });
+  /* keep at least three pictures for the rows: a feature that would take
+     too many steps down to a brief */
+  function needed(){ return kinds.reduce(function(n, k){ return n + NEED[k]; }, 0); }
+  for (var d = kinds.length - 1; d >= 0 && needed() > pool.length - 3; d--){
+    if (kinds[d] === "feature") kinds[d] = "brief";
+  }
   /* a project can name its own headings in storyHeads, one per spread;
      otherwise these, which describe without claiming */
   var LABELS = p.storyHeads || ["The space", "Material", "In detail", "Light", "Atmosphere"];
 
-  /* One picture is held back for each spread that shows one, portraits
-     first, taken evenly through the set so the spreads show different
-     parts of it. */
+  /* The pictures each spread shows are held back from the rows, taken
+     evenly through the set so the spreads show different parts of it: a
+     portrait where the layout wants one standing, a landscape where it
+     wants one lying. */
   var held = [];
-  var needs = kinds.filter(function(k){ return k !== "statement"; }).length, got = 0;
-  kinds.forEach(function(kind){
-    if (kind === "statement"){ held.push(null); return; }
-    var from = Math.floor((got + 1) * pool.length / (needs + 1)); got++;
+  var total = needed(), got = 0;
+  function take(wantTall){
+    var from = Math.min(Math.floor((got + 1) * pool.length / (total + 1)), pool.length - 1); got++;
     var pick = -1;
     for (var k = 0; k < pool.length && pick < 0; k++){
       var at2 = (from + k) % pool.length;
-      if (pool[at2].r < 1.12) pick = at2;
+      if ((pool[at2].r < 1.12) === wantTall) pick = at2;
     }
-    if (pick < 0) pick = Math.min(from, pool.length - 1);
-    held.push(pool.splice(pick, 1)[0]);
+    if (pick < 0) pick = from;
+    return pool.splice(pick, 1)[0];
+  }
+  kinds.forEach(function(kind){
+    if (kind === "feature") held.push([take(true), take(false)]);
+    else if (kind === "statement") held.push([]);
+    else held.push([take(kind !== "note")]);
   });
 
   /* laid out as magazine spreads: see VAL.spread */
@@ -185,24 +204,41 @@ window.PAGE = function(VAL){
              it.map(function(x){ return fig(x, sizes, first); }).join("") + '</div>';
   }
   function textHTML(t){
-    var kind = kinds[t], x = held[t], copy = breaks[t];
+    var kind = kinds[t], xs = held[t], x = xs[0], copy = breaks[t];
     var last = t === breaks.length - 1 && breaks.length >= 3;
     var label = p.storyHeads ? (LABELS[t] || "") : (last ? "The result" : LABELS[t % LABELS.length]);
     var paras = String(copy).split("\n\n").map(function(q){ return '<p>' + VAL.esc(q) + '</p>'; }).join("");
     if (kind === "statement"){
       return '<div class="ed ed--statement rv"><p>' + VAL.esc(copy) + '</p></div>';
     }
-    var flip = Math.floor(t / 2) % 2 === 1 ? " ed--flip" : "";
     var head = label ? '<h3 class="ed__h">' + VAL.esc(label) + '</h3>' : '';
+    var copyBlock = '<div class="ed__copy">' + head + '<div class="ed__body">' + paras + '</div></div>';
+    if (kind === "feature"){
+      /* the project's place in its archive, set the way a monograph
+         numbers its features */
+      var num = "No. " + ("0" + (at + 1)).slice(-2);
+      return '<div class="ed ed--feature rv">' +
+               '<div class="ed__tall" style="--cr:' + Math.min(xs[0].r, 0.85).toFixed(4) + '">' + fig(xs[0], "(max-width:759px) 100vw, 50vw", false) + '</div>' +
+               '<div class="ed__side">' +
+                 '<div class="ed__wide" style="--cr:' + xs[1].r.toFixed(4) + '">' + fig(xs[1], "(max-width:759px) 100vw, 40vw", false) + '</div>' +
+                 copyBlock +
+                 '<span class="ed__num">' + num + '</span>' +
+               '</div>' +
+             '</div>';
+    }
+    if (kind === "aside"){
+      return '<div class="ed ed--aside rv" style="--cr:' + x.r.toFixed(4) + '">' +
+               fig(x, "(max-width:759px) 100vw, 46vw", false) + copyBlock +
+             '</div>';
+    }
+    var flip = Math.floor(t / 2) % 2 === 1 ? " ed--flip" : "";
     if (kind === "brief"){
       return '<div class="ed ed--brief' + flip + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
-               fig(x, HALF, false) +
-               '<div class="ed__copy">' + head + '<div class="ed__body">' + paras + '</div></div>' +
+               fig(x, HALF, false) + copyBlock +
              '</div>';
     }
     return '<div class="ed ed--note' + flip + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
-             '<div class="ed__copy">' + head + '<div class="ed__body">' + paras + '</div></div>' +
-             fig(x, "(max-width:759px) 92vw, 38vw", false) +
+             copyBlock + fig(x, "(max-width:759px) 92vw, 38vw", false) +
            '</div>';
   }
 

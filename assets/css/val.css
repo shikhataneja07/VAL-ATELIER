@@ -1194,7 +1194,7 @@ a.princ__cell{display:block;color:inherit}
 
 /* brief: a picture in one half; the heading at the top of the other half,
    the passage at its foot, the page open between them */
-.ed--brief{display:grid;grid-template-columns:1fr 1fr;gap:var(--g)}
+.ed--brief{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--g)}
 .ed--brief .ed__copy{display:flex;flex-direction:column;justify-content:space-between;gap:40px;
   padding:clamp(24px,3.4vw,56px) var(--edpad) clamp(24px,3.4vw,56px) clamp(24px,3.4vw,56px)}
 .ed--brief.ed--flip .mag__f{order:2}
@@ -1210,6 +1210,30 @@ a.princ__cell{display:block;color:inherit}
 .ed--note.ed--flip .ed__copy{grid-column:8 / span 4;grid-row:1}
 .ed--note.ed--flip .mag__f{grid-column:1 / span 5;grid-row:1}
 
+/* feature: after the monograph spread. The row runs the width of the
+   screen; a tall picture fills the left half to its edge, and the right half
+   holds a smaller picture running to the other edge, the heading and passage
+   beneath it, and the project's number at the foot. */
+.ed--feature{margin-inline:calc(50% - 50vw);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--g)}
+.ed--feature .ed__tall .mag__f,.ed--feature .ed__tall .shot{height:100%}
+.ed--feature .ed__tall .shot{aspect-ratio:var(--cr)}
+.ed--feature .ed__side{display:flex;flex-direction:column;padding-top:clamp(56px,10vh,140px)}
+.ed--feature .ed__wide{margin-left:clamp(48px,9vw,180px)}
+.ed--feature .ed__wide .shot{aspect-ratio:var(--cr)}
+.ed--feature .ed__copy{margin:clamp(36px,6vh,72px) clamp(48px,9vw,180px) 0;padding-right:clamp(20px,4vw,72px)}
+.ed--feature .ed__body{margin-top:clamp(18px,2.4vh,28px)}
+.ed--feature .ed__num{margin:auto clamp(48px,9vw,180px) clamp(28px,5vh,56px);padding-top:40px;
+  font-family:var(--body);font-weight:400;font-size:clamp(30px,3.2vw,48px);letter-spacing:-.02em;color:var(--ink)}
+
+/* aside: after the services section. A picture runs from the left edge of
+   the screen to a little short of the middle; the heading and passage sit
+   beside it against its top, with open page to the right and below. */
+.ed--aside{margin-left:calc(50% - 50vw);display:grid;grid-template-columns:minmax(0,46fr) minmax(0,54fr);
+  gap:var(--g);align-items:start;padding-block:clamp(40px,8vh,110px)}
+.ed--aside .mag__f .shot{aspect-ratio:var(--cr)}
+.ed--aside .ed__copy{padding:clamp(4px,1vh,12px) clamp(24px,6vw,120px) 0 clamp(32px,5vw,96px)}
+.ed--aside .ed__body{margin-top:clamp(18px,2.4vh,28px)}
+
 /* statement: one passage set large and centred, nothing else */
 .ed--statement{padding:clamp(64px,12vh,160px) var(--edpad);text-align:center}
 .ed--statement p{font-family:var(--disp);font-weight:400;font-size:clamp(20px,2.1vw,32px);line-height:1.35;
@@ -1224,6 +1248,14 @@ a.princ__cell{display:block;color:inherit}
   .ed--note .mag__f,.ed--note.ed--flip .mag__f{grid-column:1;grid-row:auto;width:78%;justify-self:end}
   .ed--note.ed--flip .mag__f{justify-self:start}
   .ed--statement{padding:56px 8px}
+  .ed--feature{grid-template-columns:minmax(0,1fr)}
+  .ed--feature .ed__side{padding-top:var(--g)}
+  .ed--feature .ed__wide{margin-left:28%}
+  .ed--feature .ed__copy{margin:28px 20px 0;padding:0}
+  .ed--feature .ed__num{margin:28px 20px 36px;padding-top:0}
+  .ed--aside{margin-inline:calc(50% - 50vw);grid-template-columns:1fr;padding-block:36px}
+  .ed--aside .mag__f{width:86%}
+  .ed--aside .ed__copy{padding:26px 20px 0}
 }
 
 /* where a project has been published: the outlet, the headline, and a link
