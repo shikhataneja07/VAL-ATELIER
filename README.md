@@ -302,55 +302,21 @@ that URL the same way the others do.
 
 ### The gallery inside a project
 
-A project's photographs are composed as a monograph composes a story (**`VAL.gallerySpreads`
-in `val.js`**, drawn in `project.html`): spreads on a twelve column page, one even space
-between every spread, large pictures with smaller ones in support, placed left and right in
-turn. The listings on the home page and in the archive are not affected.
+One calm rhythm, after the Ukino site the studio pointed to. Every block shares the same
+left and right edges and the same space between them, and only three kinds of block take
+turns, drawn in `project.html`:
 
-| Spread | Pictures |
+| Block | What it is |
 | --- | --- |
-| `full` | a wide landscape across the page |
-| `folio` / `folioR` | a large standing picture, a smaller lying one set high opposite |
-| `pair` / `pairR` | a standing picture and a lying one, the second set lower |
-| `trio` | a large lying picture with two small ones stacked beside it |
-| `inset` / `insetR` | a lying picture set off centre, open page beside it |
-| `stagger` | two standing pictures, the second set lower |
-| `folioP` | a large standing picture, a smaller standing one set high |
-| `triptych` | three standing pictures, the middle one set lower |
+| `wide` | one lying picture across the full width (16:9) |
+| `text` | a heading and passage in one half, a standing picture (4:5) in the other; the side alternates each time |
+| `pair` | two pictures side by side, the same size and shape (4:5, or 3:2 when both lie) |
 
-Pictures come from a window six ahead, so the order in `select` holds as closely as the
-shapes allow; each slot crops its picture to its own shape. Anything that fits no spread
-is set as a matched pair (`duo`) or set in alone.
-
-**Every row sits on the same columns**, halves or thirds of the page, so the gutters run in
-straight lines from one row to the next. Each cell takes the average shape of the pictures
-in its row (`--cr`, written per row) and a picture fills its cell, trimmed a little where
-its own shape differs. The studio preferred straight gutters to untrimmed frames.
-
-**Editorial breaks set the story among the photographs**, the way a studio monograph does:
-a small serif heading, a short passage in the text face, and open page around it. The
-photograph rows stay tight; the white space lives inside the breaks. The layouts:
-
-| Layout | What it is |
-| --- | --- |
-| `feature` | a tall picture filling the left half to the screen edge; a smaller picture running to the right edge, the heading and passage beneath it, the project's number (No. 03) at the foot |
-| `aside` | a picture running from the left screen edge to just short of the middle, the heading and passage beside it against its top |
-| `asideR` | the mirror: the heading and passage on the left, the picture running to the right screen edge |
-| `statement` | one short passage (240 characters or fewer) set large and centred, no picture; a longer one becomes a brief |
-| `brief` | a picture in one half; the heading at the top of the other half, the passage at its foot |
-| `note` | the heading and passage on one side, a smaller picture set in from the other |
-
-The studio asked for the two asides, mirrored, in the middle of every gallery. With two
-passages a project gets `aside` then `asideR`; with more, the order is `aside`, `feature`,
-`asideR`, `statement`, `brief`, `note`. A feature takes two pictures (a portrait for the tall one where there is one) and steps
-down to a brief if it would leave fewer than three pictures for the rows.
-
-The summary stays above the gallery as the brief; all of `story` goes into the breaks.
-Written paragraphs each keep their own break (up to one per two photographs); a story
-with fewer paragraphs than one per three photographs is split into sentences instead.
-Headings default to neutral words (The space, Material, In detail, Light, Atmosphere,
-and The result for the last); give a project `storyHeads: [...]`, one per paragraph, to
-name its own, as The Good Side does.
+The order is wide, text, pair, wide, text (mirrored), pair. The summary stays above the
+gallery as the brief; the whole of `story` goes into the text blocks, split into sentences
+where there are fewer paragraphs than rounds of the rhythm. Headings default to neutral
+words (The space, Material, In detail, Light, Atmosphere, and The result for the last);
+`storyHeads: [...]` names them, as The Good Side does. Pictures are cropped to their block.
 
 ### Nothing may stay hidden
 

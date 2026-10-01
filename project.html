@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-01e · editorial project gallery, listings restored">
+<meta name="build" content="2026-10-01f · calm gallery rhythm after Ukino">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -109,67 +109,32 @@ window.PAGE = function(VAL){
   /* too few pictures to break up: the copy stays in the brief */
   var briefCopy = room ? [] : paras;
 
-  /* Each passage takes one of five editorial layouts, in turn:
-       feature    a tall picture filling the left half to the edge of the
-                  screen; in the right half a smaller picture running to the
-                  other edge, the heading and passage beneath it, and the
-                  project's number at the foot
-       aside      a picture running to the left edge, the heading and passage
-                  beside it, set against its top, open page around
-       statement  one short passage set large and centred, no picture
-       brief      a picture in one half; a heading at the top of the other
-                  half and the passage at its foot, open page between
-       note       a heading and the passage on one side, a smaller picture
-                  set in from the other, with white space around both
-     A statement only takes a passage short enough to read as one line of
-     thought; a longer one becomes a brief. */
-  /* The two asides, mirrored, are the pair the studio asked to see in the
-     middle of every gallery: a picture on the left with a little text
-     beside it, a few rows on the text on the left and a picture on the
-     right. With two passages they are the pair; with more, the feature
-     sits between them and the rest follow. */
-  var ORDER = breaks.length === 2 ? ["aside", "asideR"]
-            : ["aside", "feature", "asideR", "statement", "brief", "note"];
-  var NEED = { feature: 2, aside: 1, asideR: 1, statement: 0, brief: 1, note: 1 };
-  var kinds = breaks.map(function(copy, c){
-    var kind = ORDER[c % ORDER.length];
-    if (kind === "statement" && copy.length > 240) kind = "brief";
-    return kind;
-  });
-  /* keep at least three pictures for the rows: a feature that would take
-     too many steps down to a brief */
-  function needed(){ return kinds.reduce(function(n, k){ return n + NEED[k]; }, 0); }
-  for (var d = kinds.length - 1; d >= 0 && needed() > pool.length - 3; d--){
-    if (kinds[d] === "feature") kinds[d] = "brief";
-  }
-  /* a project can name its own headings in storyHeads, one per spread;
-     otherwise these, which describe without claiming */
+  /* The gallery follows one calm rhythm, after the Ukino site the studio
+     pointed to: every block shares the same left and right edges and the
+     same space between them, and only three kinds of block take turns:
+
+       wide    one lying picture across the full width
+       text    a heading and passage on one side, a standing picture on the
+               other, the side alternating each time
+       pair    two pictures side by side, the same size and shape
+
+     wide, text, pair, wide, text (mirrored), pair, and so on. */
   var LABELS = p.storyHeads || ["The space", "Material", "In detail", "Light", "Atmosphere"];
 
-  /* The pictures each spread shows are held back from the rows, taken
-     evenly through the set so the spreads show different parts of it: a
-     portrait where the layout wants one standing, a landscape where it
-     wants one lying. */
+  /* one standing picture held back for each passage, taken evenly through
+     the set; a passage needs at least three pictures left for the rhythm */
+  var texts = breaks.slice(0, Math.max(0, Math.min(breaks.length, pool.length - 3)));
   var held = [];
-  var total = needed(), got = 0;
-  function take(wantTall){
-    var from = Math.min(Math.floor((got + 1) * pool.length / (total + 1)), pool.length - 1); got++;
+  texts.forEach(function(_, h){
+    var from = Math.min(Math.floor((h + 1) * pool.length / (texts.length + 1)), pool.length - 1);
     var pick = -1;
     for (var k = 0; k < pool.length && pick < 0; k++){
       var at2 = (from + k) % pool.length;
-      if ((pool[at2].r < 1.12) === wantTall) pick = at2;
+      if (pool[at2].r < 1.12) pick = at2;
     }
     if (pick < 0) pick = from;
-    return pool.splice(pick, 1)[0];
-  }
-  kinds.forEach(function(kind){
-    if (kind === "feature") held.push([take(true), take(false)]);
-    else if (kind === "statement") held.push([]);
-    else held.push([take(kind !== "note")]);
+    held.push(pool.splice(pick, 1)[0]);
   });
-
-  /* laid out as editorial spreads: see VAL.gallerySpreads */
-  var rows = VAL.gallerySpreads(pool);
 
   var n = 0;
   function fig(x, sizes, first){
@@ -180,100 +145,54 @@ window.PAGE = function(VAL){
              '</div>' +
            '</figure>';
   }
-  function mean(list){ return list.reduce(function(t, x){ return t + x.r; }, 0) / list.length; }
-  var HALF = "(max-width:759px) 50vw, 46vw", THIRD = "(max-width:759px) 34vw, 31vw";
-
-  /* Every row sits on the same columns: halves or thirds of the page, so the
-     gutters run in straight lines from one row to the next. Each cell takes
-     the average shape of the pictures in its row, and a picture fills its
-     cell, trimmed a little where its own shape differs. */
-  function rowHTML(row, first){
-    var it = row.items, k = row.k;
-    function slot(x, cls, ar, sizes){
-      return '<div class="eg__slot ' + cls + '" style="--ar:' + ar + '">' + fig(x, sizes, first) + '</div>';
+  /* the next lying picture for a wide block, from a short window ahead */
+  function takeWide(){
+    for (var k = 0; k < Math.min(first ? pool.length : 5, pool.length); k++){
+      if (pool[k].r >= 1.12) return pool.splice(k, 1)[0];
     }
-    var BIG = "(max-width:759px) 92vw, 58vw", MID = "(max-width:759px) 92vw, 50vw", SMALL = "(max-width:759px) 60vw, 34vw";
-    var html;
-    if (k === "full"){
-      html = slot(it[0], "eg__full", Math.min(Math.max(it[0].r, 1.45), 2.1).toFixed(4), "92vw");
-    } else if (k === "folio" || k === "folioR"){
-      html = slot(it[0], "eg__big", "4 / 5", BIG) + slot(it[1], "eg__small", "3 / 2", SMALL);
-    } else if (k === "pair" || k === "pairR"){
-      html = slot(it[0], "eg__tall", "4 / 5", MID) + slot(it[1], "eg__low", "4 / 3", MID);
-    } else if (k === "trio"){
-      html = slot(it[0], "eg__main", "3 / 2", BIG) +
-             '<div class="eg__stack">' + slot(it[1], "", "auto", SMALL) + slot(it[2], "", "auto", SMALL) + '</div>';
-    } else if (k === "stagger"){
-      html = slot(it[0], "eg__tall", "4 / 5", MID) + slot(it[1], "eg__tall2", "4 / 5", MID);
-    } else if (k === "folioP"){
-      html = slot(it[0], "eg__big", "4 / 5", BIG) + slot(it[1], "eg__small", "4 / 5", SMALL);
-    } else if (k === "triptych"){
-      html = it.map(function(x){ return slot(x, "eg__third", "3 / 4", "(max-width:759px) 46vw, 30vw"); }).join("");
-    } else if (k === "duo"){
-      html = slot(it[0], "eg__half", "1 / 1", MID) + slot(it[1], "eg__half", "1 / 1", MID);
-    } else {
-      var standing = it[0].r < 1.12;
-      html = slot(it[0], "eg__inset" + (standing ? " eg__inset--p" : ""), standing ? "4 / 5" : "16 / 10", MID);
-    }
-    return '<div class="eg eg--' + k + ' rv">' + html + '</div>';
+    return null;
+  }
+  function wideHTML(x, first){
+    return '<div class="gx gx--wide rv">' + fig(x, "92vw", first) + '</div>';
+  }
+  function pairHTML(a, b, first){
+    /* both the same shape: lying if both pictures lie, standing otherwise */
+    var both = a.r >= 1.12 && b.r >= 1.12;
+    return '<div class="gx gx--pair' + (both ? " gx--pair-l" : "") + ' rv">' +
+             fig(a, "(max-width:759px) 50vw, 46vw", first) + fig(b, "(max-width:759px) 50vw, 46vw", first) +
+           '</div>';
   }
   function textHTML(t){
-    var kind = kinds[t], xs = held[t], x = xs[0], copy = breaks[t];
-    var last = t === breaks.length - 1 && breaks.length >= 3;
+    var copy = texts[t], x = held[t];
+    var last = t === texts.length - 1 && texts.length >= 3;
     var label = p.storyHeads ? (LABELS[t] || "") : (last ? "The result" : LABELS[t % LABELS.length]);
     var paras = String(copy).split("\n\n").map(function(q){ return '<p>' + VAL.esc(q) + '</p>'; }).join("");
-    if (kind === "statement"){
-      return '<div class="ed ed--statement rv"><p>' + VAL.esc(copy) + '</p></div>';
-    }
     var head = label ? '<h3 class="ed__h">' + VAL.esc(label) + '</h3>' : '';
-    var copyBlock = '<div class="ed__copy">' + head + '<div class="ed__body">' + paras + '</div></div>';
-    if (kind === "feature"){
-      /* the project's place in its archive, set the way a monograph
-         numbers its features */
-      var num = "No. " + ("0" + (at + 1)).slice(-2);
-      return '<div class="ed ed--feature rv">' +
-               '<div class="ed__tall" style="--cr:' + Math.min(xs[0].r, 0.85).toFixed(4) + '">' + fig(xs[0], "(max-width:759px) 100vw, 50vw", false) + '</div>' +
-               '<div class="ed__side">' +
-                 '<div class="ed__wide" style="--cr:' + xs[1].r.toFixed(4) + '">' + fig(xs[1], "(max-width:759px) 100vw, 40vw", false) + '</div>' +
-                 copyBlock +
-                 '<span class="ed__num">' + num + '</span>' +
-               '</div>' +
-             '</div>';
-    }
-    if (kind === "aside"){
-      return '<div class="ed ed--aside rv" style="--cr:' + x.r.toFixed(4) + '">' +
-               fig(x, "(max-width:759px) 100vw, 46vw", false) + copyBlock +
-             '</div>';
-    }
-    if (kind === "asideR"){
-      /* the mirror: the passage on the left, the picture running to the
-         right edge of the screen */
-      return '<div class="ed ed--aside ed--aside-r rv" style="--cr:' + x.r.toFixed(4) + '">' +
-               copyBlock + fig(x, "(max-width:759px) 100vw, 46vw", false) +
-             '</div>';
-    }
-    var flip = Math.floor(t / 2) % 2 === 1 ? " ed--flip" : "";
-    if (kind === "brief"){
-      return '<div class="ed ed--brief' + flip + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
-               fig(x, HALF, false) + copyBlock +
-             '</div>';
-    }
-    return '<div class="ed ed--note' + flip + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
-             copyBlock + fig(x, "(max-width:759px) 92vw, 38vw", false) +
+    /* the first passage sits on the left with the picture on the right, as
+       the reference's About block does; the next is mirrored */
+    var flip = t % 2 === 1;
+    return '<div class="gx gx--text' + (flip ? " gx--text-r" : "") + ' rv">' +
+             '<div class="gx__copy">' + head + '<div class="ed__body">' + paras + '</div></div>' +
+             fig(x, "(max-width:759px) 92vw, 40vw", false) +
            '</div>';
   }
 
-  /* a text spread after every few rows, spaced evenly down the page */
-  var every = held.length ? Math.max(1, Math.round(rows.length / (held.length + 1))) : 0;
-  var gallery = "", t = 0;
-  rows.forEach(function(row, ri){
-    gallery += rowHTML(row, ri < 1);
-    if (every && t < held.length && (ri + 1) % every === 0 && ri < rows.length - 1){
-      gallery += textHTML(t); t++;
-    }
-  });
-  /* any spread that did not find a place joins the end */
-  for (; t < held.length; t++) gallery += textHTML(t);
+  /* how many passages each round of the rhythm carries, so they spread
+     down the whole gallery rather than bunching at the top */
+  var rounds = Math.max(1, Math.ceil(pool.length / 3));
+  var perRound = Math.max(1, Math.ceil(texts.length / rounds));
+  var gallery = "", t = 0, first = true;
+  while (pool.length || t < texts.length){
+    var w = takeWide();
+    if (w){ gallery += wideHTML(w, first); first = false; }
+    /* one passage after the wide picture, any further one after the pair,
+       so two passages never sit back to back */
+    if (t < texts.length) gallery += textHTML(t++);
+    if (pool.length >= 2){ gallery += pairHTML(pool.shift(), pool.shift(), first); first = false; }
+    else if (pool.length === 1 && !w){ gallery += wideHTML(pool.shift(), first); first = false; }
+    for (var c = 1; c < perRound && t < texts.length; c++) gallery += textHTML(t++);
+    if (!w && pool.length === 0 && t >= texts.length) break;
+  }
 
   var backHref = "projects.html#" + p.status;
 
