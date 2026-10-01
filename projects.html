@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-01c · mirrored asides mid gallery, Sindhu removed">
+<meta name="build" content="2026-10-01d · editorial archive for selected and ongoing work">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -62,14 +62,14 @@
       <!-- FINISHED --------------------------------------------------- -->
       <div class="panel is-on" id="panel-finished" role="tabpanel" aria-labelledby="tab-finished" data-panel="finished">
         <div class="filters" data-filters="finished"></div>
-        <div class="grid-work mgrid" data-grid="finished"></div>
+        <div class="ed-arch" data-grid="finished"></div>
         <div data-empty="finished"></div>
       </div>
 
       <!-- ONGOING ---------------------------------------------------- -->
       <div class="panel" id="panel-ongoing" role="tabpanel" aria-labelledby="tab-ongoing" data-panel="ongoing" hidden>
         <div class="filters" data-filters="ongoing"></div>
-        <div class="grid-work mgrid" data-grid="ongoing"></div>
+        <div class="ed-arch" data-grid="ongoing"></div>
         <div data-empty="ongoing"></div>
       </div>
     </div>
@@ -178,7 +178,8 @@ window.PAGE = function(VAL){
 
     var grid = document.querySelector('[data-grid="' + status + '"]');
     if (grid){
-      grid.innerHTML = shown.map(function(p, i){ return card(p, i, SHAPE[status]); }).join("");
+      /* set as editorial spreads rather than a grid of cards: see VAL.editorial */
+      grid.innerHTML = VAL.editorial(shown, { eager: true });
       VAL.watch(grid);
     }
 

@@ -300,6 +300,24 @@ The Goodside Salon entry used to link to the studio's announcement post rather t
 feature. It carries the Architectural Digest India URL now, and its headline comes from
 that URL the same way the others do.
 
+### The Selected and Ongoing galleries
+
+Both galleries, on the home page and in the two archive tabs, are composed as a monograph
+composes its work rather than as a grid of cards. **`VAL.editorial` in `val.js`** sets the
+projects into spreads on a twelve column page, in turn:
+
+| Spread | What it is |
+| --- | --- |
+| `folio` | one project: a large standing picture on one side; a smaller lying picture from the same project at the top of the other side, its number, name and details at the foot. Alternates left and right (`folioR`) |
+| `pair` | two projects side by side, a standing picture and a lying one, the second set lower |
+| `wide` | one project across the page, its details on one line beneath |
+| `note` | one project: its details on one side with open page, a picture on the other |
+
+Each slot asks for a standing or lying picture: the project's own `cover` where its shape
+suits, otherwise the nearest frame from its set. Pictures are cropped to their slot, so the
+page balances whatever the photographs are. The two sections stay separate; the archive's
+category chips filter the projects and the spreads are recomposed from what is left.
+
 ### The gallery inside a project
 
 The studio asked for the photographs to be laid out the way a magazine lays out a story:

@@ -873,6 +873,102 @@
     return rows;
   };
 
+  /* ---- the editorial archive ---------------------------------------------
+     The Selected and Ongoing galleries, set as a monograph sets its work
+     rather than as a grid of equal cards. Projects are composed into spreads
+     on a twelve column page, taking turns:
+
+       folio   one project: a large picture on one side; on the other a
+               smaller picture from the same project at the top and its
+               number, name and details at the foot (after the Ruve and
+               Terralith spreads). Alternates left and right.
+       pair    two projects side by side, the second set lower
+       wide    one project across the page, its details on a line beneath
+       note    one project: its details on one side, open page around, a
+               picture on the other (after the Ukino about block)
+
+     Each slot asks for a standing or a lying picture; the project's own
+     cover is used where its shape suits, otherwise the nearest frame from
+     its set. Every picture is cropped to its slot, so the page balances
+     whatever the photographs are. */
+  var ED_CYCLE = ["folio", "pair", "wide", "note", "folioR", "pair"];
+
+  function edFrame(p, wantTall, not){
+    var order = (p.select && p.select.length ? p.select.map(function(n){ return n - 1; }) : [])
+                  .concat(p.images.map(function(_, i){ return i; }));
+    var c = VAL.cover(p);
+    order = [c].concat(order.filter(function(i){ return i !== c; }));
+    for (var k = 0; k < order.length; k++){
+      var i = order[k];
+      if (i < 0 || i >= p.images.length || (not || []).indexOf(i) > -1) continue;
+      if ((VAL.ratio(p, i) < 1.05) === wantTall) return i;
+    }
+    for (var j = 0; j < order.length; j++){
+      if ((not || []).indexOf(order[j]) < 0 && order[j] < p.images.length) return order[j];
+    }
+    return c;
+  }
+
+  VAL.editorial = function(list, opts){
+    opts = opts || {};
+    var out = [], q = list.slice(), n = 0, turn = 0;
+    function href(p){ return 'project.html?p=' + esc(p.slug); }
+    function pic(p, i, cls, ar, sizes, first, quiet){
+      return '<a class="ex__fig ' + cls + ' shot" style="--ar:' + ar + '" href="' + href(p) + '"' +
+               (quiet ? ' tabindex="-1" aria-hidden="true"' : '') + '>' +
+               VAL.imgTag(p, i, p.title, first, sizes) +
+               (quiet ? '' : VAL.featTag(p.slug)) +
+             '</a>';
+    }
+    function info(p, num, cls){
+      var meta = VAL.descriptor(p) || p.scope;
+      var feat = VAL.featuredLine ? VAL.featuredLine(p.slug) : "";
+      return '<div class="ex__info ' + (cls || "") + '">' +
+               '<span class="ex__n">' + pad(num) + '</span>' +
+               '<h3 class="ex__t"><a href="' + href(p) + '">' + esc(p.title) + '</a></h3>' +
+               (meta ? '<p class="ex__m">' + esc(meta) + '</p>' : '') +
+               (p.area ? '<p class="ex__a">' + esc(p.area) + '</p>' : '') +
+               (feat ? '<p class="ex__f">' + esc(feat) + '</p>' : '') +
+               '<a class="ex__go" href="' + href(p) + '">View project <span class="ar">&rarr;</span></a>' +
+             '</div>';
+    }
+    while (q.length){
+      var kind = ED_CYCLE[turn % ED_CYCLE.length]; turn++;
+      if (kind === "pair" && q.length < 2) kind = "folio";
+      var first = out.length === 0 && !!opts.eager;
+      if (kind === "folio" || kind === "folioR"){
+        var p = q.shift(), num = ++n;
+        var big = edFrame(p, true), small = edFrame(p, false, [big]);
+        out.push('<article class="exs exs--folio' + (kind === "folioR" ? " exs--flip" : "") + ' rv">' +
+                   pic(p, big, "ex__big", "4 / 5", "(max-width:759px) 92vw, 50vw", first) +
+                   '<div class="ex__side">' +
+                     pic(p, small, "ex__small", "3 / 2", "(max-width:759px) 60vw, 30vw", first, true) +
+                     info(p, num) +
+                   '</div>' +
+                 '</article>');
+      } else if (kind === "pair"){
+        var a = q.shift(), b = q.shift(), na = ++n, nb = ++n;
+        out.push('<div class="exs exs--pair rv">' +
+                   '<article class="ex ex--a">' + pic(a, edFrame(a, true), "", "4 / 5", "(max-width:759px) 92vw, 42vw", first) + info(a, na) + '</article>' +
+                   '<article class="ex ex--b">' + pic(b, edFrame(b, false), "", "4 / 3", "(max-width:759px) 92vw, 50vw", first) + info(b, nb) + '</article>' +
+                 '</div>');
+      } else if (kind === "wide"){
+        var w = q.shift(), nw = ++n;
+        out.push('<article class="exs exs--wide rv">' +
+                   pic(w, edFrame(w, false), "", "16 / 9", "(max-width:759px) 92vw, 92vw", first) +
+                   info(w, nw, "ex__info--line") +
+                 '</article>');
+      } else {
+        var t = q.shift(), nt = ++n;
+        out.push('<article class="exs exs--note rv">' +
+                   info(t, nt, "ex__info--note") +
+                   pic(t, edFrame(t, false), "", "3 / 2", "(max-width:759px) 92vw, 50vw", first) +
+                 '</article>');
+      }
+    }
+    return out.join("");
+  };
+
   /* split a heading on "|" into masked lines that rise in sequence */
   VAL.splitLines = function(node){
     qsa("[data-lines]", node || document).forEach(function(h){
