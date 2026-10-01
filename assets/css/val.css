@@ -1755,23 +1755,20 @@ html:not(.js) .hero__bar{display:none}
 .gx--pair .mag__f .shot{aspect-ratio:4 / 5}
 .gx--pair-l .mag__f .shot{aspect-ratio:3 / 2}
 
-/* text: the passage in one half, a standing picture in the other, both on
-   the twelve columns of the page so every text block lines up */
-/* no padding above or below: the block sits on the same thin gutter as
-   every other picture; its white space is beside the passage */
-.gx--text{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,26px);align-items:center}
-.gx--text .gx__copy{grid-column:2 / span 5}
-.gx--text .mag__f{grid-column:8 / span 5}
+/* text: exactly half and half, on the same thin gutter as the pairs, so the
+   picture lines up with the pictures above and below it and the passage
+   has the other half to itself */
+.gx--text{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:var(--g);align-items:center}
+.gx--text .gx__copy{grid-column:1;padding:clamp(28px,4vh,56px) clamp(24px,6vw,120px)}
+.gx--text .mag__f{grid-column:2}
 .gx--text .mag__f .shot{aspect-ratio:4 / 5}
-.gx--text-r .mag__f{grid-column:1 / span 5;grid-row:1}
-.gx--text-r .gx__copy{grid-column:7 / span 5;grid-row:1}
+.gx--text-r .mag__f{grid-column:1;grid-row:1}
+.gx--text-r .gx__copy{grid-column:2;grid-row:1}
 .gx__copy .ed__body{margin-top:clamp(20px,2.6vh,30px)}
+.gx__copy .ed__body p{max-width:46ch}
 
 @media(max-width:1099px){
-  .gx--text .gx__copy{grid-column:1 / span 6}
-  .gx--text .mag__f{grid-column:7 / span 6}
-  .gx--text-r .gx__copy{grid-column:7 / span 6}
-  .gx--text-r .mag__f{grid-column:1 / span 6}
+  .gx--text .gx__copy{padding:24px clamp(18px,4vw,48px)}
 }
 @media(max-width:759px){
   .gx--wide .mag__f .shot{aspect-ratio:3 / 2}
