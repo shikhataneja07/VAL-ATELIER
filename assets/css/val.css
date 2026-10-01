@@ -898,7 +898,11 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   .hero{height:auto;min-height:0;padding:0}
   .hero__slides{position:relative;inset:auto;width:100%;aspect-ratio:2 / 3;max-height:calc(100svh - var(--nav-h))}
   .hero__foot{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(22px,3.6vh,38px)}
-  .hero__bar{display:none}
+  /* the words cover more of an upright frame than a wide one, so the wash
+     reaches further up and is deeper at the foot, and the type carries a
+     soft shadow for the pale walls */
+  .hero__scrim{background:linear-gradient(0deg,rgba(10,9,8,.86) 0,rgba(10,9,8,.72) 16%,rgba(10,9,8,.50) 32%,rgba(10,9,8,.24) 46%,rgba(10,9,8,.06) 58%,rgba(10,9,8,0) 66%)}
+  .hero__sub,.hero__count,.hero__proj,.hero__meta{text-shadow:0 1px 14px rgba(10,9,8,.55)}
 }
 
 @keyframes cue{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}
