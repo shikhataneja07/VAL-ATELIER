@@ -282,6 +282,27 @@ window.PROJECTS = [
     images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900]]
   },
   {
+    slug: "evora-villa",
+    title: "Evora Villa",
+    category: "Residential",
+    status: "ongoing",
+    typology: "Villa",
+    /* location, area and year still to come from the studio */
+    location: "",
+    area: "",
+    year: "",
+    scope: "Interior Design",
+    summary: "A villa composed in warm walnut, limewashed walls and soft linen, where tall sheer curtains let the light in slowly and every room settles into calm.",
+    story: ["Deep timber panelling and lattice screens give the house its structure, while sculptural furniture, ochre accents and a collection of figurative art bring warmth and personality. Each room keeps the same quiet palette, so the home reads as one continuous, unhurried space."],
+    notes: [],
+    /* the double height living room leads; the rest walk through the house:
+       the second view of the living room, the entrance niche, the bedroom and
+       the upstairs lounge */
+    cover: 1,
+    dir: "assets/projects/evora-villa",
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080]]
+  },
+  {
     slug: "merge-stones",
     title: "Merge Stones",
     category: "Retail",
