@@ -1,4 +1,4 @@
-2026-10-01h · every picture in the project galleries on the same thin gutter, text blocks included
+2026-10-01i · home page Selected and Ongoing plates on the thin gallery gutter
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

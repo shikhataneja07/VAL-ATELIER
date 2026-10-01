@@ -1034,7 +1034,9 @@ a.princ__cell{display:block;color:inherit}
 .grid-work{
   display:grid;grid-template-columns:1fr;align-items:start;
   /* the archive closes up with the home page, same reason */
-  gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
+  /* the plates side by side sit on the same thin gutter as the project
+     galleries */
+  gap:clamp(16px,1.8vw,26px) clamp(3px,.4vw,6px);
 }
 @media(min-width:900px){ .grid-work{grid-template-columns:repeat(2,1fr)} }
 .grid-work > *{margin-bottom:0;break-inside:auto;min-width:0}
@@ -1635,7 +1637,9 @@ a.princ__cell{display:block;color:inherit}
    with no measuring in JavaScript. */
 .pgrid{
   display:flex;flex-wrap:wrap;
-  gap:clamp(16px,1.8vw,26px) clamp(7px,0.85vw,14px);
+  /* the plates side by side sit on the same thin gutter as the project
+     galleries */
+  gap:clamp(16px,1.8vw,26px) clamp(3px,.4vw,6px);
   margin-top:clamp(30px,4.5vh,54px);
 }
 /* Both the basis and the grow factor are scaled by the aspect ratio, so the
