@@ -295,12 +295,14 @@ window.PROJECTS = [
     summary: "A villa composed in warm walnut, limewashed walls and soft linen, where tall sheer curtains let the light in slowly and every room settles into calm.",
     story: ["Deep timber panelling and lattice screens give the house its structure, while sculptural furniture, ochre accents and a collection of figurative art bring warmth and personality. Each room keeps the same quiet palette, so the home reads as one continuous, unhurried space."],
     notes: [],
-    /* the double height living room leads; the rest walk through the house:
-       the second view of the living room, the entrance niche, the bedroom and
-       the upstairs lounge */
+    /* All eleven renders from the studio's RENDERS folder, in the order they
+       walk the house: the double height living room leads, then its second
+       view, the entrance niche, the dining room, the bar, the upstairs lounge,
+       and the bedrooms last. */
     cover: 1,
+    select: [1, 2, 3, 11, 10, 5, 4, 6, 7, 8, 9],
     dir: "assets/projects/evora-villa",
-    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080]]
   },
   {
     slug: "merge-stones",
@@ -416,9 +418,9 @@ window.PROJECTS = [
     title: "Zvezda Boutique",
     category: "Retail",
     status: "finished",
-    typology: "",
-    location: "",
-    area: "",
+    typology: "Fashion Boutique",
+    location: "Jubilee Hills, Hyderabad",
+    area: "1,500 sq ft",
     year: "",
     scope: "Interior Design",
     summary: "Tucked away in the heart of Jubilee Hills, this 1,500 sq ft boutique is a quiet little world of its own, soft, feminine and beautifully detailed.",
@@ -462,7 +464,7 @@ window.PROJECTS = [
     title: "Kid’s Room (Sky)",
     category: "Residential",
     status: "finished",
-    typology: "Kids Spaces",
+    typology: "Kids Room",
     location: "Jubilee Hills, Hyderabad",
     area: "",
     year: "2024",
@@ -481,7 +483,7 @@ window.PROJECTS = [
     title: "Akira’s Room (Teddy)",
     category: "Residential",
     status: "finished",
-    typology: "Kids Spaces",
+    typology: "Kids Room",
     location: "Jubilee Hills, Hyderabad",
     area: "",
     year: "2025",
@@ -500,7 +502,7 @@ window.PROJECTS = [
     title: "Play Room",
     category: "Residential",
     status: "finished",
-    typology: "Fun Kids Space",
+    typology: "Kids Playroom",
     location: "Jubilee Hills, Hyderabad",
     area: "",
     year: "2025",
