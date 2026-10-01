@@ -1,4 +1,4 @@
-2026-10-01j · gallery text blocks split half and half, pictures aligned with the pairs
+2026-10-01k · hero photographs shown whole, no side cropping
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
