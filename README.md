@@ -300,42 +300,27 @@ The Goodside Salon entry used to link to the studio's announcement post rather t
 feature. It carries the Architectural Digest India URL now, and its headline comes from
 that URL the same way the others do.
 
-### The Selected and Ongoing galleries
-
-Both galleries, on the home page and in the two archive tabs, are composed as a monograph
-composes its work rather than as a grid of cards. **`VAL.editorial` in `val.js`** sets the
-projects into spreads on a twelve column page, in turn:
-
-| Spread | What it is |
-| --- | --- |
-| `folio` | one project: a large standing picture on one side; a smaller lying picture from the same project at the top of the other side, its number, name and details at the foot. Alternates left and right (`folioR`) |
-| `pair` | two projects side by side, a standing picture and a lying one, the second set lower |
-| `wide` | one project across the page, its details on one line beneath |
-| `note` | one project: its details on one side with open page, a picture on the other |
-
-Each slot asks for a standing or lying picture: the project's own `cover` where its shape
-suits, otherwise the nearest frame from its set. Pictures are cropped to their slot, so the
-page balances whatever the photographs are. The two sections stay separate; the archive's
-category chips filter the projects and the spreads are recomposed from what is left.
-
 ### The gallery inside a project
 
-The studio asked for the photographs to be laid out the way a magazine lays out a story:
-one narrow gutter everywhere, every row running the full width, no pockets of empty page,
-and every picture in a row standing the same height. **`VAL.spread` in `val.js`** composes
-the rows from the shapes of the pictures, trying these layouts in rotation:
+A project's photographs are composed as a monograph composes a story (**`VAL.gallerySpreads`
+in `val.js`**, drawn in `project.html`): spreads on a twelve column page, one even space
+between every spread, large pictures with smaller ones in support, placed left and right in
+turn. The listings on the home page and in the archive are not affected.
 
-| Layout | Pictures |
+| Spread | Pictures |
 | --- | --- |
-| `open` | one wide landscape across the page |
-| `duo` | two portraits side by side |
-| `stackL` | a portrait beside two landscapes stacked (and `stackR`, mirrored) |
-| `trio` | three portraits in a row |
-| `duoL` | two landscapes side by side |
+| `full` | a wide landscape across the page |
+| `folio` / `folioR` | a large standing picture, a smaller lying one set high opposite |
+| `pair` / `pairR` | a standing picture and a lying one, the second set lower |
+| `trio` | a large lying picture with two small ones stacked beside it |
+| `inset` / `insetR` | a lying picture set off centre, open page beside it |
+| `stagger` | two standing pictures, the second set lower |
+| `folioP` | a large standing picture, a smaller standing one set high |
+| `triptych` | three standing pictures, the middle one set lower |
 
-It takes pictures from a window six ahead, so the order in `select` (or in `images`) is
-kept as closely as the shapes allow. Anything left that fits no layout is set as a plain
-justified row; a last portrait joins the row above rather than standing alone.
+Pictures come from a window six ahead, so the order in `select` holds as closely as the
+shapes allow; each slot crops its picture to its own shape. Anything that fits no spread
+is set as a matched pair (`duo`) or set in alone.
 
 **Every row sits on the same columns**, halves or thirds of the page, so the gutters run in
 straight lines from one row to the next. Each cell takes the average shape of the pictures

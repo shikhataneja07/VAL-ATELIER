@@ -1732,91 +1732,94 @@ html:not(.js) .hero__bar{display:none}
 }
 
 /* ==========================================================================
-   THE EDITORIAL ARCHIVE
-   The Selected and Ongoing galleries, composed as a monograph composes its
-   work (VAL.editorial): spreads on a twelve column page, large pictures,
-   generous page between spreads, no cards, borders or shadows. Each picture
-   is cropped to its slot (--ar), so the page balances whatever the
-   photographs are.
+   THE EDITORIAL PROJECT GALLERY
+   A project's photographs set as a monograph sets a story (VAL.gallerySpreads):
+   spreads on a twelve column page, one even space between every spread, large
+   pictures with smaller ones in support, placed left and right in turn. Each
+   slot crops its picture to its own shape (--ar).
    ========================================================================== */
-.ed-arch{--col:clamp(14px,2vw,32px);display:flex;flex-direction:column;gap:clamp(88px,14vh,190px);
-  margin-top:clamp(40px,6vh,80px)}
-.exs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col)}
-.ex__fig{display:block;aspect-ratio:var(--ar);overflow:hidden;background:var(--frame);position:relative}
-.ex__fig img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease-out)}
-@media(hover:hover){
-  .exs:hover .ex__fig img,.ex:hover .ex__fig img{transform:scale(1.035)}
-  .ex__t a:hover,.ex__go:hover{color:var(--brass-ink)}
-}
+.mag:has(> .eg){--sg:clamp(44px,7.5vh,104px);gap:var(--sg)}
+.mag:has(> .eg) > .ed--note,.mag:has(> .eg) > .ed--aside{padding-block:0}
+.mag:has(> .eg) > .ed--statement{padding-block:clamp(24px,5vh,64px)}
+.eg{--col:clamp(12px,1.6vw,26px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col)}
+.eg__slot{min-width:0}
+.eg .mag__f,.eg .mag__f .shot{height:100%}
+.eg .mag__f .shot{aspect-ratio:var(--ar)}
+.eg .mag__f .shot img{transition:transform 1.4s var(--ease-out)}
+@media(hover:hover){.eg .mag__f:hover .shot img{transform:scale(1.035)}}
 
-/* the details: a number, the name in the display face, the rest quiet */
-.ex__n{display:block;font-family:var(--body);font-size:11px;letter-spacing:.24em;color:var(--brass-ink);margin-bottom:14px}
-.ex__t{font-family:var(--disp);font-weight:400;font-size:clamp(24px,2.3vw,36px);line-height:1.08;letter-spacing:-.012em}
-.ex__t a{color:inherit;transition:color .35s var(--ease)}
-.ex__m{margin-top:12px;font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
-.ex__a{margin-top:2px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
-.ex__f{margin-top:10px;font-size:12px;color:var(--muted)}
-.ex__go{display:inline-flex;gap:10px;margin-top:22px;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);transition:color .35s var(--ease)}
-.ex__go .ar{transition:transform .4s var(--ease)}
-.ex__go:hover .ar{transform:translateX(5px)}
+/* full: a wide landscape across the page */
+.eg__full{grid-column:1 / -1}
 
-/* folio: a large standing picture on one side; the other side holds a
-   smaller lying picture at its top and the details at its foot */
-.exs--folio .ex__big{grid-column:1 / span 7}
-.exs--folio .ex__side{grid-column:9 / span 4;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
-.exs--folio .ex__small{width:100%}
-.exs--flip .ex__big{grid-column:6 / span 7;grid-row:1}
-.exs--flip .ex__side{grid-column:1 / span 4;grid-row:1}
+/* folio: a large standing picture, a smaller lying one set high opposite */
+.eg--folio .eg__big{grid-column:1 / span 7}
+.eg--folio .eg__small{grid-column:9 / span 4;align-self:start;margin-top:clamp(40px,9vh,120px)}
+.eg--folioR .eg__big{grid-column:6 / span 7;grid-row:1}
+.eg--folioR .eg__small{grid-column:1 / span 4;grid-row:1;align-self:end;margin-bottom:clamp(40px,9vh,120px)}
+.eg--folio .eg__small .shot,.eg--folioR .eg__small .shot{height:auto}
 
-/* pair: a standing picture and a lying one, the second set lower */
-.exs--pair .ex--a{grid-column:1 / span 5}
-.exs--pair .ex--b{grid-column:7 / span 6;margin-top:clamp(90px,16vh,220px)}
-.exs--pair .ex__info{margin-top:26px}
+/* pair: standing and lying, the second set lower */
+.eg--pair .eg__tall{grid-column:1 / span 5}
+.eg--pair .eg__low{grid-column:7 / span 6;align-self:end}
+.eg--pairR .eg__tall{grid-column:8 / span 5;grid-row:1}
+.eg--pairR .eg__low{grid-column:1 / span 6;grid-row:1;align-self:end}
+.eg__low .shot{height:auto}
 
-/* wide: across the page, the details on one line beneath */
-.exs--wide .ex__fig{grid-column:1 / -1}
-.ex__info--line{grid-column:1 / -1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col);
-  align-items:baseline;margin-top:26px}
-.ex__info--line .ex__n{grid-column:1 / span 1;margin:0}
-.ex__info--line .ex__t{grid-column:2 / span 5}
-.ex__info--line .ex__m{grid-column:7 / span 3;margin:0}
-.ex__info--line .ex__a{grid-column:10 / span 2;margin:0}
-.ex__info--line .ex__f{grid-column:7 / span 5}
-.ex__info--line .ex__go{grid-column:12 / span 1;justify-self:end;margin:0;white-space:nowrap}
+/* trio: a large lying picture, two small ones stacked beside it, the stack
+   taking the large picture's height and never adding its own */
+.eg__main{grid-column:1 / span 8}
+.eg__stack{grid-column:9 / span 4;display:grid;grid-template-rows:1fr 1fr;row-gap:var(--col);height:0;min-height:100%}
+.eg__stack .eg__slot{min-height:0}
+.eg__stack .mag__f .shot{aspect-ratio:auto}
 
-/* note: the details on one side with open page, a picture on the other */
-.exs--note{align-items:center}
-.ex__info--note{grid-column:2 / span 4}
-.exs--note .ex__fig{grid-column:7 / span 6}
+/* inset: a lying picture set off centre, open page beside it */
+.eg--inset .eg__inset{grid-column:5 / span 8}
+.eg--insetR .eg__inset{grid-column:1 / span 8}
+.eg--inset .eg__inset--p{grid-column:7 / span 5}
+.eg--insetR .eg__inset--p{grid-column:2 / span 5}
 
-/* tablet: the same compositions on a narrower page */
+/* stagger: two standing pictures, the second set lower */
+.eg--stagger .eg__tall{grid-column:1 / span 5}
+.eg--stagger .eg__tall2{grid-column:7 / span 5;margin-top:clamp(70px,14vh,200px)}
+/* folioP: a large standing picture, a smaller standing one set high */
+.eg--folioP .eg__big{grid-column:1 / span 7}
+.eg--folioP .eg__small{grid-column:9 / span 4;align-self:start;margin-top:clamp(40px,9vh,120px)}
+.eg--folioP .eg__small .shot{height:auto}
+/* triptych: three standing pictures, the middle one lower */
+.eg--triptych .eg__third{grid-column:span 4}
+.eg--triptych .eg__third:nth-child(2){margin-top:clamp(50px,10vh,140px)}
+.eg--triptych .eg__third .shot{height:auto}
+
+/* duo: two matched halves */
+.eg--duo .eg__half{grid-column:span 6}
+
 @media(max-width:1099px){
-  .exs--folio .ex__big{grid-column:1 / span 7}
-  .exs--folio .ex__side{grid-column:8 / span 5}
-  .exs--flip .ex__big{grid-column:6 / span 7}
-  .exs--flip .ex__side{grid-column:1 / span 5}
-  .ex__info--line .ex__t{grid-column:2 / span 6}
-  .ex__info--line .ex__m{grid-column:8 / span 5}
-  .ex__info--line .ex__a{grid-column:8 / span 5;margin-top:6px}
-  .ex__info--line .ex__go{grid-column:2 / span 6;justify-self:start;margin-top:14px}
-  .ex__info--note{grid-column:1 / span 5}
+  .eg--folio .eg__big{grid-column:1 / span 7}
+  .eg--folio .eg__small{grid-column:8 / span 5}
+  .eg--folioR .eg__big{grid-column:6 / span 7}
+  .eg--folioR .eg__small{grid-column:1 / span 5}
 }
 
 /* phone: one column, the asymmetry kept by width and alignment */
 @media(max-width:759px){
-  .ed-arch{gap:clamp(64px,10vh,96px)}
-  .exs{grid-template-columns:minmax(0,1fr)}
-  .exs > *, .exs .ex__big, .exs .ex__side, .exs--flip .ex__big, .exs--flip .ex__side,
-  .exs--pair .ex--a, .exs--pair .ex--b, .exs--wide .ex__fig, .ex__info--note, .exs--note .ex__fig{grid-column:1;grid-row:auto}
-  .exs--folio .ex__side{gap:24px;margin-top:var(--col)}
-  .exs--folio .ex__small{width:62%;align-self:flex-end}
-  .exs--flip .ex__small{align-self:flex-start}
-  .exs--pair{row-gap:64px}
-  .exs--pair .ex--a{width:84%}
-  .exs--pair .ex--b{margin-top:0;width:84%;justify-self:end}
-  .ex__info--line{display:block}
-  .ex__info--line .ex__n{margin-bottom:14px}
-  .ex__info--line .ex__m{margin-top:12px}
-  .ex__info--line .ex__go{margin-top:22px}
-  .exs--note .ex__fig{order:-1;margin-bottom:26px}
+  .mag:has(> .eg){--sg:clamp(26px,5vh,44px)}
+  .eg{grid-template-columns:minmax(0,1fr);row-gap:var(--col)}
+  .eg > .eg__slot,.eg > .eg__stack{grid-column:1 !important;grid-row:auto !important;margin:0 !important}
+  .eg__small{width:62%;justify-self:end}
+  .eg--folioR .eg__small{justify-self:start;order:2}
+  .eg__tall{width:84%}
+  .eg__low{width:84%;justify-self:end}
+  .eg--pairR .eg__tall{justify-self:end}
+  .eg--pairR .eg__low{justify-self:start}
+  .eg__stack{height:auto;min-height:0;grid-template-rows:none;grid-template-columns:1fr 1fr;column-gap:var(--col)}
+  .eg__stack .mag__f .shot{aspect-ratio:1 / 1}
+  .eg__inset{width:88%;justify-self:end}
+  .eg--insetR .eg__inset{justify-self:start}
+  .eg__tall2{width:84%;justify-self:end}
+  .eg--triptych{grid-template-columns:1fr 1fr;column-gap:var(--col)}
+  .eg--triptych .eg__third{grid-column:span 1 !important}
+  .eg--triptych .eg__third:nth-child(2){margin-top:44px !important}
+  .eg--triptych .eg__third:nth-child(3){grid-column:1 / -1 !important;width:62%;justify-self:center}
+  .eg--duo{grid-template-columns:1fr 1fr;column-gap:var(--col)}
+  .eg--duo .eg__half{grid-column:span 1 !important}
 }
