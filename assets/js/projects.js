@@ -382,6 +382,8 @@ window.PROJECTS = [
     /* Vaishnavi's own copy, September 2026. Dashes and loose hyphens are
        rewritten to the site's rule; the words are hers. */
     summary: "The Good Side was conceived as more than a salon: a beauty destination designed around the idea of slowing down and feeling cared for.",
+    /* the heading over each passage where it is set among the photographs */
+    storyHeads: ["The brief", "The language", "The experience", "The backdrop", "The pace", "The result"],
     story: [
       "The project began with an unusually open brief. Having previously designed two spaces for the client, Makeup by Harika, there was an established sense of trust and creative freedom. What initially began as a search for an existing villa soon evolved into the decision to build an entirely new structure from the ground up, allowing VAL Atelier to shape the architecture, interiors, landscape, light and circulation as one cohesive experience.",
       "Inspired by the earthy landscapes and mineral tones of the Atacama Desert, the design developed into a desert brutalist language: warm, monolithic and restrained. Sandstone, textured concrete, cement surfaces and stone aggregates sit within a tightly controlled palette of browns, muted reds and layered neutrals, creating richness through texture and material honesty rather than ornamentation.",

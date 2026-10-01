@@ -8,7 +8,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-09-30d · one gutter around text spreads">
+<meta name="build" content="2026-10-01a · editorial breaks in project galleries">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -92,6 +92,9 @@ window.PAGE = function(VAL){
   var paras = (p.story || []).filter(Boolean);
   var want = pool.length >= 3 ? Math.floor(pool.length / 3) : 0;
   var units = paras, glue = "\n\n";
+  /* written paragraphs each keep their own spread (and heading), which
+     allows one for every two pictures rather than every three */
+  if (paras.length > want && pool.length >= 4) want = Math.min(paras.length, Math.floor(pool.length / 2));
   if (units.length < want){
     units = [];
     paras.forEach(function(t){ units = units.concat(t.split(/(?<=[.!?])\s+(?=[A-Z])/)); });
@@ -106,11 +109,31 @@ window.PAGE = function(VAL){
   /* too few pictures to break up: the copy stays in the brief */
   var briefCopy = room ? [] : paras;
 
-  /* One picture is held back for each spread, portraits first, taken evenly
-     through the set so the spreads show different parts of it. */
+  /* Each passage takes one of three editorial layouts, in turn:
+       brief      a picture in one half; a heading at the top of the other
+                  half and the passage at its foot, open page between
+       statement  one short passage set large and centred, no picture
+       note       a heading and the passage on one side, a smaller picture
+                  set in from the other, with white space around both
+     A statement only takes a passage short enough to read as one line of
+     thought; a longer one becomes a note. */
+  var kinds = breaks.map(function(copy, c){
+    var turn = c % 3;
+    if (turn === 1) return copy.length <= 240 ? "statement" : "note";
+    return turn === 0 ? "brief" : "note";
+  });
+  /* a project can name its own headings in storyHeads, one per spread;
+     otherwise these, which describe without claiming */
+  var LABELS = p.storyHeads || ["The space", "Material", "In detail", "Light", "Atmosphere"];
+
+  /* One picture is held back for each spread that shows one, portraits
+     first, taken evenly through the set so the spreads show different
+     parts of it. */
   var held = [];
-  for (var h = 0; h < room; h++){
-    var from = Math.floor((h + 1) * pool.length / (room + 1));
+  var needs = kinds.filter(function(k){ return k !== "statement"; }).length, got = 0;
+  kinds.forEach(function(kind){
+    if (kind === "statement"){ held.push(null); return; }
+    var from = Math.floor((got + 1) * pool.length / (needs + 1)); got++;
     var pick = -1;
     for (var k = 0; k < pool.length && pick < 0; k++){
       var at2 = (from + k) % pool.length;
@@ -118,7 +141,7 @@ window.PAGE = function(VAL){
     }
     if (pick < 0) pick = Math.min(from, pool.length - 1);
     held.push(pool.splice(pick, 1)[0]);
-  }
+  });
 
   /* laid out as magazine spreads: see VAL.spread */
   var rows = VAL.spread(pool);
@@ -161,25 +184,39 @@ window.PAGE = function(VAL){
     return '<div class="mag__row mag__row--c' + it.length + ' rv" style="--cr:' + mean(it).toFixed(4) + '">' +
              it.map(function(x){ return fig(x, sizes, first); }).join("") + '</div>';
   }
-  function textHTML(x, copy, flip){
-    var paras = String(copy).split("\n\n").map(function(t){ return '<p>' + VAL.esc(t) + '</p>'; }).join("");
-    return '<div class="mag__row mag__row--text' + (flip ? " mag__row--flip" : "") + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
-             fig(x, HALF, false) +
-             '<div class="mag__text"><i class="mag__rule"></i>' + paras + '</div>' +
+  function textHTML(t){
+    var kind = kinds[t], x = held[t], copy = breaks[t];
+    var last = t === breaks.length - 1 && breaks.length >= 3;
+    var label = p.storyHeads ? (LABELS[t] || "") : (last ? "The result" : LABELS[t % LABELS.length]);
+    var paras = String(copy).split("\n\n").map(function(q){ return '<p>' + VAL.esc(q) + '</p>'; }).join("");
+    if (kind === "statement"){
+      return '<div class="ed ed--statement rv"><p>' + VAL.esc(copy) + '</p></div>';
+    }
+    var flip = Math.floor(t / 2) % 2 === 1 ? " ed--flip" : "";
+    var head = label ? '<h3 class="ed__h">' + VAL.esc(label) + '</h3>' : '';
+    if (kind === "brief"){
+      return '<div class="ed ed--brief' + flip + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
+               fig(x, HALF, false) +
+               '<div class="ed__copy">' + head + '<div class="ed__body">' + paras + '</div></div>' +
+             '</div>';
+    }
+    return '<div class="ed ed--note' + flip + ' rv" style="--cr:' + x.r.toFixed(4) + '">' +
+             '<div class="ed__copy">' + head + '<div class="ed__body">' + paras + '</div></div>' +
+             fig(x, "(max-width:759px) 92vw, 38vw", false) +
            '</div>';
   }
 
   /* a text spread after every few rows, spaced evenly down the page */
-  var every = held.length ? Math.max(2, Math.round(rows.length / (held.length + 1))) : 0;
+  var every = held.length ? Math.max(1, Math.round(rows.length / (held.length + 1))) : 0;
   var gallery = "", t = 0;
   rows.forEach(function(row, ri){
     gallery += rowHTML(row, ri < 1);
     if (every && t < held.length && (ri + 1) % every === 0 && ri < rows.length - 1){
-      gallery += textHTML(held[t], breaks[t], t % 2 === 1); t++;
+      gallery += textHTML(t); t++;
     }
   });
   /* any spread that did not find a place joins the end */
-  for (; t < held.length; t++) gallery += textHTML(held[t], breaks[t], t % 2 === 1);
+  for (; t < held.length; t++) gallery += textHTML(t);
 
   var backHref = "projects.html#" + p.status;
 
