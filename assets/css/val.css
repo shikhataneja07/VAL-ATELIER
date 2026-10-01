@@ -1738,8 +1738,10 @@ html:not(.js) .hero__bar{display:none}
    wide (one lying picture across), text (a passage and a standing picture,
    alternating sides) and pair (two pictures, the same size and shape).
    ========================================================================== */
-.mag:has(> .gx){--sg:clamp(28px,5vh,64px);gap:var(--sg)}
-.gx{--col:clamp(10px,1.4vw,22px)}
+/* pictures sit close, on the same thin gutter as before; the white space
+   lives around the text blocks */
+.mag:has(> .gx){gap:var(--g)}
+.gx{--col:var(--g)}
 .gx .mag__f,.gx .mag__f .shot{height:100%}
 .gx .mag__f .shot img{object-fit:cover;transition:transform 1.4s var(--ease-out)}
 @media(hover:hover){.gx .mag__f:hover .shot img{transform:scale(1.03)}}
@@ -1752,7 +1754,8 @@ html:not(.js) .hero__bar{display:none}
 
 /* text: the passage in one half, a standing picture in the other, both on
    the twelve columns of the page so every text block lines up */
-.gx--text{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col);align-items:center}
+.gx--text{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(12px,1.6vw,26px);align-items:center;
+  padding-block:clamp(40px,8vh,110px)}
 .gx--text .gx__copy{grid-column:2 / span 5}
 .gx--text .mag__f{grid-column:8 / span 5}
 .gx--text .mag__f .shot{aspect-ratio:4 / 5}
@@ -1767,7 +1770,7 @@ html:not(.js) .hero__bar{display:none}
   .gx--text-r .mag__f{grid-column:1 / span 6}
 }
 @media(max-width:759px){
-  .mag:has(> .gx){--sg:clamp(20px,4vh,36px)}
+  .gx--text{padding-block:clamp(28px,5vh,44px)}
   .gx--wide .mag__f .shot{aspect-ratio:3 / 2}
   .gx--text{grid-template-columns:minmax(0,1fr);row-gap:22px}
   .gx--text .gx__copy,.gx--text .mag__f,.gx--text-r .gx__copy,.gx--text-r .mag__f{grid-column:1;grid-row:auto}
