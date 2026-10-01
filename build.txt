@@ -1,4 +1,4 @@
-2026-10-01m · phone hero bars back, deeper wash for the text
+2026-10-01n · phone hero fifth slide swapped
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
