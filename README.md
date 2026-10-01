@@ -326,18 +326,20 @@ its own shape differs. The studio preferred straight gutters to untrimmed frames
 
 **Editorial breaks set the story among the photographs**, the way a studio monograph does:
 a small serif heading, a short passage in the text face, and open page around it. The
-photograph rows stay tight; the white space lives inside the breaks. Five layouts take
-turns, in this order:
+photograph rows stay tight; the white space lives inside the breaks. The layouts:
 
 | Layout | What it is |
 | --- | --- |
 | `feature` | a tall picture filling the left half to the screen edge; a smaller picture running to the right edge, the heading and passage beneath it, the project's number (No. 03) at the foot |
 | `aside` | a picture running from the left screen edge to just short of the middle, the heading and passage beside it against its top |
+| `asideR` | the mirror: the heading and passage on the left, the picture running to the right screen edge |
 | `statement` | one short passage (240 characters or fewer) set large and centred, no picture; a longer one becomes a brief |
 | `brief` | a picture in one half; the heading at the top of the other half, the passage at its foot |
 | `note` | the heading and passage on one side, a smaller picture set in from the other |
 
-A feature takes two pictures (a portrait for the tall one where there is one) and steps
+The studio asked for the two asides, mirrored, in the middle of every gallery. With two
+passages a project gets `aside` then `asideR`; with more, the order is `aside`, `feature`,
+`asideR`, `statement`, `brief`, `note`. A feature takes two pictures (a portrait for the tall one where there is one) and steps
 down to a brief if it would leave fewer than three pictures for the rows.
 
 The summary stays above the gallery as the brief; all of `story` goes into the breaks.
