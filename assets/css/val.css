@@ -891,13 +891,14 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   .hero__count{font-size:10px}
 }
 
-/* A tall screen would leave a whole photograph as a thin strip in the middle,
-   so on a tablet or a phone the frame takes the picture's own shape across
-   the width and the words sit under it on the ink rather than over it. */
+/* On a tablet or a phone the reel switches to upright 2:3 frames
+   (HERO_PHONE), so the frame takes that shape across the width, no taller
+   than the screen, and the words sit over its foot as they do on a laptop. */
 @media(max-width:820px){
-  .hero{height:auto;min-height:0;padding-top:0}
-  .hero__slides{position:relative;inset:auto;aspect-ratio:3 / 2;margin:0 calc(var(--pad) * -1) clamp(20px,3.2vh,30px)}
-  .hero__scrim,.hero__bar{display:none}
+  .hero{height:auto;min-height:0;padding:0}
+  .hero__slides{position:relative;inset:auto;width:100%;aspect-ratio:2 / 3;max-height:calc(100svh - var(--nav-h))}
+  .hero__foot{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(22px,3.6vh,38px)}
+  .hero__bar{display:none}
 }
 
 @keyframes cue{0%{transform:translateX(-110%)}100%{transform:translateX(300%)}}

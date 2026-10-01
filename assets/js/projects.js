@@ -54,6 +54,17 @@ window.HERO = [
   ["tsk",                11]
 ];
 
+/* The same reel on a phone. A landscape photograph shown whole on a tall
+   screen is only a thin band, so phones get their own set of upright
+   frames, all 2:3, that fill the opening without being cropped. */
+window.HERO_PHONE = [
+  ["the-good-side",       2],
+  ["ratio",               1],
+  ["zvezda-boutique",     3],
+  ["aparna-one",          6],
+  ["dsr",                 4]
+];
+
 /* ==========================================================================
    HOW MANY PHOTOGRAPHS A PROJECT SHOWS
    --------------------------------------------------------------------------
