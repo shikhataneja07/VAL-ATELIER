@@ -1730,3 +1730,93 @@ html:not(.js) .hero__bar{display:none}
   .hero{height:auto;min-height:0}
   body{background:#fff}
 }
+
+/* ==========================================================================
+   THE EDITORIAL ARCHIVE
+   The Selected and Ongoing galleries, composed as a monograph composes its
+   work (VAL.editorial): spreads on a twelve column page, large pictures,
+   generous page between spreads, no cards, borders or shadows. Each picture
+   is cropped to its slot (--ar), so the page balances whatever the
+   photographs are.
+   ========================================================================== */
+.ed-arch{--col:clamp(14px,2vw,32px);display:flex;flex-direction:column;gap:clamp(88px,14vh,190px);
+  margin-top:clamp(40px,6vh,80px)}
+.exs{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col)}
+.ex__fig{display:block;aspect-ratio:var(--ar);overflow:hidden;background:var(--frame);position:relative}
+.ex__fig img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease-out)}
+@media(hover:hover){
+  .exs:hover .ex__fig img,.ex:hover .ex__fig img{transform:scale(1.035)}
+  .ex__t a:hover,.ex__go:hover{color:var(--brass-ink)}
+}
+
+/* the details: a number, the name in the display face, the rest quiet */
+.ex__n{display:block;font-family:var(--body);font-size:11px;letter-spacing:.24em;color:var(--brass-ink);margin-bottom:14px}
+.ex__t{font-family:var(--disp);font-weight:400;font-size:clamp(24px,2.3vw,36px);line-height:1.08;letter-spacing:-.012em}
+.ex__t a{color:inherit;transition:color .35s var(--ease)}
+.ex__m{margin-top:12px;font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
+.ex__a{margin-top:2px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.ex__f{margin-top:10px;font-size:12px;color:var(--muted)}
+.ex__go{display:inline-flex;gap:10px;margin-top:22px;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);transition:color .35s var(--ease)}
+.ex__go .ar{transition:transform .4s var(--ease)}
+.ex__go:hover .ar{transform:translateX(5px)}
+
+/* folio: a large standing picture on one side; the other side holds a
+   smaller lying picture at its top and the details at its foot */
+.exs--folio .ex__big{grid-column:1 / span 7}
+.exs--folio .ex__side{grid-column:9 / span 4;display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+.exs--folio .ex__small{width:100%}
+.exs--flip .ex__big{grid-column:6 / span 7;grid-row:1}
+.exs--flip .ex__side{grid-column:1 / span 4;grid-row:1}
+
+/* pair: a standing picture and a lying one, the second set lower */
+.exs--pair .ex--a{grid-column:1 / span 5}
+.exs--pair .ex--b{grid-column:7 / span 6;margin-top:clamp(90px,16vh,220px)}
+.exs--pair .ex__info{margin-top:26px}
+
+/* wide: across the page, the details on one line beneath */
+.exs--wide .ex__fig{grid-column:1 / -1}
+.ex__info--line{grid-column:1 / -1;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col);
+  align-items:baseline;margin-top:26px}
+.ex__info--line .ex__n{grid-column:1 / span 1;margin:0}
+.ex__info--line .ex__t{grid-column:2 / span 5}
+.ex__info--line .ex__m{grid-column:7 / span 3;margin:0}
+.ex__info--line .ex__a{grid-column:10 / span 2;margin:0}
+.ex__info--line .ex__f{grid-column:7 / span 5}
+.ex__info--line .ex__go{grid-column:12 / span 1;justify-self:end;margin:0;white-space:nowrap}
+
+/* note: the details on one side with open page, a picture on the other */
+.exs--note{align-items:center}
+.ex__info--note{grid-column:2 / span 4}
+.exs--note .ex__fig{grid-column:7 / span 6}
+
+/* tablet: the same compositions on a narrower page */
+@media(max-width:1099px){
+  .exs--folio .ex__big{grid-column:1 / span 7}
+  .exs--folio .ex__side{grid-column:8 / span 5}
+  .exs--flip .ex__big{grid-column:6 / span 7}
+  .exs--flip .ex__side{grid-column:1 / span 5}
+  .ex__info--line .ex__t{grid-column:2 / span 6}
+  .ex__info--line .ex__m{grid-column:8 / span 5}
+  .ex__info--line .ex__a{grid-column:8 / span 5;margin-top:6px}
+  .ex__info--line .ex__go{grid-column:2 / span 6;justify-self:start;margin-top:14px}
+  .ex__info--note{grid-column:1 / span 5}
+}
+
+/* phone: one column, the asymmetry kept by width and alignment */
+@media(max-width:759px){
+  .ed-arch{gap:clamp(64px,10vh,96px)}
+  .exs{grid-template-columns:minmax(0,1fr)}
+  .exs > *, .exs .ex__big, .exs .ex__side, .exs--flip .ex__big, .exs--flip .ex__side,
+  .exs--pair .ex--a, .exs--pair .ex--b, .exs--wide .ex__fig, .ex__info--note, .exs--note .ex__fig{grid-column:1;grid-row:auto}
+  .exs--folio .ex__side{gap:24px;margin-top:var(--col)}
+  .exs--folio .ex__small{width:62%;align-self:flex-end}
+  .exs--flip .ex__small{align-self:flex-start}
+  .exs--pair{row-gap:64px}
+  .exs--pair .ex--a{width:84%}
+  .exs--pair .ex--b{margin-top:0;width:84%;justify-self:end}
+  .ex__info--line{display:block}
+  .ex__info--line .ex__n{margin-bottom:14px}
+  .ex__info--line .ex__m{margin-top:12px}
+  .ex__info--line .ex__go{margin-top:22px}
+  .exs--note .ex__fig{order:-1;margin-bottom:26px}
+}

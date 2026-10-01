@@ -18,7 +18,7 @@
 })();</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-01c · mirrored asides mid gallery, Sindhu removed">
+<meta name="build" content="2026-10-01d · editorial archive for selected and ongoing work">
 <link rel="stylesheet" href="assets/css/val.css">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
@@ -98,7 +98,7 @@
           <span class="claim__lab">projects completed since 2018.<br>Here are a few selected ones.</span>
         </div>
       </div>
-      <div class="pgrid" data-grid="finished"></div>
+      <div class="ed-arch ed-arch--home" data-grid="finished"></div>
       <div class="sec-foot rv">
         <span class="label" data-deck-count="finished"></span>
         <a class="btn" href="projects.html?tab=finished">Explore all selected work <span class="ar">&rarr;</span></a>
@@ -116,7 +116,7 @@
           <p class="body rv-r measure" data-d="1">Projects underway across Hyderabad and Bangalore: homes, a club house, a restaurant, a marble showroom and more.</p>
         </div>
       </div>
-      <div class="pgrid" data-grid="ongoing"></div>
+      <div class="ed-arch ed-arch--home" data-grid="ongoing"></div>
       <div class="sec-foot rv">
         <span class="label" data-deck-count="ongoing"></span>
         <a class="btn" href="projects.html?tab=ongoing">Explore all ongoing work <span class="ar">&rarr;</span></a>
@@ -435,21 +435,8 @@ window.PAGE = function(VAL){
     /* one shape for the whole row, so the three plates match */
     var shape = rowShape(set);
 
-    host.innerHTML = set.map(function(p, i){
-      var tf = tileFrame(p, shape);
-      return '<a class="ptile rv" data-d="' + (i % 3) + '"' +
-               ' style="--r:' + VAL.ratio(p, tf).toFixed(5) + '"' +
-               ' href="project.html?p=' + VAL.esc(p.slug) + '">' +
-               '<span class="ptile__fig shot wipe">' +
-                 /* the hero fills the screen, so no plate is visible at load */
-               VAL.imgTag(p, tf, p.title, false, "(max-width: 640px) 92vw, (max-width: 1000px) 46vw, 30vw") +
-                 /* published work says so on the picture itself */
-                 VAL.featTag(p.slug) +
-               '</span>' +
-               '<span class="ptile__name">' + VAL.esc(p.title) + '</span>' +
-               (VAL.descriptor(p) ? '<span class="ptile__meta">' + VAL.esc(VAL.descriptor(p)) + '</span>' : "") +
-             '</a>';
-    }).join("");
+    /* the leading few, set as editorial spreads: see VAL.editorial */
+    host.innerHTML = VAL.editorial(set);
 
     var count = document.querySelector('[data-deck-count="' + status + '"]');
     if (count){
