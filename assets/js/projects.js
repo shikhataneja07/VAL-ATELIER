@@ -54,9 +54,14 @@ window.HERO = [
   ["dsr",                 4]
 ];
 
-/* All five are upright 2:3 frames and every one must stay that shape: a
-   phone shows them one at a time, a wider screen shows them side by side,
-   as many across as fill it, and neither crops a picture of that shape. */
+/* All five are upright 2:3 frames, the studio's choice for every screen.
+   On a screen held wide each one sits whole in the middle of the full
+   screen and a soft, blurred copy of the same photograph fills either side;
+   on a screen held upright the frame takes the photograph's own 2:3 shape.
+   Neither crops it. */
+window.HERO_PHONE = window.HERO;
+
+
 
 /* ==========================================================================
    HOW MANY PHOTOGRAPHS A PROJECT SHOWS
