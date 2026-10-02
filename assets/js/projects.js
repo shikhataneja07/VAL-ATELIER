@@ -48,7 +48,7 @@
    ========================================================================== */
 window.HERO = [
   ["the-good-side",       7],
-  ["ratio",              12],
+  ["ratio",               5],
   ["zvezda-boutique",     1],
   ["aparna-one",          4],
   ["jbn",                14]
@@ -64,7 +64,7 @@ window.HERO_PHONE = [
   ["the-good-side",       2],
   ["ratio",               1],
   ["zvezda-boutique",     3],
-  ["aparna-one",          6],
+  ["aparna-one",          5],
   ["dsr",                 4]
 ];
 
@@ -114,9 +114,10 @@ window.PROJECTS = [
 
        None of it is deleted: all fifty two photographs stay in the folder
        and any of them comes back by adding its number here. */
-    select: [1, 49, 3, 28, 23, 5, 6, 50, 17, 38, 45, 12],
+    select: [1,  24,  3,  5,  25,  7,  2,  4,  6,  8,  9,  10],
+    cover: 1,
     dir: "assets/projects/keerthi-club-house",
-    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1920,1080],["21.webp",1920,1080],["22.webp",1920,1080],["23.webp",1920,1080],["24.webp",1920,1080],["25.webp",1920,1080],["26.webp",1920,1080],["27.webp",1920,1080],["28.webp",1920,1080],["29.webp",1920,1080],["30.webp",1920,1080],["31.webp",1920,1080],["32.webp",1920,1080],["33.webp",1920,1080],["34.webp",1920,1080],["35.webp",1920,1080],["36.webp",1920,1080],["37.webp",1920,1080],["38.webp",1920,1080],["39.webp",1920,1080],["40.webp",1920,1080],["41.webp",1920,1080],["42.webp",1920,1080],["43.webp",1012,1080],["44.webp",1920,1080],["45.webp",1920,1080],["46.webp",1920,1080],["47.webp",1920,1080],["48.webp",1920,1080],["49.webp",1920,1080],["50.webp",1920,1080],["51.webp",1920,1080],["52.webp",1920,1080]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1920,1080],["21.webp",1920,1080],["22.webp",1012,1080],["23.webp",1920,1080],["24.webp",1920,1080],["25.webp",1920,1080],["26.webp",1920,1080]]
   },
   {
     slug: "keerthi-marketing-office",
@@ -139,7 +140,7 @@ window.PROJECTS = [
        feature twice, for 30 and 28. Set aside, not deleted. */
     /* the open plan floor with the curved panelling behind it: the frame
        that says workspace before anything else does */
-    cover: 31,
+    cover: 38,
     /* Rebuilt around one rule: no two frames of the same thing, and no
        photograph taken from the ceiling. The set the studio sent leans hard on
        overhead views and several are the same room twice: 02 and 03 are one
@@ -156,9 +157,9 @@ window.PROJECTS = [
        word. In their place: 29, the wall the tower render is shown on, which is
        the one thing in the building that says what the office is for, and 14,
        the waiting lounge. */
-    select: [1, 4, 33, 46, 44, 9, 48, 15, 24, 28, 30, 51, 31],
+    select: [38,  7,  1,  2,  3,  4,  5,  6,  8,  9,  10,  11],
     dir: "assets/projects/keerthi-marketing-office",
-    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",537,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",537,1080],["17.webp",1920,1080],["18.webp",921,1080],["19.webp",1920,1080],["20.webp",1920,1080],["21.webp",1920,1080],["22.webp",1110,1080],["23.webp",1920,1080],["24.webp",1920,1080],["25.webp",1058,1080],["26.webp",1920,1080],["27.webp",1568,1063],["28.webp",1016,1080],["29.webp",923,1080],["30.webp",1504,1071],["31.webp",1215,1080],["32.webp",973,1080],["33.webp",1898,1010],["34.webp",1899,1008],["35.webp",1066,1080],["36.webp",1066,1080],["37.webp",1090,1080],["38.webp",1496,1080],["39.webp",1768,1080],["40.webp",1694,1080],["41.webp",1177,1055],["42.webp",1698,1055],["43.webp",1273,1080],["45.webp",1920,1080],["46.webp",1920,1080],["47.webp",1920,1080],["48.webp",1920,1080],["49.webp",744,1080],["50.webp",1920,1080],["51.webp",1920,1080],["52.webp",1920,1080]]
+    images: [["01.webp",1920,1080],["02.webp",537,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1110,1080],["06.webp",923,1080],["07.webp",1215,1080],["08.webp",1899,1008],["09.webp",1066,1080],["10.webp",1090,1080],["11.webp",1694,1080],["12.webp",1177,1055],["13.webp",1273,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1688,1080],["21.webp",1920,1080],["22.webp",1920,1080],["23.webp",1033,1080],["24.webp",1363,1080],["25.webp",1920,1080],["26.webp",1920,1080],["27.webp",1103,1080],["28.webp",1920,1080],["29.webp",1920,1080],["30.webp",1920,1080],["31.webp",1293,1080],["32.webp",1920,1080],["33.webp",1920,1080],["34.webp",1920,1080],["35.webp",1920,1080],["36.webp",1154,1080],["37.webp",1165,1080],["38.webp",1920,1080]]
   },
   {
     slug: "sas-crown",
@@ -186,9 +187,10 @@ window.PROJECTS = [
        A house was being shown without a single bedroom in it, which is the
        other half of this: 27 and 36 are in now, with the vanity at 33 and the
        corridor at 23. Nothing is deleted, all 44 stay in the folder. */
-    select: [1, 23, 2, 4, 8, 11, 12, 27, 36, 33, 13, 14],
+    select: [15,  1,  4,  14,  11,  2,  3,  5,  6,  7,  8,  9],
+    cover: 15,
     dir: "assets/projects/sas-crown",
-    images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1400,788],["04.webp",1400,788],["05.webp",1600,900],["06.webp",1400,788],["07.webp",1400,788],["08.webp",1600,900],["09.webp",1400,788],["10.webp",1400,788],["11.webp",1400,788],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1400,788],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1400,788],["19.webp",1400,788],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",944,1080],["26.webp",708,1080],["27.webp",1600,900],["28.webp",1400,788],["29.webp",1400,788],["30.webp",1400,788],["31.webp",1600,900],["32.webp",1600,900],["33.webp",1600,900],["34.webp",1600,900],["35.webp",1252,1080],["36.webp",1600,900],["37.webp",1400,788],["38.webp",1600,900],["39.webp",1600,900],["40.webp",1600,900],["41.webp",1600,900],["42.webp",1600,900],["43.webp",1600,900],["44.webp",1600,900]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1252,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080]]
   },
   {
     slug: "gmfc",
@@ -202,7 +204,7 @@ window.PROJECTS = [
     scope: "Interior Design",
     /* the open plan floor: desks, monitors and task chairs, so the card
        reads as a workspace at a glance rather than as a lounge */
-    cover: 15,
+    cover: 24,
     summary: "This workspace is designed with a calm, understated language that balances focus with comfort.",
     story: ["Soft neutral tones, textured walls, stone surfaces, and warm finishes create a refined and cohesive atmosphere. Clean lined meeting areas, relaxed lounge spaces, and sculptural lighting give each zone its own quiet character. Natural light and subtle detailing soften the overall mood, making the office feel composed, welcoming, and thoughtfully lived in."],
     notes: [],
@@ -213,9 +215,9 @@ window.PROJECTS = [
        gallery full bleed. It comes out, and the boardroom at position 18
        (16.webp) takes its place, which is what the project is actually for.
        Position 2 is 33.webp, the same shrine closer in, and is still here. */
-    select: [16, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 18],
+    select: [24,  10,  1,  2,  3,  4,  5,  6,  7,  12,  8,  9],
     dir: "assets/projects/gmfc",
-    images: [["32.webp",1600,900],["33.webp",749,1080],["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1325,1080],["06.webp",1325,1080],["07.webp",1326,1080],["08.webp",1326,1080],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1600,900],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1406,1080],["25.webp",714,1080],["26.webp",861,1080],["27.webp",1268,1051],["28.webp",736,1080],["29.webp",1600,900],["30.webp",1242,1080],["31.webp",709,1080],["34.webp",1142,1080],["35.webp",1600,900],["36.webp",1600,900],["37.webp",1600,900]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1326,1080],["05.webp",1326,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1406,1080],["18.webp",714,1080],["19.webp",1268,1051],["20.webp",736,1080],["21.webp",1920,1080],["22.webp",709,1080],["23.webp",1142,1080],["24.webp",1920,1080],["25.webp",1920,1080]]
   },
   {
     slug: "tsk",
@@ -235,9 +237,10 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13],
+    select: [6,  1,  2,  3,  5,  7,  4,  8,  9,  10,  11,  12],
+    cover: 6,
     dir: "assets/projects/tsk",
-    images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,881],["05.webp",1600,900],["06.webp",1600,876],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900],["15.webp",1600,900],["16.webp",1600,900],["17.webp",1600,900],["18.webp",1166,1080],["19.webp",879,1080],["20.webp",1466,1080],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",1600,900],["26.webp",1600,900],["27.webp",1600,900]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1057],["03.webp",1920,1051],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1166,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080]]
   },
   {
     slug: "dsr-1",
@@ -256,13 +259,13 @@ window.PROJECTS = [
        duplicate views are set aside, nothing is deleted */
     /* the living room under the arc lamp, which carries the furniture and
        the artwork rather than a sideboard against a wall */
-    cover: 21,
+    cover: 17,
     /* The studio's own order, so it is written out rather than sorted: 19
        stands where 01 did and 17 where 09 did, and 12 now comes before 11.
        01 and 09 are set aside, not deleted. */
-    select: [19, 2, 3, 4, 5, 6, 7, 8, 17, 10, 12, 11, 21],
+    select: [17,  15,  1,  2,  3,  4,  5,  6,  13,  8,  7,  9],
     dir: "assets/projects/dsr-1",
-    images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1208,1080],["07.webp",1600,900],["08.webp",1323,1080],["09.webp",1438,1080],["10.webp",780,1080],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1304,1080],["15.webp",1458,1080],["16.webp",1189,1080],["17.webp",1600,900],["18.webp",1430,1080],["19.webp",1600,900],["20.webp",1600,900],["21.webp",1600,900],["22.webp",1600,900],["23.webp",1600,900],["24.webp",1600,900],["25.webp",1600,900]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1208,1080],["06.webp",1323,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1304,1080],["11.webp",1458,1080],["12.webp",1189,1080],["13.webp",1920,1080],["14.webp",1430,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1920,1080]]
   },
   {
     slug: "wdsr",
@@ -281,10 +284,10 @@ window.PROJECTS = [
        duplicate views are set aside, nothing is deleted */
     /* the living room in full daylight, which is the sculptural furniture
        and the curated artwork the write up describes */
-    cover: 9,
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    cover: 4,
+    select: [4,  1,  2,  3,  5,  6,  7,  8,  9,  10,  11,  12],
     dir: "assets/projects/wdsr",
-    images: [["01.webp",1600,900],["02.webp",1600,900],["03.webp",1600,900],["04.webp",1600,900],["05.webp",1600,900],["06.webp",1600,900],["07.webp",1600,900],["08.webp",1600,900],["09.webp",1600,900],["10.webp",1600,900],["11.webp",1600,900],["12.webp",1600,900],["13.webp",1600,900],["14.webp",1600,900]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080]]
   },
   {
     slug: "evora-villa",
@@ -304,10 +307,28 @@ window.PROJECTS = [
        walk the house: the double height living room leads, then its second
        view, the entrance niche, the dining room, the bar, the upstairs lounge,
        and the bedrooms last. */
-    cover: 1,
-    select: [1, 2, 3, 11, 10, 5, 4, 6, 7, 8, 9],
+    cover: 5,
+    select: [5,  1,  2,  3,  11,  10,  4,  6,  7,  8,  9],
     dir: "assets/projects/evora-villa",
     images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080]]
+  },
+  {
+    slug: "veya",
+    title: "Véya",
+    category: "Residential",
+    status: "ongoing",
+    typology: "Residence",
+    location: "Patighanpur, Kollur, Hyderabad",
+    area: "7,000 sq ft",
+    year: "",
+    scope: "Interior Design",
+    summary: "The space embraces a bold contemporary language, where sculptural furniture, layered wall detailing, and statement lighting create a strong visual identity.",
+    story: ["Rich textures and expressive forms bring depth and character while keeping the composition refined and balanced. Thoughtful spatial planning and curated details give the interiors a sense of movement and personality. A sense of confidence runs through the space, making it feel expressive, polished, and full of character."],
+    notes: [],
+    /* the studio's HERO render leads; the rest are its phase one renders */
+    cover: 1,
+    dir: "assets/projects/veya",
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080]]
   },
   {
     slug: "merge-stones",
@@ -324,10 +345,10 @@ window.PROJECTS = [
     notes: [],
     /* the lounge against the green marble wall: the stone is the project, and
        this is the frame that says so */
-    cover: 5,
-    select: [1, 2, 3, 4, 5, 6],
+    cover: 6,
+    select: [6,  1,  2,  3,  4,  5,  7,  8],
     dir: "assets/projects/merge-stones",
-    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1295,1080],["05.webp",1617,1080],["06.webp",1078,1080]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1617,1080],["05.webp",1078,1080],["06.webp",1540,1027],["07.webp",1284,855],["08.webp",1540,1027]]
   },
   {
     slug: "cousins",
@@ -343,12 +364,12 @@ window.PROJECTS = [
     story: ["Layered lighting transforms the atmosphere from bright and inviting to intimate and sophisticated after dark."],
     notes: [],
     /* the bar itself, which is the half of the room the name is about */
-    cover: 4,
+    cover: 2,
     /* 02 and 03 are the same wall from two steps apart, so the sequence shows
        one of them and the other is set aside */
-    select: [1, 3, 4],
+    select: [2,  1,  3,  4,  5,  6,  7,  8,  9],
     dir: "assets/projects/cousins",
-    images: [["01.webp",1920,1080],["02.webp",1391,1080],["03.webp",1470,1080],["04.webp",1920,1080]]
+    images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1448,998]]
   },
   /* ------------------------------------------------------------------
      The seven projects below came from the studio's "val new projects"
@@ -372,7 +393,7 @@ window.PROJECTS = [
     /* the studio chose the counter under its lit ceiling to lead */
     /* the courtyard, which is what the place is: the counter shots are already
        doing duty in the press cards and the hero */
-    cover: 10,
+    cover: 15,
     status: "finished",
     typology: "Specialty Coffee House",
     location: "Jubilee Hills, Hyderabad",
@@ -384,9 +405,9 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    select: [15,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  14],
     dir: "assets/projects/ratio",
-    images: [["01.webp",1333,2000],["02.webp",1333,2000],["03.webp",1333,2000],["04.webp",1333,2000],["05.webp",1333,2000],["06.webp",1333,2000],["07.webp",2000,1333],["08.webp",2000,1383],["09.webp",1333,2000],["10.webp",2000,1333],["11.webp",1333,2000],["12.webp",2000,1333],["13.webp",2000,1333],["14.webp",1333,2000],["15.webp",1333,2000],["16.webp",1333,2000],["17.webp",1333,2000],["18.webp",1333,2000],["19.webp",1333,2000],["20.webp",1333,2000],["21.webp",1333,2000],["22.webp",2000,1333],["23.webp",1333,2000]]
+    images: [["01.webp",1600,2400],["02.webp",1600,2400],["03.webp",1600,2400],["04.webp",1600,2400],["05.webp",2400,1600],["06.webp",1600,2400],["07.webp",1600,2400],["08.webp",1600,2400],["09.webp",1600,2400],["10.webp",1600,2400],["11.webp",1600,2400],["12.webp",1600,2400],["13.webp",1600,2400],["14.webp",1600,2400],["15.webp",2400,2293],["16.webp",2400,1600]]
   },
   {
     slug: "the-good-side",
@@ -472,7 +493,7 @@ window.PROJECTS = [
     /* a landscape frame, so the card is not cropped to a slice: the aeroplane wall, which is the frame the studio chose to lead with */
     cover: 8,
     dir: "assets/projects/sky",
-    images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1334,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1334],["09.webp",2000,1425],["10.webp",1424,2000],["11.webp",1359,2000]]
+    images: [["01.webp",1601,2400],["02.webp",1601,2400],["03.webp",1601,2400],["04.webp",1601,2400],["05.webp",2400,1601],["06.webp",1601,2400],["07.webp",2400,1601],["08.webp",2400,1710],["09.webp",1709,2400],["10.webp",1631,2400]]
   },
   {
     /* Teddy, Akira's bedroom. */
@@ -559,7 +580,7 @@ window.PROJECTS = [
   {
     slug: "aparna-one",
     /* the living room, chosen by the studio to lead */
-    cover: 4,
+    cover: 1,
     title: "Aparna One (Mysa)",
     /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
     cover: 4,
@@ -575,9 +596,9 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 19, 6, 7, 8, 9, 10, 11, 13, 15, 16, 17],
+    select: [1,  2,  3,  4,  12,  5,  6,  7,  8,  10,  11,  9,  13],
     dir: "assets/projects/aparna-one",
-    images: [["01.webp",1067,1600],["02.webp",1067,1600],["03.webp",1067,1600],["04.webp",1600,1067],["05.webp",1067,1600],["06.webp",1067,1600],["07.webp",1067,1600],["08.webp",1067,1600],["09.webp",1067,1600],["10.webp",1067,1600],["11.webp",1067,1600],["12.webp",1067,1600],["13.webp",1067,1600],["14.webp",1067,1600],["15.webp",1067,1600],["16.webp",1067,1600],["17.webp",1067,1600],["18.webp",1067,1600],["19.webp",1067,1600],["20.webp",1031,1600],["21.webp",1067,1600]]
+    images: [["01.webp",1601,2400],["02.webp",1601,2400],["03.webp",1601,2400],["04.webp",2400,1601],["05.webp",1601,2400],["06.webp",1601,2400],["07.webp",1601,2400],["08.webp",1601,2400],["09.webp",1601,2400],["10.webp",1601,2400],["11.webp",1601,2400],["12.webp",1601,2400],["13.webp",1601,2400]]
   },
   {
     slug: "vessela",
