@@ -1778,6 +1778,8 @@ html:not(.js) .hero__bar{display:none}
 
 .gx--wide .mag__f .shot{aspect-ratio:16 / 9}
 .gx--solo{display:flex;justify-content:center}
+.gx--trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--col)}
+.gx--trio .mag__f .shot{aspect-ratio:2 / 3}
 .gx--solo .mag__f{width:calc((100% - var(--col)) / 2)}
 .gx--solo .mag__f .shot{aspect-ratio:var(--r)}
 
