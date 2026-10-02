@@ -8,8 +8,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-02p · gallery ends without a lone centred picture">
-<link rel="stylesheet" href="assets/css/val.css?v=20261002p">
+<meta name="build" content="2026-10-02q · no rows of three; galleries end on a pair">
+<link rel="stylesheet" href="assets/css/val.css?v=20261002q">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
@@ -25,9 +25,9 @@
 
 <footer data-footer></footer>
 
-<script src="assets/js/site.js?v=20261002p"></script>
-<script src="assets/js/projects.js?v=20261002p"></script>
-<script src="assets/js/press.js?v=20261002p"></script>
+<script src="assets/js/site.js?v=20261002q"></script>
+<script src="assets/js/projects.js?v=20261002q"></script>
+<script src="assets/js/press.js?v=20261002q"></script>
 <script>
 window.PAGE = function(VAL){
   var host = document.querySelector("[data-project]");
@@ -210,23 +210,18 @@ window.PAGE = function(VAL){
       var lone = pool.shift();
       if (lone.r >= 1.12){ gallery += wideHTML(lone, first); }
       else {
-        /* a standing picture left over joins the last pair of standing
-           pictures as a row of three, so it is shown whole and the row
-           still spans the full width; with no such pair it stands alone */
-        var at = gallery.lastIndexOf(lastPortraitPair);
-        if (lastPortraitPair && at >= 0){
-          gallery = gallery.slice(0, at) + trioHTML(lastPortraitPairItems.concat([lone])) +
-                    gallery.slice(at + lastPortraitPair.length);
-        } else if (lastMixedPair && gallery.lastIndexOf(lastMixedPair) >= 0){
-          /* or, failing that, a pair of one lying and one standing picture
-             becomes the lying one full width and the two standing ones as
-             a pair beneath it */
+        /* a standing picture left over: where a pair of one lying and one
+           standing picture came before, that pair becomes the lying one
+           full width and the two standing ones as a pair beneath it */
+        if (lastMixedPair && gallery.lastIndexOf(lastMixedPair) >= 0){
           var at2 = gallery.lastIndexOf(lastMixedPair);
           var ly = lastMixedPairItems[0].r >= 1.12 ? lastMixedPairItems[0] : lastMixedPairItems[1];
           var st = ly === lastMixedPairItems[0] ? lastMixedPairItems[1] : lastMixedPairItems[0];
           gallery = gallery.slice(0, at2) + wideHTML(ly, false) + pairHTML(st, lone, false) +
                     gallery.slice(at2 + lastMixedPair.length);
-        } else gallery += soloHTML(lone, first);
+        }
+        /* otherwise it is left out, so the gallery always ends on a full
+           pair of pictures at their usual size rather than one on its own */
       }
       first = false;
     }
@@ -326,6 +321,6 @@ window.PAGE = function(VAL){
   if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(lead); }); }
 };
 </script>
-<script src="assets/js/val.js?v=20261002p"></script>
+<script src="assets/js/val.js?v=20261002q"></script>
 </body>
 </html>
