@@ -1,4 +1,4 @@
-2026-10-02a · hero frame takes the photograph's own shape, wide reel on desktop
+2026-10-02b · hero: the studio's five portrait frames, side by side on wide screens
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live
