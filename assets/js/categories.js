@@ -14,16 +14,26 @@
    ========================================================================== */
 
 window.LEADS = {
-  "finished:Residential": "aparna-one",
-  "finished:Retail":      "jbn",
-  "finished:Hospitality": "the-good-side",
+  "finished:Residential":               "aparna-one",
+  "finished:Hospitality & F&B":         "ratio",
+  "finished:Retail":                    "the-good-side",
+  "finished:Kids & Play":               "sky",
 
-  "ongoing:Residential":  "sas-crown",
-  "ongoing:Hospitality":  "keerthi-club-house",
-  "ongoing:Retail":       "merge-stones",
-  "ongoing:Workspace":    "gmfc"
+  "ongoing:Residential":                "sas-crown",
+  "ongoing:Hospitality & F&B":          "tsk",
+  "ongoing:Experiential & Commercial":  "keerthi-club-house"
 };
 
-/* Preferred order. Any category found in the data but missing from this list
-   is still shown — it just goes last. */
-window.CATEGORY_ORDER = ["Residential", "Hospitality", "Retail", "Workspace"];
+/* The studio's own five categories, in its order (Vaishnavi, October 2026).
+   Any category found in the data but missing from this list is still shown;
+   it just goes last. */
+window.CATEGORY_ORDER = ["Residential", "Hospitality & F&B", "Retail", "Experiential & Commercial", "Kids & Play"];
+
+/* The line the studio wrote for each category, shown under the filters on the
+   Projects page when that category is picked. A category without one shows
+   nothing there. */
+window.CATEGORY_NOTES = {
+  "Residential":       "Private homes, apartments and villas.",
+  "Hospitality & F&B": "Spaces centred around food, gathering and experience.",
+  "Retail":            "Consumer facing spaces where brand and spatial experience come together."
+};

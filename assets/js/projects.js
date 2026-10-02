@@ -77,9 +77,9 @@ window.PROJECTS = [
   {
     slug: "keerthi-club-house",
     title: "Keerthi Ascent Clubhouse",
-    category: "Hospitality",
+    category: "Experiential & Commercial",
     status: "ongoing",
-    typology: "Club House",
+    typology: "Clubhouse",
     location: "Bangalore",
     area: "26,000 sq ft",
     year: "",
@@ -110,7 +110,7 @@ window.PROJECTS = [
     slug: "keerthi-marketing-office",
     /* the dash in the old title just repeated the typology below it */
     title: "Keerthi Ascent Experiential Centre",
-    category: "Hospitality",
+    category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Experiential Centre",
     location: "Bangalore",
@@ -181,7 +181,7 @@ window.PROJECTS = [
   {
     slug: "gmfc",
     title: "GMFC Workspace",
-    category: "Workspace",
+    category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Workspace",
     location: "Jubilee Hills, Hyderabad",
@@ -211,7 +211,7 @@ window.PROJECTS = [
     /* A spice kitchen, not the jewellery retail this was first filed as. The
        studio confirmed it stays under Retail rather than moving to
        Hospitality — so this is a decision, not an oversight. */
-    category: "Hospitality",
+    category: "Hospitality & F&B",
     status: "ongoing",
     typology: "Regional Restaurant",
     location: "Nagole",
@@ -300,7 +300,7 @@ window.PROJECTS = [
   {
     slug: "merge-stones",
     title: "Merge Stones",
-    category: "Retail",
+    category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Experiential Marble Showroom",
     location: "Shamshabad, Hyderabad",
@@ -320,9 +320,9 @@ window.PROJECTS = [
   {
     slug: "cousins",
     title: "Cousins",
-    category: "Hospitality",
+    category: "Hospitality & F&B",
     status: "ongoing",
-    typology: "Coffee and Bar",
+    typology: "Coffee & Bar",
     location: "Jubilee Hills, Hyderabad",
     area: "1,200 sq ft",
     year: "",
@@ -356,13 +356,13 @@ window.PROJECTS = [
   {
     slug: "ratio",
     title: "Ra:tio",
-    category: "Hospitality",
+    category: "Hospitality & F&B",
     /* the studio chose the counter under its lit ceiling to lead */
     /* the courtyard, which is what the place is: the counter shots are already
        doing duty in the press cards and the hero */
     cover: 10,
     status: "finished",
-    typology: "Speciality Coffee House",
+    typology: "Specialty Coffee House",
     location: "Jubilee Hills, Hyderabad",
     area: "3,800 sq ft",
     year: "2026",
@@ -379,7 +379,7 @@ window.PROJECTS = [
   {
     slug: "the-good-side",
     title: "The Good Side",
-    category: "Hospitality",
+    category: "Retail",
     status: "finished",
     typology: "Salon + Makeup Studio",
     location: "Jubilee Hills, Hyderabad",
@@ -455,7 +455,7 @@ window.PROJECTS = [
        eleven photographs stand on their own again. */
     slug: "sky",
     title: "Kid’s Room (Sky)",
-    category: "Residential",
+    category: "Kids & Play",
     status: "finished",
     typology: "Kids Room",
     location: "Jubilee Hills, Hyderabad",
@@ -474,7 +474,7 @@ window.PROJECTS = [
     /* Teddy, Akira's bedroom. */
     slug: "teddy",
     title: "Akira’s Room (Teddy)",
-    category: "Residential",
+    category: "Kids & Play",
     status: "finished",
     typology: "Kids Room",
     location: "Jubilee Hills, Hyderabad",
@@ -493,7 +493,7 @@ window.PROJECTS = [
     /* The play room the two of them share. */
     slug: "playroom",
     title: "Play Room",
-    category: "Residential",
+    category: "Kids & Play",
     status: "finished",
     typology: "Kids Playroom",
     location: "Jubilee Hills, Hyderabad",

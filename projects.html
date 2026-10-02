@@ -8,8 +8,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-02b · hero: the studio's five portrait frames, side by side on wide screens">
-<link rel="stylesheet" href="assets/css/val.css?v=20261002b">
+<meta name="build" content="2026-10-02d · the studio's five project categories">
+<link rel="stylesheet" href="assets/css/val.css?v=20261002d">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
@@ -62,6 +62,7 @@
       <!-- FINISHED --------------------------------------------------- -->
       <div class="panel is-on" id="panel-finished" role="tabpanel" aria-labelledby="tab-finished" data-panel="finished">
         <div class="filters" data-filters="finished"></div>
+        <p class="filters__note" data-catnote="finished" hidden></p>
         <div class="grid-work mgrid" data-grid="finished"></div>
         <div data-empty="finished"></div>
       </div>
@@ -69,6 +70,7 @@
       <!-- ONGOING ---------------------------------------------------- -->
       <div class="panel" id="panel-ongoing" role="tabpanel" aria-labelledby="tab-ongoing" data-panel="ongoing" hidden>
         <div class="filters" data-filters="ongoing"></div>
+        <p class="filters__note" data-catnote="ongoing" hidden></p>
         <div class="grid-work mgrid" data-grid="ongoing"></div>
         <div data-empty="ongoing"></div>
       </div>
@@ -90,10 +92,10 @@
 
 <footer data-footer></footer>
 
-<script src="assets/js/site.js?v=20261002b"></script>
-<script src="assets/js/projects.js?v=20261002b"></script>
-<script src="assets/js/press.js?v=20261002b"></script>
-<script src="assets/js/categories.js?v=20261002b"></script>
+<script src="assets/js/site.js?v=20261002d"></script>
+<script src="assets/js/projects.js?v=20261002d"></script>
+<script src="assets/js/press.js?v=20261002d"></script>
+<script src="assets/js/categories.js?v=20261002d"></script>
 <script>
 window.PAGE = function(VAL){
 
@@ -188,6 +190,14 @@ window.PAGE = function(VAL){
     document.querySelectorAll('[data-filters="' + status + '"] button').forEach(function(b){
       b.classList.toggle("is-on", b.dataset.cat === pick);
     });
+
+    /* the studio's line for the category, when one is picked and has one */
+    var note = document.querySelector('[data-catnote="' + status + '"]');
+    if (note){
+      var line = (window.CATEGORY_NOTES || {})[pick] || "";
+      note.textContent = line;
+      note.hidden = !line;
+    }
   }
 
   function buildFilters(status){
@@ -260,6 +270,6 @@ window.PAGE = function(VAL){
 
 };
 </script>
-<script src="assets/js/val.js?v=20261002b"></script>
+<script src="assets/js/val.js?v=20261002d"></script>
 </body>
 </html>
