@@ -1,4 +1,4 @@
-2026-10-02f · hero: the five portrait photographs on every screen, sides filled
+2026-10-02g · hero: landscape on wide screens, portrait on phones
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

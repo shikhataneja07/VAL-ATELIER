@@ -18,8 +18,8 @@
 })();</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-02f · hero: the five portrait photographs on every screen, sides filled">
-<link rel="stylesheet" href="assets/css/val.css?v=20261002f">
+<meta name="build" content="2026-10-02g · hero: landscape on wide screens, portrait on phones">
+<link rel="stylesheet" href="assets/css/val.css?v=20261002g">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
@@ -230,10 +230,10 @@
 
 <footer data-footer></footer>
 
-<script src="assets/js/site.js?v=20261002f"></script>
-<script src="assets/js/projects.js?v=20261002f"></script>
-<script src="assets/js/categories.js?v=20261002f"></script>
-<script src="assets/js/press.js?v=20261002f"></script>
+<script src="assets/js/site.js?v=20261002g"></script>
+<script src="assets/js/projects.js?v=20261002g"></script>
+<script src="assets/js/categories.js?v=20261002g"></script>
+<script src="assets/js/press.js?v=20261002g"></script>
 <script>
 window.PAGE = function(VAL){
 
@@ -270,12 +270,8 @@ window.PAGE = function(VAL){
     if (!shots.length) return;
 
     host.innerHTML = shots.map(function(s, i){
-      /* on a wide screen a small, blurred copy of the same photograph fills
-         the frame behind it; the sm/ file is plenty once it is blurred */
-      var fill = phone ? "" :
-        '<img class="hero__fill" alt="" aria-hidden="true" decoding="async" src="' +
-          VAL.esc(s.p.dir + "/sm/" + s.p.images[s.i][0].replace(/\.[a-z]+$/i, ".webp")) + '">';
-      return '<figure class="hero__slide' + (i === 0 ? " is-on" : "") + '">' + fill +
+
+      return '<figure class="hero__slide' + (i === 0 ? " is-on" : "") + '">' +
                VAL.imgTag(s.p, s.i, s.p.title, i === 0,
                  /* the frame is the screen, at every width */
                  "100vw",
@@ -289,7 +285,7 @@ window.PAGE = function(VAL){
        them and all seven used to arrive before the first was even on screen.
        The sources of the ones behind are parked until they are wanted. */
     function park(fig){
-      var im = fig.querySelector("img:not(.hero__fill)");
+      var im = fig.querySelector("img");
       if (!im || im.dataset.parked) return;
       im.dataset.parked = "1";
       im.dataset.src = im.getAttribute("src");
@@ -298,7 +294,7 @@ window.PAGE = function(VAL){
       im.removeAttribute("srcset");
     }
     function wake(fig){
-      var im = fig.querySelector("img:not(.hero__fill)");
+      var im = fig.querySelector("img");
       if (!im || !im.dataset.parked) return;
       im.setAttribute("srcset", im.dataset.srcset);
       im.setAttribute("src", im.dataset.src);
@@ -487,8 +483,8 @@ window.PAGE = function(VAL){
 };
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="assets/js/preloader.js?v=20261002f"></script>
-<script src="assets/js/val.js?v=20261002f"></script>
+<script src="assets/js/preloader.js?v=20261002g"></script>
+<script src="assets/js/val.js?v=20261002g"></script>
 <script>
   /* The cover lifts, and the page behind it begins: the hero lights, and
      anything already scrolled past is let in. */
