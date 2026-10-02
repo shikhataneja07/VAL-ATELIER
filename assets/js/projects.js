@@ -47,26 +47,19 @@
    it did before.
    ========================================================================== */
 window.HERO = [
-  ["the-good-side",       1],
-  ["ratio",               8],
-  ["zvezda-boutique",     9],
-  ["aparna-one",          4],
-  ["dsr",                 1]
-];
-
-/* HERO above is for screens held wide: each photograph is shown whole in
-   the middle of a full screen frame, and the space either side is filled
-   with a soft, blurred copy of the same photograph, so nothing is cropped
-   and nothing is left empty. HERO_PHONE is the same five projects in
-   upright 2:3 frames for screens held upright, where the frame takes the
-   photograph's own shape. Keep every HERO_PHONE frame at 2:3. */
-window.HERO_PHONE = [
   ["the-good-side",       2],
   ["ratio",               1],
   ["zvezda-boutique",     3],
   ["aparna-one",          6],
   ["dsr",                 4]
 ];
+
+/* All five are upright 2:3 frames, the studio's choice for every screen.
+   On a screen held wide each one sits whole in the middle of the full
+   screen and a soft, blurred copy of the same photograph fills either side;
+   on a screen held upright the frame takes the photograph's own 2:3 shape.
+   Neither crops it. */
+window.HERO_PHONE = window.HERO;
 
 
 
