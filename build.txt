@@ -1,4 +1,4 @@
-2026-10-02c · hero: one photograph at a time, full width, every 10 seconds
+2026-10-02e · hero: full screen, photograph whole, sides filled with a blurred copy
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

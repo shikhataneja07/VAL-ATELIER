@@ -764,19 +764,22 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
   margin-top:var(--nav-h);
 }
 
-/* The work itself, one frame at a time. Every photograph in a reel has the
-   same shape and the frame takes exactly that shape across the full width,
-   so a picture is never cropped and never sits between empty bands. Wide
-   screens get the 3:2 reel (HERO), upright ones the 2:3 reel (HERO_PHONE);
-   index.html marks which one it built with .hero--tall. On a very wide,
-   short window the frame simply runs a little past the fold. */
-.hero__slides{position:relative;width:100%;aspect-ratio:3 / 2;overflow:hidden;z-index:0}
-.hero--tall .hero__slides{aspect-ratio:2 / 3}
-.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
+/* The work itself, one frame at a time. On a screen held wide the frame
+   is the screen below the bar, the photograph sits whole in the middle of
+   it, and whatever the photograph leaves either side is filled with a
+   blurred, enlarged copy of the same photograph: nothing cropped, nothing
+   empty. On a screen held upright (.hero--tall, set by index.html) the frame
+   takes the photograph's own 2:3 shape across the full width instead. */
+.hero__slides{position:relative;width:100%;height:calc(100svh - var(--nav-h));min-height:420px;overflow:hidden;z-index:0}
+.hero--tall .hero__slides{height:auto;min-height:0;aspect-ratio:2 / 3}
+.hero__slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;overflow:hidden}
 .hero__slide.is-on{opacity:1}
-/* the frame and the photograph are one shape, so cover only absorbs the
-   odd pixel of rounding */
-.hero__slide img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero__slide img{position:relative;width:100%;height:100%;object-fit:contain;object-position:center}
+.hero--tall .hero__slide img{object-fit:cover}
+/* the copy behind: the same picture, enlarged past the edges and softened
+   so it reads as light and colour rather than a second photograph */
+.hero__slide .hero__fill{position:absolute;top:-12%;left:-12%;width:124%;max-width:none;height:124%;object-fit:cover;filter:blur(38px) saturate(1.05) brightness(.82);transform:translateZ(0)}
+.hero--tall .hero__fill{display:none}
 
 /* Only the head and the foot, and only as far in as the type reaches. The
    middle two fifths of every photograph are left alone. */

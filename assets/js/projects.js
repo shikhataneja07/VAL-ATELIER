@@ -47,18 +47,19 @@
    it did before.
    ========================================================================== */
 window.HERO = [
-  ["the-good-side",       7],
-  ["ratio",              12],
-  ["zvezda-boutique",     1],
+  ["the-good-side",       1],
+  ["ratio",               8],
+  ["zvezda-boutique",     9],
   ["aparna-one",          4],
   ["dsr",                 1]
 ];
 
-/* Every frame in a reel must be the same shape, because the opening takes
-   that shape exactly. HERO above is the studio's five projects in wide 3:2
-   frames, for screens held wide. HERO_PHONE is the same five projects in
-   upright 2:3 frames, for screens held upright. A photograph of any other
-   shape added to either list would be cropped. */
+/* HERO above is for screens held wide: each photograph is shown whole in
+   the middle of a full screen frame, and the space either side is filled
+   with a soft, blurred copy of the same photograph, so nothing is cropped
+   and nothing is left empty. HERO_PHONE is the same five projects in
+   upright 2:3 frames for screens held upright, where the frame takes the
+   photograph's own shape. Keep every HERO_PHONE frame at 2:3. */
 window.HERO_PHONE = [
   ["the-good-side",       2],
   ["ratio",               1],
