@@ -47,19 +47,26 @@
    it did before.
    ========================================================================== */
 window.HERO = [
+  ["the-good-side",       7],
+  ["ratio",              12],
+  ["zvezda-boutique",     1],
+  ["aparna-one",          4],
+  ["jbn",                14]
+];
+
+/* HERO above is for screens held wide: landscape frames, each filling the
+   screen below the bar (on a screen of a slightly different shape a thin
+   strip may come off the top and bottom, never the sides). HERO_PHONE is
+   for screens held upright: the studio's portrait frames, all 2:3, shown
+   whole at the full width. The site picks one list or the other, so a phone
+   never sees a landscape photograph and a laptop never sees a portrait one. */
+window.HERO_PHONE = [
   ["the-good-side",       2],
   ["ratio",               1],
   ["zvezda-boutique",     3],
   ["aparna-one",          6],
   ["dsr",                 4]
 ];
-
-/* All five are upright 2:3 frames, the studio's choice for every screen.
-   On a screen held wide each one sits whole in the middle of the full
-   screen and a soft, blurred copy of the same photograph fills either side;
-   on a screen held upright the frame takes the photograph's own 2:3 shape.
-   Neither crops it. */
-window.HERO_PHONE = window.HERO;
 
 
 
