@@ -130,7 +130,7 @@ window.PROJECTS = [
     year: "",
     scope: "Interior Design",
     summary: "The space is imagined as a calm, immersive environment where architecture and landscape quietly shape the visitor experience.",
-    story: ["Textured surfaces, warm finishes, filtered light, and sculptural details create a refined sense of depth across the reception, lounge, discussion, and meeting spaces. Large openings and planted moments soften the interiors, allowing the spaces to feel connected, open, and unhurried. The atmosphere is understated yet memorable, a place designed not just to present, but to draw people in and let the experience unfold naturally."],
+    story: ["Textured surfaces, warm finishes, filtered light, and sculptural details create a refined sense of depth across the reception, lounge, discussion, and meeting spaces. Large openings and planted moments soften the interiors, allowing the spaces to feel connected, open, and unhurried. The atmosphere is understated yet memorable: a place designed not just to present, but to draw people in and let the experience unfold naturally."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -171,7 +171,7 @@ window.PROJECTS = [
     year: "",
     scope: "Interior Design",
     summary: "This residence is conceived as a layered, contemporary home where warm timber, stone, and soft neutral finishes create a rich yet understated backdrop.",
-    story: ["Muted greens and terracotta accents bring depth and personality, while sculptural furniture, patterned surfaces, and curated artwork add a distinct visual rhythm. Screens, refined joinery, and carefully composed lighting give each space its own character while maintaining a strong sense of continuity. The home feels expressive without being excessive, warm, artistic, and quietly sophisticated."],
+    story: ["Muted greens and terracotta accents bring depth and personality, while sculptural furniture, patterned surfaces, and curated artwork add a distinct visual rhythm. Screens, refined joinery, and carefully composed lighting give each space its own character while maintaining a strong sense of continuity. The home feels expressive without being excessive: warm, artistic, and quietly sophisticated."],
     notes: [],
     /* The frames the sequence shows, written in the order they walk the house:
        entrance, corridor, living, dining, kitchen, media room, passage, the two
@@ -250,7 +250,7 @@ window.PROJECTS = [
     year: "",
     scope: "Interior Design",
     summary: "This residence is shaped by a quiet, contemporary sensibility, where soft neutrals and warm timber create a calm, cohesive backdrop.",
-    story: ["Sculptural furniture, subtle detailing, and curated artwork bring depth without overwhelming the spaces. Natural light moves gently through the interiors, adding softness and warmth throughout the day. The home feels composed yet effortless, refined in character, intimate in mood, and designed to be lived in with ease."],
+    story: ["Sculptural furniture, subtle detailing, and curated artwork bring depth without overwhelming the spaces. Natural light moves gently through the interiors, adding softness and warmth throughout the day. The home feels composed yet effortless: refined in character, intimate in mood, and designed to be lived in with ease."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -293,12 +293,12 @@ window.PROJECTS = [
     status: "ongoing",
     typology: "Villa",
     /* location, area and year still to come from the studio */
-    location: "",
-    area: "",
+    location: "Kollur, Hyderabad",
+    area: "6,500 sq ft",
     year: "",
     scope: "Interior Design",
-    summary: "A villa composed in warm walnut, limewashed walls and soft linen, where tall sheer curtains let the light in slowly and every room settles into calm.",
-    story: ["Deep timber panelling and lattice screens give the house its structure, while sculptural furniture, ochre accents and a collection of figurative art bring warmth and personality. Each room keeps the same quiet palette, so the home reads as one continuous, unhurried space."],
+    summary: "This residence unfolds with a quiet sense of warmth, where texture, light, and crafted detail shape the mood of each room.",
+    story: ["Soft curves and sculptural forms bring ease, while art and materiality add moments of character and pause. Natural light drifts through the interiors, softening every surface and giving the spaces a gentle rhythm. The home feels intimate yet expressive: calm in spirit, rich in detail, and meant to be experienced slowly."],
     notes: [],
     /* All eleven renders from the studio's RENDERS folder, in the order they
        walk the house: the double height living room leads, then its second
@@ -379,8 +379,8 @@ window.PROJECTS = [
     area: "3,800 sq ft",
     year: "2026",
     scope: "Interior Design",
-    summary: "This coffee house is conceived as a quiet, design led escape with an effortless sense of warmth and sophistication.",
-    story: ["Natural timber, muted textures, and crisp architectural detailing create a refined yet relaxed visual language. Soft lighting, intimate seating, and crafted elements bring a subtle richness to the space without feeling overstated. The space settles into a calm, contemporary rhythm, inviting, tactile, and quietly memorable."],
+    summary: "This coffee house is conceived as a quiet, design-led escape with an effortless sense of warmth and sophistication.",
+    story: ["Natural timber, muted textures, and crisp architectural detailing create a refined yet relaxed visual language. Soft lighting, intimate seating, and crafted elements bring a subtle richness to the space without feeling overstated. The space settles into a calm, contemporary rhythm: inviting, tactile, and quietly memorable."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -395,22 +395,14 @@ window.PROJECTS = [
     status: "finished",
     typology: "Salon + Makeup Studio",
     location: "Jubilee Hills, Hyderabad",
-    area: "6,500 sq ft",
+    area: "6,000 sq ft",
     year: "2026",
     scope: "Interior Design",
     /* Vaishnavi's own copy, September 2026. Dashes and loose hyphens are
        rewritten to the site's rule; the words are hers. */
-    summary: "The Good Side was conceived as more than a salon: a beauty destination designed around the idea of slowing down and feeling cared for.",
+    summary: "The Good Side is a luxury desert inspired salon in Hyderabad designed as a serene and immersive retreat that blends earthy elegance with contemporary minimalism.",
     /* the heading over each passage where it is set among the photographs */
-    storyHeads: ["The brief", "The language", "The experience", "The backdrop", "The pace", "The result"],
-    story: [
-      "The project began with an unusually open brief. Having previously designed two spaces for the client, Makeup by Harika, there was an established sense of trust and creative freedom. What initially began as a search for an existing villa soon evolved into the decision to build an entirely new structure from the ground up, allowing VAL Atelier to shape the architecture, interiors, landscape, light and circulation as one cohesive experience.",
-      "Inspired by the earthy landscapes and mineral tones of the Atacama Desert, the design developed into a desert brutalist language: warm, monolithic and restrained. Sandstone, textured concrete, cement surfaces and stone aggregates sit within a tightly controlled palette of browns, muted reds and layered neutrals, creating richness through texture and material honesty rather than ornamentation.",
-      "Rather than referencing conventional salons, the spatial experience draws from hospitality, spas and wellness retreats. The arrival begins with landscape and water, creating a softer transition from the city outside. Inside, natural light, filtered views, greenery, warm lighting and carefully considered sight lines create moments of stillness throughout the journey. Even highly functional experiences were reconsidered: pedicure stations overlook water and landscape, while lighting around hair wash stations was positioned to eliminate direct glare.",
-      "With a significant part of the project dedicated to a makeup studio, photography also became integral to the architecture. Instead of creating a single designated photo spot, the intention was for the entire project to become the backdrop, with every opening, courtyard, material and framed view contributing to a recognisable visual identity.",
-      "Perhaps the most defining aspect of The Good Side is the speed at which it came together. From an empty plot to a fully operational 6,500 sq ft space, the entire project was completed in approximately four months. Architecture, interiors, landscape, lighting and detailing were developed almost simultaneously, demanding an exceptionally fast and fluid design and execution process. Despite that pace, the project retained the clarity and restraint of its original vision from beginning to end.",
-      "The result is a beauty space that feels less transactional and more restorative: slower, softer and quieter, where beauty and wellness exist within the same emotional experience."
-    ],
+    story: ["Inspired by the raw beauty of desert landscapes, the project features warm terracotta toned textured walls, sculptural architectural forms, muted neutral palettes, and soft ambient lighting to create a calming yet sophisticated atmosphere."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -425,11 +417,11 @@ window.PROJECTS = [
     status: "finished",
     typology: "Fashion Boutique",
     location: "Jubilee Hills, Hyderabad",
-    area: "1,500 sq ft",
-    year: "",
+    area: "3,200 sq ft",
+    year: "2023",
     scope: "Interior Design",
-    summary: "Tucked away in the heart of Jubilee Hills, this 1,500 sq ft boutique is a quiet little world of its own, soft, feminine and beautifully detailed.",
-    story: ["Designed with a gentle, almost poetic restraint, the space uses a neutral palette to let the garments take centre stage. Botanical reliefs finished by hand wrap the walls, adding depth and character without ever overwhelming the eye.", "The curved ceiling floats above the space like a wave, creating movement and a sense of calm, while the delicate gold rails and arched windows bring in a touch of romance. Every corner feels intentional, warm and thoughtfully composed, a small boutique with a big soul, made to make every piece of clothing feel special."],
+    summary: "A contemporary boutique designed as an elegant and immersive retail experience.",
+    story: ["The interior combines clean architectural lines, refined material palettes, and carefully curated lighting to create a sophisticated backdrop for the clothing collection. Every element is designed to balance functionality with visual appeal, allowing the garments to remain the focal point."],
     notes: [],
     dir: "assets/projects/zvezda-boutique",
     /* 09 is 01 with the lighting track cropped off the top, cut for the
@@ -513,7 +505,7 @@ window.PROJECTS = [
     year: "2025",
     scope: "Interior Design",
     summary: "Warm timber finishes, soft pastel accents, and whimsical forms create an inviting and playful atmosphere.",
-    story: ["The immersive wildlife mural adds depth and storytelling, while integrated shelving and activity zones keep the space functional and organised. Gentle lighting and organic curves soften the interior, creating a nurturing environment for creativity, exploration, and everyday learning."],
+    story: ["The immersive wildlife mural adds depth and storytelling, while integrated shelving and activity zones keep the space functional and organized. Gentle lighting and organic curves soften the interior, creating a nurturing environment for creativity, exploration, and everyday learning."],
     notes: [],
     /* a landscape frame, so the card is not cropped to a slice: the whole room, mural and all */
     cover: 7,
@@ -531,7 +523,7 @@ window.PROJECTS = [
     year: "2023",
     scope: "Interior Design",
     summary: "A home shaped by sculptural silhouettes, warm woods, and quiet moments of contrast.",
-    story: ["Soft neutrals create an effortless backdrop, while expressive lighting, art, and deep green marble add character. Every space feels composed yet relaxed, balancing clean geometry with tactile warmth. Its character comes through in the details, artful, contemporary, and unmistakably individual."],
+    story: ["Soft neutrals create an effortless backdrop, while expressive lighting, art, and deep green marble add character. Every space feels composed yet relaxed, balancing clean geometry with tactile warmth. Its character comes through in the details: artful, contemporary, and unmistakably individual."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
@@ -579,7 +571,7 @@ window.PROJECTS = [
     year: "2023",
     scope: "Interior Design",
     summary: "This residence is designed as a calm and contemporary home, where clean lines are softened by warm materials and subtle detailing.",
-    story: ["A muted palette, sage toned cabinetry, sculptural furniture, and natural textures create a relaxed and cohesive character. Gentle architectural forms and filtered daylight bring depth and softness throughout the interiors. The home carries a quiet sense of ease, refined in expression, warm in character, and effortless to live in."],
+    story: ["A muted palette, sage toned cabinetry, sculptural furniture, and natural textures create a relaxed and cohesive character. Gentle architectural forms and filtered daylight bring depth and softness throughout the interiors. The home carries a quiet sense of ease: refined in expression, warm in character, and effortless to live in."],
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
