@@ -47,16 +47,17 @@
    it did before.
    ========================================================================== */
 window.HERO = [
-  ["the-good-side",       1],
-  ["ratio",               8],
-  ["zvezda-boutique",     9],
-  ["keerthi-club-house", 28],
-  ["tsk",                11]
+  ["evora-villa",               1],
+  ["keerthi-club-house",       28],
+  ["tsk",                      11],
+  ["sas-crown",                11],
+  ["keerthi-marketing-office",  9]
 ];
 
-/* The same reel on a phone. A landscape photograph shown whole on a tall
-   screen is only a thin band, so phones get their own set of upright
-   frames, all 2:3, that fill the opening without being cropped. */
+/* Every frame in a reel must be the same shape, because the opening takes
+   that shape exactly: HERO above is all 16:9 and shows on screens held wide,
+   HERO_PHONE is all 2:3 and shows on screens held upright. A photograph of
+   any other shape added to either list would be cropped. */
 window.HERO_PHONE = [
   ["the-good-side",       2],
   ["ratio",               1],
