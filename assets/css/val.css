@@ -767,18 +767,11 @@ section,.sec,.mast,.cta,.deck,.pj-next{overflow-x:clip}
 /* The work itself, one frame at a time. Every photograph in a reel has the
    same shape and the frame takes exactly that shape across the full width,
    so a picture is never cropped and never sits between empty bands. Wide
-   screens get the 16:9 reel (HERO), upright ones the 2:3 reel (HERO_PHONE);
+   screens get the 3:2 reel (HERO), upright ones the 2:3 reel (HERO_PHONE);
    index.html marks which one it built with .hero--tall. On a very wide,
    short window the frame simply runs a little past the fold. */
-.hero__slides{position:relative;width:100%;aspect-ratio:16 / 9;overflow:hidden;z-index:0}
+.hero__slides{position:relative;width:100%;aspect-ratio:3 / 2;overflow:hidden;z-index:0}
 .hero--tall .hero__slides{aspect-ratio:2 / 3}
-/* a wider screen: the frames stand side by side, --n across, each one whole
-   at 2:3, with a hairline of ink between them; the strip is as tall as they
-   are, so there is nothing to crop and no empty band */
-.hero--strip{--gx:3px}
-.hero--strip .hero__slides{aspect-ratio:auto}
-.hero__track{display:flex;gap:var(--gx);transition:transform 1.1s var(--ease-io);will-change:transform}
-.hero--strip .hero__slide{position:relative;inset:auto;opacity:1;flex:0 0 calc((100% - (var(--n) - 1) * var(--gx)) / var(--n));aspect-ratio:2 / 3;transition:none}
 .hero__slide{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
 .hero__slide.is-on{opacity:1}
 /* the frame and the photograph are one shape, so cover only absorbs the

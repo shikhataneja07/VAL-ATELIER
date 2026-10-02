@@ -1,4 +1,4 @@
-2026-10-02d · the studio's five project categories
+2026-10-02c · hero: one photograph at a time, full width, every 10 seconds
 
 If the page you are looking at does not match this line, the files on the
 server are older than the ones you were sent. Open /build.txt on the live

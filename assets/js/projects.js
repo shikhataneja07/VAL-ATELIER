@@ -47,6 +47,19 @@
    it did before.
    ========================================================================== */
 window.HERO = [
+  ["the-good-side",       7],
+  ["ratio",              12],
+  ["zvezda-boutique",     1],
+  ["aparna-one",          4],
+  ["dsr",                 1]
+];
+
+/* Every frame in a reel must be the same shape, because the opening takes
+   that shape exactly. HERO above is the studio's five projects in wide 3:2
+   frames, for screens held wide. HERO_PHONE is the same five projects in
+   upright 2:3 frames, for screens held upright. A photograph of any other
+   shape added to either list would be cropped. */
+window.HERO_PHONE = [
   ["the-good-side",       2],
   ["ratio",               1],
   ["zvezda-boutique",     3],
@@ -54,9 +67,7 @@ window.HERO = [
   ["dsr",                 4]
 ];
 
-/* All five are upright 2:3 frames and every one must stay that shape: a
-   phone shows them one at a time, a wider screen shows them side by side,
-   as many across as fill it, and neither crops a picture of that shape. */
+
 
 /* ==========================================================================
    HOW MANY PHOTOGRAPHS A PROJECT SHOWS
