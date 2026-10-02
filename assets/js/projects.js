@@ -73,15 +73,18 @@ window.HERO_PHONE = [
 /* ==========================================================================
    HOW MANY PHOTOGRAPHS A PROJECT SHOWS
    --------------------------------------------------------------------------
-   Every photograph the studio supplies is shown (October 2026: "use all
-   the images that I have given"). Set a number here only to cap a status
-   again; 0 means no cap.
+   The studio asked for a curated set rather than the whole shoot: up to
+   fifteen photographs for a finished project and twelve for one on the
+   boards. A project with fewer than that shows every photograph it has,
+   less any frame that repeats another one.
 
-   A project's `select` array of 1-based positions now only sets the ORDER:
-   the frames it names come first, in that order, and every other photograph
-   in the project follows in the order the studio supplied.
+   To choose the frames rather than take the first ones, give a project a
+   `select` array of 1-based positions in its own images list. That is the
+   curation hook: `select: [1, 4, 5, 9, 12, ...]`. Without it the lead comes
+   first and the rest follow in the order the studio supplied. Near
+   identical frames are left out of every selection.
    ========================================================================== */
-window.SHOW = { finished: 0, ongoing: 0 };
+window.SHOW = { finished: 15, ongoing: 12 };
 
 window.PROJECTS = [
   {
@@ -112,7 +115,7 @@ window.PROJECTS = [
 
        None of it is deleted: all fifty two photographs stay in the folder
        and any of them comes back by adding its number here. */
-    select: [1,  24,  3,  5,  25,  7,  2,  4,  6,  8,  9,  10],
+    select: [1,  15,  13,  11,  6,  8,  2,  4,  12,  25,  20,  18],
     cover: 1,
     dir: "assets/projects/keerthi-club-house",
     images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1920,1080],["21.webp",1920,1080],["22.webp",1012,1080],["23.webp",1920,1080],["24.webp",1920,1080],["25.webp",1920,1080],["26.webp",1920,1080]]
@@ -155,7 +158,7 @@ window.PROJECTS = [
        word. In their place: 29, the wall the tower render is shown on, which is
        the one thing in the building that says what the office is for, and 14,
        the waiting lounge. */
-    select: [38,  7,  1,  2,  3,  4,  5,  6,  8,  9,  10,  11],
+    select: [38,  1,  16,  4,  7,  17,  15,  22,  24,  33,  26,  37],
     dir: "assets/projects/keerthi-marketing-office",
     images: [["01.webp",1920,1080],["02.webp",537,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1110,1080],["06.webp",923,1080],["07.webp",1215,1080],["08.webp",1899,1008],["09.webp",1066,1080],["10.webp",1090,1080],["11.webp",1694,1080],["12.webp",1177,1055],["13.webp",1273,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1688,1080],["21.webp",1920,1080],["22.webp",1920,1080],["23.webp",1033,1080],["24.webp",1363,1080],["25.webp",1920,1080],["26.webp",1920,1080],["27.webp",1103,1080],["28.webp",1920,1080],["29.webp",1920,1080],["30.webp",1920,1080],["31.webp",1293,1080],["32.webp",1920,1080],["33.webp",1920,1080],["34.webp",1920,1080],["35.webp",1920,1080],["36.webp",1154,1080],["37.webp",1165,1080],["38.webp",1920,1080]]
   },
@@ -185,7 +188,7 @@ window.PROJECTS = [
        A house was being shown without a single bedroom in it, which is the
        other half of this: 27 and 36 are in now, with the vanity at 33 and the
        corridor at 23. Nothing is deleted, all 44 stay in the folder. */
-    select: [15,  1,  4,  14,  11,  2,  3,  5,  6,  7,  8,  9],
+    select: [15,  1,  2,  3,  4,  5,  6,  9,  14,  11,  7,  17],
     cover: 15,
     dir: "assets/projects/sas-crown",
     images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1252,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080]]
@@ -213,7 +216,7 @@ window.PROJECTS = [
        gallery full bleed. It comes out, and the boardroom at position 18
        (16.webp) takes its place, which is what the project is actually for.
        Position 2 is 33.webp, the same shrine closer in, and is still here. */
-    select: [24,  10,  1,  2,  3,  4,  5,  6,  7,  12,  8,  9],
+    select: [24,  1,  2,  3,  6,  11,  12,  16,  17,  21,  25,  9],
     dir: "assets/projects/gmfc",
     images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1326,1080],["05.webp",1326,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1406,1080],["18.webp",714,1080],["19.webp",1268,1051],["20.webp",736,1080],["21.webp",1920,1080],["22.webp",709,1080],["23.webp",1142,1080],["24.webp",1920,1080],["25.webp",1920,1080]]
   },
@@ -235,7 +238,7 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [6,  1,  2,  3,  5,  7,  4,  8,  9,  10,  11,  12],
+    select: [6,  1,  2,  3,  4,  5,  7,  9,  10,  11,  12,  15],
     cover: 6,
     dir: "assets/projects/tsk",
     images: [["01.webp",1920,1080],["02.webp",1920,1057],["03.webp",1920,1051],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1166,1080],["13.webp",1920,1080],["14.webp",1920,1080],["15.webp",1920,1080],["16.webp",1920,1080]]
@@ -261,7 +264,7 @@ window.PROJECTS = [
     /* The studio's own order, so it is written out rather than sorted: 19
        stands where 01 did and 17 where 09 did, and 12 now comes before 11.
        01 and 09 are set aside, not deleted. */
-    select: [17,  15,  1,  2,  3,  4,  5,  6,  13,  8,  7,  9],
+    select: [17,  20,  15,  2,  1,  3,  7,  11,  12,  10,  16,  6],
     dir: "assets/projects/dsr-1",
     images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1208,1080],["06.webp",1323,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1304,1080],["11.webp",1458,1080],["12.webp",1189,1080],["13.webp",1920,1080],["14.webp",1430,1080],["15.webp",1920,1080],["16.webp",1920,1080],["17.webp",1920,1080],["18.webp",1920,1080],["19.webp",1920,1080],["20.webp",1920,1080]]
   },
@@ -283,7 +286,7 @@ window.PROJECTS = [
     /* the living room in full daylight, which is the sculptural furniture
        and the curated artwork the write up describes */
     cover: 4,
-    select: [4,  1,  2,  3,  5,  6,  7,  8,  9,  10,  11,  12],
+    select: [4,  1,  2,  3,  5,  6,  7,  9,  10,  11,  12,  13],
     dir: "assets/projects/wdsr",
     images: [["01.webp",1920,1080],["02.webp",1920,1080],["03.webp",1920,1080],["04.webp",1920,1080],["05.webp",1920,1080],["06.webp",1920,1080],["07.webp",1920,1080],["08.webp",1920,1080],["09.webp",1920,1080],["10.webp",1920,1080],["11.webp",1920,1080],["12.webp",1920,1080],["13.webp",1920,1080],["14.webp",1920,1080]]
   },
@@ -403,7 +406,7 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [15,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  14],
+    select: [15,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  16],
     dir: "assets/projects/ratio",
     images: [["01.webp",1600,2400],["02.webp",1600,2400],["03.webp",1600,2400],["04.webp",1600,2400],["05.webp",2400,1600],["06.webp",1600,2400],["07.webp",1600,2400],["08.webp",1600,2400],["09.webp",1600,2400],["10.webp",1600,2400],["11.webp",1600,2400],["12.webp",1600,2400],["13.webp",1600,2400],["14.webp",1600,2400],["15.webp",2400,2293],["16.webp",2400,1600]]
   },
@@ -425,7 +428,7 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 4, 5, 6, 9, 10, 11, 12, 13, 14, 15, 17, 19, 20, 22],
+    select: [1,  4,  5,  6,  9,  10,  11,  12,  13,  14,  15,  17,  19,  27,  32],
     dir: "assets/projects/the-good-side",
     images: [["01.webp",2000,1333],["02.webp",1333,2000],["03.webp",1333,2000],["04.webp",2000,1333],["05.webp",2000,1333],["06.webp",1333,2000],["07.webp",2000,1333],["08.webp",2000,1333],["09.webp",2000,1333],["10.webp",2000,1333],["11.webp",2000,1333],["12.webp",2000,1333],["13.webp",2000,1534],["14.webp",1333,2000],["15.webp",1333,2000],["16.webp",2000,1333],["17.webp",2000,1333],["18.webp",2000,1333],["19.webp",2000,1320],["20.webp",2000,1333],["21.webp",2000,1255],["22.webp",2000,1333],["23.webp",1333,2000],["24.webp",1333,2000],["25.webp",1333,2000],["26.webp",1333,2000],["27.webp",1333,2000],["28.webp",1333,2000],["29.webp",1333,2000],["30.webp",1333,2000],["31.webp",1333,2000],["32.webp",1333,2000],["33.webp",1333,2000],["34.webp",1333,2000],["35.webp",1333,2000],["36.webp",1333,2000]]
   },
@@ -468,7 +471,7 @@ window.PROJECTS = [
        and 08 is the one with the most life in it. What is left reads as four
        different things: the shopfront, the floor, the grooming window and the
        dog on the plinth. The other four stay in the folder. */
-    select: [1, 8, 6, 2],
+    select: [1,  2,  3,  4,  6,  7],
     images: [["01.webp",2000,1334],["02.webp",1334,2000],["03.webp",2000,1430],["04.webp",1334,2000],["05.webp",2000,1430],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",2000,1430]]
   },
   {
@@ -490,6 +493,7 @@ window.PROJECTS = [
     notes: [],
     /* a landscape frame, so the card is not cropped to a slice: the aeroplane wall, which is the frame the studio chose to lead with */
     cover: 8,
+    select: [8,  2,  3,  4,  5,  6,  9,  10],
     dir: "assets/projects/sky",
     images: [["01.webp",1601,2400],["02.webp",1601,2400],["03.webp",1601,2400],["04.webp",1601,2400],["05.webp",2400,1601],["06.webp",1601,2400],["07.webp",2400,1601],["08.webp",2400,1710],["09.webp",1709,2400],["10.webp",1631,2400]]
   },
@@ -509,6 +513,7 @@ window.PROJECTS = [
     notes: [],
     /* a landscape frame, so the card is not cropped to a slice: the bear on the cloud, the one landscape frame in the room */
     cover: 6,
+    select: [6,  1,  2,  3,  4,  5,  7,  9,  11,  12],
     dir: "assets/projects/teddy",
     images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1349,2000],["04.webp",1334,2000],["05.webp",1334,2000],["06.webp",2000,1334],["07.webp",1334,2000],["08.webp",1334,2000],["09.webp",1334,2000],["10.webp",1342,2000],["11.webp",1334,2000],["12.webp",1334,2000],["13.webp",1334,2000]]
   },
@@ -528,6 +533,7 @@ window.PROJECTS = [
     notes: [],
     /* a landscape frame, so the card is not cropped to a slice: the whole room, mural and all */
     cover: 7,
+    select: [7,  1,  3,  4,  5,  8,  10,  13],
     dir: "assets/projects/playroom",
     images: [["01.webp",1334,2000],["02.webp",1334,2000],["03.webp",1402,2000],["04.webp",1496,2000],["05.webp",1334,2000],["06.webp",1334,2000],["07.webp",2000,1334],["08.webp",1334,2000],["09.webp",1334,2000],["10.webp",2000,1334],["11.webp",1334,2000],["12.webp",1334,2000],["13.webp",1334,2000]]
   },
@@ -549,7 +555,7 @@ window.PROJECTS = [
     /* the sectional against the timber wall with the sculptural lamp: the
        silhouettes and the quiet contrast the write up is about */
     cover: 17,
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17],
+    select: [17,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  14],
     dir: "assets/projects/dsr",
     images: [["01.webp",1600,1067],["02.webp",1067,1600],["03.webp",1067,1600],["04.webp",1067,1600],["05.webp",1067,1600],["06.webp",1067,1600],["07.webp",1066,1600],["08.webp",1067,1600],["09.webp",1067,1600],["10.webp",1067,1600],["11.webp",1067,1600],["12.webp",1067,1600],["13.webp",1067,1600],["14.webp",1067,1600],["15.webp",1067,1600],["16.webp",1067,1600],["17.webp",1600,1067],["18.webp",1067,1600],["19.webp",1067,1600],["20.webp",1067,1600],["21.webp",1067,1600],["22.webp",1600,1067]]
   },
@@ -618,7 +624,7 @@ window.PROJECTS = [
     cover: 17,
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    select: [17,  1,  2,  3,  4,  5,  6,  7,  8,  9,  10,  11,  12,  13,  14],
     /* The folder is vasella-meadows because that is what the studio's own
        archive is called, and a folder rebuilt from it comes back under that
        name every time. The slug stays vessela so links already shared keep

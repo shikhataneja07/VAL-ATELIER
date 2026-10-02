@@ -8,8 +8,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-02k · every photograph shown, finalized project names">
-<link rel="stylesheet" href="assets/css/val.css?v=20261002k">
+<meta name="build" content="2026-10-02l · curated sets back: 15 finished, 12 ongoing, no repeats">
+<link rel="stylesheet" href="assets/css/val.css?v=20261002l">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
@@ -25,9 +25,9 @@
 
 <footer data-footer></footer>
 
-<script src="assets/js/site.js?v=20261002k"></script>
-<script src="assets/js/projects.js?v=20261002k"></script>
-<script src="assets/js/press.js?v=20261002k"></script>
+<script src="assets/js/site.js?v=20261002l"></script>
+<script src="assets/js/projects.js?v=20261002l"></script>
+<script src="assets/js/press.js?v=20261002l"></script>
 <script>
 window.PAGE = function(VAL){
   var host = document.querySelector("[data-project]");
@@ -69,18 +69,16 @@ window.PAGE = function(VAL){
      every row the full width, every picture in a row the same height. */
   var lead = VAL.cover(p);
 
-  /* The set the project shows: every photograph, in the studio's chosen
-     order where it has set one. The lead is already the first screen, so it
-     is not repeated below it. */
+  /* The set the project shows: the studio's own selection where it has made
+     one, otherwise the supplied order, capped. The lead is already the first
+     screen, so it is not repeated below it. */
   var cap = (window.SHOW || {})[p.status] || p.images.length;
   var chosen;
-  chosen = p.images.map(function(_, i){ return i; });
-  /* a selection sets the order: its frames lead, and every other photograph
-     follows, so nothing the studio supplied is left out */
   if (p.select && p.select.length){
-    var first = p.select.map(function(n){ return n - 1; })
-                        .filter(function(i){ return i >= 0 && i < p.images.length; });
-    chosen = first.concat(chosen.filter(function(i){ return first.indexOf(i) < 0; }));
+    chosen = p.select.map(function(n){ return n - 1; })
+                     .filter(function(i){ return i >= 0 && i < p.images.length; });
+  } else {
+    chosen = p.images.map(function(_, i){ return i; });
   }
   var shots = chosen.filter(function(i){ return i !== lead; }).slice(0, cap);
 
@@ -294,6 +292,6 @@ window.PAGE = function(VAL){
   if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(lead); }); }
 };
 </script>
-<script src="assets/js/val.js?v=20261002k"></script>
+<script src="assets/js/val.js?v=20261002l"></script>
 </body>
 </html>
