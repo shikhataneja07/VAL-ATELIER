@@ -73,17 +73,15 @@ window.HERO_PHONE = [
 /* ==========================================================================
    HOW MANY PHOTOGRAPHS A PROJECT SHOWS
    --------------------------------------------------------------------------
-   The studio asked for a curated set rather than the whole shoot: around
-   fifteen for a finished project, ten to twelve renders for one on the
-   boards. Nothing is deleted; the rest of the set stays in the folder and in
-   the data, and raising a number here brings it straight back.
+   Every photograph the studio supplies is shown (October 2026: "use all
+   the images that I have given"). Set a number here only to cap a status
+   again; 0 means no cap.
 
-   To choose the frames rather than take the first ones, give a project a
-   `select` array of 1-based positions in its own images list. That is the
-   curation hook: `select: [1, 4, 5, 9, 12, ...]`. Without it the lead comes
-   first and the rest follow in the order the studio supplied.
+   A project's `select` array of 1-based positions now only sets the ORDER:
+   the frames it names come first, in that order, and every other photograph
+   in the project follows in the order the studio supplied.
    ========================================================================== */
-window.SHOW = { finished: 15, ongoing: 12 };
+window.SHOW = { finished: 0, ongoing: 0 };
 
 window.PROJECTS = [
   {
@@ -122,7 +120,7 @@ window.PROJECTS = [
   {
     slug: "keerthi-marketing-office",
     /* the dash in the old title just repeated the typology below it */
-    title: "Keerthi Ascent Experiential Centre",
+    title: "The Experience Pavilion",
     category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Experiential Centre",
@@ -163,7 +161,7 @@ window.PROJECTS = [
   },
   {
     slug: "sas-crown",
-    title: "SAS Crown (SAS Home)",
+    title: "SAS Home",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -194,7 +192,7 @@ window.PROJECTS = [
   },
   {
     slug: "gmfc",
-    title: "GMFC Workspace",
+    title: "Forma",
     category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Workspace",
@@ -221,7 +219,7 @@ window.PROJECTS = [
   },
   {
     slug: "tsk",
-    title: "Telangana Spice Kitchen",
+    title: "Regional Restaurant",
     /* A spice kitchen, not the jewellery retail this was first filed as. The
        studio confirmed it stays under Retail rather than moving to
        Hospitality — so this is a decision, not an oversight. */
@@ -244,7 +242,7 @@ window.PROJECTS = [
   },
   {
     slug: "dsr-1",
-    title: "DSR the First (Nome)",
+    title: "Nome",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -269,7 +267,7 @@ window.PROJECTS = [
   },
   {
     slug: "wdsr",
-    title: "WDSR (Aurea)",
+    title: "Aurea",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -291,10 +289,10 @@ window.PROJECTS = [
   },
   {
     slug: "evora-villa",
-    title: "Evora Villa",
+    title: "Aroha",
     category: "Residential",
     status: "ongoing",
-    typology: "Villa",
+    typology: "Residence",
     /* location, area and year still to come from the studio */
     location: "Kollur, Hyderabad",
     area: "6,500 sq ft",
@@ -352,7 +350,7 @@ window.PROJECTS = [
   },
   {
     slug: "cousins",
-    title: "Cousins",
+    title: "Coffee & Bar Transitional",
     category: "Hospitality & F&B",
     status: "ongoing",
     typology: "Coffee & Bar",
@@ -388,7 +386,7 @@ window.PROJECTS = [
      ------------------------------------------------------------------ */
   {
     slug: "ratio",
-    title: "Ra:tio",
+    title: "Speciality Coffee House",
     category: "Hospitality & F&B",
     /* the studio chose the counter under its lit ceiling to lead */
     /* the courtyard, which is what the place is: the counter shots are already
@@ -411,7 +409,7 @@ window.PROJECTS = [
   },
   {
     slug: "the-good-side",
-    title: "The Good Side",
+    title: "Luxury Salon & Makeup Studio",
     category: "Retail",
     status: "finished",
     typology: "Salon + Makeup Studio",
@@ -433,7 +431,7 @@ window.PROJECTS = [
   },
   {
     slug: "zvezda-boutique",
-    title: "Zvezda Boutique",
+    title: "Zvéra",
     category: "Retail",
     status: "finished",
     typology: "Fashion Boutique",
@@ -479,7 +477,7 @@ window.PROJECTS = [
        playroom is its own project and the two bedrooms are separate, so the
        eleven photographs stand on their own again. */
     slug: "sky",
-    title: "Kid’s Room (Sky)",
+    title: "Sky",
     category: "Kids & Play",
     status: "finished",
     typology: "Kids Room",
@@ -498,7 +496,7 @@ window.PROJECTS = [
   {
     /* Teddy, Akira's bedroom. */
     slug: "teddy",
-    title: "Akira’s Room (Teddy)",
+    title: "Teddy",
     category: "Kids & Play",
     status: "finished",
     typology: "Kids Room",
@@ -517,7 +515,7 @@ window.PROJECTS = [
   {
     /* The play room the two of them share. */
     slug: "playroom",
-    title: "Play Room",
+    title: "Teddy Play Room",
     category: "Kids & Play",
     status: "finished",
     typology: "Kids Playroom",
@@ -535,7 +533,7 @@ window.PROJECTS = [
   },
   {
     slug: "dsr",
-    title: "DSR the First (Concrete Canvas)",
+    title: "Concrete Canvas",
     category: "Residential",
     status: "finished",
     typology: "Residence",
@@ -560,7 +558,7 @@ window.PROJECTS = [
     /* JBN is Jewellery by Nikita. The line under the name on the site is built
        from typology and location, so fill those in for each project as the
        studio sends them and it appears on its own. */
-    title: "Jewellery by Nikitha",
+    title: "Boutique Jewellery Store",
     category: "Retail",
     status: "finished",
     typology: "Boutique Jewellery Store",
@@ -581,7 +579,7 @@ window.PROJECTS = [
     slug: "aparna-one",
     /* the living room, chosen by the studio to lead */
     cover: 1,
-    title: "Aparna One (Mysa)",
+    title: "Mysa",
     /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
     cover: 4,
     category: "Residential",
