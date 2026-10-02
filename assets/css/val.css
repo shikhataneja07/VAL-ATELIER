@@ -1777,6 +1777,9 @@ html:not(.js) .hero__bar{display:none}
 @media(hover:hover){.gx .mag__f:hover .shot img{transform:scale(1.03)}}
 
 .gx--wide .mag__f .shot{aspect-ratio:16 / 9}
+.gx--solo{display:flex;justify-content:center}
+.gx--solo .mag__f{width:calc((100% - var(--col)) / 2)}
+.gx--solo .mag__f .shot{aspect-ratio:var(--r)}
 
 .gx--pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--col)}
 .gx--pair .mag__f .shot{aspect-ratio:4 / 5}
@@ -1799,6 +1802,7 @@ html:not(.js) .hero__bar{display:none}
 }
 @media(max-width:759px){
   .gx--wide .mag__f .shot{aspect-ratio:3 / 2}
+  .gx--solo .mag__f{width:100%}
   .gx--text{grid-template-columns:minmax(0,1fr);row-gap:22px}
   .gx--text .gx__copy,.gx--text .mag__f,.gx--text-r .gx__copy,.gx--text-r .mag__f{grid-column:1;grid-row:auto}
   .gx--text .mag__f{order:-1}
