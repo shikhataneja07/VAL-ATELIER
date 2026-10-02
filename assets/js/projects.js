@@ -584,7 +584,6 @@ window.PROJECTS = [
   {
     slug: "aparna-one",
     /* the living room, chosen by the studio to lead */
-    cover: 1,
     title: "Mysa",
     /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
     cover: 4,
@@ -600,9 +599,9 @@ window.PROJECTS = [
     notes: [],
     /* the frames the sequence shows, chosen for variety: near
        duplicate views are set aside, nothing is deleted */
-    select: [1,  2,  3,  4,  12,  5,  6,  7,  8,  10,  11,  9,  13],
+    select: [4, 1, 2, 3, 12, 5, 6, 7, 8, 10, 11, 9, 14, 15],
     dir: "assets/projects/aparna-one",
-    images: [["01.webp",1601,2400],["02.webp",1601,2400],["03.webp",1601,2400],["04.webp",2400,1601],["05.webp",1601,2400],["06.webp",1601,2400],["07.webp",1601,2400],["08.webp",1601,2400],["09.webp",1601,2400],["10.webp",1601,2400],["11.webp",1601,2400],["12.webp",1601,2400],["13.webp",1601,2400]]
+    images: [["01.webp",1601,2400],["02.webp",1601,2400],["03.webp",1601,2400],["04.webp",2400,1601],["05.webp",1601,2400],["06.webp",1601,2400],["07.webp",1601,2400],["08.webp",1601,2400],["09.webp",1601,2400],["10.webp",1601,2400],["11.webp",1601,2400],["12.webp",1601,2400],["13.webp",1601,2400],["14.webp",1031,1600],["15.webp",1067,1600]]
   },
   {
     slug: "vessela",

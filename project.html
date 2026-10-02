@@ -8,8 +8,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-02l · curated sets back: 15 finished, 12 ongoing, no repeats">
-<link rel="stylesheet" href="assets/css/val.css?v=20261002l">
+<meta name="build" content="2026-10-02m · no repeated details under project names; Mysa portrait out">
+<link rel="stylesheet" href="assets/css/val.css?v=20261002m">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
@@ -25,9 +25,9 @@
 
 <footer data-footer></footer>
 
-<script src="assets/js/site.js?v=20261002l"></script>
-<script src="assets/js/projects.js?v=20261002l"></script>
-<script src="assets/js/press.js?v=20261002l"></script>
+<script src="assets/js/site.js?v=20261002m"></script>
+<script src="assets/js/projects.js?v=20261002m"></script>
+<script src="assets/js/press.js?v=20261002m"></script>
 <script>
 window.PAGE = function(VAL){
   var host = document.querySelector("[data-project]");
@@ -207,12 +207,8 @@ window.PAGE = function(VAL){
         '<div>' +
           '<span class="label rv-l">' + VAL.esc(p.category) + '</span>' +
           '<h1 data-lines>' + VAL.esc(p.title) + '</h1>' +
-          /* typology, place, size and year: the four a client uses to judge
-             whether the studio works at their scale. Quiet on purpose. */
-          (function(){
-            var line = [p.typology, p.location, p.area, p.year].filter(Boolean).join("  \u00b7  ");
-            return line ? '<p class="pj-line rv-l" data-d="1">' + VAL.esc(line) + '</p>' : "";
-          })() +
+          /* typology, place, size and year are given once, in the facts row
+             below, rather than repeated under the name as well */
         '</div>' +
         '<p class="body rv" data-d="1">' +
           (p.status === "finished" ? "Completed" : "Ongoing") + '</p>' +
@@ -292,6 +288,6 @@ window.PAGE = function(VAL){
   if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(lead); }); }
 };
 </script>
-<script src="assets/js/val.js?v=20261002l"></script>
+<script src="assets/js/val.js?v=20261002m"></script>
 </body>
 </html>
