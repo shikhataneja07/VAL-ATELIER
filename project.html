@@ -8,8 +8,8 @@
 <script>document.documentElement.classList.add('js');</script>
 <link rel="preload" href="assets/fonts/newsreader-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/hanken-grotesk-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<meta name="build" content="2026-10-02o · a lone standing photograph is shown whole">
-<link rel="stylesheet" href="assets/css/val.css?v=20261002o">
+<meta name="build" content="2026-10-02p · gallery ends without a lone centred picture">
+<link rel="stylesheet" href="assets/css/val.css?v=20261002p">
 <link rel="icon" href="assets/brand/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#F2EEE7">
@@ -25,9 +25,9 @@
 
 <footer data-footer></footer>
 
-<script src="assets/js/site.js?v=20261002o"></script>
-<script src="assets/js/projects.js?v=20261002o"></script>
-<script src="assets/js/press.js?v=20261002o"></script>
+<script src="assets/js/site.js?v=20261002p"></script>
+<script src="assets/js/projects.js?v=20261002p"></script>
+<script src="assets/js/press.js?v=20261002p"></script>
 <script>
 window.PAGE = function(VAL){
   var host = document.querySelector("[data-project]");
@@ -161,6 +161,11 @@ window.PAGE = function(VAL){
     return '<div class="gx gx--solo rv" style="--r:' + x.r.toFixed(4) + '">' +
              fig(x, "(max-width:759px) 92vw, 46vw", first) + '</div>';
   }
+  function trioHTML(xs){
+    return '<div class="gx gx--trio rv">' +
+             xs.map(function(x){ return fig(x, "(max-width:759px) 33vw, 31vw", false); }).join("") +
+           '</div>';
+  }
   function pairHTML(a, b, first){
     /* both the same shape: lying if both pictures lie, standing otherwise */
     var both = a.r >= 1.12 && b.r >= 1.12;
@@ -187,17 +192,43 @@ window.PAGE = function(VAL){
      down the whole gallery rather than bunching at the top */
   var rounds = Math.max(1, Math.ceil(pool.length / 3));
   var perRound = Math.max(1, Math.ceil(texts.length / rounds));
-  var gallery = "", t = 0, first = true;
+  var gallery = "", t = 0, first = true, lastPortraitPair = "", lastPortraitPairItems = [],
+      lastMixedPair = "", lastMixedPairItems = [];
   while (pool.length || t < texts.length){
     var w = takeWide();
     if (w){ gallery += wideHTML(w, first); first = false; }
     /* one passage after the wide picture, any further one after the pair,
        so two passages never sit back to back */
     if (t < texts.length) gallery += textHTML(t++);
-    if (pool.length >= 2){ gallery += pairHTML(pool.shift(), pool.shift(), first); first = false; }
+    if (pool.length >= 2){
+      var pa = pool.shift(), pb = pool.shift(), ph = pairHTML(pa, pb, first);
+      if (pa.r < 1.12 && pb.r < 1.12){ lastPortraitPair = ph; lastPortraitPairItems = [pa, pb]; }
+      else if ((pa.r < 1.12) !== (pb.r < 1.12)){ lastMixedPair = ph; lastMixedPairItems = [pa, pb]; }
+      gallery += ph; first = false;
+    }
     else if (pool.length === 1 && !w){
       var lone = pool.shift();
-      gallery += (lone.r >= 1.12 ? wideHTML(lone, first) : soloHTML(lone, first)); first = false;
+      if (lone.r >= 1.12){ gallery += wideHTML(lone, first); }
+      else {
+        /* a standing picture left over joins the last pair of standing
+           pictures as a row of three, so it is shown whole and the row
+           still spans the full width; with no such pair it stands alone */
+        var at = gallery.lastIndexOf(lastPortraitPair);
+        if (lastPortraitPair && at >= 0){
+          gallery = gallery.slice(0, at) + trioHTML(lastPortraitPairItems.concat([lone])) +
+                    gallery.slice(at + lastPortraitPair.length);
+        } else if (lastMixedPair && gallery.lastIndexOf(lastMixedPair) >= 0){
+          /* or, failing that, a pair of one lying and one standing picture
+             becomes the lying one full width and the two standing ones as
+             a pair beneath it */
+          var at2 = gallery.lastIndexOf(lastMixedPair);
+          var ly = lastMixedPairItems[0].r >= 1.12 ? lastMixedPairItems[0] : lastMixedPairItems[1];
+          var st = ly === lastMixedPairItems[0] ? lastMixedPairItems[1] : lastMixedPairItems[0];
+          gallery = gallery.slice(0, at2) + wideHTML(ly, false) + pairHTML(st, lone, false) +
+                    gallery.slice(at2 + lastMixedPair.length);
+        } else gallery += soloHTML(lone, first);
+      }
+      first = false;
     }
     for (var c = 1; c < perRound && t < texts.length; c++) gallery += textHTML(t++);
     if (!w && pool.length === 0 && t >= texts.length) break;
@@ -295,6 +326,6 @@ window.PAGE = function(VAL){
   if (heroImg){ heroImg.style.cursor = "zoom-in"; heroImg.addEventListener("click", function(){ open(lead); }); }
 };
 </script>
-<script src="assets/js/val.js?v=20261002o"></script>
+<script src="assets/js/val.js?v=20261002p"></script>
 </body>
 </html>
