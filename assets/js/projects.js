@@ -123,7 +123,7 @@ window.PROJECTS = [
   {
     slug: "keerthi-marketing-office",
     /* the dash in the old title just repeated the typology below it */
-    title: "The Experience Pavilion",
+    title: "Keerthi Ascent Experiential Centre",
     category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Experiential Centre",
@@ -164,7 +164,7 @@ window.PROJECTS = [
   },
   {
     slug: "sas-crown",
-    title: "SAS Home",
+    title: "SAS Crown",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -195,7 +195,7 @@ window.PROJECTS = [
   },
   {
     slug: "gmfc",
-    title: "Forma",
+    title: "GMFC Workspace",
     category: "Experiential & Commercial",
     status: "ongoing",
     typology: "Workspace",
@@ -222,7 +222,7 @@ window.PROJECTS = [
   },
   {
     slug: "tsk",
-    title: "Regional Restaurant",
+    title: "Telangana Spice Kitchen",
     /* A spice kitchen, not the jewellery retail this was first filed as. The
        studio confirmed it stays under Retail rather than moving to
        Hospitality — so this is a decision, not an oversight. */
@@ -245,7 +245,7 @@ window.PROJECTS = [
   },
   {
     slug: "dsr-1",
-    title: "Nome",
+    title: "DSR",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -270,7 +270,7 @@ window.PROJECTS = [
   },
   {
     slug: "wdsr",
-    title: "Aurea",
+    title: "WDSR — Aurea",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -292,7 +292,7 @@ window.PROJECTS = [
   },
   {
     slug: "evora-villa",
-    title: "Aroha",
+    title: "Evora Villa",
     category: "Residential",
     status: "ongoing",
     typology: "Residence",
@@ -353,7 +353,7 @@ window.PROJECTS = [
   },
   {
     slug: "cousins",
-    title: "Coffee & Bar Transitional",
+    title: "Cousins",
     category: "Hospitality & F&B",
     status: "ongoing",
     typology: "Coffee & Bar",
@@ -389,7 +389,7 @@ window.PROJECTS = [
      ------------------------------------------------------------------ */
   {
     slug: "ratio",
-    title: "Speciality Coffee House",
+    title: "Ra:tio",
     category: "Hospitality & F&B",
     /* the studio chose the counter under its lit ceiling to lead */
     /* the courtyard, which is what the place is: the counter shots are already
@@ -412,7 +412,7 @@ window.PROJECTS = [
   },
   {
     slug: "the-good-side",
-    title: "Luxury Salon & Makeup Studio",
+    title: "The Good Side",
     category: "Retail",
     status: "finished",
     typology: "Salon + Makeup Studio",
@@ -434,7 +434,7 @@ window.PROJECTS = [
   },
   {
     slug: "zvezda-boutique",
-    title: "Zvéra",
+    title: "Zvezda Boutique",
     category: "Retail",
     status: "finished",
     typology: "Fashion Boutique",
@@ -480,7 +480,7 @@ window.PROJECTS = [
        playroom is its own project and the two bedrooms are separate, so the
        eleven photographs stand on their own again. */
     slug: "sky",
-    title: "Sky",
+    title: "Kid’s Room — Skyee",
     category: "Kids & Play",
     status: "finished",
     typology: "Kids Room",
@@ -500,7 +500,7 @@ window.PROJECTS = [
   {
     /* Teddy, Akira's bedroom. */
     slug: "teddy",
-    title: "Teddy",
+    title: "Akira’s Rooms — Teddy",
     category: "Kids & Play",
     status: "finished",
     typology: "Kids Room",
@@ -520,7 +520,7 @@ window.PROJECTS = [
   {
     /* The play room the two of them share. */
     slug: "playroom",
-    title: "Teddy Play Room",
+    title: "Play Room",
     category: "Kids & Play",
     status: "finished",
     typology: "Kids Playroom",
@@ -539,7 +539,7 @@ window.PROJECTS = [
   },
   {
     slug: "dsr",
-    title: "Concrete Canvas",
+    title: "DSR The First — Concrete Canvas",
     category: "Residential",
     status: "finished",
     typology: "Residence",
@@ -564,7 +564,7 @@ window.PROJECTS = [
     /* JBN is Jewellery by Nikita. The line under the name on the site is built
        from typology and location, so fill those in for each project as the
        studio sends them and it appears on its own. */
-    title: "Boutique Jewellery Store",
+    title: "Jewellery by Nikitha",
     category: "Retail",
     status: "finished",
     typology: "Boutique Jewellery Store",
@@ -584,7 +584,7 @@ window.PROJECTS = [
   {
     slug: "aparna-one",
     /* the living room, chosen by the studio to lead */
-    title: "Mysa",
+    title: "Aparna One — Mysa",
     /* its 04 is the one landscape frame in the set — see `cover` in the notes above */
     cover: 4,
     category: "Residential",
