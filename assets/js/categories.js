@@ -33,7 +33,7 @@ window.CATEGORY_ORDER = ["Residential", "Hospitality & F&B", "Retail", "Experien
    Projects page when that category is picked. A category without one shows
    nothing there. */
 window.CATEGORY_NOTES = {
-  "Residential":       "Private homes, apartments and villas.",
+  "Residential":       "Your private homes, apartments and villas.",
   "Hospitality & F&B": "Spaces centred around food, gathering and experience.",
-  "Retail":            "Consumer facing spaces where brand and spatial experience come together."
+  "Retail":            "Consumer-facing spaces where brand and spatial experience come together."
 };
